@@ -1,8 +1,12 @@
 package com.temple.polymorphic.toolbox.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.jetbrains.annotations.NotNull;
 
 import javax.persistence.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Entity
 @Table(name = "Users")
@@ -11,17 +15,32 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(name="first_name")
     private String firstName;
+
     @Column(name="last_name")
+    @NotNull
     private String lastName;
+
     @Column
+    @NotNull
     private String email;
+
     @Column
     @JsonIgnore
     private String password;
+
     @Column
+    @NotNull
     private String role;
+
+    @Column(name="register_date")
+    private Date registerDate;
+
+    @Column(name="last_login")
+    private Date lastLogin;
+
 
     public User() {
 
@@ -33,7 +52,6 @@ public class User {
         this.email = email;
         this.password = password;
         this.role = role;
-
     }
 
     public Long getId() {
@@ -82,5 +100,25 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Date getRegisterDate() {
+        return registerDate;
+    }
+
+    public void setRegisterDate() {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date date = new Date();
+        this.registerDate = date;
+    }
+
+    public Date getLastLogin() {
+        return lastLogin;
+    }
+
+    public void setLastLogin() {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date date = new Date();
+        this.registerDate = date;
     }
 }

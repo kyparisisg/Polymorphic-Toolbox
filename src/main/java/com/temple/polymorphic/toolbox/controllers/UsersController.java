@@ -1,6 +1,6 @@
 package com.temple.polymorphic.toolbox.controllers;
 
-import com.temple.polymorphic.toolbox.models.UserDto;
+import com.temple.polymorphic.toolbox.dto.UserDto;
 import com.temple.polymorphic.toolbox.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -29,10 +29,6 @@ public class UsersController {
         userService.updateUser(userdto);
     }
 
-//    @DeleteMapping("/users")
-//    public void deleteUser(@RequestBody Long userId){
-//        userService.deleteUser(userId);
-//    }
     @DeleteMapping("/users")
     public void deleteUser(@RequestBody UserDto userdto){
         userService.deleteUser(userdto);

@@ -1,24 +1,18 @@
 package com.temple.polymorphic.toolbox.services;
 
-
 import com.temple.polymorphic.toolbox.UserRepository;
 import com.temple.polymorphic.toolbox.models.User;
-import com.temple.polymorphic.toolbox.models.UserDto;
-import org.hibernate.engine.jdbc.spi.SqlExceptionHelper;
+import com.temple.polymorphic.toolbox.dto.UserDto;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-
-import javax.validation.ConstraintViolationException;
 import java.lang.reflect.Type;
-import java.sql.SQLException;
 import java.util.List;
 
 @Service
@@ -30,6 +24,9 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private JavaMailSender javaMailSender;
+
     public void setUserRepository(UserRepository userRepository) { this.userRepository = userRepository; }
 
     public List<UserDto> getUsers() {
@@ -37,48 +34,64 @@ public class UserService {
         return new ModelMapper().map(userRepository.findAll(), listType);
     }
 
+
+
     public void addUser(UserDto userdto){
+        if( userdto.getEmail() == null || !(userdto.getEmail().contains("@")) )
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         UserRepository userRepository = applicationContext.getBean(UserRepository.class);
+        //generate tmp password
+        userdto.setPassword(generateRndPassword());
         User user = new User(userdto.getFirstName(), userdto.getLastName(), userdto.getEmail(), userdto.getPassword(), userdto.getRole());
         if( userRepository.findByEmail(userdto.getEmail()) == null ) {
-            userRepository.save(user);
-            return;
+            //send user email invitation
+            if(inviteUser(userdto)){
+                //success, then save user in db
+                //set current date as registration date
+                user.setRegisterDate();
+                userRepository.save(user);
+                return;
+            }
+            throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE);
+            // I tried a try catch block but does not accept it
+            //return;
         }
         throw new ResponseStatusException(HttpStatus.CONFLICT);
 
     }
 
-    //update according to email or store user.id to cookies when logged in
+    //update the user's password according to given email (only call when user has authenticate) or store user.id to cookies when logged in
     public void updateUser(UserDto userdto){
+        if( userdto.getEmail() == null || !(userdto.getEmail().contains("@")) )
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         UserRepository userRepository = applicationContext.getBean(UserRepository.class);
+        //retrieve user.id and set it user obj, then update value in db
+        User userFound = userRepository.findByEmail(userdto.getEmail());
         ModelMapper modelmapper = new ModelMapper();
-        User user = modelmapper.map(userdto, User.class);
-        //retrieve user.id and update user obj, then update value
-        User userFound = userRepository.findByEmail(user.getEmail());
+
         if(userFound != null){
-            //user exists so update him
-            user.setId(userFound.getId());
+            //user exists so update only the given values from userdto obj
+            User user = modelmapper.map(userFound, User.class);
+            if(userdto.getFirstName()!=null)
+                user.setFirstName(userdto.getFirstName());
+
+            if(userdto.getLastName()!=null)
+                user.setLastName(userdto.getLastName());
+
+            if(userdto.getPassword()!=null)
+                user.setPassword(userdto.getPassword());
+
             userRepository.save(user);
             return;
         }
-        throw new ResponseStatusException(HttpStatus.CONFLICT);
+        throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
 
     }
-
-//    public void deleteUser(Long userId){
-//        UserRepository userRepository = applicationContext.getBean(UserRepository.class);
-//        if(userRepository.findById(userId) != null){
-//            //user found, therefore delete user
-//            userRepository.deleteById(userId);
-//        }
-//
-//        //check if user exists in db
-//        // to delete
-////        userRepository.deleteById(userdto.getId());
-//
-//    }
 
     public void deleteUser(UserDto userdto){
+        if( userdto.getEmail() == null || !(userdto.getEmail().contains("@")) )
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+
         UserRepository userRepository = applicationContext.getBean(UserRepository.class);
         ModelMapper modelmapper = new ModelMapper();
         User user = modelmapper.map(userdto, User.class);
@@ -90,4 +103,25 @@ public class UserService {
         throw new ResponseStatusException(HttpStatus.CONFLICT);
     }
 
+    private boolean inviteUser(UserDto userdto) {
+
+        SimpleMailMessage msg = new SimpleMailMessage();
+        msg.setTo(userdto.getEmail());
+
+        msg.setSubject("Testing from Spring Boot, toolbox invitation!");
+        msg.setText("Hello, " + userdto.getLastName() + "\n Please use the following temporary password to login: " + userdto.getPassword() + "\n");
+
+        try {
+            javaMailSender.send(msg);
+        }catch(Exception e){
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    private String generateRndPassword(){
+        //not implemented yet
+        return "password";
+    }
 }
