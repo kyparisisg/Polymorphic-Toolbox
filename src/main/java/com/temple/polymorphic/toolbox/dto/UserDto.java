@@ -9,6 +9,7 @@ import java.util.Date;
 
 public class UserDto {
 
+    private Long id;
     private String firstName;
     private String lastName;
     @NotNull
@@ -18,6 +19,14 @@ public class UserDto {
     private Date lastLogin;
 
     public UserDto() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getPassword() {
@@ -64,9 +73,7 @@ public class UserDto {
         return lastLogin;
     }
 
-    public void setLastLogin() {
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        Date date = new Date();
-        this.lastLogin = date;
+    public void setLastLogin(Date lastLogin) {
+        this.lastLogin = lastLogin;
     }
 }

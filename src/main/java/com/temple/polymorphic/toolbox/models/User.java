@@ -52,7 +52,7 @@ public class User {
         this.email = email;
         this.password = password;
         this.role = role;
-        this.setRegisterDate();
+        this.setRegisterDate(new Date());   //for current datetime
         this.lastLogin = null;
     }
 
@@ -108,9 +108,7 @@ public class User {
         return registerDate;
     }
 
-    public void setRegisterDate() {
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        Date date = new Date();
+    public void setRegisterDate(Date date) {
         this.registerDate = date;
     }
 

@@ -69,8 +69,9 @@ public class ServerService {
         String password=server.getPasswordCred();
         int port=server.getPort();    //default port
 
+        //For port forwarding, might be used later
 //        int tunnelLocalPort=9080;
-//        String tunnelRemoteHost="YYY.YYY.YYY.YYY";
+//        String tunnelRemoteHost="YYY.YYY.YYY.YYY";    //forward to --> IP
 //        int tunnelRemotePort=80;
 
         JSch jsch=new JSch();
