@@ -2,9 +2,6 @@
 package com.temple.polymorphic.toolbox.dto;
 
 import org.jetbrains.annotations.NotNull;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class UserDto {

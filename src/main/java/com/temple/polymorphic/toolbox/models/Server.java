@@ -24,7 +24,7 @@ public class Server {
     @Column(name="username_cred")
     private String usernameCred;
     @Column(name="password_cred")
-    @JsonIgnore
+//    @JsonIgnore
     private String passwordCred;
     @Column(name="health")
     private int health;
@@ -37,6 +37,7 @@ public class Server {
     public Server(String name, String ip, String usernameCred, String passwordCred){
         this.name = name;
         this.ip = ip;
+        this.port = 22; // Default port value, if port number was not given
         this.usernameCred = usernameCred;
         this.passwordCred = passwordCred;
         this.health = 0; // Default value is 0 as the server has not been tested if it is online yet.

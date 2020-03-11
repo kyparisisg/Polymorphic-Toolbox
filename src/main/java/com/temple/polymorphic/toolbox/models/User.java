@@ -15,29 +15,22 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @Column(name="first_name")
     private String firstName;
-
     @Column(name="last_name")
     @NotNull
     private String lastName;
-
     @Column
     @NotNull
     private String email;
-
     @Column
-    @JsonIgnore
+    //@JsonIgnore
     private String password;
-
     @Column
     @NotNull
     private String role;
-
     @Column(name="register_date")
     private Date registerDate;
-
     @Column(name="last_login")
     private Date lastLogin;
 

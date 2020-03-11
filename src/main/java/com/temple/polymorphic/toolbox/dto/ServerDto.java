@@ -1,5 +1,7 @@
 package com.temple.polymorphic.toolbox.dto;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -8,6 +10,7 @@ public class ServerDto {
 
     private Long id;
     private String name;
+    @NotNull
     private String ip;
     private int port;
     private String usernameCred;

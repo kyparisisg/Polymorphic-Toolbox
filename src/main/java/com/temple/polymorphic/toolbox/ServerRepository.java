@@ -7,10 +7,10 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ServerRepository extends JpaRepository<Server, Long> {
-    public static final String FIND_BY_NAME = "SELECT s FROM Server s WHERE s.name=?1 ";
+    public static final String FIND_BY_IP = "SELECT s FROM Server s WHERE s.ip=?1 ";
 
-    @Query(FIND_BY_NAME)
-    public Server findByName(String name);
+    @Query(FIND_BY_IP)
+    public Server findByIp(String ip);
 
 
 }

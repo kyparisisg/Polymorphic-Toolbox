@@ -34,7 +34,15 @@ public class UserService {
         return new ModelMapper().map(userRepository.findAll(), listType);
     }
 
+    public UserDto getUser(Long id){
+        ModelMapper mm = new ModelMapper();
+        User user = userRepository.findById(id).get();
+        UserDto userDto = mm.map(user, UserDto.class);
+        if(userDto == null)
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
 
+        return userDto;
+    }
 
     public void addUser(UserDto userdto){
         if( userdto.getEmail() == null || !(userdto.getEmail().contains("@")) )
