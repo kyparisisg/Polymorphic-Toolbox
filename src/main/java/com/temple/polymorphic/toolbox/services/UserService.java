@@ -40,21 +40,18 @@ public class UserService {
         if( userdto.getEmail() == null || !(userdto.getEmail().contains("@")) )
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         UserRepository userRepository = applicationContext.getBean(UserRepository.class);
-        //generate tmp password
+        //generate tmp password -- change this to set password with email invitation
         userdto.setPassword(generateRndPassword());
         User user = new User(userdto.getFirstName(), userdto.getLastName(), userdto.getEmail(), userdto.getPassword(), userdto.getRole());
         if( userRepository.findByEmail(userdto.getEmail()) == null ) {
             //send user email invitation
             if(inviteUser(userdto)){
                 //success, then save user in db
-                //set current date as registration date
-                user.setRegisterDate();
                 userRepository.save(user);
                 return;
             }
             throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE);
-            // I tried a try catch block but does not accept it
-            //return;
+            // throw exception if email-invitation could not be sent to new user
         }
         throw new ResponseStatusException(HttpStatus.CONFLICT);
 

@@ -9,14 +9,12 @@ import java.util.Date;
 
 public class UserDto {
 
-    private Long id;
     private String firstName;
     private String lastName;
     @NotNull
     private String email;
     private String role;
     private String password;
-    private Date registerDate;
     private Date lastLogin;
 
     public UserDto() {
@@ -28,10 +26,6 @@ public class UserDto {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public Long getId() {
-        return id;
     }
 
     public String getFirstName() {
@@ -54,10 +48,6 @@ public class UserDto {
         this.role = role;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
@@ -70,16 +60,6 @@ public class UserDto {
         this.email = email;
     }
 
-    public Date getRegisterDate() {
-        return registerDate;
-    }
-
-    public void setRegisterDate() {
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        Date date = new Date();
-        this.registerDate = date;
-    }
-
     public Date getLastLogin() {
         return lastLogin;
     }
@@ -87,6 +67,6 @@ public class UserDto {
     public void setLastLogin() {
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date date = new Date();
-        this.registerDate = date;
+        this.lastLogin = date;
     }
 }
