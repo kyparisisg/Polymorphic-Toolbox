@@ -32,10 +32,11 @@ dependencies {
 	testImplementation 'org.springframework.security:spring-security-test'
     implementation 'org.jetbrains:annotations:15.0'
 	implementation  'org.slf4j:slf4j-api:1.7.30'
-	implementation "org.springframework.boot:spring-boot-starter-mail:2.0.1.RELEASE"
-	implementation "com.jcraft:jsch:0.1.55"
-	implementation "io.springfox:springfox-swagger2:2.9.2"
-	implementation "io.springfox:springfox-swagger-ui:2.9.2"
+	implementation 'org.springframework.boot:spring-boot-starter-mail:2.0.1.RELEASE'
+	implementation 'com.jcraft:jsch:0.1.55'
+	implementation 'io.springfox:springfox-swagger2:2.9.2'
+	implementation 'io.springfox:springfox-swagger-ui:2.9.2'
+
 	//compile "org.springframework.boot:spring-boot-starter-mail:2.0.1.RELEASE"
 	//compile "com.jcraft:jsch:0.1.55"
 }

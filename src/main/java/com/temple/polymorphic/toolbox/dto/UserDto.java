@@ -18,6 +18,13 @@ public class UserDto {
     public UserDto() {
     }
 
+    public UserDto(String firstName, String lastName, String email, String role){
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.role = role;
+    }
+
     public Long getId() {
         return id;
     }

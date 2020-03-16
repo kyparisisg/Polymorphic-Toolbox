@@ -37,9 +37,10 @@ public class UserService {
     public UserDto getUser(Long id){
         ModelMapper mm = new ModelMapper();
         User user = userRepository.findById(id).get();
-        UserDto userDto = mm.map(user, UserDto.class);
-        if(userDto == null)
+        if(user == null)
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+
+        UserDto userDto = mm.map(user, UserDto.class);
 
         return userDto;
     }
@@ -47,6 +48,7 @@ public class UserService {
     public void addUser(UserDto userdto){
         if( userdto.getEmail() == null || !(userdto.getEmail().contains("@")) )
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+
         UserRepository userRepository = applicationContext.getBean(UserRepository.class);
         //generate tmp password -- change this to set password with email invitation
         userdto.setPassword(generateRndPassword());
@@ -69,6 +71,7 @@ public class UserService {
     public void updateUser(UserDto userdto){
         if( userdto.getEmail() == null || !(userdto.getEmail().contains("@")) )
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+
         UserRepository userRepository = applicationContext.getBean(UserRepository.class);
         //retrieve user.id and set it user obj, then update value in db
         User userFound = userRepository.findByEmail(userdto.getEmail());
