@@ -1,28 +1,40 @@
 package com.temple.polymorphic.toolbox.controllers;
 
+import com.temple.polymorphic.toolbox.dto.UserDto;
+import com.temple.polymorphic.toolbox.services.ServerService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("/")
 public class LoginHandler {
 
-    @GetMapping("admin.html")
-    public ModelAndView greeting(@RequestParam(name="name", required=false, defaultValue="World") String name, Model model) {
-        model.addAttribute("name", name); // ?
-        return new ModelAndView("AdminDashboard");
+    private static final Logger LOGGER = LoggerFactory.getLogger(ServerService.class);
+
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String index(Model model) {
+        LOGGER.debug("index()");
+        return "redirect:/login.html";
     }
 
-//    @RequestMapping(method = RequestMethod.GET)
-//    public String login(Model model, @RequestParam(value="name", required=false, defaultValue="World") String name) {
-//        model.addAttribute("name", name);
-//        return "login";
+    @GetMapping("login.html")
+    public ModelAndView login( Model model) {
+        return new ModelAndView("login");
+    }
+
+//    @RequestMapping(value = "login", method = RequestMethod.POST)
+//    public String auth(@ModelAttribute("user") UserDto userDto, Model model){
+//        return "redirect:/auth.html";
 //    }
-//    private static final String LOGIN_VIEW = "login";
-//    private static final String LOGOUT_VIEW = "logout";
+//
+//    @GetMapping
+//    public ModelAndView logged(Model model){
+//        return new ModelAndView("menu");
+//    }
+
 
 }

@@ -34,9 +34,9 @@ public class UserService {
         return new ModelMapper().map(userRepository.findAll(), listType);
     }
 
-    public UserDto getUser(Long id){
+    public UserDto getUser(String userEmail){
         ModelMapper mm = new ModelMapper();
-        User user = userRepository.findById(id).get();
+        User user = userRepository.findByEmail(userEmail);  //was .get() at the end
         if(user == null)
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
 
@@ -56,6 +56,8 @@ public class UserService {
         if( userRepository.findByEmail(userdto.getEmail()) == null ) {
             //send user email invitation
             if(inviteUser(userdto)){
+                //default role if not given
+                user.setRole("user");
                 //success, then save user in db
                 userRepository.save(user);
                 return;
@@ -96,16 +98,16 @@ public class UserService {
 
     }
 
-    public void deleteUser(UserDto userdto){
-        if( userdto.getEmail() == null || !(userdto.getEmail().contains("@")) )
+    public void deleteUser(String email){
+        if( email.isEmpty() || !(email.contains("@")) )
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
 
         UserRepository userRepository = applicationContext.getBean(UserRepository.class);
         ModelMapper modelmapper = new ModelMapper();
-        User user = modelmapper.map(userdto, User.class);
-        if(userRepository.findByEmail(user.getEmail())!=null){
+//        User user = modelmapper.map(userdto, User.class);
+        if(userRepository.findByEmail(email)!=null){
             //user found so delete existing user
-            userRepository.deleteById(userRepository.findByEmail(user.getEmail()).getId());
+            userRepository.deleteById(userRepository.findByEmail(email).getId());
             return;
         }
         throw new ResponseStatusException(HttpStatus.CONFLICT);
