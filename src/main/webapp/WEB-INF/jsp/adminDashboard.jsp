@@ -7,9 +7,15 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-<a href="/users/save">Add User</a>
-<a href="/users/get">View Users</a>
-<a href="/servers/save">Add Server</a>
-<a href="/servers/get">View Servers</a>
+<p><a href="/api/users/save">Add User</a></p>
+<p><a href="/api/users/update">Update User</a></p>
+<p><a href="/api/users/all">View All Users</a></p>
+<p><a href="/api/users/get">Search User</a></p>
+<p></p>
+<p></p>
+<p></p>
+<p><a href="/api/servers/save">Add Server</a></p>
+<p><a href="/api/servers/save">Add Server</a></p>
+<p><a href="/api/servers/get">View Servers</a></p>
 </body>
 </html>

@@ -1,6 +1,5 @@
 package com.temple.polymorphic.toolbox.controllers;
 
-import com.temple.polymorphic.toolbox.dto.UserDto;
 import com.temple.polymorphic.toolbox.services.ServerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,6 +24,7 @@ public class LoginHandler {
     public ModelAndView login( Model model) {
         return new ModelAndView("login");
     }
+
 
 //    @RequestMapping(value = "login", method = RequestMethod.POST)
 //    public String auth(@ModelAttribute("user") UserDto userDto, Model model){

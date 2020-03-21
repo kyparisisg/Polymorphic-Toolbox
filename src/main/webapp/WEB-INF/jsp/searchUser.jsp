@@ -5,17 +5,9 @@
 </head>
 
 <body>
-<h2>Student Information</h2>
-<form:form method = "POST" action = "/api/users/save">
+<h2>Search User </h2>
+<form:form method = "POST" action = "/api/users/get">
     <table>
-        <tr>
-            <td><form:label path = "firstName">First Name</form:label></td>
-            <td><form:input path = "firstName" /></td>
-        </tr>
-        <tr>
-            <td><form:label path = "lastName">Last Name</form:label></td>
-            <td><form:input path = "lastName" /></td>
-        </tr>
         <tr>
             <td><form:label path = "email">Email</form:label></td>
             <td><form:input path = "email" /></td>

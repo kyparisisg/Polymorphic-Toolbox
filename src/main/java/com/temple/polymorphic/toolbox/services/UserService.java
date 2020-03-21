@@ -13,6 +13,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import java.lang.reflect.Type;
+import java.util.LinkedList;
 import java.util.List;
 
 @Service
@@ -29,7 +30,7 @@ public class UserService {
 
     public void setUserRepository(UserRepository userRepository) { this.userRepository = userRepository; }
 
-    public List<UserDto> getUsers() {
+    public LinkedList<UserDto> getUsers() {
         Type listType = new TypeToken<List<UserDto>>() {}.getType();
         return new ModelMapper().map(userRepository.findAll(), listType);
     }

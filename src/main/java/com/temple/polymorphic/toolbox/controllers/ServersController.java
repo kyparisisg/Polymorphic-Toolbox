@@ -1,12 +1,14 @@
 package com.temple.polymorphic.toolbox.controllers;
 
 
-//import com.temple.polymorphic.toolbox.dto.ServerDto;
 import com.temple.polymorphic.toolbox.dto.ServerDto;
-import com.temple.polymorphic.toolbox.models.Server;
 import com.temple.polymorphic.toolbox.services.ServerService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -16,6 +18,15 @@ public class ServersController {
 
     @Autowired
     private ServerService serverService;
+
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(ServerService.class);
+
+//    @RequestMapping(value = "", method = RequestMethod.GET)
+//    public ModelAndView index(Model model) {
+//
+//        return new ModelAndView("AdminDashboard");
+//    }
 
     @GetMapping()
     public List<ServerDto> getServers() {

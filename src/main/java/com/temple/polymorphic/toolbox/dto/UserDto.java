@@ -14,6 +14,7 @@ public class UserDto {
     private String role;
     private String password;
     private Date lastLogin;
+    private Date regDate;
 
     public UserDto() {
     }
@@ -23,6 +24,14 @@ public class UserDto {
         this.lastName = lastName;
         this.email = email;
         this.role = role;
+    }
+
+    public UserDto(String firstName, String lastName, String email, String role, Date regDate){
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.role = role;
+        this.regDate = regDate;
     }
 
     public Long getId() {
@@ -80,4 +89,9 @@ public class UserDto {
     public void setLastLogin(Date lastLogin) {
         this.lastLogin = lastLogin;
     }
+
+    public Date getRegDate() {
+        return regDate;
+    }
+
 }

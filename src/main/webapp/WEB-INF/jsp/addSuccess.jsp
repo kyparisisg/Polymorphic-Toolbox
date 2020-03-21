@@ -14,16 +14,24 @@
 </tr>
 <table>
     <tr>
-        <td>First Name</td>
+        <td>First Name:</td>
         <td>${firstName}</td>
     </tr>
     <tr>
-        <td>Last Name</td>
+        <td>Last Name:</td>
         <td>${lastName}</td>
     </tr>
     <tr>
-        <td>Email</td>
+        <td>Email:</td>
         <td>${email}</td>
+    </tr>
+    <tr>
+        <td>Role:</td>
+        <td>${role}</td>
+    </tr>
+    <tr>
+        <td>Return to dashboard:</td>
+        <td><a href="/api/users/">Admin Dashboard</a></td>
     </tr>
 </table>
 </body>
