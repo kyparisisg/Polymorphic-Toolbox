@@ -26,7 +26,7 @@ public class UsersController {
     @RequestMapping(value = "", method = RequestMethod.GET)
     public ModelAndView index(Model model) {
 
-        return new ModelAndView("adminDashboard");
+        return new ModelAndView("manageUser");
     }
 
     @RequestMapping(value = "/get", method = RequestMethod.GET)
