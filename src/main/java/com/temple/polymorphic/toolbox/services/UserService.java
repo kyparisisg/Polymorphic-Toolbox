@@ -31,7 +31,7 @@ public class UserService {
     public void setUserRepository(UserRepository userRepository) { this.userRepository = userRepository; }
 
     public LinkedList<UserDto> getUsers() {
-        Type listType = new TypeToken<List<UserDto>>() {}.getType();
+        Type listType = new TypeToken<LinkedList<UserDto>>() {}.getType();
         return new ModelMapper().map(userRepository.findAll(), listType);
     }
 

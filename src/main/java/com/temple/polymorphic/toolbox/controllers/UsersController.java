@@ -57,7 +57,7 @@ public class UsersController {
         model.addAttribute("lastName",us.getLastName());
         model.addAttribute("email",us.getEmail());
         model.addAttribute("role",us.getRole());
-        model.addAttribute("regDate",us.getRegDate());
+        model.addAttribute("regDate",us.getRegisterDate());
 
         return new ModelAndView("getUser");
         //return ResponseEntity.ok(userService.getUser(userEmail));
