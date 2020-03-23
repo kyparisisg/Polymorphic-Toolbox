@@ -104,7 +104,7 @@ public class UserService {
                 user.setPassword(userdto.getPassword());
 
             if(userdto.getRole()!=null && !userdto.getRole().isEmpty() && userdto.getRole().length() > 3)
-                user.setPassword(userdto.getPassword());
+                user.setPassword(userdto.getRole());
 
             userRepository.save(user);
             UserDto userdto2 = modelmapper.map(user, UserDto.class);
