@@ -27,7 +27,7 @@ public class UsersController {
     @RequestMapping(value = "", method = RequestMethod.GET)
     public ModelAndView index(Model model) {
 
-        return new ModelAndView("manageUser");
+        return new ModelAndView("users/manageUser");
     }
 
 
@@ -36,7 +36,7 @@ public class UsersController {
         List<UserDto> list = getAllUsers();
         model.addAttribute("list", list);
 
-        return "allUsers";
+        return "users/allUsers";
     }
 
     private List<UserDto> getAllUsers(){
@@ -50,7 +50,7 @@ public class UsersController {
     @RequestMapping(value = "/get", method = RequestMethod.GET)
     public ModelAndView getUserFrom() {
 
-        return new ModelAndView("searchUser", "command", new UserDto()); //maybe new UserDto like user()
+        return new ModelAndView("users/searchUser", "command", new UserDto()); //maybe new UserDto like user()
     }
 
     @RequestMapping(value = "/get", method = RequestMethod.POST)
@@ -64,12 +64,12 @@ public class UsersController {
         model.addAttribute("role",us.getRole());
         model.addAttribute("regDate",us.getRegisterDate());
 
-        return new ModelAndView("getUser");
+        return new ModelAndView("users/getUser");
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.GET)
     public ModelAndView addUserForm() {
-        return new ModelAndView("saveUser", "command", new UserDto());
+        return new ModelAndView("users/saveUser", "command", new UserDto());
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
@@ -81,7 +81,7 @@ public class UsersController {
         model.addAttribute("role", userDto.getRole());
         model.addAttribute("request", "Add new user");
 
-        return "addSuccess";
+        return "users/addSuccess";
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.GET)
@@ -97,7 +97,7 @@ public class UsersController {
         model.addAttribute("userDto", userDto);
         model.addAttribute("email",email);
 
-        return new ModelAndView("updateUser", "command", new UserDto());
+        return new ModelAndView("users/updateUser", "command", new UserDto());
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
@@ -111,13 +111,13 @@ public class UsersController {
         model.addAttribute("role", userDto.getRole());
         model.addAttribute("request", "Update existing user");
 
-        return "addSuccess";
+        return "users/addSuccess";
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
     public ModelAndView deleteUserForm() {
 
-        return new ModelAndView("deleteUser", "command", new UserDto()); //maybe new UserDto like user()
+        return new ModelAndView("users/deleteUser", "command", new UserDto()); //maybe new UserDto like user()
     }
 
     @RequestMapping(value = "/delete/{email}", method = RequestMethod.GET)
@@ -128,7 +128,7 @@ public class UsersController {
         model.addAttribute("userDto", userDto);
         model.addAttribute("email",email);
 
-        return new ModelAndView("deleteUser", "command", new UserDto());
+        return new ModelAndView("users/deleteUser", "command", new UserDto());
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
@@ -143,7 +143,7 @@ public class UsersController {
         model.addAttribute("role", us.getRole());
         model.addAttribute("request", "Deleted user");
 
-        return "addSuccess";
+        return "users/addSuccess";
     }
 //
 //    @DeleteMapping("/delete/{email}")
