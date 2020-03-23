@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.LinkedList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/api/users")
@@ -29,30 +30,34 @@ public class UsersController {
         return new ModelAndView("manageUser");
     }
 
+
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    public String getUserFrom(Model model) {
+        List<UserDto> list = getAllUsers();
+        model.addAttribute("list", list);
+
+        return "allUsers";
+    }
+
+    private List<UserDto> getAllUsers(){
+        List<UserDto> list = userService.getUsers();
+        for (UserDto u : list) {
+            u.setPassword("");          //to not return the password
+        }
+        return userService.getUsers();
+    }
+
     @RequestMapping(value = "/get", method = RequestMethod.GET)
     public ModelAndView getUserFrom() {
 
         return new ModelAndView("searchUser", "command", new UserDto()); //maybe new UserDto like user()
     }
 
-
-    @RequestMapping(value = "/all", method = RequestMethod.GET)
-    public String getUserFrom(Model model) {
-        LinkedList<UserDto> list = getAllUsers();
-        model.addAttribute("list", list);
-
-        return "allUsers";
-    }
-
-    private LinkedList<UserDto> getAllUsers(){
-
-        return userService.getUsers();
-    }
-
     @RequestMapping(value = "/get", method = RequestMethod.POST)
     public ModelAndView getUser(@ModelAttribute UserDto userDto, Model model)  {
         UserDto us = userService.getUser(userDto.getEmail());
 
+        model.addAttribute("id", us.getId());
         model.addAttribute("firstName", us.getFirstName());
         model.addAttribute("lastName",us.getLastName());
         model.addAttribute("email",us.getEmail());
@@ -60,8 +65,6 @@ public class UsersController {
         model.addAttribute("regDate",us.getRegisterDate());
 
         return new ModelAndView("getUser");
-        //return ResponseEntity.ok(userService.getUser(userEmail));
-        //return DisplayUser(userService.getUser(userEmail));
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.GET)
@@ -81,16 +84,27 @@ public class UsersController {
         return "addSuccess";
     }
 
-
-
     @RequestMapping(value = "/update", method = RequestMethod.GET)
-    public ModelAndView updateUserForm() {
+    public ModelAndView updateUser() {
         return new ModelAndView("updateUser", "command", new UserDto());
     }
 
-    @RequestMapping(value = "/update", method = RequestMethod.PUT)
+    @RequestMapping(value = "/update/{email}", method = RequestMethod.GET)
+    public ModelAndView updateUserForm(@PathVariable("email") String email, Model model) {
+        UserDto userDto = userService.getUser(email);
+        //to not return the password
+        userDto.setPassword("");
+        model.addAttribute("userDto", userDto);
+        model.addAttribute("email",email);
+
+        return new ModelAndView("updateUser", "command", new UserDto());
+    }
+
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
     public String updateUser(@ModelAttribute("SpringWeb")UserDto userDto, ModelMap model){
-        userService.updateUser(userDto);
+        userDto = userService.updateUser(userDto);
+        //to not return the password
+        userDto.setPassword("");
         model.addAttribute("firstName", userDto.getFirstName());
         model.addAttribute("lastName", userDto.getLastName());
         model.addAttribute("email", userDto.getEmail());
@@ -100,9 +114,41 @@ public class UsersController {
         return "addSuccess";
     }
 
-    @DeleteMapping("/delete/{email}")
-    public void deleteUser(@PathVariable String email){
-        userService.deleteUser(email);
+    @RequestMapping(value = "/delete", method = RequestMethod.GET)
+    public ModelAndView deleteUserForm() {
+
+        return new ModelAndView("deleteUser", "command", new UserDto()); //maybe new UserDto like user()
     }
+
+    @RequestMapping(value = "/delete/{email}", method = RequestMethod.GET)
+    public ModelAndView deleteUserForm(@PathVariable("email") String email, Model model) {
+        UserDto userDto = userService.getUser(email);
+        //to not return the password
+        userDto.setPassword("");
+        model.addAttribute("userDto", userDto);
+        model.addAttribute("email",email);
+
+        return new ModelAndView("deleteUser", "command", new UserDto());
+    }
+
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    public String deleteUser(@ModelAttribute UserDto userDto, Model model){
+        UserDto us = userService.getUser(userDto.getEmail());
+        userService.deleteUser(userDto.getEmail());
+        //to not return the password
+        userDto.setPassword("");
+        model.addAttribute("firstName", us.getFirstName());
+        model.addAttribute("lastName", us.getLastName());
+        model.addAttribute("email", us.getEmail());
+        model.addAttribute("role", us.getRole());
+        model.addAttribute("request", "Deleted user");
+
+        return "addSuccess";
+    }
+//
+//    @DeleteMapping("/delete/{email}")
+//    public void deleteUser(@PathVariable String email){
+//        userService.deleteUser(email);
+//    }
 
 }

@@ -25,16 +25,4 @@ public class LoginHandler {
         return new ModelAndView("login");
     }
 
-
-//    @RequestMapping(value = "login", method = RequestMethod.POST)
-//    public String auth(@ModelAttribute("user") UserDto userDto, Model model){
-//        return "redirect:/auth.html";
-//    }
-//
-//    @GetMapping
-//    public ModelAndView logged(Model model){
-//        return new ModelAndView("menu");
-//    }
-
-
 }

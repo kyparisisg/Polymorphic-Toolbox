@@ -30,14 +30,25 @@ public class UserService {
 
     public void setUserRepository(UserRepository userRepository) { this.userRepository = userRepository; }
 
-    public LinkedList<UserDto> getUsers() {
-        Type listType = new TypeToken<LinkedList<UserDto>>() {}.getType();
+    public List<UserDto> getUsers() {
+        Type listType = new TypeToken<List<UserDto>>() {}.getType();
         return new ModelMapper().map(userRepository.findAll(), listType);
     }
 
     public UserDto getUser(String userEmail){
         ModelMapper mm = new ModelMapper();
         User user = userRepository.findByEmail(userEmail);  //was .get() at the end
+        if(user == null)
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+
+        UserDto userDto = mm.map(user, UserDto.class);
+
+        return userDto;
+    }
+
+    public UserDto getUserById(Long id){
+        ModelMapper mm = new ModelMapper();
+        User user = userRepository.findById(id).get();
         if(user == null)
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
 
@@ -71,7 +82,7 @@ public class UserService {
     }
 
     //update the user's password according to given email (only call when user has authenticate) or store user.id to cookies when logged in
-    public void updateUser(UserDto userdto){
+    public UserDto updateUser(UserDto userdto){
         if( userdto.getEmail() == null || !(userdto.getEmail().contains("@")) )
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
 
@@ -83,17 +94,18 @@ public class UserService {
         if(userFound != null){
             //user exists so update only the given values from userdto obj
             User user = modelmapper.map(userFound, User.class);
-            if(userdto.getFirstName()!=null)
+            if(userdto.getFirstName()!=null && !userdto.getFirstName().isEmpty() && userdto.getFirstName().length() > 1)
                 user.setFirstName(userdto.getFirstName());
 
-            if(userdto.getLastName()!=null)
+            if(userdto.getLastName()!=null && !userdto.getLastName().isEmpty() && userdto.getLastName().length() > 1)
                 user.setLastName(userdto.getLastName());
 
-            if(userdto.getPassword()!=null)
+            if(userdto.getPassword()!=null && !userdto.getPassword().isEmpty() && userdto.getPassword().length() > 6)
                 user.setPassword(userdto.getPassword());
 
             userRepository.save(user);
-            return;
+            UserDto userdto2 = modelmapper.map(user, UserDto.class);
+            return userdto2;
         }
         throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
 
