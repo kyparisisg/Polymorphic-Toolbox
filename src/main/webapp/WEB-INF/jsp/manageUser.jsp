@@ -25,5 +25,7 @@
 <p><a href="/api/users/delete">Delete User</a></p>
 <p></p>
 
+<p><a href="/api/admin">Back to Admin Dashboard</a></p>
+<p></p>
 </body>
 </html>

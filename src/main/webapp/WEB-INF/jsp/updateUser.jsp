@@ -28,10 +28,10 @@
             <td><form:label path = "role">Role</form:label></td>
             <td><form:input path = "role" /></td>
         </tr>
-        <tr>
-            <td><form:label path = "password" >Password</form:label></td>
-            <td><form:input path = "password" type="password"/></td>
-        </tr>
+<%--        <tr>--%>   <%-- THIS SHOULD BE ONLY FOR USERS FUNCTIONALITY --%>
+<%--            <td><form:label path = "password" >Password</form:label></td>--%>
+<%--            <td><form:input path = "password" type="password"/></td>--%>
+<%--        </tr>--%>
         <tr>
             <td colspan = "2">
                 <input type = "submit" value = "Update"/>
