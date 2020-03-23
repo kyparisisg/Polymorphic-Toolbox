@@ -86,7 +86,7 @@ public class UsersController {
 
     @RequestMapping(value = "/update", method = RequestMethod.GET)
     public ModelAndView updateUser() {
-        return new ModelAndView("updateUser", "command", new UserDto());
+        return new ModelAndView("users/updateUser", "command", new UserDto());
     }
 
     @RequestMapping(value = "/update/{email}", method = RequestMethod.GET)
@@ -145,10 +145,6 @@ public class UsersController {
 
         return "users/addSuccess";
     }
-//
-//    @DeleteMapping("/delete/{email}")
-//    public void deleteUser(@PathVariable String email){
-//        userService.deleteUser(email);
-//    }
+
 
 }
