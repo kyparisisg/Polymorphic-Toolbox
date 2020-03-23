@@ -3,7 +3,6 @@ package com.temple.polymorphic.toolbox.services;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.Session;
 import com.jcraft.jsch.UserInfo;
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import com.temple.polymorphic.toolbox.ServerRepository;
 import com.temple.polymorphic.toolbox.models.Server;
 import com.temple.polymorphic.toolbox.dto.ServerDto;
@@ -18,7 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.lang.reflect.Type;
-import java.util.List;
+import java.util.LinkedList;
 
 
 @Service
@@ -34,8 +33,8 @@ public class ServerService {
 
     public void setServerRepository(ServerRepository serverRepository) { this.serverRepository = serverRepository; }
 
-    public List<ServerDto> getServers() {
-        Type listType = new TypeToken<List<ServerDto>>() {}.getType();
+    public LinkedList<ServerDto> getServers() {
+        Type listType = new TypeToken<LinkedList<ServerDto>>() {}.getType();
         return new ModelMapper().map(serverRepository.findAll(), listType);
     }
 
@@ -135,6 +134,16 @@ public class ServerService {
 
     public ServerDto getServerById(Long serverId) {
         Server server = serverRepository.findById(serverId).get();
+        ModelMapper mm = new ModelMapper();
+        ServerDto serverDto = mm.map(server, ServerDto.class);
+        if (serverDto == null){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+        return serverDto;
+    }
+
+    public ServerDto getServerByIp(String ip) {
+        Server server = serverRepository.findByIp(ip);
         ModelMapper mm = new ModelMapper();
         ServerDto serverDto = mm.map(server, ServerDto.class);
         if (serverDto == null){

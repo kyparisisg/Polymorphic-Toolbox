@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.Collections;
 
 @Service
-public class sftpServer {
+public class TransferService {
 
 
 

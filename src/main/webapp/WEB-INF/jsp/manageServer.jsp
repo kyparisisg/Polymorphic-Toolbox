@@ -10,19 +10,19 @@
 <h2>Select Operation</h2>
 
 <p></p>
-<p><a href="/api/users/save">Add User</a></p>
+<p><a href="/api/servers/save">Add Server</a></p>
 <p></p>
 
-<p><a href="/api/users/update">Update User</a></p>
+<p><a href="/api/servers/update">Update Server</a></p>
 <p></p>
 
-<p><a href="/api/users/all">View All Users</a></p>
+<p><a href="/api/servers/all">View All Servers</a></p>
 <p></p>
 
-<p><a href="/api/users/get">Search User</a></p>
+<p><a href="/api/servers/get">Search Server</a></p>
 <p></p>
 
-<p><a href="/api/users/delete">Delete User</a></p>
+<p><a href="/api/servers/delete">Delete Server</a></p>
 <p></p>
 
 </body>

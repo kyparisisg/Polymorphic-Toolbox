@@ -30,8 +30,8 @@
         <td>${role}</td>
     </tr>
     <tr>
-        <td>Return to dashboard:</td>
-        <td><a href="/api/users/">Admin Dashboard</a></td>
+        <td>Return to:</td>
+        <td><a href="/api/users/">Manage Users</a></td>
     </tr>
 </table>
 </body>

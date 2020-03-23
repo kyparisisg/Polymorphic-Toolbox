@@ -13,37 +13,41 @@
 </head>
 
 <body>
-    <h1>Results in Users table</h1>
-    <div class="container my-2">
+<h1>Results in Users table</h1>
+<div class="container my-2">
 
     <div th:case="*">
         <table class="table table-striped table-responsive-md">
             <thead>
             <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Email</th>
-                <th>Role</th>
+                <th>ID</th>
+                <th>Description</th>
+                <th>IP</th>
+                <th>Port</th>
+                <th>Def. User</th>
+                <th>Health</th>
                 <th>Edit</th>
                 <th>Delete</th>
             </tr>
             </thead>
             <tbody>
 
-            <td th:text>${firstName}</td>
-            <td th:text >${lastName}</td>
-            <td th:text >${email}</td>
-            <td th:text >${role}</td>
-<%--            <td><form:form method="GET" action="/api/users/update/${id}"><input type="submit" value="submit"></form:form></td>--%>
-            <td><form:form name="edit" method="GET" action="/api/users/update/${email}"><input type="submit" value="Edit"></form:form></td>
-            <td><form:form method="GET" action="/api/users/delete"><input type="submit" value="Delete"></form:form></td>
+            <td th:text>${id}</td>
+            <td th:text >${ip}</td>
+            <td th:text >${username}</td>
+            <td th:text >${name}</td>
+            <td th:text >${port}</td>
+            <td th:text >${health}</td>
+            <%--            <td><form:form method="GET" action="/api/users/update/${id}"><input type="submit" value="submit"></form:form></td>--%>
+            <td><form:form method="GET" action="/api/servers/update"><input type="submit" value="Edit"></form:form></td>
+            <td><form:form method="GET" action="/api/servers/delete"><input type="submit" value="Delete"></form:form></td>
 
             <td th:text></td>
 
             </tr>
             <tr>
-                <td>Return to :</td>
-                <td><a href="/api/users/">Manage Users</a></td>
+                <td>Return to:</td>
+                <td><a href="/api/servers/">Manage Servers</a></td>
             </tr>
 
             </tbody>
