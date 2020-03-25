@@ -2,7 +2,6 @@ package com.temple.polymorphic.toolbox.controllers;
 
 
 import com.temple.polymorphic.toolbox.dto.ServerDto;
-import com.temple.polymorphic.toolbox.dto.UserDto;
 import com.temple.polymorphic.toolbox.services.ServerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,7 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.LinkedList;
 import java.util.List;
 
 @Controller
@@ -25,72 +23,118 @@ public class ServersController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ServerService.class);
 
-//    @RequestMapping(value = "", method = RequestMethod.GET)
-//    public ModelAndView index(Model model) {
-//
-//        return new ModelAndView("manageServer");
-//    }
-//
-//
-//    @RequestMapping(value = "/all", method = RequestMethod.GET)
-//    public String getUserFrom(Model model) {
-//        LinkedList<ServerDto> list = getAllServers();
-//        model.addAttribute("list", list);
-//
-//        return "allServers";
-//    }
-//
-//    private LinkedList<ServerDto> getAllServers(){
-//
-//        return serverService.getServers();
-//    }
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public ModelAndView index(Model model) {
 
-//
-//    @RequestMapping(value = "/get", method = RequestMethod.GET)
-//    public ModelAndView getServerForm() {
-//
-//        return new ModelAndView("searchServer", "command", new ServerDto()); //maybe new UserDto like user()
-//    }
-//
-//    @RequestMapping(value = "/get", method = RequestMethod.POST)
-//    public ModelAndView getUser(@ModelAttribute ServerDto serverDto, Model model)  {
-//        ServerDto ss = serverService.getServerByIp(serverDto.getIp());
-//
-//        model.addAttribute("id", ss.getId());
-//        model.addAttribute("ip", ss.getIp());
-//        model.addAttribute("username",ss.getUsernameCred());
-//        model.addAttribute("name",ss.getName());
-//        model.addAttribute("port",ss.getPort());
-//        model.addAttribute("health",ss.getHealth());
-//
-//        return new ModelAndView("getServer");
-//    }
+        return new ModelAndView("servers/manageServer");
+    }
 
 
-    @GetMapping()
-    public List<ServerDto> getServers() {
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    public String getAll(Model model) {
+        List<ServerDto> list = getAllServers();
+        model.addAttribute("list", list);
+
+        return "servers/all";
+    }
+
+    private List<ServerDto> getAllServers(){
+
         return serverService.getServers();
     }
 
-    @GetMapping("{serverId}")
-    public ServerDto getServerById(@PathVariable Long serverId){
-        return serverService.getServerById(serverId);
+
+    @RequestMapping(value = "/get", method = RequestMethod.GET)
+    public ModelAndView searchForm() {
+
+        return new ModelAndView("servers/search", "command", new ServerDto()); //maybe new UserDto like user()
     }
 
-    @PostMapping()
-    public void addServer(@RequestBody ServerDto serverdto){
-        serverService.addServer(serverdto);
+    @RequestMapping(value = "/get", method = RequestMethod.POST)
+    public String getServer(@ModelAttribute ServerDto serverDto, Model model)  {
+        List list = serverService.getServerByIpList(serverDto.getIp());
+        model.addAttribute("list", list);
+
+        return "servers/all";
+
     }
 
-    @PutMapping()
-    public void updateServer(@RequestBody ServerDto serverDto){
-        serverService.updateServer(serverDto);
+    @RequestMapping(value = "/save", method = RequestMethod.GET)
+    public ModelAndView saveForm(Model model){
+
+        return new ModelAndView("servers/save", "command", new ServerDto()); //maybe new UserDto like user()
     }
 
-    @DeleteMapping("{ip}")
-    public void deleteServer(@PathVariable String ip){
-        serverService.deleteServerByIp(ip);
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    public String saveServer(@ModelAttribute ServerDto serverDto, Model model){
+        ServerDto serverDto1 = serverService.addServer(serverDto);
+        model.addAttribute("server", serverDto1);
+        //OR
+        model.addAttribute("id", serverDto1.getId());
+        model.addAttribute("name", serverDto1.getName());
+        model.addAttribute("ip", serverDto1.getIp());
+        model.addAttribute("port", serverDto1.getPort());
+        model.addAttribute("usernameCred", serverDto1.getUsernameCred());
+        model.addAttribute("request", "Add Server");
+
+        return "servers/requestSuccess";
     }
 
+    @RequestMapping(value = "/update", method = RequestMethod.GET)
+    public ModelAndView updateForm(Model model){
 
+        return new ModelAndView("servers/update", "command", new ServerDto());
+    }
+
+    @RequestMapping(value = "/update/{ip}", method = RequestMethod.GET)
+    public ModelAndView updateFrom(@PathVariable("ip") String ip, Model model) {
+        model.addAttribute("ip",ip);
+
+        return new ModelAndView("servers/update", "command", new ServerDto());
+    }
+
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    public String updateServer(@ModelAttribute ServerDto serverDto, Model model){
+        ServerDto serverDto1 = serverService.updateServer(serverDto);
+        model.addAttribute("server", serverDto1);
+        //OR
+        model.addAttribute("id", serverDto1.getId());
+        model.addAttribute("name", serverDto1.getName());
+        model.addAttribute("ip", serverDto1.getIp());
+        model.addAttribute("port", serverDto1.getPort());
+        model.addAttribute("usernameCred", serverDto1.getUsernameCred());
+        model.addAttribute("request", "Add Server");
+        model.addAttribute("request", "Update Server");
+
+        return "servers/requestSuccess";
+    }
+
+    @RequestMapping(value = "/delete", method = RequestMethod.GET)
+    public ModelAndView deleteForm(Model model) {
+
+        return new ModelAndView("servers/delete", "command", new ServerDto());
+    }
+
+    @RequestMapping(value = "/delete/{ip}", method = RequestMethod.GET)
+    public ModelAndView deleteForm(@PathVariable("ip") String ip, Model model) {
+        model.addAttribute("ip",ip);
+
+        return new ModelAndView("servers/delete", "command", new ServerDto());
+    }
+
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    public String deleteServer(@ModelAttribute ServerDto serverDto, Model model){
+        ServerDto serverDto1 = serverService.deleteServerByIp(serverDto.getIp());
+        model.addAttribute("server", serverDto1);
+        //OR
+        model.addAttribute("id", serverDto1.getId());
+        model.addAttribute("name", serverDto1.getName());
+        model.addAttribute("ip", serverDto1.getIp());
+        model.addAttribute("port", serverDto1.getPort());
+        model.addAttribute("usernameCred", serverDto1.getUsernameCred());
+        model.addAttribute("request", "Add Server");
+        model.addAttribute("request", "Delete Server");
+
+        return "servers/requestSuccess";
+    }
 }

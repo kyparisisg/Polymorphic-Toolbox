@@ -5,9 +5,9 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
     <head>
-        <title>Getting Started: Handling Form Submission</title>		     <meta charset="utf-8">
+        <title>All Users</title>		     <meta charset="utf-8">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />		     <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>All Employees</title>
+        <title>All Users</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
@@ -21,6 +21,7 @@
                     <table class="table table-striped table-responsive-md">
                         <thead>
                         <tr>
+                            <th>ID</th>
                             <th>First Name</th>
                             <th>Last Name</th>
                             <th>Email</th>
@@ -31,6 +32,7 @@
                         </thead>
                         <c:forEach items="${list}" var="user">
                             <tr>
+                                <td>${user.id}</td>
                                 <td>${user.firstName}</td>
                                 <td>${user.lastName}</td>
                                 <td>${user.email}</td>

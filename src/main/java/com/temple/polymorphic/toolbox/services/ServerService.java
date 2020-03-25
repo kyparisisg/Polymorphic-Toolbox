@@ -14,10 +14,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.lang.reflect.Type;
 import java.util.LinkedList;
+import java.util.List;
 
 
 @Service
@@ -33,12 +35,12 @@ public class ServerService {
 
     public void setServerRepository(ServerRepository serverRepository) { this.serverRepository = serverRepository; }
 
-    public LinkedList<ServerDto> getServers() {
-        Type listType = new TypeToken<LinkedList<ServerDto>>() {}.getType();
+    public List<ServerDto> getServers() {
+        Type listType = new TypeToken<List<ServerDto>>() {}.getType();
         return new ModelMapper().map(serverRepository.findAll(), listType);
     }
 
-    public void addServer(ServerDto serverdto) {
+    public ServerDto addServer(ServerDto serverdto) {
         ServerRepository serverRepository = applicationContext.getBean(ServerRepository.class);
         Server server;
         if(serverdto.getPort() == 0)
@@ -58,14 +60,20 @@ public class ServerService {
                 //since server could not be authenticated
             }
             serverRepository.save(server);
-            return;
+            server.setPasswordCred("********"); //to hide it from the view
+            ModelMapper mapper = new ModelMapper();
+            ServerDto ss = mapper.map(server, ServerDto.class);
+
+            return ss;
         }
         //since server found then display conflict http status
         throw new ResponseStatusException(HttpStatus.CONFLICT);
     }
 
-    public void updateServer(ServerDto serverDto) {
+    public ServerDto updateServer(ServerDto serverDto) {
         ServerRepository serverRepository = applicationContext.getBean(ServerRepository.class);
+        if(serverDto.getIp().isEmpty() || serverDto.getIp().length() < 7)
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "IPv4 Address does not exist!");
         Server server = serverRepository.findByIp(serverDto.getIp());
         if(server != null){
             if(serverDto.getPort()!=0)
@@ -90,24 +98,30 @@ public class ServerService {
                 //since server could not be authenticated
             }
             serverRepository.save(server);
-            return;
+            ModelMapper mapper = new ModelMapper();
+            server.setPasswordCred("********"); //to hide it from the view
+            ServerDto ss = mapper.map(server, ServerDto.class);
+
+            return ss;
         }
 
         //server not found
         throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     }
 
-    public void deleteServerByIp(String ip) {
-        if(serverRepository.findByIp(ip) != null){
+    public ServerDto deleteServerByIp(String ip) {
+        Server server = serverRepository.findByIp(ip);
+        if(server != null){
             //delete by IP ---> You have to write a new query on server rep to do that... TO DO...
 
             //FOR NOW retrieve object and return id to the delete
             serverRepository.deleteById(serverRepository.findByIp(ip).getId());
-            return;
+            ModelMapper mapper = new ModelMapper();
+            server.setPasswordCred("******");
+            return mapper.map(server, ServerDto.class);
         }
         throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     }
-
 
     private void checkServerHealth(Server server) throws Exception{
         String host=server.getIp();
@@ -142,14 +156,13 @@ public class ServerService {
         return serverDto;
     }
 
-    public ServerDto getServerByIp(String ip) {
-        Server server = serverRepository.findByIp(ip);
-        ModelMapper mm = new ModelMapper();
-        ServerDto serverDto = mm.map(server, ServerDto.class);
-        if (serverDto == null){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        }
-        return serverDto;
+    public List<ServerDto> getServerByIpList(String ip) {
+        ModelMapper mapper = new ModelMapper();
+        ServerDto ss = mapper.map(serverRepository.findByIp(ip), ServerDto.class);
+        LinkedList<ServerDto> list = new LinkedList<ServerDto>();
+        list.add(ss);
+
+        return (List<ServerDto>)list;
     }
 
     class localUserInfo implements UserInfo {

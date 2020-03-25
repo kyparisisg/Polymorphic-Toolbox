@@ -1,6 +1,5 @@
 package com.temple.polymorphic.toolbox.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.jetbrains.annotations.NotNull;
 
 import javax.persistence.*;

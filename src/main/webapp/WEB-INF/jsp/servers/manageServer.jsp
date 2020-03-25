@@ -3,27 +3,29 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Getting Started: Serving Web Content</title>
+    <title>Manage Servers Operations</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
 <h2>Select Operation</h2>
 
 <p></p>
-<p><a href="/api/servers/save">Add Server</a></p>
-<p></p>
-
-<p><a href="/api/servers/update">Update Server</a></p>
-<p></p>
-
 <p><a href="/api/servers/all">View All Servers</a></p>
 <p></p>
 
 <p><a href="/api/servers/get">Search Server</a></p>
 <p></p>
 
+<p><a href="/api/servers/save">Add Server</a></p>
+<p></p>
+
+<p><a href="/api/servers/update">Update Server</a></p>
+<p></p>
+
 <p><a href="/api/servers/delete">Delete Server</a></p>
 <p></p>
 
+<p><a href="/api/admin">Back to Admin Dashboard</a></p>
+<p></p>
 </body>
 </html>

@@ -12,7 +12,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.LinkedList;
 import java.util.List;
 
 @Controller
@@ -36,7 +35,7 @@ public class UsersController {
         List<UserDto> list = getAllUsers();
         model.addAttribute("list", list);
 
-        return "users/allUsers";
+        return "users/all";
     }
 
     private List<UserDto> getAllUsers(){
@@ -50,54 +49,52 @@ public class UsersController {
     @RequestMapping(value = "/get", method = RequestMethod.GET)
     public ModelAndView getUserFrom() {
 
-        return new ModelAndView("users/searchUser", "command", new UserDto()); //maybe new UserDto like user()
+        return new ModelAndView("users/search", "command", new UserDto()); //maybe new UserDto like user()
     }
 
     @RequestMapping(value = "/get", method = RequestMethod.POST)
-    public ModelAndView getUser(@ModelAttribute UserDto userDto, Model model)  {
-        UserDto us = userService.getUser(userDto.getEmail());
+    public String getUser(@ModelAttribute UserDto userDto, Model model)  {
+        //Initially was returning a ModelAndView with a single UserDto attributes but it is changed to
+        //return a list with a single UserDto to use the same .jsp view as get all Users
+        List<UserDto> list = userService.getSingleUserList(userDto.getEmail());
+        model.addAttribute("list", list);
 
-        model.addAttribute("id", us.getId());
-        model.addAttribute("firstName", us.getFirstName());
-        model.addAttribute("lastName",us.getLastName());
-        model.addAttribute("email",us.getEmail());
-        model.addAttribute("role",us.getRole());
-        model.addAttribute("regDate",us.getRegisterDate());
-
-        return new ModelAndView("users/getUser");
+        return "users/all";
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.GET)
     public ModelAndView addUserForm() {
-        return new ModelAndView("users/saveUser", "command", new UserDto());
+        return new ModelAndView("users/save", "command", new UserDto());
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public String addUser(@ModelAttribute("SpringWeb")UserDto userDto, ModelMap model) {
-        userService.addUser(userDto);
+        Long pk_id = userService.addUser(userDto);
+        model.addAttribute("userDto", userDto);    //can user either on jsp ${userDto.field} OR ${field}
+        model.addAttribute("id", pk_id);
         model.addAttribute("firstName", userDto.getFirstName());
         model.addAttribute("lastName", userDto.getLastName());
         model.addAttribute("email", userDto.getEmail());
         model.addAttribute("role", userDto.getRole());
         model.addAttribute("request", "Add new user");
 
-        return "users/addSuccess";
+        return "users/requestSuccess";
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.GET)
     public ModelAndView updateUser() {
-        return new ModelAndView("users/updateUser", "command", new UserDto());
+        return new ModelAndView("users/update", "command", new UserDto());
     }
 
     @RequestMapping(value = "/update/{email}", method = RequestMethod.GET)
     public ModelAndView updateUserForm(@PathVariable("email") String email, Model model) {
-        UserDto userDto = userService.getUser(email);
-        //to not return the password
-        userDto.setPassword("");
-        model.addAttribute("userDto", userDto);
+//        UserDto userDto = userService.getUser(email);
+//        //to not return the password
+//        userDto.setPassword("");
+//        model.addAttribute("userDto", userDto);
         model.addAttribute("email",email);
 
-        return new ModelAndView("users/updateUser", "command", new UserDto());
+        return new ModelAndView("users/update", "command", new UserDto());
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
@@ -105,19 +102,20 @@ public class UsersController {
         userDto = userService.updateUser(userDto);
         //to not return the password
         userDto.setPassword("");
+        model.addAttribute("id", userDto.getId());
         model.addAttribute("firstName", userDto.getFirstName());
         model.addAttribute("lastName", userDto.getLastName());
         model.addAttribute("email", userDto.getEmail());
         model.addAttribute("role", userDto.getRole());
         model.addAttribute("request", "Update existing user");
 
-        return "users/addSuccess";
+        return "users/requestSuccess";
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
     public ModelAndView deleteUserForm() {
 
-        return new ModelAndView("users/deleteUser", "command", new UserDto()); //maybe new UserDto like user()
+        return new ModelAndView("users/delete", "command", new UserDto()); //maybe new UserDto like user()
     }
 
     @RequestMapping(value = "/delete/{email}", method = RequestMethod.GET)
@@ -128,7 +126,7 @@ public class UsersController {
         model.addAttribute("userDto", userDto);
         model.addAttribute("email",email);
 
-        return new ModelAndView("users/deleteUser", "command", new UserDto());
+        return new ModelAndView("users/delete", "command", new UserDto());
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
@@ -137,14 +135,14 @@ public class UsersController {
         userService.deleteUser(userDto.getEmail());
         //to not return the password
         userDto.setPassword("");
+        model.addAttribute("id", us.getId());
         model.addAttribute("firstName", us.getFirstName());
         model.addAttribute("lastName", us.getLastName());
         model.addAttribute("email", us.getEmail());
         model.addAttribute("role", us.getRole());
         model.addAttribute("request", "Deleted user");
 
-        return "users/addSuccess";
+        return "users/requestSuccess";
     }
-
 
 }
