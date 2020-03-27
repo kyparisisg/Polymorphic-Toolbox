@@ -35,15 +35,28 @@ public class UserService {
         return new ModelMapper().map(userRepository.findAll(), listType);
     }
 
-    public UserDto getUser(String userEmail){
+    public UserDto getUser(String email){
         ModelMapper mm = new ModelMapper();
-        User user = userRepository.findByEmail(userEmail);  //was .get() at the end
+        User user = userRepository.findByEmail(email);  //was .get() at the end
         if(user == null)
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
 
         UserDto userDto = mm.map(user, UserDto.class);
 
         return userDto;
+    }
+
+    public List<UserDto> getSingleUserList(String email){
+        ModelMapper mapper = new ModelMapper();
+        UserDto userDto = mapper.map(userRepository.findByEmail(email), UserDto.class);
+        LinkedList<UserDto> list = new LinkedList<UserDto>();
+        //hide password of user
+        userDto.setPassword("");
+        if(!list.add(userDto)){
+            //something went wrong
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Could not create list with single user.");
+        }
+        return list;
     }
 
     public UserDto getUserById(Long id){
@@ -57,7 +70,7 @@ public class UserService {
         return userDto;
     }
 
-    public void addUser(UserDto userdto){
+    public Long addUser(UserDto userdto){
         if( userdto.getEmail() == null || !(userdto.getEmail().contains("@")) )
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
 
@@ -72,7 +85,8 @@ public class UserService {
                 user.setRole("user");
                 //success, then save user in db
                 userRepository.save(user);
-                return;
+
+                return user.getId(); //returns the assigned ID of the user in the db (the PK)
             }
             throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE);
             // throw exception if email-invitation could not be sent to new user
@@ -104,7 +118,7 @@ public class UserService {
                 user.setPassword(userdto.getPassword());
 
             if(userdto.getRole()!=null && !userdto.getRole().isEmpty() && userdto.getRole().length() > 3)
-                user.setPassword(userdto.getRole());
+                user.setRole(userdto.getRole());
 
             userRepository.save(user);
             UserDto userdto2 = modelmapper.map(user, UserDto.class);
