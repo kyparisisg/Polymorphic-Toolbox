@@ -14,15 +14,23 @@ public class LoginHandler {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ServerService.class);
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(value = "", method = RequestMethod.GET)
     public String index(Model model) {
         LOGGER.debug("index()");
         return "redirect:/login.html";
     }
 
-    @GetMapping("login.html")
-    public ModelAndView login( Model model) {
-        return new ModelAndView("login");
+    @RequestMapping(value = "login", method = RequestMethod.GET)
+    public String loginRed(Model model) {
+        LOGGER.debug("index()");
+        return "redirect:/login.html";
+    }
+
+
+    @RequestMapping(value = "login.html", method = RequestMethod.GET)
+    public String login(Model model) {
+        LOGGER.debug("index()");
+        return "redirect:/login.html";
     }
 
 }

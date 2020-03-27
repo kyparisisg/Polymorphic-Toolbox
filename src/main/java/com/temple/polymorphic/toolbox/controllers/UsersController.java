@@ -35,7 +35,7 @@ public class UsersController {
         List<UserDto> list = getAllUsers();
         model.addAttribute("list", list);
 
-        return "users/all";
+        return "users/get";
     }
 
     private List<UserDto> getAllUsers(){
@@ -59,7 +59,7 @@ public class UsersController {
         List<UserDto> list = userService.getSingleUserList(userDto.getEmail());
         model.addAttribute("list", list);
 
-        return "users/all";
+        return "users/get";
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.GET)
