@@ -35,7 +35,7 @@ public class ServersController {
         List<ServerDto> list = getAllServers();
         model.addAttribute("list", list);
 
-        return "servers/all";
+        return "servers/get";
     }
 
     private List<ServerDto> getAllServers(){
@@ -55,7 +55,7 @@ public class ServersController {
         List list = serverService.getServerByIpList(serverDto.getIp());
         model.addAttribute("list", list);
 
-        return "servers/all";
+        return "servers/get";
 
     }
 
