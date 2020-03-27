@@ -1,8 +1,6 @@
 package com.temple.polymorphic.toolbox.services;
 
-import com.jcraft.jsch.JSch;
-import com.jcraft.jsch.Session;
-import com.jcraft.jsch.UserInfo;
+import com.jcraft.jsch.*;
 import com.temple.polymorphic.toolbox.ServerRepository;
 import com.temple.polymorphic.toolbox.models.Server;
 import com.temple.polymorphic.toolbox.dto.ServerDto;
@@ -17,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.swing.*;
 import java.lang.reflect.Type;
 import java.util.LinkedList;
 import java.util.List;
@@ -40,7 +39,7 @@ public class ServerService {
         return new ModelMapper().map(serverRepository.findAll(), listType);
     }
 
-    public ServerDto addServer(ServerDto serverdto) {
+    public ServerDto addServer(ServerDto serverdto){
         ServerRepository serverRepository = applicationContext.getBean(ServerRepository.class);
         Server server;
         if(serverdto.getPort() == 0)
@@ -56,7 +55,7 @@ public class ServerService {
                 server.setHealth(1);
             }catch (Exception e){
                 LOGGER.info("Could not establish SSH Tunnel for " + server.getIp() + ".\n");
-                throw new ResponseStatusException(HttpStatus.PRECONDITION_FAILED);
+                //throw new ResponseStatusException(HttpStatus.PRECONDITION_FAILED);
                 //since server could not be authenticated
             }
             serverRepository.save(server);
@@ -94,7 +93,7 @@ public class ServerService {
                 server.setHealth(1);
             }catch (Exception e){
                 LOGGER.info("Could not establish SSH Tunnel for " + server.getIp() + ".\n");
-                throw new ResponseStatusException(HttpStatus.PRECONDITION_FAILED);
+                //throw new ResponseStatusException(HttpStatus.PRECONDITION_FAILED);
                 //since server could not be authenticated
             }
             serverRepository.save(server);
@@ -127,23 +126,53 @@ public class ServerService {
         String host=server.getIp();
         String user=server.getUsernameCred();
         String password=server.getPasswordCred();
-        int port=server.getPort();    //default port
+        int port=server.getPort();
 
         //For port forwarding, might be used later
-//        int tunnelLocalPort=9080;
-//        String tunnelRemoteHost="YYY.YYY.YYY.YYY";    //forward to --> IP
-//        int tunnelRemotePort=80;
+        //int tunnelLocalPort=9080;
+        //String tunnelRemoteHost="YYY.YYY.YYY.YYY";    //forward to --> IP
+        //int tunnelRemotePort=80;
 
-        JSch jsch=new JSch();
-        Session session = jsch.getSession(user,host,port);
-        session.setPassword(password);
-        localUserInfo lui=new localUserInfo();
-        session.setUserInfo(lui);
-        session.connect();
-        session.disconnect();
-        //session.setPortForwardingL(tunnelLocalPort,tunnelRemoteHost,tunnelRemotePort);
-        //System.out.println("Connected");
-        //set server.health equal to 1 since no exception were thrown
+        JSch jsch = new JSch();
+        Session session = null;
+        try {
+            JFileChooser chooser = new JFileChooser();
+            chooser.setDialogTitle("Choose your privatekey(ex. ~/.ssh/id_dsa)");
+            chooser.setFileHidingEnabled(false);
+            int returnVal = chooser.showOpenDialog(null);
+            if(returnVal == JFileChooser.APPROVE_OPTION) {
+                System.out.println("You chose "+ chooser.getSelectedFile().getAbsolutePath()+".");
+                jsch.addIdentity(chooser.getSelectedFile().getAbsolutePath());
+            }
+            host=JOptionPane.showInputDialog("Enter username@hostname", System.getProperty("user.name")+"@localhost");
+
+            session = jsch.getSession(user, host, port);
+
+            //session.setConfig("PreferredAuthentications", "publickey,keyboard-interactive,password");
+            //java.util.Properties config = new java.util.Properties();
+            //config.put("StrictHostKeyChecking", "no");
+            //session.setConfig(config);
+
+            localUserInfo lui=new localUserInfo();
+            session.setUserInfo(lui);
+
+            //UserInfo ui = new MyUserInfo();
+            //session.setUserInfo(ui);
+
+            session.connect();
+            Channel channel = session.openChannel("shell");
+            channel.setInputStream(System.in);
+            channel.setOutputStream(System.out);
+            channel.connect();
+
+            //session.setPortForwardingL(tunnelLocalPort,tunnelRemoteHost,tunnelRemotePort);
+
+            server.setHealth(1);
+
+        } catch (JSchException e) {
+            server.setHealth(0);
+            System.out.println(e);
+        }
     }
 
     public ServerDto getServerById(Long serverId) {
