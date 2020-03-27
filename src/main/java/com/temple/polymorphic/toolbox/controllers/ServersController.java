@@ -75,6 +75,7 @@ public class ServersController {
         model.addAttribute("ip", serverDto1.getIp());
         model.addAttribute("port", serverDto1.getPort());
         model.addAttribute("usernameCred", serverDto1.getUsernameCred());
+        model.addAttribute("keyLocation", serverDto1.getKeyLocation());
         model.addAttribute("request", "Add Server");
 
         return "servers/requestSuccess";
@@ -103,6 +104,7 @@ public class ServersController {
         model.addAttribute("ip", serverDto1.getIp());
         model.addAttribute("port", serverDto1.getPort());
         model.addAttribute("usernameCred", serverDto1.getUsernameCred());
+        model.addAttribute("keyLocation", serverDto1.getKeyLocation());
         model.addAttribute("request", "Add Server");
         model.addAttribute("request", "Update Server");
 

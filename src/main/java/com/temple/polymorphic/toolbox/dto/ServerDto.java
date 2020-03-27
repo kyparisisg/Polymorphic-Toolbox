@@ -17,6 +17,7 @@ public class ServerDto {
     private String passwordCred;
     private int health;
     private Date registerDate;
+    private String keyLocation;
 
     public ServerDto(){
 
@@ -77,6 +78,10 @@ public class ServerDto {
     public void setPort(int port) {
         this.port = port;
     }
+
+    public String getKeyLocation() { return keyLocation; }
+
+    public void setKeyLocation(String keyLocation) { this.keyLocation = keyLocation; }
 
     public java.util.Date getRegisterDate() {
         return registerDate;

@@ -29,6 +29,10 @@
             <td><form:label path = "passwordCred">Admin Password (Optional):</form:label></td>
             <td><form:input path = "passwordCred" type = "password" /><small> <b>Hint:</b> If only the default <u><i>admin password</i></u> has to be updated.</small></td>
         </tr>
+        <tr>
+            <td><form:label path = "keyLocation">Private Key Location (Optional):</form:label></td>
+            <td><form:input path = "keyLocation" /><small> <b>Hint:</b> If only the default using public key authentication</small></td>
+        </tr>
             <%--        <tr>--%>   <%-- THIS SHOULD BE ONLY FOR USERS FUNCTIONALITY --%>
             <%--            <td><form:label path = "password" >Password</form:label></td>--%>
             <%--            <td><form:input path = "password" type="password"/></td>--%>

@@ -51,12 +51,13 @@ public class ServerService {
         if(serverRepository.findByIp(server.getIp()) == null){
             //check server's health, if the credentials and IP match
             try{
-                checkServerHealth(server);
+                checkServerHealth(server, serverdto.getKeyLocation());
                 server.setHealth(1);
             }catch (Exception e){
+                server.setHealth(0);
                 LOGGER.info("Could not establish SSH Tunnel for " + server.getIp() + ".\n");
                 //throw new ResponseStatusException(HttpStatus.PRECONDITION_FAILED);
-                //since server could not be authenticated
+                //allow unauthenticated servers
             }
             serverRepository.save(server);
             server.setPasswordCred("********"); //to hide it from the view
@@ -89,12 +90,13 @@ public class ServerService {
 
             //then check health once the server has update its information
             try{
-                checkServerHealth(server);
+                checkServerHealth(server, serverDto.getKeyLocation());
                 server.setHealth(1);
             }catch (Exception e){
+                server.setHealth(0);
                 LOGGER.info("Could not establish SSH Tunnel for " + server.getIp() + ".\n");
                 //throw new ResponseStatusException(HttpStatus.PRECONDITION_FAILED);
-                //since server could not be authenticated
+                //allow unauthenticated servers
             }
             serverRepository.save(server);
             ModelMapper mapper = new ModelMapper();
@@ -122,10 +124,9 @@ public class ServerService {
         throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     }
 
-    private void checkServerHealth(Server server) throws Exception{
+    private void checkServerHealth(Server server, String keyLocation) throws Exception{
         String host=server.getIp();
         String user=server.getUsernameCred();
-        String password=server.getPasswordCred();
         int port=server.getPort();
 
         //For port forwarding, might be used later
@@ -134,44 +135,31 @@ public class ServerService {
         //int tunnelRemotePort=80;
 
         JSch jsch = new JSch();
+        jsch.setConfig("StrictHostKeyChecking", "no");
+        jsch.setConfig("PreferredAuthentications", "publickey,password,keyboard-interactive");
         Session session = null;
         try {
-            JFileChooser chooser = new JFileChooser();
-            chooser.setDialogTitle("Choose your privatekey(ex. ~/.ssh/id_dsa)");
-            chooser.setFileHidingEnabled(false);
-            int returnVal = chooser.showOpenDialog(null);
-            if(returnVal == JFileChooser.APPROVE_OPTION) {
-                System.out.println("You chose "+ chooser.getSelectedFile().getAbsolutePath()+".");
-                jsch.addIdentity(chooser.getSelectedFile().getAbsolutePath());
+            if(keyLocation != null) {
+                jsch.addIdentity(keyLocation);
             }
-            host=JOptionPane.showInputDialog("Enter username@hostname", System.getProperty("user.name")+"@localhost");
-
             session = jsch.getSession(user, host, port);
 
-            //session.setConfig("PreferredAuthentications", "publickey,keyboard-interactive,password");
-            //java.util.Properties config = new java.util.Properties();
-            //config.put("StrictHostKeyChecking", "no");
-            //session.setConfig(config);
-
-            localUserInfo lui=new localUserInfo();
+            localUserInfo lui = new localUserInfo();
             session.setUserInfo(lui);
-
-            //UserInfo ui = new MyUserInfo();
-            //session.setUserInfo(ui);
-
-            session.connect();
-            Channel channel = session.openChannel("shell");
-            channel.setInputStream(System.in);
-            channel.setOutputStream(System.out);
-            channel.connect();
 
             //session.setPortForwardingL(tunnelLocalPort,tunnelRemoteHost,tunnelRemotePort);
 
-            server.setHealth(1);
+            session.connect();
+            //Channel channel = session.openChannel("shell");
+            //channel.setInputStream(System.in);
+            //channel.setOutputStream(System.out);
+            //channel.connect();
+            //channel.disconnect();
+            session.disconnect();
 
         } catch (JSchException e) {
-            server.setHealth(0);
-            System.out.println(e);
+            LOGGER.info(String.valueOf(e));
+            throw new ResponseStatusException(HttpStatus.PRECONDITION_FAILED);
         }
     }
 

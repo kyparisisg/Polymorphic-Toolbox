@@ -29,6 +29,10 @@
             <td><form:input path = "passwordCred" type = "password"/></td>
         </tr>
         <tr>
+            <td><form:label path = "keyLocation">Private Key Location (Optional):</form:label></td>
+            <td><form:input path = "keyLocation" /><small> <b>Hint:</b> If only the default using public key authentication</small></td>
+        </tr>
+        <tr>
             <td colspan = "2">
                 <input type = "submit" value = "Submit"/>
             </td>
