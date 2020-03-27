@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.server.ResponseStatusException;
 
-import javax.swing.*;
 import java.lang.reflect.Type;
 import java.util.LinkedList;
 import java.util.List;
@@ -43,15 +42,15 @@ public class ServerService {
         ServerRepository serverRepository = applicationContext.getBean(ServerRepository.class);
         Server server;
         if(serverdto.getPort() == 0)
-            server = new Server(serverdto.getName(), serverdto.getIp(), serverdto.getUsernameCred(), serverdto.getPasswordCred());
+            server = new Server(serverdto.getName(), serverdto.getIp(), serverdto.getUsernameCred(), serverdto.getPasswordCred(), serverdto.getKeyLocation());
         else
-            server = new Server(serverdto.getName(), serverdto.getIp(), serverdto.getUsernameCred(), serverdto.getPasswordCred(), serverdto.getPort());
+            server = new Server(serverdto.getName(), serverdto.getIp(), serverdto.getUsernameCred(), serverdto.getPasswordCred(), serverdto.getKeyLocation(), serverdto.getPort());
 
         // QUESTION FOR GIANNIS: Should I ignore id when given on POST Request?
         if(serverRepository.findByIp(server.getIp()) == null){
             //check server's health, if the credentials and IP match
             try{
-                checkServerHealth(server, serverdto.getKeyLocation());
+                checkServerHealth(server);
                 server.setHealth(1);
             }catch (Exception e){
                 server.setHealth(0);
@@ -88,9 +87,12 @@ public class ServerService {
             if(serverDto.getName() != null)
                 server.setName(serverDto.getName());
 
+            if(serverDto.getKeyLocation() != null)
+                server.setKeyLocation(serverDto.getKeyLocation());
+
             //then check health once the server has update its information
             try{
-                checkServerHealth(server, serverDto.getKeyLocation());
+                checkServerHealth(server);
                 server.setHealth(1);
             }catch (Exception e){
                 server.setHealth(0);
@@ -124,10 +126,11 @@ public class ServerService {
         throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     }
 
-    private void checkServerHealth(Server server, String keyLocation) throws Exception{
+    private void checkServerHealth(Server server) throws Exception{
         String host=server.getIp();
         String user=server.getUsernameCred();
         int port=server.getPort();
+        String keyLocation=server.getKeyLocation();
 
         //For port forwarding, might be used later
         //int tunnelLocalPort=9080;
@@ -140,7 +143,8 @@ public class ServerService {
         Session session = null;
         try {
             if(keyLocation != null) {
-                jsch.addIdentity(keyLocation);
+                //LOGGER.info("Working Directory = " + System.getProperty("user.dir"));
+                jsch.addIdentity(System.getProperty("user.dir") + keyLocation);
             }
             session = jsch.getSession(user, host, port);
 

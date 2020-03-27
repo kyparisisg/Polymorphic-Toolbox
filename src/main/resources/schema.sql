@@ -16,5 +16,6 @@ CREATE TABLE Servers (
     username_cred VARCHAR(50)  NOT NULL,
     password_cred VARCHAR(50) NOT NULL,
     health INT DEFAULT 0,
-    register_date DATE
+    register_date DATE,
+    key_location VARCHAR(1000) UNIQUE
 );
