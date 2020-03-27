@@ -30,11 +30,13 @@ public class Server {
     private int health;
     @Column(name="register_date")
     private Date registerDate;
+    @Column(name="key_location")
+    private String keyLocation;
 
     public Server(){
 
     }
-    public Server(String name, String ip, String usernameCred, String passwordCred){
+    public Server(String name, String ip, String usernameCred, String passwordCred, String keyLocation){
         this.name = name;
         this.ip = ip;
         this.port = 22; // Default port value, if port number was not given
@@ -42,9 +44,10 @@ public class Server {
         this.passwordCred = passwordCred;
         this.health = 0; // Default value is 0 as the server has not been tested if it is online yet.
         this.registerDate = new Date();
+        this.keyLocation = keyLocation;
     }
 
-    public Server(String name, String ip, String usernameCred, String passwordCred, int port){
+    public Server(String name, String ip, String usernameCred, String passwordCred, String keyLocation, int port){
         this.name = name;
         this.ip = ip;
         this.port = port;
@@ -52,6 +55,7 @@ public class Server {
         this.passwordCred = passwordCred;
         this.health = 0; // Default value is 0 as the server has not been tested if it is online yet.
         this.registerDate = new Date();
+        this.keyLocation = keyLocation;
     }
 
     public Long getId() {
@@ -109,6 +113,10 @@ public class Server {
     public void setPort(int port) {
         this.port = port;
     }
+
+    public String getKeyLocation() { return keyLocation; }
+
+    public void setKeyLocation(String keyLocation) { this.keyLocation = keyLocation; }
 
     public java.util.Date getRegisterDate() {
         return registerDate;

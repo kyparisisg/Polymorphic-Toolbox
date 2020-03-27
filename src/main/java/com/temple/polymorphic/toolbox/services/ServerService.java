@@ -1,8 +1,6 @@
 package com.temple.polymorphic.toolbox.services;
 
-import com.jcraft.jsch.JSch;
-import com.jcraft.jsch.Session;
-import com.jcraft.jsch.UserInfo;
+import com.jcraft.jsch.*;
 import com.temple.polymorphic.toolbox.ServerRepository;
 import com.temple.polymorphic.toolbox.models.Server;
 import com.temple.polymorphic.toolbox.dto.ServerDto;
@@ -40,13 +38,13 @@ public class ServerService {
         return new ModelMapper().map(serverRepository.findAll(), listType);
     }
 
-    public ServerDto addServer(ServerDto serverdto) {
+    public ServerDto addServer(ServerDto serverdto){
         ServerRepository serverRepository = applicationContext.getBean(ServerRepository.class);
         Server server;
         if(serverdto.getPort() == 0)
-            server = new Server(serverdto.getName(), serverdto.getIp(), serverdto.getUsernameCred(), serverdto.getPasswordCred());
+            server = new Server(serverdto.getName(), serverdto.getIp(), serverdto.getUsernameCred(), serverdto.getPasswordCred(), serverdto.getKeyLocation());
         else
-            server = new Server(serverdto.getName(), serverdto.getIp(), serverdto.getUsernameCred(), serverdto.getPasswordCred(), serverdto.getPort());
+            server = new Server(serverdto.getName(), serverdto.getIp(), serverdto.getUsernameCred(), serverdto.getPasswordCred(), serverdto.getKeyLocation(), serverdto.getPort());
 
         // QUESTION FOR GIANNIS: Should I ignore id when given on POST Request?
         if(serverRepository.findByIp(server.getIp()) == null){
@@ -55,9 +53,10 @@ public class ServerService {
                 checkServerHealth(server);
                 server.setHealth(1);
             }catch (Exception e){
+                server.setHealth(0);
                 LOGGER.info("Could not establish SSH Tunnel for " + server.getIp() + ".\n");
-                throw new ResponseStatusException(HttpStatus.PRECONDITION_FAILED);
-                //since server could not be authenticated
+                //throw new ResponseStatusException(HttpStatus.PRECONDITION_FAILED);
+                //allow unauthenticated servers
             }
             serverRepository.save(server);
             server.setPasswordCred("********"); //to hide it from the view
@@ -88,14 +87,18 @@ public class ServerService {
             if(serverDto.getName() != null)
                 server.setName(serverDto.getName());
 
+            if(serverDto.getKeyLocation() != null)
+                server.setKeyLocation(serverDto.getKeyLocation());
+
             //then check health once the server has update its information
             try{
                 checkServerHealth(server);
                 server.setHealth(1);
             }catch (Exception e){
+                server.setHealth(0);
                 LOGGER.info("Could not establish SSH Tunnel for " + server.getIp() + ".\n");
-                throw new ResponseStatusException(HttpStatus.PRECONDITION_FAILED);
-                //since server could not be authenticated
+                //throw new ResponseStatusException(HttpStatus.PRECONDITION_FAILED);
+                //allow unauthenticated servers
             }
             serverRepository.save(server);
             ModelMapper mapper = new ModelMapper();
@@ -126,24 +129,42 @@ public class ServerService {
     private void checkServerHealth(Server server) throws Exception{
         String host=server.getIp();
         String user=server.getUsernameCred();
-        String password=server.getPasswordCred();
-        int port=server.getPort();    //default port
+        int port=server.getPort();
+        String keyLocation=server.getKeyLocation();
 
         //For port forwarding, might be used later
-//        int tunnelLocalPort=9080;
-//        String tunnelRemoteHost="YYY.YYY.YYY.YYY";    //forward to --> IP
-//        int tunnelRemotePort=80;
+        //int tunnelLocalPort=9080;
+        //String tunnelRemoteHost="YYY.YYY.YYY.YYY";    //forward to --> IP
+        //int tunnelRemotePort=80;
 
-        JSch jsch=new JSch();
-        Session session = jsch.getSession(user,host,port);
-        session.setPassword(password);
-        localUserInfo lui=new localUserInfo();
-        session.setUserInfo(lui);
-        session.connect();
-        session.disconnect();
-        //session.setPortForwardingL(tunnelLocalPort,tunnelRemoteHost,tunnelRemotePort);
-        //System.out.println("Connected");
-        //set server.health equal to 1 since no exception were thrown
+        JSch jsch = new JSch();
+        jsch.setConfig("StrictHostKeyChecking", "no");
+        jsch.setConfig("PreferredAuthentications", "publickey,password,keyboard-interactive");
+        Session session = null;
+        try {
+            if(keyLocation != null) {
+                //LOGGER.info("Working Directory = " + System.getProperty("user.dir"));
+                jsch.addIdentity(System.getProperty("user.dir") + keyLocation);
+            }
+            session = jsch.getSession(user, host, port);
+
+            localUserInfo lui = new localUserInfo();
+            session.setUserInfo(lui);
+
+            //session.setPortForwardingL(tunnelLocalPort,tunnelRemoteHost,tunnelRemotePort);
+
+            session.connect();
+            //Channel channel = session.openChannel("shell");
+            //channel.setInputStream(System.in);
+            //channel.setOutputStream(System.out);
+            //channel.connect();
+            //channel.disconnect();
+            session.disconnect();
+
+        } catch (JSchException e) {
+            LOGGER.info(String.valueOf(e));
+            throw new ResponseStatusException(HttpStatus.PRECONDITION_FAILED);
+        }
     }
 
     public ServerDto getServerById(Long serverId) {
