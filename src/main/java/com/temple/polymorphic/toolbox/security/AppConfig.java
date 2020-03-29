@@ -17,34 +17,17 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @ComponentScan
 public class AppConfig extends WebSecurityConfigurerAdapter {
 
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception {
-//        http.authorizeRequests()
-//                .antMatchers("/api/**").hasRole("ADMIN")
-//                .anyRequest()
-//                .authenticated()
-//                .and()
-//                .formLogin();
-//    }
+
 @Override
 protected void configure(HttpSecurity http) throws Exception {
-    http.authorizeRequests().antMatchers("/admin/**").hasRole("ADMIN")
+    http.authorizeRequests().antMatchers("/api/**").hasRole("ADMIN")
             .antMatchers("/**").hasRole("USER").and().formLogin();
 }
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.inMemoryAuthentication().withUser("user").password("password").roles("USER")
-//                .and().withUser("adminr").password("password").roles("ADMIN", "USER");
-         //
+    protected void configure(AuthenticationManagerBuilder auth) {
         auth.authenticationProvider(new SecurityConfig());
     }
-
-//    @Override
-//    public void configure(AuthenticationManagerBuilder builder)
-//            throws Exception {
-//        builder.authenticationProvider(new SecurityConfig());
-//    }
 
     @Bean
     public ViewResolver viewResolver() {

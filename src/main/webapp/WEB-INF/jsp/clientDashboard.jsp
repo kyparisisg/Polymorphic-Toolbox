@@ -16,6 +16,10 @@
 <p></p>
 
 <p><a href="/client/transfer/internal">Internal Transfer</a></p>
+<p></p>
+<p></p>
+<p></p>
 
+<p><a href="/logout">Logout</a></p>
 </body>
 </html>
