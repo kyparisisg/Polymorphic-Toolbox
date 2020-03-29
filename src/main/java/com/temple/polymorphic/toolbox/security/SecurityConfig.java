@@ -1,5 +1,8 @@
 package com.temple.polymorphic.toolbox.security;
 
+import com.temple.polymorphic.toolbox.dto.UserDto;
+import com.temple.polymorphic.toolbox.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -17,17 +20,31 @@ public class SecurityConfig implements AuthenticationProvider {
         private static List<User> users = new ArrayList();
 
         public SecurityConfig() {
-            users.add(new User("erin", "123", "ROLE_ADMIN"));
-            users.add(new User("mike", "234", "ROLE_ADMIN"));
+            users.add(new User("admin", "admin", "ROLE_ADMIN"));
             users.add(new User("user", "user", "ROLE_USER"));
+            //users = addUsers(us.getUsers());
         }
 
+        /*private List<User>addUsers(List<UserDto> list){
+            List<User> users = new ArrayList<>();
+
+            for (UserDto userDto: list) {
+                users.add(new User(userDto.getEmail(), userDto.getPassword(), getRole(userDto.getRole())));
+            }
+
+            return users;
+        }
+        private String getRole(String role){
+            if(role.contains("User") || role.contains("user"))
+                return "ROLE_USER";
+
+            return "ROLE_ADMIN";
+        }*/
+
         @Override
-        public Authentication authenticate(Authentication authentication)
-                throws AuthenticationException {
+        public Authentication authenticate(Authentication authentication) throws AuthenticationException {
             String name = authentication.getName();
             Object credentials = authentication.getCredentials();
-            System.out.println("credentials class: " + credentials.getClass());
             if (!(credentials instanceof String)) {
                 return null;
             }

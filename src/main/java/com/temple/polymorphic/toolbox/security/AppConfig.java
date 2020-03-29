@@ -17,15 +17,15 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @ComponentScan
 public class AppConfig extends WebSecurityConfigurerAdapter {
 
-
-@Override
-protected void configure(HttpSecurity http) throws Exception {
-    http.authorizeRequests().antMatchers("/api/**").hasRole("ADMIN")
-            .antMatchers("/**").hasRole("USER").and().formLogin();
-}
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.authorizeRequests().antMatchers("/api/**").access("hasRole('ROLE_ADMIN')")
+                .antMatchers("/client/**").access("hasRole('ROLE_USER')")
+                .antMatchers("/**").permitAll().and().formLogin();
+    }
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) {
+    protected void configure(AuthenticationManagerBuilder auth){
         auth.authenticationProvider(new SecurityConfig());
     }
 

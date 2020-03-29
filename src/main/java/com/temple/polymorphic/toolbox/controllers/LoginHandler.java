@@ -16,7 +16,11 @@ public class LoginHandler {
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String index(Model model) {
+        return "navigate";
+    }
 
+    @RequestMapping(value = "client", method = RequestMethod.GET)
+    public String client(Model model) {
         return "clientDashboard";
     }
 
