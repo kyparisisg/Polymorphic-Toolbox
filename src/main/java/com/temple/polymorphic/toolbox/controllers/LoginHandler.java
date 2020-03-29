@@ -38,4 +38,12 @@ public class LoginHandler {
 
     }
 
+    @RequestMapping(value = "logout", method = RequestMethod.GET)
+    public String logout(Model model) {
+        LOGGER.debug("index()");
+        //return "redirect:/login.jsp";
+        return "mypage";
+
+    }
+
 }
