@@ -19,6 +19,7 @@ public class SecurityConfig implements AuthenticationProvider {
         public SecurityConfig() {
             users.add(new User("erin", "123", "ROLE_ADMIN"));
             users.add(new User("mike", "234", "ROLE_ADMIN"));
+            users.add(new User("user", "user", "ROLE_USER"));
         }
 
         @Override
