@@ -21,11 +21,22 @@ VALUES ('TEST EC2', 'ec2-54-163-124-124.compute-1.amazonaws.com', '22', 'ec2-use
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 INSERT INTO Permissions (user_id, server_id, creation_date)
-VALUES('1', '1', SYSDATE())
+VALUES('1', '1', SYSDATE());
 
-/*SELECT name, first_name, last_name
+/*SELECT name AS "Server Name", first_name, last_name
 FROM PERMISSIONS
 JOIN SERVERS ON PERMISSIONS.SERVER_ID = SERVERS.ID
 JOIN USERS ON PERMISSIONS.USER_ID = USERS.ID*/
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+INSERT INTO Specific_Creds (user_id, server_id, username_cred, password_cred)
+VALUES('1', '1', 'newUsername', 'newPassword');
+
+/*SELECT first_name, last_name, SERVERS.username_cred AS "Old Username", SERVERS.password_cred AS "Old Password",
+    SPECIFIC_CREDS.username_cred AS "New Username", SPECIFIC_CREDS.password_cred AS "New Password"
+FROM SPECIFIC_CREDS
+JOIN SERVERS ON SPECIFIC_CREDS.SERVER_ID = SERVERS.ID
+JOIN USERS ON SPECIFIC_CREDS.USER_ID = USERS.ID*/
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
