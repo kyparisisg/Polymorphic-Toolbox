@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Set;
 
 
 @Entity
@@ -33,6 +34,9 @@ public class Server {
     @Column(name="key_location")
     private String keyLocation;
 
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "server", cascade = CascadeType.ALL)
+    private Set<Permissions> serverPermission;
+
     public Server(){
 
     }
@@ -47,6 +51,17 @@ public class Server {
         this.keyLocation = keyLocation;
     }
 
+    public Server(String name, String ip, String usernameCred, String passwordCred, String keyLocation, Set<Permissions> serverPermission){
+        this.name = name;
+        this.ip = ip;
+        this.usernameCred = usernameCred;
+        this.passwordCred = passwordCred;
+        this.health = 0; // Default value is 0 as the server has not been tested if it is online yet.
+        this.registerDate = new Date();
+        this.keyLocation = keyLocation;
+        this.serverPermission = serverPermission;
+    }
+
     public Server(String name, String ip, String usernameCred, String passwordCred, String keyLocation, int port){
         this.name = name;
         this.ip = ip;
@@ -56,6 +71,18 @@ public class Server {
         this.health = 0; // Default value is 0 as the server has not been tested if it is online yet.
         this.registerDate = new Date();
         this.keyLocation = keyLocation;
+    }
+
+    public Server(String name, String ip, String usernameCred, String passwordCred, String keyLocation, int port, Set<Permissions> serverPermission){
+        this.name = name;
+        this.ip = ip;
+        this.port = port;
+        this.usernameCred = usernameCred;
+        this.passwordCred = passwordCred;
+        this.health = 0; // Default value is 0 as the server has not been tested if it is online yet.
+        this.registerDate = new Date();
+        this.keyLocation = keyLocation;
+        this.serverPermission = serverPermission;
     }
 
     public Long getId() {
@@ -126,5 +153,13 @@ public class Server {
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date date = new Date();
         this.registerDate = date;
+    }
+
+    public Set<Permissions> getServerPermission() {
+        return serverPermission;
+    }
+
+    public void setServerPermission(Set<Permissions> serverPermission) {
+        this.serverPermission = serverPermission;
     }
 }

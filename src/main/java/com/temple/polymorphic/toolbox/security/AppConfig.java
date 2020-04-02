@@ -11,29 +11,29 @@ import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
-@Configuration
-@EnableWebSecurity
-@EnableWebMvc
-@ComponentScan
-public class AppConfig extends WebSecurityConfigurerAdapter {
-
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/api/**").access("hasRole('ROLE_ADMIN')")
-                .antMatchers("/client/**").access("hasRole('ROLE_USER')")
-                .antMatchers("/**").permitAll().and().formLogin();
-    }
-
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth){
-        auth.authenticationProvider(new SecurityConfig());
-    }
-
-    @Bean
-    public ViewResolver viewResolver() {
-        InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
-        viewResolver.setPrefix("/WEB-INF/jsp/");
-        viewResolver.setSuffix(".jsp");
-        return viewResolver;
-    }
-}
+//@Configuration
+//@EnableWebSecurity
+//@EnableWebMvc
+//@ComponentScan
+//public class AppConfig extends WebSecurityConfigurerAdapter {
+//
+//    @Override
+//    protected void configure(HttpSecurity http) throws Exception {
+//        http.authorizeRequests().antMatchers("/api/**").access("hasRole('ROLE_ADMIN')")
+//                .antMatchers("/client/**").access("hasRole('ROLE_USER')")
+//                .antMatchers("/**").permitAll().and().formLogin();
+//    }
+//
+//    @Override
+//    protected void configure(AuthenticationManagerBuilder auth){
+//        auth.authenticationProvider(new SecurityConfig());
+//    }
+//
+//    @Bean
+//    public ViewResolver viewResolver() {
+//        InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
+//        viewResolver.setPrefix("/WEB-INF/jsp/");
+//        viewResolver.setSuffix(".jsp");
+//        return viewResolver;
+//    }
+//}

@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Table(name = "Users")
@@ -33,6 +34,9 @@ public class User {
     @Column(name="last_login")
     private Date lastLogin;
 
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<Permissions> userPermissions;
+
 
     public User() {
 
@@ -46,6 +50,17 @@ public class User {
         this.role = role;
         this.setRegisterDate(new Date());   //for current datetime
         this.lastLogin = null;
+    }
+
+    public User(String firstName, String lastName, String email, String password, String role, Set<Permissions> userPermissions) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+        this.setRegisterDate(new Date());   //for current datetime
+        this.lastLogin = null;
+        this.userPermissions = userPermissions;
     }
 
     public Long getId() {
@@ -112,5 +127,13 @@ public class User {
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date date = new Date();
         this.registerDate = date;
+    }
+
+    public Set<Permissions> getUserPermissions() {
+        return userPermissions;
+    }
+
+    public void setUserPermissions(Set<Permissions> userPermissions) {
+        this.userPermissions = userPermissions;
     }
 }
