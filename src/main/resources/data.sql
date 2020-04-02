@@ -23,20 +23,36 @@ VALUES ('TEST EC2', 'ec2-54-163-124-124.compute-1.amazonaws.com', '22', 'ec2-use
 INSERT INTO Permissions (user_id, server_id, creation_date)
 VALUES('1', '1', SYSDATE());
 
-/*SELECT name AS "Server Name", first_name, last_name
-FROM PERMISSIONS
-JOIN SERVERS ON PERMISSIONS.SERVER_ID = SERVERS.ID
-JOIN USERS ON PERMISSIONS.USER_ID = USERS.ID*/
+/*
+SELECT name AS "Server Name", first_name, last_name
+FROM Permissions
+JOIN Users ON Permissions.user_id = Users.id
+JOIN Servers ON Permissions.server_id = Servers.id
+*/
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 INSERT INTO Specific_Creds (user_id, server_id, username_cred, password_cred)
 VALUES('1', '1', 'newUsername', 'newPassword');
 
-/*SELECT first_name, last_name, SERVERS.username_cred AS "Old Username", SERVERS.password_cred AS "Old Password",
-    SPECIFIC_CREDS.username_cred AS "New Username", SPECIFIC_CREDS.password_cred AS "New Password"
-FROM SPECIFIC_CREDS
-JOIN SERVERS ON SPECIFIC_CREDS.SERVER_ID = SERVERS.ID
-JOIN USERS ON SPECIFIC_CREDS.USER_ID = USERS.ID*/
+/*
+SELECT first_name, last_name, SERVERS.username_cred AS "Old Username", SERVERS.password_cred AS "Old Password",
+    Specific_Creds.username_cred AS "New Username", SPECIFIC_CREDS.password_cred AS "New Password"
+FROM Specific_Creds
+JOIN Users ON Specific_Creds.user_id = Users.id
+JOIN Servers ON Specific_Creds.server_id = Servers.id
+*/
+
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+INSERT INTO Transactions (user_id, src_server, dst_server, file_name, creation_date, status)
+VALUES('1', '1', '2', 'test file', SYSDATE(), '0');
+
+/*
+SELECT first_name, last_name, s1.name AS "Source Server", s2.name AS "Destination Server", file_name, creation_date
+FROM Transactions
+JOIN Users ON Transactions.user_id = Users.id
+JOIN Servers S1 ON Transactions.src_server = S1.id
+JOIN Servers S2 ON Transactions.dst_server = S2.id
+ */

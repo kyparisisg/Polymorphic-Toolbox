@@ -37,6 +37,11 @@ public class User {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL)
     private Set<Permissions> userPermissions;
 
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<Specific_Creds> userCreds;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<Transactions> userTransactions;
 
     public User() {
 
@@ -52,7 +57,8 @@ public class User {
         this.lastLogin = null;
     }
 
-    public User(String firstName, String lastName, String email, String password, String role, Set<Permissions> userPermissions) {
+    public User(String firstName, String lastName, String email, String password, String role,
+                Set<Permissions> userPermissions, Set<Specific_Creds> userCreds, Set<Transactions> userTransactions) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -61,6 +67,8 @@ public class User {
         this.setRegisterDate(new Date());   //for current datetime
         this.lastLogin = null;
         this.userPermissions = userPermissions;
+        this.userCreds = userCreds;
+        this.userTransactions = userTransactions;
     }
 
     public Long getId() {
@@ -135,5 +143,21 @@ public class User {
 
     public void setUserPermissions(Set<Permissions> userPermissions) {
         this.userPermissions = userPermissions;
+    }
+
+    public Set<Specific_Creds> getUserCreds() {
+        return userCreds;
+    }
+
+    public void setUserCreds(Set<Specific_Creds> userCreds) {
+        this.userCreds = userCreds;
+    }
+
+    public Set<Transactions> getUserTransactions() {
+        return userTransactions;
+    }
+
+    public void setUserTransactions(Set<Transactions> userTransactions) {
+        this.userTransactions = userTransactions;
     }
 }
