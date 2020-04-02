@@ -2,21 +2,19 @@ package com.temple.polymorphic.toolbox.models;
 
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
 @Table(name = "Permissions")
-public class Permissions {
+public class Permissions implements Serializable {
 
     @Id
-    @Column(name="id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
+    @Id
     @ManyToOne
     @JoinColumn(name = "server_id", nullable = false)
     private Server server;
@@ -25,22 +23,12 @@ public class Permissions {
     private Date creationDate;
 
     public Permissions(){
-        //super();
     }
 
     public Permissions(User user, Server server) {
         this.user = user;
         this.server = server;
         this.setCreationDate(new Date());   //for current datetime
-
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public User getUser() {

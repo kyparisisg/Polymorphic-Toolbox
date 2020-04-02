@@ -21,11 +21,10 @@ CREATE TABLE Servers (
 );
 
 CREATE TABLE Permissions(
-    id INT PRIMARY KEY AUTO_INCREMENT,
     user_id INT NOT NULL,
     server_id INT NOT NULL,
-    creation_date DATE
-
+    creation_date DATE,
+    PRIMARY KEY (user_id, server_id)
 --     CONSTRAINT fk_user FOREIGN KEY('user_id') REFERENCES Users ('id')
 --     CONSTRAINT fk_server FOREIGN KEY('server_id') REFERENCES Servers ('id')
 );
