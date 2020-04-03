@@ -32,6 +32,7 @@ public class AwsController {
         //Make the API calls to AWS using the FileInfoDto given
         //...
         //...
+        //use the transferService to implement the services and just call them from here!
 
         //add attributes (one or more) to model so you can use them while rendering the awsApiSuccess.jsp
         String status = "The transaction was successfully, the file was uploaded!";
@@ -51,6 +52,7 @@ public class AwsController {
         //Make the API calls to AWS to download a file from S3
         //...
         //...
+        //use the transferService to implement the services and just call them from here!
 
         //add attributes (one or more) to model so you can use them while rendering the awsApiSuccess.jsp
         String status = "The transaction was successfully, the file was downloaded!";
