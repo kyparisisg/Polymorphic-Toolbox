@@ -24,7 +24,7 @@ public class UsersController {
     private static final Logger LOGGER = LoggerFactory.getLogger(ServerService.class);
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public ModelAndView index(Model model) {
+    public ModelAndView index() {
 
         return new ModelAndView("users/manageUser");
     }
