@@ -37,8 +37,8 @@ public class Server {
     @OneToMany(fetch = FetchType.EAGER,mappedBy = "server", cascade = CascadeType.ALL)
     private Set<Permissions> serverPermission;
 
-    @OneToMany(fetch = FetchType.EAGER,mappedBy = "server", cascade = CascadeType.ALL)
-    private Set<Specific_Creds> serverCreds;
+    //@OneToMany(fetch = FetchType.EAGER,mappedBy = "server", cascade = CascadeType.ALL)
+    //private Set<Specific_Creds> serverCreds;
 
     //@OneToMany(fetch = FetchType.EAGER,mappedBy = "server", cascade = CascadeType.ALL)
     //private Set<Transactions> serverTransactions;
@@ -58,7 +58,7 @@ public class Server {
     }
 
     public Server(String name, String ip, String usernameCred, String passwordCred, String keyLocation,
-                  Set<Permissions> serverPermission, Set<Specific_Creds> serverCreds){
+                  Set<Permissions> serverPermission){
         this.name = name;
         this.ip = ip;
         this.usernameCred = usernameCred;
@@ -67,7 +67,7 @@ public class Server {
         this.registerDate = new Date();
         this.keyLocation = keyLocation;
         this.serverPermission = serverPermission;
-        this.serverCreds = serverCreds;
+        //this.serverCreds = serverCreds;
         //this.serverTransactions = serverTransactions;
     }
 
@@ -83,7 +83,7 @@ public class Server {
     }
 
     public Server(String name, String ip, String usernameCred, String passwordCred, String keyLocation, int port,
-                  Set<Permissions> serverPermission, Set<Specific_Creds> serverCreds){
+                  Set<Permissions> serverPermission){
         this.name = name;
         this.ip = ip;
         this.port = port;
@@ -93,7 +93,7 @@ public class Server {
         this.registerDate = new Date();
         this.keyLocation = keyLocation;
         this.serverPermission = serverPermission;
-        this.serverCreds = serverCreds;
+        //this.serverCreds = serverCreds;
         //this.serverTransactions = serverTransactions;
     }
 
@@ -175,7 +175,7 @@ public class Server {
         this.serverPermission = serverPermission;
     }
 
-    public Set<Specific_Creds> getServerCreds() {
+    /*public Set<Specific_Creds> getServerCreds() {
         return serverCreds;
     }
 
@@ -183,7 +183,7 @@ public class Server {
         this.serverCreds = serverCreds;
     }
 
-    /*public Set<Transactions> getServerTransactions() {
+    public Set<Transactions> getServerTransactions() {
         return serverTransactions;
     }
 

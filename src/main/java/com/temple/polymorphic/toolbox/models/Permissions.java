@@ -22,6 +22,15 @@ public class Permissions implements Serializable {
     @Column(name = "creation_date")
     private Date creationDate;
 
+    @Column(name="username_cred")
+    private String usernameCred;
+
+    @Column(name="password_cred")
+    private String passwordCred;
+
+    @Column(name="valid")
+    private int valid;
+
     public Permissions(){
     }
 
@@ -29,6 +38,15 @@ public class Permissions implements Serializable {
         this.user = user;
         this.server = server;
         this.setCreationDate(new Date());   //for current datetime
+    }
+
+    public Permissions(User user, Server server,  String usernameCred, String passwordCred) {
+        this.user = user;
+        this.server = server;
+        this.setCreationDate(new Date());   //for current datetime
+        this.usernameCred = usernameCred;
+        this.passwordCred = passwordCred;
+        this.valid = 0; //not tested if valid yet
     }
 
     public User getUser() {
@@ -53,5 +71,29 @@ public class Permissions implements Serializable {
 
     public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
+    }
+
+    public String getUsernameCred() {
+        return usernameCred;
+    }
+
+    public void setUsernameCred(String usernameCred) {
+        this.usernameCred = usernameCred;
+    }
+
+    public String getPasswordCred() {
+        return passwordCred;
+    }
+
+    public void setPasswordCred(String passwordCred) {
+        this.passwordCred = passwordCred;
+    }
+
+    public int getValid() {
+        return valid;
+    }
+
+    public void setValid(int valid) {
+        this.valid = valid;
     }
 }

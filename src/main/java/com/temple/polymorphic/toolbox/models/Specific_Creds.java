@@ -1,4 +1,4 @@
-package com.temple.polymorphic.toolbox.models;
+/*package com.temple.polymorphic.toolbox.models;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -77,4 +77,4 @@ public class Specific_Creds implements Serializable {
     public void setValid(int valid) {
         this.valid = valid;
     }
-}
+}*/

@@ -23,6 +23,9 @@ VALUES ('TEST EC2', 'ec2-54-163-124-124.compute-1.amazonaws.com', '22', 'ec2-use
 INSERT INTO Permissions (user_id, server_id, creation_date)
 VALUES('1', '1', SYSDATE());
 
+INSERT INTO Permissions (user_id, server_id, creation_date, username_cred, password_cred)
+VALUES('2', '2', SYSDATE(), 'newUsername', 'newPassword');
+
 /*
 SELECT name AS "Server Name", first_name, last_name
 FROM Permissions
@@ -30,14 +33,22 @@ JOIN Users ON Permissions.user_id = Users.id
 JOIN Servers ON Permissions.server_id = Servers.id
 */
 
+/*
+SELECT first_name, last_name, SERVERS.username_cred AS "Old Username", SERVERS.password_cred AS "Old Password",
+    Permissions.username_cred AS "New Username", Permissions.password_cred AS "New Password"
+FROM Permissions
+JOIN Users ON Permissions.user_id = Users.id
+JOIN Servers ON Permissions.server_id = Servers.id
+ */
+
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-INSERT INTO Specific_Creds (user_id, server_id, username_cred, password_cred)
-VALUES('1', '1', 'newUsername', 'newPassword');
+--INSERT INTO Specific_Creds (user_id, server_id, username_cred, password_cred)
+--VALUES('1', '1', 'newUsername', 'newPassword');
 
 /*
 SELECT first_name, last_name, SERVERS.username_cred AS "Old Username", SERVERS.password_cred AS "Old Password",
-    Specific_Creds.username_cred AS "New Username", SPECIFIC_CREDS.password_cred AS "New Password"
+    Specific_Creds.username_cred AS "New Username", Specific_Creds.password_cred AS "New Password"
 FROM Specific_Creds
 JOIN Users ON Specific_Creds.user_id = Users.id
 JOIN Servers ON Specific_Creds.server_id = Servers.id
