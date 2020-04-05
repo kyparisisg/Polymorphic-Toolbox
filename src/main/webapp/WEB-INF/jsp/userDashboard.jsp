@@ -136,7 +136,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-3">
-                <h1 class="title">POLYMORPHIC TOLLBOX</h1>
+                <h1 class="title">POLYMORPHIC TOOLBOX</h1>
             </div>
             <div class="col-md-3">
                 <ul class="nav">
