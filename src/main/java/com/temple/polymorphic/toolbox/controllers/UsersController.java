@@ -145,4 +145,52 @@ public class UsersController {
         return "users/requestSuccess";
     }
 
+    @RequestMapping(value = "/loginout", method = RequestMethod.GET)
+    public ModelAndView getLogOutPage() {
+
+        return new ModelAndView("users/loginout", "command", new UserDto()); //maybe new UserDto like user()
+    }
+
+    @RequestMapping(value = "/loginout", method = RequestMethod.POST)
+    public String getLoginOut(@ModelAttribute UserDto userDto, Model model)  {
+        //Initially was returning a ModelAndView with a single UserDto attributes but it is changed to
+        //return a list with a single UserDto to use the same .jsp view as get all Users
+        List<UserDto> list = userService.getSingleUserList(userDto.getEmail());
+        model.addAttribute("list", list);
+
+        return "users/loginout";
+    }
+
+    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    public ModelAndView getRegisterPage() {
+
+        return new ModelAndView("users/register", "command", new UserDto()); //maybe new UserDto like user()
+    }
+
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public String getRegister(@ModelAttribute UserDto userDto, Model model)  {
+        //Initially was returning a ModelAndView with a single UserDto attributes but it is changed to
+        //return a list with a single UserDto to use the same .jsp view as get all Users
+        List<UserDto> list = userService.getSingleUserList(userDto.getEmail());
+        model.addAttribute("list", list);
+
+        return "users/register";
+    }
+
+    @RequestMapping(value = "/aboutus", method = RequestMethod.GET)
+    public ModelAndView getAboutUsPage() {
+
+        return new ModelAndView("users/aboutus", "command", new UserDto()); //maybe new UserDto like user()
+    }
+
+    @RequestMapping(value = "/aboutus", method = RequestMethod.POST)
+    public String getAboutUs(@ModelAttribute UserDto userDto, Model model)  {
+        //Initially was returning a ModelAndView with a single UserDto attributes but it is changed to
+        //return a list with a single UserDto to use the same .jsp view as get all Users
+        List<UserDto> list = userService.getSingleUserList(userDto.getEmail());
+        model.addAttribute("list", list);
+
+        return "users/aboutus";
+    }
+
 }
