@@ -47,7 +47,7 @@
             </table>
         </div>
             <tr>
-                <td><form:label path = "email">Email</form:label></td>
+                <td><form:label path = "email"></form:label></td>
                 <td><form:input path = "email" type="hidden" value="${email}"/></td>
             </tr>
 
@@ -56,8 +56,8 @@
 <%--                <td><form:input path = "ip"/></td>--%>
 <%--            </tr>--%>
             <tr>
-                <td><form:label path = "id">Server ID</form:label></td>
-                <td><form:input path = "id"/></td>
+                <td><form:label path = "serverId">Server ID</form:label></td>
+                <td><form:input path = "serverId"/></td>
             </tr>
 
             <tr>
