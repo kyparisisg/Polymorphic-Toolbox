@@ -1,5 +1,6 @@
 package com.temple.polymorphic.toolbox.services;
 
+import com.temple.polymorphic.toolbox.PermissionRepository;
 import com.temple.polymorphic.toolbox.UserRepository;
 import com.temple.polymorphic.toolbox.PermissionRepository;
 import com.temple.polymorphic.toolbox.models.User;
@@ -36,6 +37,8 @@ public class UserService {
     private JavaMailSender javaMailSender;
 
     public void setUserRepository(UserRepository userRepository) { this.userRepository = userRepository; }
+
+    public void setPermissionRepository(PermissionRepository permissionRepository) { this.permissionRepository = permissionRepository; }
 
     public List<UserDto> getUsers() {
         Type listType = new TypeToken<List<UserDto>>() {}.getType();

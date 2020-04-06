@@ -11,14 +11,13 @@ public class Permissions implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
-//    @Id
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id", referencedColumnName = "id", insertable = true, updatable = true, nullable = true)
     private User user;
 
-//    @Id
     @ManyToOne
     @JoinColumn(name = "server_id", nullable = false)
     private Server server;
