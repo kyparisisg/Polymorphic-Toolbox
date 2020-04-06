@@ -57,4 +57,12 @@ public class PermOperation {
     public void setOperation(String operation) {
         this.operation = operation;
     }
+
+    public Long getServerId() {
+        return serverId;
+    }
+
+    public void setServerId(Long serverId) {
+        this.serverId = serverId;
+    }
 }

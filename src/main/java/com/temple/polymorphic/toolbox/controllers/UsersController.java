@@ -10,12 +10,16 @@ import com.temple.polymorphic.toolbox.services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.security.Permission;
 import java.util.List;
 
@@ -79,8 +83,14 @@ public class UsersController {
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public String addUser(@ModelAttribute("SpringWeb")UserDto userDto, ModelMap model) {
-        Long pk_id = userService.addUser(userDto);
+    public String addUser(@ModelAttribute("SpringWeb")UserDto userDto, Model model) {
+        Long pk_id = null;
+        try{
+            pk_id = userService.addUser(userDto);
+        }catch (ResponseStatusException e){
+            return this.handleRequest(e, model, "Failed to create new User, please try again");
+
+        }
         model.addAttribute("userDto", userDto);    //can user either on jsp ${userDto.field} OR ${field}
         model.addAttribute("id", pk_id);
         model.addAttribute("firstName", userDto.getFirstName());
@@ -175,21 +185,32 @@ public class UsersController {
     @RequestMapping(value = "/permissions", method = RequestMethod.POST)
     public String setPermissions(@ModelAttribute PermOperation perm, Model model){
         //verify User's existence by email
+        UserDto us;
+        try{
+            us = userService.getUser(perm.getEmail());
+        }catch (ResponseStatusException e){
+            return this.handleRequest(e, model, "Failed to set new permission for User. Please try again");
 
+        }
         //verify Server's existence by IP
+        ServerDto s = serverService.getServerById(perm.getServerId());
+        try{
+            s = serverService.getServerById(perm.getServerId());
+        }catch (ResponseStatusException e){
+            return this.handleRequest(e, model, "Failed to set new permission for User, server id does not exist. Please try again");
 
+        }
         //set permission to access server with IP, for the given User (email), if permission does not already exist
 
         //return success or fail status by adding attributes to the model
 
         //return user that the permissions were assigned
-        UserDto us = userService.getUser(perm.getEmail());
         model.addAttribute("id", us.getId());
         model.addAttribute("firstName", us.getFirstName());
         model.addAttribute("lastName", us.getLastName());
         model.addAttribute("email", us.getEmail());
         model.addAttribute("role", us.getRole());
-        model.addAttribute("request", "Permissions access on server: "+ perm.getIp() +", granted for user.");
+        model.addAttribute("request", "Permissions access on server: "+ perm.getServerId() +", granted for user.");
 
         return "users/requestSuccess";
     }
@@ -197,9 +218,21 @@ public class UsersController {
     @RequestMapping(value = "/permissions", method = RequestMethod.DELETE)
     public String deletePermissions(@ModelAttribute  PermOperation perm, Model model){
         //verify User's existence by email
-        UserDto us = userService.getUser(perm.getEmail());
+        UserDto us;
+        try{
+            us = userService.getUser(perm.getEmail());
+        }catch (ResponseStatusException e){
+            return this.handleRequest(e, model, "Failed to set new permission for User. Please try again");
+
+        }
         //verify Server's existence by IP
-//        ServerDto s = serverService.getServerById(perm.getId());
+        ServerDto s = serverService.getServerById(perm.getServerId());
+        try{
+            s = serverService.getServerById(perm.getServerId());
+        }catch (ResponseStatusException e){
+            return this.handleRequest(e, model, "Failed to set new permission for User, server id does not exist. Please try again");
+
+        }
         //delete permission to access server with IP, for the given User (email), if permission exists
 
         //return success or fail status by adding attributes to the model
@@ -215,5 +248,15 @@ public class UsersController {
 
         return "users/requestSuccess";
     }
+
+    public String handleRequest(ResponseStatusException e, Model model, String reason) {
+
+        model.addAttribute("msg", e.getMessage());
+        model.addAttribute("status", e.getStatus());
+        model.addAttribute("reason", reason);
+        return "error";
+    }
+
+
 
 }
