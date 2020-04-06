@@ -37,7 +37,8 @@
     <%--    <link href="/demo/demo.css" rel="stylesheet" />--%>
 </head>
 
-<div class="container">
+<%--<div class="container"> ----%>
+    <div class>
     <h1 style="padding:50px; text-align: center;">About Us</h1>
 
     <div class="row">
