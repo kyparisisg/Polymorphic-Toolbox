@@ -55,20 +55,20 @@
                     <div class="row">
                         <div class="col-md-12 text-center">
                             <h4 class="text-uppercase">Giannas</h4>
-                            <span>Plan</span>
+                            <img src="images/mike.jpg" alt="MISSING JPG"/>
                             <hr class="line-primary">
                         </div>
                     </div>
                     <div class="row">
                         <ul class="list-group">
-                            <li class="list-group-item">50 messages</li>
-                            <li class="list-group-item">100 emails</li>
-                            <li class="list-group-item">24/7 Support</li>
+                            <li class="list-group-item">Lorem ipsum dolor sit amet</li>
+                            <li class="list-group-item">Lorem ipsum dolor sit amet</li>
+                            <li class="list-group-item">Lorem ipsum dolor sit amet</li>
                         </ul>
                     </div>
                 </div>
                 <div class="card-footer text-center">
-                    <button class="btn btn-primary btn-simple">Get plan</button>
+                    <button class="btn btn-primary btn-simple">Learn More</button>
                 </div>
             </div>
         </div>
@@ -76,25 +76,26 @@
             <div class="card card-coin card-plain">
                 <div class="card-header">
                     <h1>Design</h1>
+
                 </div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-12 text-center">
                             <h4 class="text-uppercase">Bella</h4>
-                            <span>Plan</span>
+                            <img src="images/mike.jpg" alt="MISSING JPG"/>
                             <hr class="line-success">
                         </div>
                     </div>
                     <div class="row">
                         <ul class="list-group">
-                            <li class="list-group-item">150 messages</li>
-                            <li class="list-group-item">1000 emails</li>
-                            <li class="list-group-item">24/7 Support</li>
+                            <li class="list-group-item">Lorem ipsum dolor sit amet</li>
+                            <li class="list-group-item">Lorem ipsum dolor sit amet</li>
+                            <li class="list-group-item">Lorem ipsum dolor sit amet</li>
                         </ul>
                     </div>
                 </div>
                 <div class="card-footer text-center">
-                    <button class="btn btn-success btn-simple">Get plan</button>
+                    <button class="btn btn-success btn-simple">Learn More</button>
                 </div>
             </div>
         </div>
@@ -108,20 +109,20 @@
 
                         <div class="col-md-12 text-center">
                             <h4 class="text-uppercase">Tyler</h4>
-                            <span>Plan</span>
+                            <img src="images/mike.jpg" alt="MISSING JPG"/>
                             <hr class="line-info">
                         </div>
                     </div>
                     <div class="row">
                         <ul class="list-group">
-                            <li class="list-group-item">350 messages</li>
-                            <li class="list-group-item">10K emails</li>
-                            <li class="list-group-item">24/7 Support</li>
+                            <li class="list-group-item">Lorem ipsum dolor sit amet</li>
+                            <li class="list-group-item">Lorem ipsum dolor sit amet</li>
+                            <li class="list-group-item">Lorem ipsum dolor sit amet</li>
                         </ul>
                     </div>
                 </div>
                 <div class="card-footer text-center">
-                    <button class="btn btn-info btn-simple">Get plan</button>
+                    <button class="btn btn-info btn-simple">Learn More</button>
                 </div>
             </div>
         </div>
