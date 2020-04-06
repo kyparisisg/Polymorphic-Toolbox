@@ -1,5 +1,6 @@
 package com.temple.polymorphic.toolbox.controllers;
 
+import com.temple.polymorphic.toolbox.dto.PermOperation;
 import com.temple.polymorphic.toolbox.dto.PermissionsDto;
 import com.temple.polymorphic.toolbox.dto.ServerDto;
 import com.temple.polymorphic.toolbox.dto.UserDto;
@@ -133,7 +134,7 @@ public class UsersController {
         UserDto userDto = userService.getUser(email);
         //to not return the password
         userDto.setPassword("");
-        model.addAttribute("userDto", userDto);
+        //model.addAttribute("userDto", userDto);
         model.addAttribute("email",email);
 
         return new ModelAndView("users/delete", "command", new UserDto());
@@ -159,21 +160,20 @@ public class UsersController {
     @RequestMapping(value = "/permissions/{email}", method = RequestMethod.GET)
     public ModelAndView setPermissions(@PathVariable("email") String email, Model model){
         //see if user exists
-        PermissionsDto up = new PermissionsDto();   //use permissionService to return existing permissions if any
-        //add model attributes for email and permissionsDto
-        model.addAttribute("email", email);
-        //give the existing permission
-        model.addAttribute("permissions",  up);
+        UserDto us = userService.getUser(email);
 
-        //ServerListToDisplay and pick one
+        //add model attributes for email and permissionsDto
+        model.addAttribute("email",email);
+
+        //ServerListToDisplay and select one
         List<ServerDto> serversList = serverService.getServers();
         model.addAttribute("list", serversList);
 
-        return new ModelAndView("users/setPermissions","command", new PermissionsDto());
+        return new ModelAndView("users/setPermissions","command", new PermOperation());
     }
 
     @RequestMapping(value = "/permissions", method = RequestMethod.POST)
-    public String setPermissions(@ModelAttribute String email, @ModelAttribute String ip, Model model){
+    public String setPermissions(@ModelAttribute PermOperation perm, Model model){
         //verify User's existence by email
 
         //verify Server's existence by IP
@@ -183,35 +183,35 @@ public class UsersController {
         //return success or fail status by adding attributes to the model
 
         //return user that the permissions were assigned
-        UserDto us = userService.getUser(email);
+        UserDto us = userService.getUser(perm.getEmail());
         model.addAttribute("id", us.getId());
         model.addAttribute("firstName", us.getFirstName());
         model.addAttribute("lastName", us.getLastName());
         model.addAttribute("email", us.getEmail());
         model.addAttribute("role", us.getRole());
-        model.addAttribute("request", "Permissions access on server: "+ ip +", granted for user.");
+        model.addAttribute("request", "Permissions access on server: "+ perm.getIp() +", granted for user.");
 
         return "users/requestSuccess";
     }
 
     @RequestMapping(value = "/permissions", method = RequestMethod.DELETE)
-    public String deletePermissions(@ModelAttribute String email, @ModelAttribute String ip, Model model){
+    public String deletePermissions(@ModelAttribute  PermOperation perm, Model model){
         //verify User's existence by email
-
+        UserDto us = userService.getUser(perm.getEmail());
         //verify Server's existence by IP
-
+//        ServerDto s = serverService.getServerById(perm.getId());
         //delete permission to access server with IP, for the given User (email), if permission exists
 
         //return success or fail status by adding attributes to the model
 
         //return user that the permissions were revoked
-        UserDto us = userService.getUser(email);
+
         model.addAttribute("id", us.getId());
         model.addAttribute("firstName", us.getFirstName());
         model.addAttribute("lastName", us.getLastName());
         model.addAttribute("email", us.getEmail());
         model.addAttribute("role", us.getRole());
-        model.addAttribute("request", "Permissions access on server: "+ ip +", revoked for user.");
+        model.addAttribute("request", "Permissions access on server: "+ perm.getIp() +", revoked for user.");
 
         return "users/requestSuccess";
     }

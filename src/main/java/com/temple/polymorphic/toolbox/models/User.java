@@ -14,6 +14,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
     @Column(name="first_name")
     private String firstName;
@@ -35,8 +36,8 @@ public class User {
     private Date lastLogin;
 
 //was not working
-//    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL)
-//    private Set<Permissions> userPermissions;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<Permissions> userPermissions;
 
     //@OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL)
     //private Set<Specific_Creds> userCreds;
@@ -139,22 +140,22 @@ public class User {
     }
 
 //was not working
-//    public Set<Permissions> getUserPermissions() {
-//        return userPermissions;
-//    }
-//
-//    public void setUserPermissions(Set<Permissions> userPermissions) {
-//        this.userPermissions = userPermissions;
-//    }
-//
-//    /*public Set<Specific_Creds> getUserCreds() {
-//        return userCreds;
-//    }
-//
-//    public void setUserCreds(Set<Specific_Creds> userCreds) {
-//        this.userCreds = userCreds;
-//    }*/
-//
+    public Set<Permissions> getUserPermissions() {
+        return userPermissions;
+    }
+
+    public void setUserPermissions(Set<Permissions> userPermissions) {
+        this.userPermissions = userPermissions;
+    }
+
+    /*public Set<Specific_Creds> getUserCreds() {
+        return userCreds;
+    }
+
+    public void setUserCreds(Set<Specific_Creds> userCreds) {
+        this.userCreds = userCreds;
+    }*/
+
 //    public Set<Transactions> getUserTransactions() {
 //        return userTransactions;
 //    }

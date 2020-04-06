@@ -11,17 +11,18 @@ public class Permissions implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long permission_id;
+    @Column(name = "id")
+    private Long id;
 
-//    @Id
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id", referencedColumnName = "id", insertable = true, updatable = true, nullable = true)
     private User user;
 
-//    @Id
-    @ManyToOne
-    @JoinColumn(name = "server_id", nullable = false)
-    private Server server;
+//    @ManyToOne
+//    @JoinColumn(name = "server_id", nullable = false)
+//    private Server server;
+    @Column(name = "server_id")
+    private Long serverId;
 
     @Column(name = "creation_date")
     private Date creationDate;
@@ -38,19 +39,35 @@ public class Permissions implements Serializable {
     public Permissions(){
     }
 
-    public Permissions(User user, Server server) {
+    public Permissions(User user, Long serverId) {
         this.user = user;
-        this.server = server;
+        this.serverId = serverId;
         this.setCreationDate(new Date());   //for current datetime
     }
 
-    public Permissions(User user, Server server,  String usernameCred, String passwordCred) {
+    public Permissions(User user, Long serverId,  String usernameCred, String passwordCred) {
         this.user = user;
-        this.server = server;
+        this.serverId = serverId;
         this.setCreationDate(new Date());   //for current datetime
         this.usernameCred = usernameCred;
         this.passwordCred = passwordCred;
         this.valid = 0; //not tested if valid yet
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getServerId() {
+        return serverId;
+    }
+
+    public void setServerId(Long serverId) {
+        this.serverId = serverId;
     }
 
     public User getUser() {
@@ -59,14 +76,6 @@ public class Permissions implements Serializable {
 
     public void setUser(User user) {
         this.user = user;
-    }
-
-    public Server getServer() {
-        return server;
-    }
-
-    public void setServer(Server server) {
-        this.server = server;
     }
 
     public Date getCreationDate() {
