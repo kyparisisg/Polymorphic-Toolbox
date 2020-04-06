@@ -222,34 +222,6 @@
         </div>
     </div>
 
-    <div class="col-lg-4 col-md-6 ml-auto mr-auto">
-        <div class="card card-coin card-plain">
-            <div class="card-header">
-                <img src="../assets/img/mike.jpg" class="img-center img-fluid rounded-circle">
-                <h4 class="title">Transactions</h4>
-            </div>
-            <div class="card-body">
-                <ul class="nav nav-tabs nav-tabs-primary justify-content-center">
-                    <li class="nav-item">
-                        <a class="nav-link active" data-toggle="tab" href="#linka">
-                            Wallet
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#linkb">
-                            Send
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#linkc">
-                            News
-                        </a>
-                    </li>
-                </ul>
-
-                </div>
-            </div>
-        </div>
     </div>
 </footer>
 </div>
