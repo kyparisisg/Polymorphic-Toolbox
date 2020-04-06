@@ -1,6 +1,9 @@
 package com.temple.polymorphic.toolbox.controllers;
 
+import com.temple.polymorphic.toolbox.dto.PermissionsDto;
+import com.temple.polymorphic.toolbox.dto.ServerDto;
 import com.temple.polymorphic.toolbox.dto.UserDto;
+import com.temple.polymorphic.toolbox.services.PermissionService;
 import com.temple.polymorphic.toolbox.services.ServerService;
 import com.temple.polymorphic.toolbox.services.UserService;
 import org.slf4j.Logger;
@@ -12,6 +15,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.security.Permission;
 import java.util.List;
 
 @Controller
@@ -21,7 +25,13 @@ public class UsersController {
     @Autowired
     private UserService userService;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ServerService.class);
+    @Autowired
+    private PermissionService permissionService;
+
+    @Autowired
+    private ServerService serverService;
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserService.class);
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public ModelAndView index(Model model) {
@@ -141,6 +151,67 @@ public class UsersController {
         model.addAttribute("email", us.getEmail());
         model.addAttribute("role", us.getRole());
         model.addAttribute("request", "Deleted user");
+
+        return "users/requestSuccess";
+    }
+
+    //For the User's Permission
+    @RequestMapping(value = "/permissions/{email}", method = RequestMethod.GET)
+    public ModelAndView setPermissions(@PathVariable("email") String email, Model model){
+        //see if user exists
+        PermissionsDto up = new PermissionsDto();   //use permissionService to return existing permissions if any
+        //add model attributes for email and permissionsDto
+        model.addAttribute("email", email);
+        //give the existing permission
+        model.addAttribute("permissions",  up);
+
+        //ServerListToDisplay and pick one
+        List<ServerDto> serversList = serverService.getServers();
+        model.addAttribute("list", serversList);
+
+        return new ModelAndView("users/setPermissions","command", new PermissionsDto());
+    }
+
+    @RequestMapping(value = "/permissions", method = RequestMethod.POST)
+    public String setPermissions(@ModelAttribute String email, @ModelAttribute String ip, Model model){
+        //verify User's existence by email
+
+        //verify Server's existence by IP
+
+        //set permission to access server with IP, for the given User (email), if permission does not already exist
+
+        //return success or fail status by adding attributes to the model
+
+        //return user that the permissions were assigned
+        UserDto us = userService.getUser(email);
+        model.addAttribute("id", us.getId());
+        model.addAttribute("firstName", us.getFirstName());
+        model.addAttribute("lastName", us.getLastName());
+        model.addAttribute("email", us.getEmail());
+        model.addAttribute("role", us.getRole());
+        model.addAttribute("request", "Permissions access on server: "+ ip +", granted for user.");
+
+        return "users/requestSuccess";
+    }
+
+    @RequestMapping(value = "/permissions", method = RequestMethod.DELETE)
+    public String deletePermissions(@ModelAttribute String email, @ModelAttribute String ip, Model model){
+        //verify User's existence by email
+
+        //verify Server's existence by IP
+
+        //delete permission to access server with IP, for the given User (email), if permission exists
+
+        //return success or fail status by adding attributes to the model
+
+        //return user that the permissions were revoked
+        UserDto us = userService.getUser(email);
+        model.addAttribute("id", us.getId());
+        model.addAttribute("firstName", us.getFirstName());
+        model.addAttribute("lastName", us.getLastName());
+        model.addAttribute("email", us.getEmail());
+        model.addAttribute("role", us.getRole());
+        model.addAttribute("request", "Permissions access on server: "+ ip +", revoked for user.");
 
         return "users/requestSuccess";
     }

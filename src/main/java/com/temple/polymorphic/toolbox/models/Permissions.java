@@ -10,11 +10,15 @@ import java.util.Date;
 public class Permissions implements Serializable {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long permission_id;
+
+//    @Id
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @Id
+//    @Id
     @ManyToOne
     @JoinColumn(name = "server_id", nullable = false)
     private Server server;

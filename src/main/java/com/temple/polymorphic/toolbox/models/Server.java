@@ -34,8 +34,9 @@ public class Server {
     @Column(name="key_location")
     private String keyLocation;
 
-    @OneToMany(fetch = FetchType.EAGER,mappedBy = "server", cascade = CascadeType.ALL)
-    private Set<Permissions> serverPermission;
+//was not working
+//    @OneToMany(fetch = FetchType.EAGER,mappedBy = "server", cascade = CascadeType.ALL)
+//    private Set<Permissions> serverPermission;
 
     //@OneToMany(fetch = FetchType.EAGER,mappedBy = "server", cascade = CascadeType.ALL)
     //private Set<Specific_Creds> serverCreds;
@@ -66,7 +67,7 @@ public class Server {
         this.health = 0; // Default value is 0 as the server has not been tested if it is online yet.
         this.registerDate = new Date();
         this.keyLocation = keyLocation;
-        this.serverPermission = serverPermission;
+        //this.serverPermission = serverPermission;
         //this.serverCreds = serverCreds;
         //this.serverTransactions = serverTransactions;
     }
@@ -92,7 +93,7 @@ public class Server {
         this.health = 0; // Default value is 0 as the server has not been tested if it is online yet.
         this.registerDate = new Date();
         this.keyLocation = keyLocation;
-        this.serverPermission = serverPermission;
+        //this.serverPermission = serverPermission;
         //this.serverCreds = serverCreds;
         //this.serverTransactions = serverTransactions;
     }
@@ -167,13 +168,13 @@ public class Server {
         this.registerDate = date;
     }
 
-    public Set<Permissions> getServerPermission() {
-        return serverPermission;
-    }
-
-    public void setServerPermission(Set<Permissions> serverPermission) {
-        this.serverPermission = serverPermission;
-    }
+//    public Set<Permissions> getServerPermission() {
+//        return serverPermission;
+//    }
+//
+//    public void setServerPermission(Set<Permissions> serverPermission) {
+//        this.serverPermission = serverPermission;
+//    }
 
     /*public Set<Specific_Creds> getServerCreds() {
         return serverCreds;

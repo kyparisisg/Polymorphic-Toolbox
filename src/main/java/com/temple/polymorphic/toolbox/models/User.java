@@ -34,14 +34,15 @@ public class User {
     @Column(name="last_login")
     private Date lastLogin;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL)
-    private Set<Permissions> userPermissions;
+//was not working
+//    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL)
+//    private Set<Permissions> userPermissions;
 
     //@OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL)
     //private Set<Specific_Creds> userCreds;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL)
-    private Set<Transactions> userTransactions;
+//    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL)
+//    private Set<Transactions> userTransactions;
 
     public User() {
 
@@ -66,9 +67,9 @@ public class User {
         this.role = role;
         this.setRegisterDate(new Date());   //for current datetime
         this.lastLogin = null;
-        this.userPermissions = userPermissions;
+        //this.userPermissions = userPermissions;
         //this.userCreds = userCreds;
-        this.userTransactions = userTransactions;
+        //this.userTransactions = userTransactions;
     }
 
     public Long getId() {
@@ -137,27 +138,28 @@ public class User {
         this.registerDate = date;
     }
 
-    public Set<Permissions> getUserPermissions() {
-        return userPermissions;
-    }
-
-    public void setUserPermissions(Set<Permissions> userPermissions) {
-        this.userPermissions = userPermissions;
-    }
-
-    /*public Set<Specific_Creds> getUserCreds() {
-        return userCreds;
-    }
-
-    public void setUserCreds(Set<Specific_Creds> userCreds) {
-        this.userCreds = userCreds;
-    }*/
-
-    public Set<Transactions> getUserTransactions() {
-        return userTransactions;
-    }
-
-    public void setUserTransactions(Set<Transactions> userTransactions) {
-        this.userTransactions = userTransactions;
-    }
+//was not working
+//    public Set<Permissions> getUserPermissions() {
+//        return userPermissions;
+//    }
+//
+//    public void setUserPermissions(Set<Permissions> userPermissions) {
+//        this.userPermissions = userPermissions;
+//    }
+//
+//    /*public Set<Specific_Creds> getUserCreds() {
+//        return userCreds;
+//    }
+//
+//    public void setUserCreds(Set<Specific_Creds> userCreds) {
+//        this.userCreds = userCreds;
+//    }*/
+//
+//    public Set<Transactions> getUserTransactions() {
+//        return userTransactions;
+//    }
+//
+//    public void setUserTransactions(Set<Transactions> userTransactions) {
+//        this.userTransactions = userTransactions;
+//    }
 }
