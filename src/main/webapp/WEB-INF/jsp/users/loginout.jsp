@@ -1,101 +1,291 @@
-<!DOCTYPE html>
-<html lang="en">
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Polymorphic Toolbox</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!--===============================================================================================-->
-    <link rel="icon" type="image/png" href="images/icons/favicon-2.ico"/>
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="fonts/iconic/css/material-design-iconic-font.min.css">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="css/util.css">
-    <link rel="stylesheet" type="text/css" href="css/main.css">
-    <!--===============================================================================================-->
+    <title>Getting Started: Serving Web Content</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="apple-touch-icon" sizes="76x76" href="/images/apple-icon.png">
+    <link rel="icon" type="image/png" href="/images/favicon.png">
+
+    <!--     Fonts and icons     -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet" />
+    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+    <!-- Nucleo Icons -->
+    <link href="/css/nucleo-icons.css" rel="stylesheet" />
+    <!-- CSS Files -->
+    <link href="/css/blk-design-system.css?v=1.0.0" rel="stylesheet" />
+    <!-- CSS Just for demo purpose, (probably going to takeout) -->
+    <link href="/demo/demo.css" rel="stylesheet" />
+    <%--    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />--%>
 </head>
-<body>
-<!--bg-01.jpg-->
-<div class="limiter">
-    <div class="container-login100" style="background-image: url('main/resources/public/images/bg-01.jpg');">
-        <div class="wrap-login100">
-            <form class="login100-form validate-form">
-					<span class="login100-form-logo">
-						<i class="zmdi zmdi-landscape"></i>
-					</span>
-                <span class="login100-form-title p-b-34 p-t-27">
-						Polymorphic ToolBox
-					</span>
-
-                <span class="login100-form-title p-b-34 p-t-27">
-						Log in
-					</span>
-
-                <div class="wrap-input100 validate-input" data-validate = "Enter username">
-                    <input class="input100" type="text" name="username" placeholder="Username">
-                    <span class="focus-input100" data-placeholder="&#xf207;"></span>
+<body class="index-page">
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg fixed-top navbar-transparent " color-on-scroll="100">
+    <div class="container">
+        <div class="navbar-translate">
+            <a class="navbar-brand" href="/api/admin" rel="tooltip"  data-placement="bottom" target="_blank">
+                <span>POLYMORPHIC TOOLBOX</span>
+            </a>
+            <button class="navbar-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-bar bar1"></span>
+                <span class="navbar-toggler-bar bar2"></span>
+                <span class="navbar-toggler-bar bar3"></span>
+            </button>
+        </div>
+        <div class="collapse navbar-collapse justify-content-end" id="navigation">
+            <div class="navbar-collapse-header">
+                <div class="row">
+                    <div class="col-6 collapse-brand">
+                        <a>
+                            POLYMORPHIC TOOLBOX
+                        </a>
+                    </div>
+                    <div class="col-6 collapse-close text-right">
+                        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+                            <i class="tim-icons icon-simple-remove"></i>
+                        </button>
+                    </div>
                 </div>
-
-                <div class="wrap-input100 validate-input" data-validate="Enter password">
-                    <input class="input100" type="password" name="pass" placeholder="Password">
-                    <span class="focus-input100" data-placeholder="&#xf191;"></span>
-                </div>
-
-                <div class="contact100-form-checkbox">
-                    <input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
-                    <label class="label-checkbox100" for="ckb1">
-                        Remember me
-                    </label>
-                </div>
-
-                <div class="container-login100-form-btn">
-                    <button class="login100-form-btn">
-                        Login
-                    </button>
-                </div>
-
-                <div class="text-center p-t-90">
-                    <a class="txt1" href="#">
-                        Forgot Password?
+            </div>
+            <ul class="navbar-nav">
+                <li class="nav-item p-0">
+                    <a class="nav-link" rel="tooltip" title="Follow us on Twitter" data-placement="bottom" href="" target="_blank">
+                        <i class="fab fa-twitter"></i>
+                        <p class="d-lg-none d-xl-none">Twitter</p>
                     </a>
-                </div>
-            </form>
+                </li>
+                <li class="nav-item p-0">
+                    <a class="nav-link" rel="tooltip" title="Like us on Facebook" data-placement="bottom" href="" target="_blank">
+                        <i class="fab fa-facebook-square"></i>
+                        <p class="d-lg-none d-xl-none">Facebook</p>
+                    </a>
+                </li>
+                <li class="nav-item p-0">
+                    <a class="nav-link" rel="tooltip" title="Follow us on Instagram" data-placement="bottom" href="" target="_blank">
+                        <i class="fab fa-instagram"></i>
+                        <p class="d-lg-none d-xl-none">Instagram</p>
+                    </a>
+                </li>
+                <li class="dropdown nav-item">
+                    <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                        <i class="fa fa-cogs d-lg-none d-xl-none"></i> Getting started
+                    </a>
+                    <div class="dropdown-menu dropdown-with-icons">
+                        <a href="" class="dropdown-item">
+                            <i class="tim-icons icon-paper"></i> Documentation
+                        </a>
+                        <a href="" class="dropdown-item">
+                            <i class="tim-icons icon-bullet-list-67"></i>Register Page
+                        </a>
+                        <a href="" class="dropdown-item">
+                            <i class="tim-icons icon-image-02"></i>Landing Page
+                        </a>
+                        <a href="" class="dropdown-item">
+                            <i class="tim-icons icon-single-02"></i>Profile Page
+                        </a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn btn-default d-none d-lg-block" href="javascript:void(0)" onclick="scrollToDownload()">
+                        <i class="tim-icons icon-cloud-download-93"></i> Download
+                    </a>
+                </li>
+            </ul>
         </div>
     </div>
+</nav>
+<!-- End Navbar -->
+<div class="wrapper">
+    <div class="page-header header-filter">
+        <div class="squares square1"></div>
+        <div class="squares square2"></div>
+        <div class="squares square3"></div>
+        <div class="squares square4"></div>
+        <div class="squares square5"></div>
+        <div class="squares square6"></div>
+        <div class="squares square7"></div>
+        <div class="container">
+            <div class="content-center brand">
+                <h1 class="h1-seo">Manage Users</h1>
+                <div class="row justify-content-md-center">
+                    <div class="text-center col-md-12 col-lg-8">
+                        <a href="/api/users/save" class="btn btn-primary btn-round btn-lg" role="button">
+                            Add User
+                        </a>
+                        <%--                        <a href="" target="_blank" class="btn btn-primary btn-lg btn-simple btn-round" role="button">--%>
+                        <%--                               --%>
+                        <%--                        </a>--%>
+                    </div>
+                    <div class="text-center col-md-12 col-lg-8">
+                        <a href="/api/users/update" class="btn btn-primary btn-round btn-lg" role="button">
+                            Update User
+                        </a>
+
+                    </div>
+                    <div class="text-center col-md-12 col-lg-8">
+                        <a href="/api/users/all" class="btn btn-primary btn-round btn-lg" role="button">
+                            View All
+                        </a>
+                    </div>
+                    <div class="text-center col-md-12 col-lg-8">
+                        <a href="/api/users/get" class="btn btn-primary btn-round btn-lg" role="button">
+                            Search User
+                        </a>
+                    </div>
+                    <div class="text-center col-md-12 col-lg-8">
+                        <a href="/api/users/delete" class="btn btn-primary btn-round btn-lg" role="button">
+                            Delete User
+                        </a>
+                    </div>
+                    <div class="text-center col-md-12 col-lg-8">
+                        <a href="/api/users/admin" class="btn btn-primary btn-round btn-lg" role="button">
+                            Go back
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--  End Modal -->
+</div>
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <h1 class="title">POLYMORPHIC TOLLBOX</h1>
+            </div>
+            <div class="col-md-3">
+                <ul class="nav">
+                    <li class="nav-item">
+                        <a href="/api/admin" class="nav-link">
+                            Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="" class="nav-link">
+                            Landing
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="" class="nav-link">
+                            Register
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="" class="nav-link">
+                            Profile
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-3">
+                <ul class="nav">
+                    <li class="nav-item">
+                        <a href="" class="nav-link">
+                            Contact Us
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="" class="nav-link">
+                            About Us
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="" class="nav-link">
+                            Blog
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="" class="nav-link">
+                            License
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-3">
+                <h3 class="title">Follow us:</h3>
+                <div class="btn-wrapper profile">
+                    <a target="_blank" href="" class="btn btn-icon btn-neutral btn-round btn-simple" data-toggle="tooltip" data-original-title="Follow us">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a target="_blank" href="" class="btn btn-icon btn-neutral btn-round btn-simple" data-toggle="tooltip" data-original-title="Like us">
+                        <i class="fab fa-facebook-square"></i>
+                    </a>
+                    <a target="_blank" href="" class="btn btn-icon btn-neutral  btn-round btn-simple" data-toggle="tooltip" data-original-title="Follow us">
+                        <i class="fab fa-dribbble"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4 col-md-6 ml-auto mr-auto">
+        <div class="card card-coin card-plain">
+            <div class="card-header">
+                <img src="../assets/img/mike.jpg" class="img-center img-fluid rounded-circle">
+                <h4 class="title">Transactions</h4>
+            </div>
+            <div class="card-body">
+                <ul class="nav nav-tabs nav-tabs-primary justify-content-center">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#linka">
+                            Wallet
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#linkb">
+                            Send
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#linkc">
+                            News
+                        </a>
+                    </li>
+                </ul>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
 </div>
 
+<!--   Core JS Files   -->
+<script src="/js/core/jquery.min.js" type="text/javascript"></script>
+<script src="/js/core/popper.min.js" type="text/javascript"></script>
+<script src="/js/core/bootstrap.min.js" type="text/javascript"></script>
+<script src="/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+<!--  Plugin for Switches -->
+<script src="/js/plugins/bootstrap-switch.js"></script>
+<!--  Plugin for the Sliders-->
+<script src="/js/plugins/nouislider.min.js" type="text/javascript"></script>
+<!-- Chart JS -->
+<script src="/js/plugins/chartjs.min.js"></script>
+<!--  Plugin for the DatePicker-->
+<script src="/js/plugins/moment.min.js"></script>
+<script src="/js/plugins/bootstrap-datetimepicker.js" type="text/javascript"></script>
+<!-- Black Dashboard DEMO methods, (take this out) -->
+<script src="/demo/demo.js"></script>
+<!-- Control Center for Black UI Kit: parallax effects, scripts for the example pages etc -->
+<script src="/js/blk-design-system.min.js?v=1.0.0" type="text/javascript"></script>
+<script>
+    $(document).ready(function() {
+        blackKit.initDatePicker();
+        blackKit.initSliders();
+    });
+    function scrollToDownload() {
+        if ($('.section-download').length != 0) {
+            $("html, body").animate({
+                scrollTop: $('.section-download').offset().top
+            }, 1000);
+        }
+    }
+</script>
 
-<div id="dropDownSelect1"></div>
-
-<!--===============================================================================================-->
-<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
-<!--===============================================================================================-->
-<script src="vendor/animsition/js/animsition.min.js"></script>
-<!--===============================================================================================-->
-<script src="vendor/bootstrap/js/popper.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-<!--===============================================================================================-->
-<script src="vendor/select2/select2.min.js"></script>
-<!--===============================================================================================-->
-<script src="vendor/daterangepicker/moment.min.js"></script>
-<script src="vendor/daterangepicker/daterangepicker.js"></script>
-<!--===============================================================================================-->
-<script src="vendor/countdowntime/countdowntime.js"></script>
-<!--===============================================================================================-->
-<script src="js/main.js"></script>
 
 </body>
 </html>
