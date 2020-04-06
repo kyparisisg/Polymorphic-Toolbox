@@ -8,7 +8,7 @@ Form to uploads file from server.
 <!--
 EXAMPLE FORM FOR POST ON OUR APIs
 
-<%@taglib uri = "http://www.springframework.org/tags/form" prefix = "form"%>
+<%--<%@taglib uri = "http://www.springframework.org/tags/form" prefix = "form"%>--%>
 <html>
 <head>
 <title>Upload File - Transfer Operation</title>
@@ -16,19 +16,19 @@ EXAMPLE FORM FOR POST ON OUR APIs
 
 <body>
 <h2>Upload File</h2>
-    <form:form method = "POST" action = "/aws/upload">
-        <table>
-        <tr>
-        <td><form:label path = "file">File</form:label></td>
-        <td><form:input path = "file" /></td>
-        </tr>
-        <tr>
-        <td colspan = "2">
-        <input type = "submit" value = "Submit"/>
-        </td>
-        </tr>
-        </table>
-    </form:form>
+<%--    <form:form method = "POST" action = "/aws/upload">--%>
+<%--        <table>--%>
+<%--        <tr>--%>
+<%--        <td><form:label path = "fileName">File</form:label></td>--%>
+<%--        <td><form:input path = "fileName" /></td>--%>
+<%--        </tr>--%>
+<%--        <tr>--%>
+<%--        <td colspan = "2">--%>
+<%--        <input type = "submit" value = "Submit"/>--%>
+<%--        </td>--%>
+<%--        </tr>--%>
+<%--        </table>--%>
+<%--    </form:form>--%>
 </body>
 
 </html>

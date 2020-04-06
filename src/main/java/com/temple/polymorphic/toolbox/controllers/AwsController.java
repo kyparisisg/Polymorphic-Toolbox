@@ -24,8 +24,13 @@ public class AwsController {
     @RequestMapping(value = "upload", method = RequestMethod.GET)
     public ModelAndView uploadFile(){
 
-        return new ModelAndView("aws/uploadFile.");
+        return new ModelAndView("aws/uploadFile","command", new FileInfoDto());
     }
+//    @RequestMapping(value = "upload", method = RequestMethod.GET)
+//    public String uploadFile(){
+//
+//        return "aws/uploadFile";
+//    }
 
     @RequestMapping(value = "upload", method = RequestMethod.POST)
     public String uploadFileUsingAwsApi(FileInfoDto fileInfoDto, Model model){

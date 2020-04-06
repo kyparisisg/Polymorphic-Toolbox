@@ -7,6 +7,10 @@ public class FileInfoDto {
     private String user;    // how can I make this visible to me when the user logs in.
     private String encryption_token;
 
+    public FileInfoDto() {
+
+    }
+
     public FileInfoDto(String file_name) {
         this.file_name = file_name;
     }
