@@ -31,9 +31,6 @@ public class UsersController {
     private UserService userService;
 
     @Autowired
-    private PermissionService permissionService;
-
-    @Autowired
     private ServerService serverService;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserService.class);

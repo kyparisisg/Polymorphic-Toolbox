@@ -28,23 +28,9 @@ CREATE TABLE Permissions(
     username_cred VARCHAR(50),
     password_cred VARCHAR(50),
     valid INT DEFAULT 0,
---     ,PRIMARY KEY (user_id, server_id)
     CONSTRAINT fk_user FOREIGN KEY(user_id) REFERENCES Users (id),
     CONSTRAINT fk_server FOREIGN KEY(server_id) REFERENCES Servers (id)
 );
--- ALTER TABLE Permissions ADD FOREIGN KEY (user_id) REFERENCES Users(id);
--- ALTER TABLE Permissions ADD FOREIGN KEY (server_id) REFERENCES Servers(id);
-
-/*CREATE TABLE Specific_Creds(
-    user_id INT NOT NULL,
-    server_id INT NOT NULL,
-    username_cred VARCHAR(50)  NOT NULL,
-    password_cred VARCHAR(50) NOT NULL,
-    valid INT DEFAULT 0,
-    PRIMARY KEY (user_id, server_id)
-);
-ALTER TABLE Specific_Creds ADD FOREIGN KEY (user_id) REFERENCES Users(id);
-ALTER TABLE Specific_Creds ADD FOREIGN KEY (server_id) REFERENCES Servers(id);*/
 
 CREATE TABLE Transactions(
     id INT PRIMARY KEY AUTO_INCREMENT,
