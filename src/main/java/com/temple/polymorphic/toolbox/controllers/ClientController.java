@@ -19,6 +19,6 @@ public class ClientController {
     @RequestMapping(value = "/transfer" , method = RequestMethod.GET)
     public ModelAndView getViewForTransfer(){
 
-        return new ModelAndView("/client/")
+        return new ModelAndView("/client/");
     }
 }
