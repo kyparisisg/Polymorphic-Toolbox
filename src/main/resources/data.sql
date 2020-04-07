@@ -1,8 +1,8 @@
 INSERT INTO Users (first_name, last_name, email, password, role, register_date)
-VALUES ('admin', 'test', 'test@test.com', 'admin', 'admin', NOW() );
+VALUES ('Giannis', 'K', 'tuk12920@temple.edu', 'admin', 'admin', NOW() );
 
 INSERT INTO Users (first_name, last_name, email, password, role, register_date)
-VALUES ('user', 'lastname', 'user@test.com', 'user', 'user', SYSDATE() );
+VALUES ('Matthew', 'Jahn', 'tug68805@temple.edu', 'user', 'user', SYSDATE() );
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 

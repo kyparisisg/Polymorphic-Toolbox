@@ -39,8 +39,31 @@
                     <td>${user.email}</td>
                     <td>${user.role}</td>
                     <td><form:form name="edit" method="GET" action="/api/users/update/${user.email}"><input type="submit" value="Edit"></form:form></td>
-                    <td><form:form name="permissions" method="GET" action="/api/users/permissions/${user.email}"><input type="submit" value="Permissions"></form:form></td>
+                    <td><form:form name="permissions" method="GET" action="/api/users/permissions/get/${user.email}"><input type="submit" value="Permissions"></form:form></td>
                     <td><form:form name="delete" method="GET" action="/api/users/delete/${user.email}"><input type="submit" value="Delete"></form:form></td>
+                </tr>
+            </c:forEach>
+            </tr>
+        </table>
+        <table class="table table-striped table-responsive-md">
+            <thead>
+            <tr>
+                <<th>User Email</th>
+                <th>Server Name</th>
+                <th>Creation Date</th>
+                <th>Username</th>
+                <th>Password</th>
+                <th>Valid</th>
+            </tr>
+            </thead>
+            <c:forEach items="${perms}" var="perm">
+                <tr>
+                    <td>${perm.user}</td>
+                    <td>${perm.server}</td>
+                    <td>${perm.creationDate}</td>
+                    <td>${perm.usernameCred}</td>
+                    <td>${perm.passwordCred}</td>
+                    <td>${perm.valid}</td>
                 </tr>
             </c:forEach>
             </tr>

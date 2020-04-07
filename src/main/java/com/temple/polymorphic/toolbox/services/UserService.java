@@ -1,8 +1,11 @@
 package com.temple.polymorphic.toolbox.services;
 
 import com.temple.polymorphic.toolbox.UserRepository;
+import com.temple.polymorphic.toolbox.PermissionRepository;
 import com.temple.polymorphic.toolbox.models.User;
 import com.temple.polymorphic.toolbox.dto.UserDto;
+import com.temple.polymorphic.toolbox.models.Permissions;
+import com.temple.polymorphic.toolbox.dto.PermissionsDto;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +16,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -24,6 +28,9 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private PermissionRepository permissionsRepository;
 
     @Autowired
     private JavaMailSender javaMailSender;
@@ -163,5 +170,14 @@ public class UserService {
     private String generateRndPassword(){
         //not implemented yet
         return "password";
+    }
+
+    public List<PermissionsDto> getPermissions(String email) {
+        List<Permissions> perms = permissionsRepository.findAllByEmail(email);
+        ArrayList<PermissionsDto> permsDto = new ArrayList<PermissionsDto>();
+        for(Permissions perm : perms) {
+            permsDto.add(new PermissionsDto(perm.getUser(), perm.getServer(), perm.getCreationDate(), perm.getUsernameCred(), perm.getPasswordCred(), perm.getValid()));
+        }
+        return permsDto;
     }
 }

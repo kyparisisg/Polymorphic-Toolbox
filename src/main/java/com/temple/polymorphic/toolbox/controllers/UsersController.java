@@ -15,7 +15,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.security.Permission;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -155,8 +155,21 @@ public class UsersController {
         return "users/requestSuccess";
     }
 
+    @RequestMapping(value = "/permissions/get/{email}", method = RequestMethod.GET)
+    public String getPermissions(@PathVariable("email") String email, Model model){
+        List<PermissionsDto> perms = getPermissions(email);
+        model.addAttribute("perms", perms);
+        return "users/get";
+    }
+
+    public List<PermissionsDto> getPermissions(@ModelAttribute String email) {
+        return userService.getPermissions(email);
+    }
+
+
+
     //For the User's Permission
-    @RequestMapping(value = "/permissions/{email}", method = RequestMethod.GET)
+    @RequestMapping(value = "/permissions/set/{email}", method = RequestMethod.GET)
     public ModelAndView setPermissions(@PathVariable("email") String email, Model model){
         //see if user exists
         PermissionsDto up = new PermissionsDto();   //use permissionService to return existing permissions if any
@@ -172,7 +185,7 @@ public class UsersController {
         return new ModelAndView("users/setPermissions","command", new PermissionsDto());
     }
 
-    @RequestMapping(value = "/permissions", method = RequestMethod.POST)
+    @RequestMapping(value = "/permissions/set", method = RequestMethod.POST)
     public String setPermissions(@ModelAttribute String email, @ModelAttribute String ip, Model model){
         //verify User's existence by email
 
@@ -194,7 +207,7 @@ public class UsersController {
         return "users/requestSuccess";
     }
 
-    @RequestMapping(value = "/permissions", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/permissions/delete", method = RequestMethod.DELETE)
     public String deletePermissions(@ModelAttribute String email, @ModelAttribute String ip, Model model){
         //verify User's existence by email
 

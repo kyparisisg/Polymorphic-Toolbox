@@ -191,4 +191,9 @@ public class Server {
     public void setServerTransactions(Set<Transactions> serverTransactions) {
         this.serverTransactions = serverTransactions;
     }*/
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

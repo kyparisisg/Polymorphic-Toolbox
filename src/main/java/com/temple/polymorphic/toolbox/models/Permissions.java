@@ -11,7 +11,7 @@ public class Permissions implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long permission_id;
+    private Long id;
 
 //    @Id
     @ManyToOne

@@ -162,4 +162,9 @@ public class User {
 //    public void setUserTransactions(Set<Transactions> userTransactions) {
 //        this.userTransactions = userTransactions;
 //    }
+
+    @Override
+    public String toString() {
+        return firstName + " " + lastName;
+    }
 }
