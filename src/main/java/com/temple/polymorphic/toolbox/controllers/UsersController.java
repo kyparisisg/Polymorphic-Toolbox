@@ -170,9 +170,6 @@ public class UsersController {
         List<PermissionsDto> perms = getPermissions(email);
         model.addAttribute("perms", perms);
         model.addAttribute("email", email);
-        model.addAttribute("userId", userService.getUser(email).getId());
-        if(perms.size() > 0)
-            model.addAttribute("serverId", perms.get(0).getServer().getId());
 
         return "users/viewPerm";
     }

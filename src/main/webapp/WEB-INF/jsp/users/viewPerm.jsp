@@ -40,7 +40,7 @@
                     <td>${perm.usernameCred}</td>
                     <td>${perm.passwordCred}</td>
                     <td>${perm.valid}</td>
-                    <td><form:form name="delete" method="GET" action="/api/users/permissions/delete/${userId}/${serverId}"><input type="submit" value="deletePerm"></form:form></td>
+                    <td><form:form name="delete" method="GET" action="/api/users/permissions/delete/${perm.user.id}/${perm.server.id}"><input type="submit" value="deletePerm"></form:form></td>
 
                 </tr>
             </c:forEach>
