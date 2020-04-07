@@ -229,7 +229,7 @@ public class UsersController {
         return "users/requestSuccess";
     }
 
-    @RequestMapping(value = "/permissions/delete/{userId}/{serverId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/permissions/delete/{userId}+{serverId}", method = RequestMethod.POST)
     public String deletePermissions(@PathVariable("userId")Long userId, @PathVariable("serverId") Long serverId, Model model){
         //verify User's existence by email
         UserDto us;

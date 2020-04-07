@@ -12,6 +12,14 @@ public interface PermissionRepository extends JpaRepository<Permissions, Long>{
             " INNER JOIN p.user u" +
             " WHERE u.email=?1";
 
+    public static final String FIND_BY_IDS= "SELECT p FROM Permissions p" +
+            " INNER JOIN p.user u" +
+            " INNER JOIN p.server s" +
+            " WHERE u.id=?1 AND s.id=?2";
+
     @Query(FIND_ALL_BY_EMAIL)
     public List<Permissions> findAllByEmail(String email);
+
+    @Query(FIND_BY_IDS)
+    public Permissions findByIds(Long user_id, Long server_id);
 }

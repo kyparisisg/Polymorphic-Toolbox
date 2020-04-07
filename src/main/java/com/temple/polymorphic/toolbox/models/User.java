@@ -36,7 +36,7 @@ public class User {
     private Date lastLogin;
 
 //was not working
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
     private Set<Permissions> userPermissions;
 
     //@OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL)
@@ -139,7 +139,6 @@ public class User {
         this.registerDate = date;
     }
 
-//was not working
     public Set<Permissions> getUserPermissions() {
         return userPermissions;
     }
