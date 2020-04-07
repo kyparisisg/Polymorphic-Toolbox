@@ -38,7 +38,7 @@ public class UserService {
 
     public void setUserRepository(UserRepository userRepository) { this.userRepository = userRepository; }
 
-    public void setPermissionRepository(PermissionRepository permissionRepository) { this.permissionRepository = permissionRepository; }
+    public void setPermissionsRepository(PermissionRepository permissionRepository) { this.permissionsRepository = permissionRepository; }
 
     public List<UserDto> getUsers() {
         Type listType = new TypeToken<List<UserDto>>() {}.getType();
@@ -183,4 +183,14 @@ public class UserService {
         }
         return permsDto;
     }
+
+    public void addPerm(String email, Long server_id, String username, String password){
+        //add new permission to the permissions table
+    }
+
+    public void deletePerm(Long id, Long serverId){
+        //delete permission to the permissions table for the user with userId and serverId as above
+
+    }
+
 }

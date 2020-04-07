@@ -4,7 +4,8 @@ import com.temple.polymorphic.toolbox.dto.PermOperation;
 import com.temple.polymorphic.toolbox.dto.PermissionsDto;
 import com.temple.polymorphic.toolbox.dto.ServerDto;
 import com.temple.polymorphic.toolbox.dto.UserDto;
-import com.temple.polymorphic.toolbox.services.PermissionService;
+import com.temple.polymorphic.toolbox.models.Server;
+import com.temple.polymorphic.toolbox.models.User;
 import com.temple.polymorphic.toolbox.services.ServerService;
 import com.temple.polymorphic.toolbox.services.UserService;
 import org.slf4j.Logger;
@@ -168,7 +169,12 @@ public class UsersController {
     public String getPermissions(@PathVariable("email") String email, Model model){
         List<PermissionsDto> perms = getPermissions(email);
         model.addAttribute("perms", perms);
-        return "users/get";
+        model.addAttribute("email", email);
+        model.addAttribute("userId", userService.getUser(email).getId());
+        if(perms.size() > 0)
+            model.addAttribute("serverId", perms.get(0).getServer().getId());
+
+        return "users/viewPerm";
     }
 
     public List<PermissionsDto> getPermissions(@ModelAttribute String email) {
@@ -178,7 +184,7 @@ public class UsersController {
 
 
     //For the User's Permission
-    @RequestMapping(value = "/permissions/{email}", method = RequestMethod.GET)
+    @RequestMapping(value = "/permissions/add/{email}", method = RequestMethod.GET)
     public ModelAndView setPermissions(@PathVariable("email") String email, Model model){
         //see if user exists
         UserDto us = userService.getUser(email);
@@ -190,10 +196,10 @@ public class UsersController {
         List<ServerDto> serversList = serverService.getServers();
         model.addAttribute("list", serversList);
 
-        return new ModelAndView("users/setPermissions","command", new PermOperation());
+        return new ModelAndView("users/addPermissions","command", new PermOperation());
     }
 
-    @RequestMapping(value = "/permissions", method = RequestMethod.POST)
+    @RequestMapping(value = "/permissions/add", method = RequestMethod.POST)
     public String setPermissions(@ModelAttribute PermOperation perm, Model model){
         //verify User's existence by email
         UserDto us;
@@ -204,15 +210,15 @@ public class UsersController {
 
         }
         //verify Server's existence by IP
-        ServerDto s = serverService.getServerById(perm.getServerId());
+        ServerDto s;
         try{
             s = serverService.getServerById(perm.getServerId());
         }catch (ResponseStatusException e){
             return this.handleRequest(e, model, "Failed to set new permission for User, server id does not exist. Please try again");
 
         }
-        //set permission to access server with IP, for the given User (email), if permission does not already exist
-
+        //set permission to access server with id, for the given User (email), if permission does not already exist
+        userService.addPerm(perm.getEmail(), perm.getServerId(), perm.getUsername(), perm.getPassword());
         //return success or fail status by adding attributes to the model
 
         //return user that the permissions were assigned
@@ -226,26 +232,26 @@ public class UsersController {
         return "users/requestSuccess";
     }
 
-    @RequestMapping(value = "/permissions", method = RequestMethod.DELETE)
-    public String deletePermissions(@ModelAttribute  PermOperation perm, Model model){
+    @RequestMapping(value = "/permissions/delete/{userId}/{serverId}", method = RequestMethod.GET)
+    public String deletePermissions(@PathVariable("userId")Long userId, @PathVariable("serverId") Long serverId, Model model){
         //verify User's existence by email
         UserDto us;
         try{
-            us = userService.getUser(perm.getEmail());
+            us = userService.getUserById(userId);
         }catch (ResponseStatusException e){
             return this.handleRequest(e, model, "Failed to set new permission for User. Please try again");
 
         }
         //verify Server's existence by IP
-        ServerDto s = serverService.getServerById(perm.getServerId());
+        ServerDto s;
         try{
-            s = serverService.getServerById(perm.getServerId());
+            s = serverService.getServerById(serverId);
         }catch (ResponseStatusException e){
             return this.handleRequest(e, model, "Failed to set new permission for User, server id does not exist. Please try again");
 
         }
         //delete permission to access server with IP, for the given User (email), if permission exists
-
+        userService.deletePerm(userId, serverId);
         //return success or fail status by adding attributes to the model
 
         //return user that the permissions were revoked
@@ -255,7 +261,7 @@ public class UsersController {
         model.addAttribute("lastName", us.getLastName());
         model.addAttribute("email", us.getEmail());
         model.addAttribute("role", us.getRole());
-        model.addAttribute("request", "Permissions access on server: "+ perm.getIp() +", revoked for user.");
+        model.addAttribute("request", "Permissions access on server: "+ serverId +", revoked for user.");
 
         return "users/requestSuccess";
     }

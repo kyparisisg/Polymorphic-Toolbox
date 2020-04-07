@@ -1,6 +1,7 @@
 <%@taglib uri = "http://www.springframework.org/tags/form" prefix = "form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:useBean id="server" class="com.temple.polymorphic.toolbox.dto.ServerDto"/>
+<jsp:useBean id="perm" class="com.temple.polymorphic.toolbox.dto.PermOperation"/>
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
@@ -17,7 +18,7 @@
 <body>
 <h2>Set User's Permissions</h2>
 <h3>(email must be the same as one in the db to update the rest information)</h3>
-<form:form method = "POST" action = "/api/users/permissions">
+<form:form method = "POST" action = "/api/users/permissions/add">
 
     <div class="container my-2">
 
@@ -51,13 +52,17 @@
                 <td><form:input path = "email" type="hidden" value="${email}"/></td>
             </tr>
 
-<%--            <tr>--%>
-<%--                <td><form:label path = "ip">IPv4</form:label></td>--%>
-<%--                <td><form:input path = "ip"/></td>--%>
-<%--            </tr>--%>
             <tr>
                 <td><form:label path = "serverId">Server ID</form:label></td>
                 <td><form:input path = "serverId"/></td>
+            </tr>
+            <tr>
+                <td><form:label path = "username">Username</form:label></td>
+                <td><form:input path = "username"/></td>
+            </tr>
+            <tr>
+                <td><form:label path = "password">Password</form:label></td>
+                <td><form:input path = "password" type="password"/></td>
             </tr>
 
             <tr>

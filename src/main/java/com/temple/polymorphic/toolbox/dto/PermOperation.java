@@ -4,8 +4,9 @@ public class PermOperation {
 
     private String email;
     private String ip;
-    private String operation;
     private Long serverId;
+    private String username;
+    private String password;
 
     public PermOperation() {
         super();
@@ -27,11 +28,11 @@ public class PermOperation {
         this.ip =  ip;
     }
 
-
-    public PermOperation(String email, String ip, String operation) {
+    public PermOperation(String email, String ip, String username, String password) {
         this.email = email;
         this.ip = ip;
-        this.operation = operation;
+        this.username = username;
+        this.password = password;
     }
 
     public String getEmail() {
@@ -50,19 +51,27 @@ public class PermOperation {
         this.ip = ip;
     }
 
-    public String getOperation() {
-        return operation;
-    }
-
-    public void setOperation(String operation) {
-        this.operation = operation;
-    }
-
     public Long getServerId() {
         return serverId;
     }
 
     public void setServerId(Long serverId) {
         this.serverId = serverId;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

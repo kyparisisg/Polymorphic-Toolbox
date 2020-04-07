@@ -45,29 +45,6 @@
             </c:forEach>
             </tr>
         </table>
-        <table class="table table-striped table-responsive-md">
-            <thead>
-            <tr>
-                <<th>User Email</th>
-                <th>Server Name</th>
-                <th>Creation Date</th>
-                <th>Username</th>
-                <th>Password</th>
-                <th>Valid</th>
-            </tr>
-            </thead>
-            <c:forEach items="${perms}" var="perm">
-                <tr>
-                    <td>${perm.user}</td>
-                    <td>${perm.server}</td>
-                    <td>${perm.creationDate}</td>
-                    <td>${perm.usernameCred}</td>
-                    <td>${perm.passwordCred}</td>
-                    <td>${perm.valid}</td>
-                </tr>
-            </c:forEach>
-            </tr>
-        </table>
     </div>
     <tr>
         <td>Return to :</td>
