@@ -2,7 +2,7 @@ package com.temple.polymorphic.toolbox.services;
 
 import com.temple.polymorphic.toolbox.PermissionRepository;
 import com.temple.polymorphic.toolbox.UserRepository;
-import com.temple.polymorphic.toolbox.PermissionRepository;
+import com.temple.polymorphic.toolbox.ServerRepository;
 import com.temple.polymorphic.toolbox.models.User;
 import com.temple.polymorphic.toolbox.dto.UserDto;
 import com.temple.polymorphic.toolbox.models.Permissions;
@@ -29,6 +29,9 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private ServerRepository serverRepository;
 
     @Autowired
     private PermissionRepository permissionsRepository;
@@ -143,7 +146,7 @@ public class UserService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
 
         UserRepository userRepository = applicationContext.getBean(UserRepository.class);
-        ModelMapper modelmapper = new ModelMapper();
+//        ModelMapper modelmapper = new ModelMapper();
 //        User user = modelmapper.map(userdto, User.class);
         if(userRepository.findByEmail(email)!=null){
             //user found so delete existing user
@@ -184,13 +187,33 @@ public class UserService {
         return permsDto;
     }
 
-    public void addPerm(String email, Long server_id, String username, String password){
-        //add new permission to the permissions table
+    public void addPerm(String email, Long serverId, String username, String password){
+        if(email == null || !(email.contains("@")) || serverId == null)
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+
+        PermissionRepository permissionsRepository= applicationContext.getBean(PermissionRepository.class);
+
+        Permissions newPerm;
+        if(username == null || username.isEmpty() || password == null || password.isEmpty()){
+            newPerm = new Permissions(userRepository.findByEmail(email), serverRepository.findById2(serverId));
+        }
+        else{
+            newPerm = new Permissions(userRepository.findByEmail(email), serverRepository.findById2(serverId), username, password);
+        }
+        permissionsRepository.save(newPerm);
     }
 
-    public void deletePerm(Long id, Long serverId){
-        //delete permission to the permissions table for the user with userId and serverId as above
+    public void deletePerm(Long userId, Long serverId){
+        if(userId == null || serverId == null)
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
 
+        PermissionRepository permissionsRepository= applicationContext.getBean(PermissionRepository.class);
+
+        if(permissionsRepository.findByIds(userId, serverId) != null){
+            permissionsRepository.deleteById(permissionsRepository.findByIds(userId, serverId).getId());
+            return;
+        }
+        throw new ResponseStatusException(HttpStatus.CONFLICT);
     }
 
 }

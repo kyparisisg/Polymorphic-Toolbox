@@ -43,7 +43,7 @@ public class Permissions implements Serializable {
         this.setCreationDate(new Date());   //for current datetime
     }
 
-    public Permissions(User user, Server server,  String usernameCred, String passwordCred) {
+    public Permissions(User user, Server server, String usernameCred, String passwordCred) {
         this.user = user;
         this.server = server;
         this.setCreationDate(new Date());   //for current datetime
@@ -98,5 +98,13 @@ public class Permissions implements Serializable {
 
     public void setValid(int valid) {
         this.valid = valid;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

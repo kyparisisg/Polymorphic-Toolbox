@@ -34,12 +34,8 @@ public class Server {
     @Column(name="key_location")
     private String keyLocation;
 
-//was not working
-//    @OneToMany(fetch = FetchType.EAGER,mappedBy = "server", cascade = CascadeType.ALL)
-//    private Set<Permissions> serverPermission;
-
-    //@OneToMany(fetch = FetchType.EAGER,mappedBy = "server", cascade = CascadeType.ALL)
-    //private Set<Specific_Creds> serverCreds;
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "server")
+    private Set<Permissions> serverPermission;
 
     //@OneToMany(fetch = FetchType.EAGER,mappedBy = "server", cascade = CascadeType.ALL)
     //private Set<Transactions> serverTransactions;
@@ -67,8 +63,7 @@ public class Server {
         this.health = 0; // Default value is 0 as the server has not been tested if it is online yet.
         this.registerDate = new Date();
         this.keyLocation = keyLocation;
-        //this.serverPermission = serverPermission;
-        //this.serverCreds = serverCreds;
+        this.serverPermission = serverPermission;
         //this.serverTransactions = serverTransactions;
     }
 
@@ -93,8 +88,7 @@ public class Server {
         this.health = 0; // Default value is 0 as the server has not been tested if it is online yet.
         this.registerDate = new Date();
         this.keyLocation = keyLocation;
-        //this.serverPermission = serverPermission;
-        //this.serverCreds = serverCreds;
+        this.serverPermission = serverPermission;
         //this.serverTransactions = serverTransactions;
     }
 
@@ -168,23 +162,15 @@ public class Server {
         this.registerDate = date;
     }
 
-//    public Set<Permissions> getServerPermission() {
-//        return serverPermission;
-//    }
-//
-//    public void setServerPermission(Set<Permissions> serverPermission) {
-//        this.serverPermission = serverPermission;
-//    }
-
-    /*public Set<Specific_Creds> getServerCreds() {
-        return serverCreds;
+    public Set<Permissions> getServerPermission() {
+        return serverPermission;
     }
 
-    public void setServerCreds(Set<Specific_Creds> serverCreds) {
-        this.serverCreds = serverCreds;
+    public void setServerPermission(Set<Permissions> serverPermission) {
+        this.serverPermission = serverPermission;
     }
 
-    public Set<Transactions> getServerTransactions() {
+    /*public Set<Transactions> getServerTransactions() {
         return serverTransactions;
     }
 
