@@ -129,6 +129,7 @@
                                     <th>Email</th>
                                     <th>Role</th>
                                     <th>Edit</th>
+                                    <th>Permissions</th>
                                     <th>Delete</th>
                                 </tr>
                                 </thead>
@@ -140,6 +141,7 @@
                                         <td>${user.email}</td>
                                         <td>${user.role}</td>
                                         <td><form:form name="edit" method="GET" action="/api/users/update/${user.email}"><input type="submit" value="Edit"></form:form></td>
+                                        <td><form:form name="permissions" method="GET" action="/api/users/permissions/get/${user.email}"><input type="submit" value="Permissions"></form:form></td>
                                         <td><form:form name="delete" method="GET" action="/api/users/delete/${user.email}"><input type="submit" value="Delete"></form:form></td>
                                     </tr>
                                 </c:forEach>
