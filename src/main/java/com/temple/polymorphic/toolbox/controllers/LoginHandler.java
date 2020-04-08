@@ -19,6 +19,11 @@ public class LoginHandler {
         return "navigate";
     }
 
+    @RequestMapping(value = "home", method = RequestMethod.GET)
+    public String index2(Model model) {
+        return "navigate";
+    }
+
     @RequestMapping(value = "client", method = RequestMethod.GET)
     public String client(Model model) {
         return "clientDashboard";

@@ -119,7 +119,7 @@
                                 <img class="card-img" src="/images/square1.png" alt="Card image">
                                 <h4 class="card-title">Search</h4>
                             </div>
-                            <form:form class = "form" method = "POST" action = "/api/users/save">
+                            <form:form class = "form" method = "POST" action = "/api/users/get">
                                 <div class="card-body">
 
                                     <div class="input-group">
@@ -128,52 +128,11 @@
                                                 <i class="tim-icons icon-single-02"></i>
                                             </div>
                                         </div>
-                                            <%--                                    <form:label type="text" id="datepicker" class="form-control datepicker" value="10/05/2016" data-datepicker-color="primary" path = "firstName">First Name</form:label></td>--%>
-                                            <%--                                    <form:input path = "firstName"/></td>--%>
                                         <form:input path = "email" type="text" class="form-control" placeholder="email"/>
                                     </div>
-                                        <%--                                <div class="input-group">--%>
-                                        <%--                                    <div class="input-group-prepend">--%>
-                                        <%--                                        <div class="input-group-text">--%>
-                                        <%--                                            <i class="tim-icons icon-email-85"></i>--%>
-                                        <%--                                        </div>--%>
-                                        <%--                                    </div>--%>
-                                        <%--                                        &lt;%&ndash;                                    <td><form:label path = "lastName">Last Name</form:label></td>&ndash;%&gt;--%>
-                                        <%--                                        &lt;%&ndash;                                    <td><form:input path = "lastName" /></td>&ndash;%&gt;--%>
-                                        <%--                                    <form:input path = "lastName"  type="text" placeholder="lastName" class="form-control"/>--%>
-                                        <%--                                </div>--%>
-                                        <%--                                <div class="input-group">--%>
-                                        <%--                                    <div class="input-group-prepend">--%>
-                                        <%--                                        <div class="input-group-text">--%>
-                                        <%--                                            <i class="tim-icons icon-lock-circle"></i>--%>
-                                        <%--                                        </div>--%>
-                                        <%--                                    </div>--%>
-                                        <%--                                        &lt;%&ndash;                                    <td><form:label path = "email">Email</form:label></td>&ndash;%&gt;--%>
-                                        <%--                                        &lt;%&ndash;                                    <td><form:input path = "email" /></td>&ndash;%&gt;--%>
-                                        <%--                                    <form:input path = "email" type="text" class="form-control" placeholder="email"/>--%>
-                                        <%--                                </div>--%>
-                                        <%--                                <div class="input-group">--%>
-                                        <%--                                    <div class="input-group-prepend">--%>
-                                        <%--                                        <div class="input-group-text">--%>
-                                        <%--                                            <i class="tim-icons icon-lock-circle"></i>--%>
-                                        <%--                                        </div>--%>
-                                        <%--                                    </div>--%>
-                                        <%--                                        &lt;%&ndash;                                    <td><form:label path = "role">Role</form:label></td>&ndash;%&gt;--%>
-                                        <%--                                        &lt;%&ndash;                                    <td><form:input path = "role" /></td>&ndash;%&gt;--%>
-                                        <%--                                    <form:input path = "role" type="text" class="form-control" placeholder="role"/>--%>
-                                        <%--                                </div>--%>
-                                        <%--                                <div class="form-check text-left">--%>
-                                        <%--                                    <label class="form-check-label">--%>
-                                        <%--                                        <input class="form-check-input" type="checkbox">--%>
-                                        <%--                                        <span class="form-check-sign"></span>--%>
-                                        <%--                                        I agree to the--%>
-                                        <%--                                        <a href="javascript:void(0)">terms and conditions</a>.--%>
-                                        <%--                                    </label>--%>
-                                        <%--                                </div>--%>
-
                                 </div>
                                 <div class="card-footer">
-                                    <a type = "submit" class="btn btn-info btn-round btn-lg"> Submit</a>
+                                    <input type = "submit" value="Search" class="btn btn-info btn-round btn-lg">
                                 </div>
                             </form:form>
                         </div>
@@ -261,42 +220,6 @@
         </div>
     </footer>
 </div>
-
-
-
-
-<%--<h2>User Information</h2>--%>
-<%--<form:form method = "POST" action = "/api/users/save">--%>
-<%--    <table>--%>
-<%--        <tr>--%>
-<%--            <div class="datepicker-container">--%>
-<%--                <div class="form-group">--%>
-<%--                    <input type="text" id="datepicker" class="form-control datepicker" value="10/05/2016" data-datepicker-color="primary">--%>
-<%--                </div>--%>
-<%--            </div>--%>
-<%--            <td><form:label type="text" id="datepicker" class="form-control datepicker" value="10/05/2016" data-datepicker-color="primary" path = "firstName">First Name</form:label></td>--%>
-<%--            <td><form:input path = "firstName" /></td>--%>
-<%--        </tr>--%>
-<%--        <tr>--%>
-<%--            <td><form:label path = "lastName">Last Name</form:label></td>--%>
-<%--            <td><form:input path = "lastName" /></td>--%>
-<%--        </tr>--%>
-<%--        <tr>--%>
-<%--            <td><form:label path = "email">Email</form:label></td>--%>
-<%--            <td><form:input path = "email" /></td>--%>
-<%--        </tr>--%>
-<%--        <tr>--%>
-<%--            <td><form:label path = "role">Role</form:label></td>--%>
-<%--            <td><form:input path = "role" /></td>--%>
-<%--        </tr>--%>
-<%--        <tr>--%>
-<%--            <td colspan = "2">--%>
-<%--                <input type = "submit" value = "Submit"/>--%>
-<%--            </td>--%>
-<%--        </tr>--%>
-<%--    </table>--%>
-<%--</form:form>--%>
-
 
 <!--   Core JS Files   -->
 <script src="/js/core/jquery.min.js" type="text/javascript"></script>

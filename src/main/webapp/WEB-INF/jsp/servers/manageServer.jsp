@@ -25,7 +25,7 @@
 <nav class="navbar navbar-expand-lg fixed-top navbar-transparent " color-on-scroll="100">
     <div class="container">
         <div class="navbar-translate">
-            <a class="navbar-brand" href="/api/admin" rel="tooltip"  data-placement="bottom" target="_blank">
+            <a class="navbar-brand" href="/home" rel="tooltip"  data-placement="bottom" target="_blank">
                 <span>POLYMORPHIC TOOLBOX</span>
             </a>
             <button class="navbar-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
@@ -108,39 +108,37 @@
         <div class="squares square7"></div>
         <div class="container">
             <div class="content-center brand">
-                <h1 class="h1-seo">Manage Users</h1>
+                <h1 class="h1-seo">Manage Servers</h1>
                 <div class="row justify-content-md-center">
-                    <div class="text-center col-md-12 col-lg-8">
-                        <a href="/api/users/all" class="btn btn-primary btn-round btn-lg" role="button">
-                            Add User
-                        </a>
-                        <%--                        <a href="" target="_blank" class="btn btn-primary btn-lg btn-simple btn-round" role="button">--%>
-                        <%--                               --%>
-                        <%--                        </a>--%>
-                    </div>
-                    <div class="text-center col-md-12 col-lg-8">
-                        <a href="/api/users/get" class="btn btn-primary btn-round btn-lg" role="button">
-                            View All Servers
-                        </a>
 
-                    </div>
                     <div class="text-center col-md-12 col-lg-8">
-                        <a href="/api/users/save" class="btn btn-primary btn-round btn-lg" role="button">
-                            Save Server
+                        <a href="/api/servers/all" class="btn btn-primary btn-round btn-lg" role="button">
+                            View All
                         </a>
                     </div>
                     <div class="text-center col-md-12 col-lg-8">
-                        <a href="/api/users/update" class="btn btn-primary btn-round btn-lg" role="button">
+                        <a href="/api/servers/get" class="btn btn-primary btn-round btn-lg" role="button">
+                            Search Server
+                        </a>
+                    </div>
+
+                    <div class="text-center col-md-12 col-lg-8">
+                        <a href="/api/servers/save" class="btn btn-primary btn-round btn-lg" role="button">
+                            Add Server
+                        </a>
+                    </div>
+                    <div class="text-center col-md-12 col-lg-8">
+                        <a href="/api/servers/update" class="btn btn-primary btn-round btn-lg" role="button">
                             Update Server
                         </a>
                     </div>
                     <div class="text-center col-md-12 col-lg-8">
-                        <a href="/api/users/delete" class="btn btn-primary btn-round btn-lg" role="button">
+                        <a href="/api/servers/delete" class="btn btn-primary btn-round btn-lg" role="button">
                             Delete Server
                         </a>
                     </div>
                     <div class="text-center col-md-12 col-lg-8">
-                        <a href="/api/users/admin" class="btn btn-primary btn-round btn-lg" role="button">
+                        <a href="/api/admin" class="btn btn-primary btn-round btn-lg" role="button">
                             Go back
                         </a>
                     </div>

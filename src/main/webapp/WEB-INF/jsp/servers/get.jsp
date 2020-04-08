@@ -115,7 +115,7 @@
         <div class="squares square7"></div>
         <div class="container">
             <div class="content-center brand">
-                <h1 class="h1-seo">View All Users</h1>
+                <h1 class="h1-seo">View All Server</h1>
                 <%--                <div class="row justify-content-md-center">--%>
                 <%--                    <div class="container my-2">--%>
 
