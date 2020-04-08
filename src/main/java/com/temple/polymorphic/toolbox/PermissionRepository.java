@@ -1,9 +1,13 @@
 package com.temple.polymorphic.toolbox;
 
+import com.temple.polymorphic.toolbox.models.User;
 import com.temple.polymorphic.toolbox.models.Permissions;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 
 @Repository
@@ -17,9 +21,24 @@ public interface PermissionRepository extends JpaRepository<Permissions, Long>{
             " INNER JOIN p.server s" +
             " WHERE u.id=?1 AND s.id=?2";
 
+    public static final String FIND_USER_BY_EMAIL = "SELECT u FROM Permissions p" +
+            " INNER JOIN p.user u" +
+            " WHERE u.email=?1";
+
+    public static final String DELETE_BY_USER="DELETE FROM Permissions p" +
+            " WHERE p.user=?1";
+
     @Query(FIND_ALL_BY_EMAIL)
     public List<Permissions> findAllByEmail(String email);
 
     @Query(FIND_BY_IDS)
     public Permissions findByIds(Long user_id, Long server_id);
+
+    @Query(FIND_USER_BY_EMAIL)
+    public User findUserByEmail(String email);
+
+    @Transactional
+    @Modifying
+    @Query(DELETE_BY_USER)
+    public void deleteByUser(User user);
 }

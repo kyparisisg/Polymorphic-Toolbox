@@ -145,16 +145,22 @@ public class UserService {
         if( email.isEmpty() || !(email.contains("@")) )
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
 
+        PermissionRepository permissionsRepository= applicationContext.getBean(PermissionRepository.class);
         UserRepository userRepository = applicationContext.getBean(UserRepository.class);
 //        ModelMapper modelmapper = new ModelMapper();
 //        User user = modelmapper.map(userdto, User.class);
         if(userRepository.findByEmail(email)!=null){
             //user found so delete existing user
+
+            if(permissionsRepository.findUserByEmail(email) != null){
+                permissionsRepository.deleteByUser(userRepository.findByEmail(email));
+            }
             userRepository.deleteById(userRepository.findByEmail(email).getId());
             return;
         }
         throw new ResponseStatusException(HttpStatus.CONFLICT);
     }
+
 
     private boolean inviteUser(UserDto userdto) {
 
