@@ -24,10 +24,10 @@ public class LoginHandler {
         return "navigate";
     }
 
-    @RequestMapping(value = "client", method = RequestMethod.GET)
-    public String client(Model model) {
-        return "clientDashboard";
-    }
+//    @RequestMapping(value = "client", method = RequestMethod.GET)
+//    public String client(Model model) {
+//        return "clientDashboard";
+//    }
 
     @RequestMapping(value = "logout", method = RequestMethod.GET)
     public String logout(Model model) {

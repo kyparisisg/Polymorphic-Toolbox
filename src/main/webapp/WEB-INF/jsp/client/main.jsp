@@ -1,8 +1,8 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="apple-touch-icon" sizes="76x76" href="/images/apple-icon.png">
-    <link rel="icon" type="image/png" href="/images/favicon.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/public/images/apple-icon.png">
+    <link rel="icon" type="image/png" href="/public/images/favicon.png">
     <title>
         Blk• Design System by Creative Tim
     </title>
@@ -10,11 +10,11 @@
     <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet" />
     <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
     <!-- Nucleo Icons -->
-    <link href="/css/nucleo-icons.css" rel="stylesheet" />
+    <link href="/public/css/nucleo-icons.css" rel="stylesheet" />
     <!-- CSS Files -->
-    <link href="/css/blk-design-system.css?v=1.0.0" rel="stylesheet" />
+    <link href="/public/css/blk-design-system.css?v=1.0.0" rel="stylesheet" />
     <!-- CSS Just for demo purpose, don't include it in your project -->
-    <link href="/demo/demo.css" rel="stylesheet" />
+    <link href="/public/demo/demo.css" rel="stylesheet" />
 </head>
 
 <body class="landing-page">
@@ -66,7 +66,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../index.html">Back to Kit</a>
+                    <a class="nav-link" href="../../../../resources/index.html">Back to Kit</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="https://github.com/creativetimofficial/blk-design-system/issues">Have an issue?</a>
@@ -78,12 +78,12 @@
 <!-- End Navbar -->
 <div class="wrapper">
     <div class="page-header">
-        <img src="/images/blob.png" class="path">
-        <img src="/images/path2.png" class="path2">
-        <img src="/images/triunghiuri.png" class="shapes triangle">
-        <img src="/images/waves.png" class="shapes wave">
-        <img src="/images/patrat.png" class="shapes squares">
-        <img src="/images/cercuri.png" class="shapes circle">
+        <img src="/public/images/blob.png" class="path">
+        <img src="/public/images/path2.png" class="path2">
+        <img src="/public/images/triunghiuri.png" class="shapes triangle">
+        <img src="/public/images/waves.png" class="shapes wave">
+        <img src="/public/images/patrat.png" class="shapes squares">
+        <img src="/public/images/cercuri.png" class="shapes circle">
         <div class="content-center">
             <div class="row row-grid justify-content-between align-items-center text-left">
                 <h1 class="text-white">List of files in Cloud
@@ -203,7 +203,7 @@
     </section>
     <section class="section section-lg">
         <section class="section">
-            <img src="/images/path4.png" class="path">
+            <img src="/public/images/path4.png" class="path">
             <div class="container">
                 <div class="row row-grid justify-content-between">
                     <div class="col-md-5 mt-lg-5">
@@ -308,9 +308,9 @@
         </section>
     </section>
     <section class="section section-lg">
-        <img src="/images/path4.png" class="path">
-        <img src="/images/path5.png" class="path2">
-        <img src="/images/path2.png" class="path3">
+        <img src="/public/images/path4.png" class="path">
+        <img src="/public/images/path5.png" class="path2">
+        <img src="/public/images/path2.png" class="path3">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-12">
@@ -352,11 +352,11 @@
         </div>
     </section>
     <section class="section section-lg section-safe">
-        <img src="/images/path5.png" class="path">
+        <img src="/public/images/path5.png" class="path">
         <div class="container">
             <div class="row row-grid justify-content-between">
                 <div class="col-md-5">
-                    <img src="/images/chester-wade.jpg" class="img-fluid floating">
+                    <img src="/public/images/chester-wade.jpg" class="img-fluid floating">
                     <div class="card card-stats bg-danger">
                         <div class="card-body">
                             <div class="justify-content-center">
@@ -431,8 +431,8 @@
         </div>
     </section>
     <section class="section section-lg">
-        <img src="/images/path4.png" class="path">
-        <img src="/images/path2.png" class="path2">
+        <img src="/public/images/path4.png" class="path">
+        <img src="/public/images/path2.png" class="path2">
         <div class="col-md-12">
             <div class="card card-chart card-plain">
                 <div class="card-header">
@@ -453,7 +453,7 @@
         </div>
     </section>
     <section class="section section-lg section-coins">
-        <img src="/images/path3.png" class="path">
+        <img src="/public/images/path3.png" class="path">
         <div class="container">
             <div class="row">
                 <div class="col-md-4">
@@ -467,7 +467,7 @@
                 <div class="col-md-4">
                     <div class="card card-coin card-plain">
                         <div class="card-header">
-                            <img src="/images/bitcoin.png" class="img-center img-fluid">
+                            <img src="/public/images/bitcoin.png" class="img-center img-fluid">
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -493,7 +493,7 @@
                 <div class="col-md-4">
                     <div class="card card-coin card-plain">
                         <div class="card-header">
-                            <img src="/images/etherum.png" class="img-center img-fluid">
+                            <img src="/public/images/etherum.png" class="img-center img-fluid">
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -519,7 +519,7 @@
                 <div class="col-md-4">
                     <div class="card card-coin card-plain">
                         <div class="card-header">
-                            <img src="/images/ripp.png" class="img-center img-fluid">
+                            <img src="/public/images/ripp.png" class="img-center img-fluid">
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -554,22 +554,22 @@
                 <div class="col-md-3">
                     <ul class="nav">
                         <li class="nav-item">
-                            <a href="../index.html" class="nav-link">
+                            <a href="../../../../resources/index.html" class="nav-link">
                                 Home
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="../examples/landing-page.html" class="nav-link">
+                            <a href="../../../../resources/examples/landing-page.html" class="nav-link">
                                 Landing
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="../examples/register-page.html" class="nav-link">
+                            <a href="../../../../resources/examples/register-page.html" class="nav-link">
                                 Register
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="../examples/profile-page.html" class="nav-link">
+                            <a href="../../../../resources/examples/profile-page.html" class="nav-link">
                                 Profile
                             </a>
                         </li>
@@ -618,23 +618,23 @@
     </footer>
 </div>
 <!--   Core JS Files   -->
-<script src="/js/core/jquery.min.js" type="text/javascript"></script>
-<script src="/js/core/popper.min.js" type="text/javascript"></script>
-<script src="/js/core/bootstrap.min.js" type="text/javascript"></script>
-<script src="/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+<script src="/public/js/core/jquery.min.js" type="text/javascript"></script>
+<script src="/public/js/core/popper.min.js" type="text/javascript"></script>
+<script src="/public/js/core/bootstrap.min.js" type="text/javascript"></script>
+<script src="/public/js/plugins/perfect-scrollbar.jquery.min.js"></script>
 <!--  Plugin for Switches, full documentation here: http://www.jque.re/plugins/version3/bootstrap.switch/ -->
-<script src="/js/plugins/bootstrap-switch.js"></script>
+<script src="/public/js/plugins/bootstrap-switch.js"></script>
 <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
-<script src="/js/plugins/nouislider.min.js" type="text/javascript"></script>
+<script src="/public/js/plugins/nouislider.min.js" type="text/javascript"></script>
 <!-- Chart JS -->
-<script src="/js/plugins/chartjs.min.js"></script>
+<script src="/public/js/plugins/chartjs.min.js"></script>
 <!--  Plugin for the DatePicker, full documentation here: https://github.com/uxsolutions/bootstrap-datepicker -->
-<script src="/js/plugins/moment.min.js"></script>
-<script src="/js/plugins/bootstrap-datetimepicker.js" type="text/javascript"></script>
+<script src="/public/js/plugins/moment.min.js"></script>
+<script src="/public/js/plugins/bootstrap-datetimepicker.js" type="text/javascript"></script>
 <!-- Black Dashboard DEMO methods, don't include it in your project! -->
-<script src="/demo/demo.js"></script>
+<script src="/public/demo/demo.js"></script>
 <!-- Control Center for Black UI Kit: parallax effects, scripts for the example pages etc -->
-<script src="/js/blk-design-system.min.js?v=1.0.0" type="text/javascript"></script>
+<script src="/public/js/blk-design-system.min.js?v=1.0.0" type="text/javascript"></script>
 <script>
     $(document).ready(function() {
         // Javascript method's body can be found in assets/assets-for-demo/js/demo.js

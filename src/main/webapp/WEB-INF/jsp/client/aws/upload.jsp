@@ -1,6 +1,28 @@
-
-
-
+<!--
+EXAMPLE FORM FOR POST ON OUR APIs
+<%--<%@taglib uri = "http://www.springframework.org/tags/form" prefix = "form"%>--%>
+<html>
+<head>
+<title>Upload File - Transfer Operation</title>
+</head>
+<body>
+<h2>Upload File</h2>
+<%--    <form:form method = "POST" action = "/aws/upload">--%>
+<%--        <table>--%>
+<%--        <tr>--%>
+<%--        <td><form:label path = "fileName">File</form:label></td>--%>
+<%--        <td><form:input path = "fileName" /></td>--%>
+<%--        </tr>--%>
+<%--        <tr>--%>
+<%--        <td colspan = "2">--%>
+<%--        <input type = "submit" value = "Submit"/>--%>
+<%--        </td>--%>
+<%--        </tr>--%>
+<%--        </table>--%>
+<%--    </form:form>--%>
+</body>
+</html>
+-->
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE HTML>
@@ -29,7 +51,7 @@
 <nav class="navbar navbar-expand-lg fixed-top navbar-transparent " color-on-scroll="100">
     <div class="container">
         <div class="navbar-translate">
-            <a class="navbar-brand" href="/api/admin" rel="tooltip" title="" data-placement="bottom" target="_blank">
+            <a class="navbar-brand" href="/home" rel="tooltip" title="" data-placement="bottom" >
                 <span>POLYMORPHIC TOOLBOX</span>
             </a>
             <button class="navbar-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
@@ -114,18 +136,13 @@
         <div class="container">
             <div class="content-center brand">
                 <%--                <h1 class="h1-seo"></h1>--%>
-                <h3>Transfer Data Operations</h3>
+                <h3>Back Up On Cloud</h3>
                 <div class="row justify-content-md-center">
                     <div class="text-center col-md-12 col-lg-8">
-                        <a href="/api/users" class="btn btn-primary btn-round btn-lg" role="button">
-                            Internal Data Transfer
+                        <a href="/client/transfer/scp" class="btn btn-primary btn-round btn-lg" role="button">
+                            HERE WILL BE THE FORM
                         </a>
 
-                    </div>
-                    <div class="text-center col-md-12 col-lg-8">
-                        <a href="/api/servers" class="btn btn-primary btn-round btn-lg" role="button">
-                            Backup Files to Cloud
-                        </a>
                     </div>
                 </div>
             </div>
@@ -138,7 +155,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-3">
-                <h1 class="title">POLYMORPHIC TOLLBOX</h1>
+                <h1 class="title">POLYMORPHIC TOOLBOX</h1>
             </div>
             <div class="col-md-3">
                 <ul class="nav">

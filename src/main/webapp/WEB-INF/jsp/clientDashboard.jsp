@@ -26,7 +26,7 @@
 <nav class="navbar navbar-expand-lg fixed-top navbar-transparent " color-on-scroll="100">
     <div class="container">
         <div class="navbar-translate">
-            <a class="navbar-brand" href="/home" rel="tooltip" title="" data-placement="bottom" target="_blank">
+            <a class="navbar-brand" href="/home" rel="tooltip" title="" data-placement="bottom" >
                 <span>POLYMORPHIC TOOLBOX</span>
             </a>
             <button class="navbar-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
@@ -114,15 +114,21 @@
                 <h3>Welcome to the User Dashboard</h3>
                 <div class="row justify-content-md-center">
                     <div class="text-center col-md-12 col-lg-8">
-                        <a href="/client/transfer/internal" class="btn btn-primary btn-round btn-lg" role="button">
-                            Servers Transfer
+                        <a href="/client/transfer/" class="btn btn-primary btn-round btn-lg" role="button">
+                            Server Transfer
                         </a>
 
                     </div>
 
                     <div class="text-center col-md-12 col-lg-8">
-                        <a href="/api/restore" class="btn btn-primary btn-round btn-lg" role="button">
-                            Cloud Operations
+                        <a href="/client/cloud/upload" class="btn btn-primary btn-round btn-lg" role="button">
+                            Back Up
+                        </a>
+                    </div>
+
+                    <div class="text-center col-md-12 col-lg-8">
+                        <a href="/client/cloud/restore" class="btn btn-primary btn-round btn-lg" role="button">
+                            Restore
                         </a>
                     </div>
 
@@ -132,6 +138,7 @@
                             Logout
                         </a>
                     </div>
+
                 </div>
             </div>
         </div>
