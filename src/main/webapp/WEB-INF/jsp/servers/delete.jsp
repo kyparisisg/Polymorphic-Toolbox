@@ -6,7 +6,7 @@
     <link rel="apple-touch-icon" sizes="76x76" href="/images/apple-icon.png">
     <link rel="icon" type="image/png" href="/images/favicon.png">
     <title>
-        Blk• Design System by Creative Tim
+        Toolbox
     </title>
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet" />
@@ -122,52 +122,11 @@
                                                 <i class="tim-icons icon-single-02"></i>
                                             </div>
                                         </div>
-                                            <%--                                    <form:label type="text" id="datepicker" class="form-control datepicker" value="10/05/2016" data-datepicker-color="primary" path = "firstName">First Name</form:label></td>--%>
-                                            <%--                                    <form:input path = "firstName"/></td>--%>
                                         <form:input path = "ip" type="text" class="form-control" value = "${ip}" placeholder="IPv3 Address"/>
                                     </div>
-                                        <%--                                <div class="input-group">--%>
-                                        <%--                                    <div class="input-group-prepend">--%>
-                                        <%--                                        <div class="input-group-text">--%>
-                                        <%--                                            <i class="tim-icons icon-email-85"></i>--%>
-                                        <%--                                        </div>--%>
-                                        <%--                                    </div>--%>
-                                        <%--                                        &lt;%&ndash;                                    <td><form:label path = "lastName">Last Name</form:label></td>&ndash;%&gt;--%>
-                                        <%--                                        &lt;%&ndash;                                    <td><form:input path = "lastName" /></td>&ndash;%&gt;--%>
-                                        <%--                                    <form:input path = "lastName"  type="text" placeholder="lastName" class="form-control"/>--%>
-                                        <%--                                </div>--%>
-                                        <%--                                <div class="input-group">--%>
-                                        <%--                                    <div class="input-group-prepend">--%>
-                                        <%--                                        <div class="input-group-text">--%>
-                                        <%--                                            <i class="tim-icons icon-lock-circle"></i>--%>
-                                        <%--                                        </div>--%>
-                                        <%--                                    </div>--%>
-                                        <%--                                        &lt;%&ndash;                                    <td><form:label path = "email">Email</form:label></td>&ndash;%&gt;--%>
-                                        <%--                                        &lt;%&ndash;                                    <td><form:input path = "email" /></td>&ndash;%&gt;--%>
-                                        <%--                                    <form:input path = "email" type="text" class="form-control" placeholder="email"/>--%>
-                                        <%--                                </div>--%>
-                                        <%--                                <div class="input-group">--%>
-                                        <%--                                    <div class="input-group-prepend">--%>
-                                        <%--                                        <div class="input-group-text">--%>
-                                        <%--                                            <i class="tim-icons icon-lock-circle"></i>--%>
-                                        <%--                                        </div>--%>
-                                        <%--                                    </div>--%>
-                                        <%--                                        &lt;%&ndash;                                    <td><form:label path = "role">Role</form:label></td>&ndash;%&gt;--%>
-                                        <%--                                        &lt;%&ndash;                                    <td><form:input path = "role" /></td>&ndash;%&gt;--%>
-                                        <%--                                    <form:input path = "role" type="text" class="form-control" placeholder="role"/>--%>
-                                        <%--                                </div>--%>
-                                        <%--                                <div class="form-check text-left">--%>
-                                        <%--                                    <label class="form-check-label">--%>
-                                        <%--                                        <input class="form-check-input" type="checkbox">--%>
-                                        <%--                                        <span class="form-check-sign"></span>--%>
-                                        <%--                                        I agree to the--%>
-                                        <%--                                        <a href="javascript:void(0)">terms and conditions</a>.--%>
-                                        <%--                                    </label>--%>
-                                        <%--                                </div>--%>
-
                                 </div>
                                 <div class="card-footer">
-                                    <a type = "submit" class="btn btn-info btn-round btn-lg" >Delete</a>
+                                    <input type = "submit" value="Delete" class="btn btn-info btn-round btn-lg" ></input>
                                 </div>
 
                             </form:form>

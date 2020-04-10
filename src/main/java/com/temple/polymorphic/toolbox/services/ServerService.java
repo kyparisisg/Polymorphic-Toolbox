@@ -1,6 +1,7 @@
 package com.temple.polymorphic.toolbox.services;
 
 import com.jcraft.jsch.*;
+import com.temple.polymorphic.toolbox.PermissionRepository;
 import com.temple.polymorphic.toolbox.ServerRepository;
 import com.temple.polymorphic.toolbox.models.Server;
 import com.temple.polymorphic.toolbox.dto.ServerDto;
@@ -29,9 +30,14 @@ public class ServerService {
     @Autowired
     private ServerRepository serverRepository;
 
+    @Autowired
+    private PermissionRepository permissionRepository;
+
     private static final Logger LOGGER = LoggerFactory.getLogger(ServerService.class);
 
     public void setServerRepository(ServerRepository serverRepository) { this.serverRepository = serverRepository; }
+
+    public void setPermissionRepository(PermissionRepository permissionRepository) { this.permissionRepository = permissionRepository; }
 
     public List<ServerDto> getServers() {
         Type listType = new TypeToken<List<ServerDto>>() {}.getType();
@@ -115,7 +121,11 @@ public class ServerService {
     public ServerDto deleteServerByIp(String ip) {
         Server server = serverRepository.findByIp(ip);
         if(server != null){
-            //delete by IP ---> You have to write a new query on server rep to do that... TO DO...
+
+            //Delete all existing permission for this server
+            if(permissionRepository.findServerById(server.getId()) != null ){
+                permissionRepository.deleteByServer(server);
+            }
 
             //FOR NOW retrieve object and return id to the delete
             serverRepository.deleteById(serverRepository.findByIp(ip).getId());
