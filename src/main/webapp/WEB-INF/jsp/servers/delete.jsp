@@ -122,7 +122,7 @@
                                                 <i class="tim-icons icon-single-02"></i>
                                             </div>
                                         </div>
-                                        <form:input path = "ip" type="text" class="form-control" value = "${ip}" placeholder="IPv3 Address"/>
+                                        <form:input path = "ip" type="text" class="form-control" placeholder="IPv3 Address"/>
                                     </div>
                                 </div>
                                 <div class="card-footer">
