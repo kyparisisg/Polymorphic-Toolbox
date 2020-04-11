@@ -111,9 +111,9 @@
                         <div class="card card-register">
                             <div class="card-header">
                                 <img class="card-img" src="/images/square1.png" alt="Card image">
-                                <h4 class="card-title">Update Server Info</h4>
+                                <h3 class="card-title">Update Server </h3>
                             </div>
-<h3>(IPv4 must be the same as one in the db to update the rest information)</h3>
+<%--<h3>(IPv4 must be the same as one in the db to update the rest information)</h3>--%>
 
 
 <form:form method = "POST" action = "/api/servers/update">
@@ -123,8 +123,7 @@
             <td><form:input path = "name" /></td>
         </tr>
         <tr>
-            <td><form:label path = "ip">IPv4 Address:</form:label></td>
-            <td><form:input path = "ip" value="${ip}"/></td>
+            <td><form:input path = "ip" value="${ip}" type="hidden"/></td>
         </tr>
         <tr>
             <td><form:label path = "port">Port:</form:label></td>
