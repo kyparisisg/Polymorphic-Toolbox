@@ -6,6 +6,8 @@ import com.amazonaws.regions.Region;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -13,9 +15,14 @@ import java.nio.file.Paths;
 import java.util.Iterator;
 
 public class BucketTools {
+    private static final Logger LOG = LoggerFactory.getLogger(BucketTools.class);
+    //checking os of user
     private static final boolean IS_WINDOWS = System.getProperty( "os.name" ).contains( "indow" );
 
-    public static void deleteBucket(String bucketName,AmazonS3Client s3client) throws IOException {
+
+    // tyler Remember you might have to change println out to logger
+    //this deletes a bucket and all of the objects within the bucket by iterating through its object list
+    public static void deleteBucket(String bucketName,AmazonS3 s3client) throws IOException {
         try {
             System.out.println("Deleting S3 bucket: " + bucketName);
             ObjectListing objectListing = s3client.listObjects(bucketName);
@@ -56,6 +63,21 @@ public class BucketTools {
                     "communicate with S3, " +
                     "such as not being able to access the network.");
             System.out.println("Error Message: " + ace.getMessage());
+        }
+    }
+
+    public static void transferobj(String filename,String bucketNamefrom,String dirFrom, String bucketNameTo, String dirTo,AmazonS3 s3client){
+        if(s3client.doesBucketExistV2(bucketNamefrom) == false || s3client.doesBucketExistV2(bucketNameTo) == false){
+            //user logger class to log error for bukkets not existing then throw an exception
+            System.out.println("Buckets listed do not exist");
+
+
+
+        }else if(s3client.doesObjectExist(bucketNamefrom,dirFrom+"/"+filename) == false){
+
+
+        }else{
+
         }
     }
 
