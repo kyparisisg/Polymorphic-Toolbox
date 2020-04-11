@@ -138,15 +138,30 @@ public class UsersController {
         return new ModelAndView("users/delete", "command", new UserDto()); //maybe new UserDto like user()
     }
 
-    @RequestMapping(value = "/delete/{email}", method = RequestMethod.GET)
-    public ModelAndView deleteUserForm(@PathVariable("email") String email, Model model) {
-        UserDto userDto = userService.getUser(email);
-        //to not return the password
-        userDto.setPassword("");
-        //model.addAttribute("userDto", userDto);
-        model.addAttribute("email",email);
+//    @RequestMapping(value = "/delete/{email}", method = RequestMethod.GET)
+//    public ModelAndView deleteUserForm(@PathVariable("email") String email, Model model) {
+//        UserDto userDto = userService.getUser(email);
+//        //to not return the password
+//        userDto.setPassword("");
+//        //model.addAttribute("userDto", userDto);
+//        model.addAttribute("email",email);
+//
+//        return new ModelAndView("users/delete", "command", new UserDto());
+//    }
 
-        return new ModelAndView("users/delete", "command", new UserDto());
+    @RequestMapping(value = "/delete/{email}", method = RequestMethod.GET)
+    public String deleteUserForm(@PathVariable("email") String email, Model model) {
+        UserDto us = userService.getUser(email);
+        userService.deleteUser(email);
+
+        model.addAttribute("id", us.getId());
+        model.addAttribute("firstName", us.getFirstName());
+        model.addAttribute("lastName", us.getLastName());
+        model.addAttribute("email", us.getEmail());
+        model.addAttribute("role", us.getRole());
+        model.addAttribute("request", "Deleted user");
+
+        return "users/requestSuccess";
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
