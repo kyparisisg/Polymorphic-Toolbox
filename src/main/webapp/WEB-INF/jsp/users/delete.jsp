@@ -122,7 +122,7 @@
                                                 <i class="tim-icons icon-single-02"></i>
                                             </div>
                                         </div>
-                                        <form:input path = "email" type="text" class="form-control" value = "${email}" placeholder="email"/>
+                                        <form:input path = "email" type="text" class="form-control" placeholder="email"/>
                                     </div>
 
                                 </div>

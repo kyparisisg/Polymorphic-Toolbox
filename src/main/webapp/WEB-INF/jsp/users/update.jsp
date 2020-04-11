@@ -111,7 +111,7 @@
                         <div class="card card-register">
                             <div class="card-header">
                                 <img class="card-img" src="/images/square1.png" alt="Card image">
-                                <h4 class="card-title">UserInfo</h4>
+                                <h3 class="card-title">UserInfo</h3>
                             </div>
                             <%--                            <form:form class = "form" method = "POST" action = "/api/users/save">--%>
                             <div class="card-body">
@@ -127,8 +127,7 @@
                                             <td><form:input path = "lastName" /></td>
                                         </tr>
                                         <tr>
-                                            <td><form:label path = "email">Email</form:label></td>
-                                            <td><form:input path = "email" value = "${email}"/></td>
+                                            <td><form:input path = "email" value = "${email}" type="hidden"/></td>
                                         </tr>
                                         <tr>
                                             <td><form:label path = "role">Role</form:label></td>

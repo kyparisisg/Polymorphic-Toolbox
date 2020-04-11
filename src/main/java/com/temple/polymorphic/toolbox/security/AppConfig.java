@@ -19,9 +19,10 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 //
 //    @Override
 //    protected void configure(HttpSecurity http) throws Exception {
-//        http.authorizeRequests().antMatchers("/api/**").access("hasRole('ROLE_ADMIN')")
-//                .antMatchers("/client/**").access("hasRole('ROLE_USER')")
-//                .antMatchers("/**").permitAll().and().formLogin();
+////        http.authorizeRequests().antMatchers("/api/**").access("hasRole('ROLE_ADMIN')")
+////                .antMatchers("/client/**").access("hasRole('ROLE_USER')")
+////                .antMatchers("/**").permitAll().and().formLogin();
+//        http.authorizeRequests().antMatchers("/**").access("hasRole('ROLE_ADMIN')").and().formLogin();
 //    }
 //
 //    @Override

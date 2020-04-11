@@ -105,7 +105,6 @@ public class ServersController {
         model.addAttribute("port", serverDto1.getPort());
         model.addAttribute("usernameCred", serverDto1.getUsernameCred());
         model.addAttribute("keyLocation", serverDto1.getKeyLocation());
-        model.addAttribute("request", "Add Server");
         model.addAttribute("request", "Update Server");
 
         return "servers/requestSuccess";
@@ -118,10 +117,19 @@ public class ServersController {
     }
 
     @RequestMapping(value = "/delete/{ip}", method = RequestMethod.GET)
-    public ModelAndView deleteForm(@PathVariable("ip") String ip, Model model) {
-        model.addAttribute("ip",ip);
+    public String deleteForm(@PathVariable("ip") String ip, Model model) {
+        ServerDto serverDto1 = serverService.deleteServerByIp(ip);
+        serverDto1.setPasswordCred("");
+        model.addAttribute("server", serverDto1);
+        //OR
+        model.addAttribute("id", serverDto1.getId());
+        model.addAttribute("name", serverDto1.getName());
+        model.addAttribute("ip", serverDto1.getIp());
+        model.addAttribute("port", serverDto1.getPort());
+        model.addAttribute("usernameCred", serverDto1.getUsernameCred());
+        model.addAttribute("request", "Delete Server");
 
-        return new ModelAndView("servers/delete", "command", new ServerDto());
+        return "servers/requestSuccess";
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
@@ -134,7 +142,6 @@ public class ServersController {
         model.addAttribute("ip", serverDto1.getIp());
         model.addAttribute("port", serverDto1.getPort());
         model.addAttribute("usernameCred", serverDto1.getUsernameCred());
-        model.addAttribute("request", "Add Server");
         model.addAttribute("request", "Delete Server");
 
         return "servers/requestSuccess";

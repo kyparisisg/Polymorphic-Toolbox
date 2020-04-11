@@ -1,20 +1,20 @@
-package com.temple.polymorphic.toolbox.security;
-
-import com.temple.polymorphic.toolbox.dto.UserDto;
-import com.temple.polymorphic.toolbox.services.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
+//package com.temple.polymorphic.toolbox.security;
+//
+//import com.temple.polymorphic.toolbox.dto.UserDto;
+//import com.temple.polymorphic.toolbox.services.UserService;
+//import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.security.authentication.AuthenticationProvider;
+//import org.springframework.security.authentication.BadCredentialsException;
+//import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+//import org.springframework.security.core.Authentication;
+//import org.springframework.security.core.AuthenticationException;
+//import org.springframework.security.core.GrantedAuthority;
+//import org.springframework.security.core.authority.SimpleGrantedAuthority;
+//
+//import java.util.ArrayList;
+//import java.util.List;
+//import java.util.Optional;
+//
 //public class SecurityConfig implements AuthenticationProvider {
 //
 //        private static List<User> users = new ArrayList();
