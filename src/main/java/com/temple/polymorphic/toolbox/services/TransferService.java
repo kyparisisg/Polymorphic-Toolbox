@@ -27,7 +27,7 @@ import com.amazonaws.services.s3.model.*;
 import sun.rmi.runtime.Log;
 
 
-//@Service
+@Service
 public class TransferService {
 
     // for creating new buckets

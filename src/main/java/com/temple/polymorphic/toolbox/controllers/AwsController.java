@@ -34,6 +34,21 @@ public class AwsController {
 
     @RequestMapping(value = "upload", method = RequestMethod.POST)
     public String uploadFileUsingAwsApi(FileInfoDto fileInfoDto, Model model){
+
+//        TransferService.fileUpload(s3bucketName,fileInfoDto.getS3dir(),fileInfoDto.getFile_name());
+
+//        model.addAttribute("FileInfoDto", FileInfoDto);
+//        model.addAttribute("file_name", file_name);
+
+
+//        model.addAttribute("id", us.getId());
+//        model.addAttribute("firstName", us.getFirstName());
+//        model.addAttribute("lastName", us.getLastName());
+//        model.addAttribute("email", us.getEmail());
+//        model.addAttribute("role", us.getRole());
+//        model.addAttribute("request", "Deleted user");
+
+
         //Make the API calls to AWS using the FileInfoDto given
         //...
         //...
@@ -42,6 +57,10 @@ public class AwsController {
         //add attributes (one or more) to model so you can use them while rendering the awsApiSuccess.jsp
         String status = "The transaction was successfully, the file was uploaded!";
         model.addAttribute("status",status);
+        model.addAttribute("file_name",fileInfoDto.getFile_name());
+        model.addAttribute("s3dir",fileInfoDto.getS3dir());
+        model.addAttribute("bucketName",bucketName);
+
 
         return "aws/awsApiSuccess";
     }

@@ -6,6 +6,8 @@ public class FileInfoDto {
     private String ipv4;
     private String user;    // how can I make this visible to me when the user logs in.
     private String encryption_token;
+    private String s3dir;
+    private String bucket
 
     public FileInfoDto() {
 
@@ -20,6 +22,7 @@ public class FileInfoDto {
         this.ipv4 = ipv4;
         this.user = user;
         this.encryption_token = encryption_token;
+        this.s3dir = s3dir;
     }
 
     public String getFile_name() {
@@ -42,9 +45,13 @@ public class FileInfoDto {
         return user;
     }
 
+    public String getS3dir(){return s3dir;}
+
     public void setUser(String user) {
         this.user = user;
     }
+
+    public void setS3dir(String s3dir){this.s3dir = s3dir;}
 
     public String getEncryption_token() {
         return encryption_token;
