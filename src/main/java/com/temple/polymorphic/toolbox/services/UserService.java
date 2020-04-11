@@ -201,10 +201,10 @@ public class UserService {
 
         Permissions newPerm;
         if(username == null || username.isEmpty() || password == null || password.isEmpty()){
-            newPerm = new Permissions(userRepository.findByEmail(email), serverRepository.findById2(serverId));
+            newPerm = new Permissions(userRepository.findByEmail(email), serverRepository.findById(serverId).get());
         }
         else{
-            newPerm = new Permissions(userRepository.findByEmail(email), serverRepository.findById2(serverId), username, password);
+            newPerm = new Permissions(userRepository.findByEmail(email), serverRepository.findById(serverId).get(), username, password);
         }
         permissionsRepository.save(newPerm);
     }
