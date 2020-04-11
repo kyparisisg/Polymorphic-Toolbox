@@ -3,13 +3,15 @@ package com.temple.polymorphic.toolbox.services;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import com.amazonaws.util.IOUtils;
 import org.apache.commons.logging.LogFactory;
+import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
+import java.nio.file.StandardCopyOption;
 import java.util.Collections;
 import java.nio.file.Files;
 import java.util.Iterator;
@@ -87,6 +89,15 @@ public class TransferService {
             System.out.println("Bucket does not exist on s3 Instance");
         }
     }
+    public static void fileDownload(String bcktnm, String dir,String fileName) throws IOException{
+        AmazonS3 s3Client = setUpclient();
+
+        S3Object s3obj = s3Client.getObject(new GetObjectRequest(bcktnm, dir+"/"+fileName));
+
+        InputStream objectdata = s3obj.getObjectContent();
+        java.nio.file.Files.copy(objectdata, Paths.get("C:\\Users\\taira\\Documents\\"+fileName),StandardCopyOption.REPLACE_EXISTING);
+
+    }
 
     //Method that takes the credentials for S3 access and returns amazon s3 client object
     private static AmazonS3 setUpclient() {
@@ -95,7 +106,4 @@ public class TransferService {
 
         return s3Client;
     }
-
-
-
 }
