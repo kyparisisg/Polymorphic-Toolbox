@@ -25,39 +25,75 @@ import com.amazonaws.services.s3.model.*;
 import sun.rmi.runtime.Log;
 
 
-@Service
+//@Service
 public class TransferService {
 
-
+    // for creating new buckets
     public static void createS3b(String bcknm){
         BasicAWSCredentials awsCreds = new BasicAWSCredentials(Credentials.access_key_id, Credentials.secret_access_key);
 
-        AmazonS3 s3Client = AmazonS3ClientBuilder.standard().withCredentials(new AWSStaticCredentialsProvider(awsCreds)).build();
-
-        // BucketUtils.deleteAllBuckets(s3Client);
+        AmazonS3 s3Client = AmazonS3ClientBuilder.standard().withRegion("us-east-2").withCredentials(new AWSStaticCredentialsProvider(awsCreds)).build();
 
 
         String newBucketName = ""+bcknm;
 
         if(s3Client.doesBucketExistV2(newBucketName)){
 
-
         }else{
             s3Client.createBucket(newBucketName);
         }
 
-//        final String fileName = "sometext.txt";
-
-//        File file = new File(S3JavaSDKExample.class.getResource(fileName).toURI());
     }
 
     //Use This to Delete 'Serevers' aka aws buckets from lists for admins
 
     public static void deleteRequest(String bcknm) throws IOException {
-        BasicAWSCredentials awsCreds = new BasicAWSCredentials(Credentials.access_key_id, Credentials.secret_access_key);
-        AmazonS3 s3Client = AmazonS3ClientBuilder.standard().withCredentials(new AWSStaticCredentialsProvider(awsCreds)).build();
-
+        AmazonS3 s3Client = setUpclient();
         BucketTools.deleteBucket(bcknm,s3Client);
+    }
+
+    public static void  fileUpload(String bcktnm, String dir,String fileName) throws IOException{
+        AmazonS3 s3Client = setUpclient();
+
+            if(s3Client.doesBucketExistV2(bcktnm)){
+            try {
+                s3Client.putObject(
+                        bcktnm,
+                        dir + "" + fileName,
+                        new File("C:\\Users\\taira\\Documents\\capstone\\Polymorphic-Toolbox\\src\\main\\resources\\tempStorage\\" + fileName)
+                );
+            }
+            catch(AmazonServiceException ase){
+                System.out.println("Caught an AmazonServiceException, which " +
+                        "means your request made it " +
+                        "to Amazon S3, but was rejected with an error response" +
+                        " for some reason.");
+                System.out.println("Error Message:    " + ase.getMessage());
+                System.out.println("HTTP Status Code: " + ase.getStatusCode());
+                System.out.println("AWS Error Code:   " + ase.getErrorCode());
+                System.out.println("Error Type:       " + ase.getErrorType());
+                System.out.println("Request ID:       " + ase.getRequestId());
+            }
+            catch (AmazonClientException ace){
+                System.out.println("Caught an AmazonClientException, which " +
+                        "means the client encountered " +
+                        "an internal error while trying to " +
+                        "communicate with S3, " +
+                        "such as not being able to access the network.");
+                System.out.println("Error Message: " + ace.getMessage());
+
+            }
+        }else{
+            System.out.println("Bucket does not exist on s3 Instance");
+        }
+    }
+
+    //Method that takes the credentials for S3 access and returns amazon s3 client object
+    private static AmazonS3 setUpclient() {
+        BasicAWSCredentials awsCreds = new BasicAWSCredentials(Credentials.access_key_id, Credentials.secret_access_key);
+        AmazonS3 s3Client = AmazonS3ClientBuilder.standard().withRegion("us-east-2").withCredentials(new AWSStaticCredentialsProvider(awsCreds)).build();
+
+        return s3Client;
     }
 
 
