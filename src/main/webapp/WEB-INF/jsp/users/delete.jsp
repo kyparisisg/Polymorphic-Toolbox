@@ -113,7 +113,7 @@
                                 <img class="card-img" src="/images/square1.png" alt="Card image">
                                 <h4 class="card-title">Delete</h4>
                             </div>
-                            <form:form class = "form" method = "POST" action = "/api/users/delete">
+                            <form:form class = "form" method = "POST" action = "/api/users/delete" autocomplete="false">
                                 <div class="card-body">
 
                                     <div class="input-group">
@@ -122,7 +122,7 @@
                                                 <i class="tim-icons icon-single-02"></i>
                                             </div>
                                         </div>
-                                        <form:input path = "email" type="text" class="form-control" placeholder="email"/>
+                                        <form:input path = "email" type="text" class="form-control" placeholder="email" autocomplete="false"/>
                                     </div>
 
                                 </div>

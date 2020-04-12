@@ -116,34 +116,41 @@
                             <%--                            <form:form class = "form" method = "POST" action = "/api/users/save">--%>
                             <div class="card-body">
                                 <h3>(email must be the same as one in the db to update the rest information)</h3>
-                                <form:form method = "POST" action = "/api/users/update">
-                                    <table>
-                                        <tr>
-                                            <td><form:label path = "firstName">First Name</form:label></td>
-                                            <td><form:input path = "firstName" /></td>
-                                        </tr>
-                                        <tr>
-                                            <td><form:label path = "lastName">Last Name</form:label></td>
-                                            <td><form:input path = "lastName" /></td>
-                                        </tr>
-                                        <tr>
-                                            <td><form:input path = "email" value = "${email}" type="hidden"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td><form:label path = "role">Role</form:label></td>
-                                            <td><form:input path = "role" /></td>
-                                        </tr>
-                                    </table>
+                                <form:form method = "POST" action = "/api/users/update" autocomplete="off">
+                                    <div class="card-body">
 
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <i class="tim-icons icon-single-02"></i>
+                                                </div>
+                                            </div>
+                                            <div></div>
+                                            <div>
+                                                <form:input path = "email" type="text" class="form-control" placeholder="email" autocomplete="off"/>
+                                            </div>
+                                            <div>
+                                                <form:input path = "firstName" type="text" class="form-control" placeholder="First Name" autocomplete="off"/>
+                                            </div>
+                                            <div>
+                                                <form:input path = "lastName" type="text" class="form-control" placeholder="Last Name" autocomplete="off"/>
+                                            </div>
+                                            <div>
+                                                <form:input path = "role" type="text" class="form-control" placeholder="Role" autocomplete="off"/>
+                                            </div>
 
-                            </div>
+                                        </div>
+                                    </div>
+
                             <div class="card-footer">
                                 <input type = "submit" value="Update" class="btn btn-info btn-round btn-lg">
                             </div>
-                            <%--                            </form:form>--%></form:form>
+                             </form:form>
                         </div>
                     </div>
+                        <br><br><br><br><br><br>
                 </div>
+                    <br><br><br>
                 <div class="register-bg"></div>
                 <div id="square1" class="square square-1"></div>
                 <div id="square2" class="square square-2"></div>

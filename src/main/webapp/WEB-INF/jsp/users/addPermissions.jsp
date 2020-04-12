@@ -117,7 +117,7 @@
                 <h1 class="h1-seo">Set User's Permissions</h1>
 
                 <h3>(email must be the same as one in the db to update the rest information)</h3>
-                <form:form method = "POST" action = "/api/users/permissions/add">
+                <form:form method = "POST" action = "/api/users/permissions/add" autocomplete="false">
 
                     <div class="container my-2">
 
@@ -147,25 +147,26 @@
                             </table>
                         </div>
                             <tr>
-                                <td><form:label path = "email">Email</form:label></td>
-                                <td><form:input path = "email" type="hidden" value="${email}"/></td>
+<%--                                <td><form:label path = "email">Email</form:label></td>--%>
+                                <td><form:input path = "email" type="hidden" value="${email}" autocomplete="false" /></td>
                             </tr>
-                            <br>
+                        <br><br>
                             <tr>
-                                <td><form:label path = "serverId">Server ID</form:label></td>
-                                <td><form:input path = "serverId"/></td>
+<%--                                <td><form:label path = "serverId">Server ID</form:label></td>--%>
+                                <td><form:input path = "serverId" autocomplete="false" placeholder="Server ID"/></td>
                             </tr>
-                        <br>
+                        <br><br>
                             <tr>
-                                <td><form:label path = "username">Username</form:label></td>
-                                <td><form:input path = "username"/></td>
+<%--                                <td><form:label path = "username">Username</form:label></td>--%>
+                                <td><form:input path = "username" autocomplete="false" placeholder="Username"/></td>
                             </tr>
-                        <br>
-                            <tr>
-                                <td><form:label path = "password">Password</form:label></td>
-                                <td><form:input path = "password" type="password"/></td>
+                        <br><br>
+
+                        <tr>
+<%--                                <td><form:label path = "password">Password</form:label></td>--%>
+                                <td><form:input path = "password" type="password" autocomplete="false" placeholder="Password"/></td>
                             </tr>
-                        <br>
+                        <br><br>
 
                             <tr>
                                 <td colspan = "2">

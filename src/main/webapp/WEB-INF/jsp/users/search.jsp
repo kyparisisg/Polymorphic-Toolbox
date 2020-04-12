@@ -128,7 +128,7 @@
                                                 <i class="tim-icons icon-single-02"></i>
                                             </div>
                                         </div>
-                                        <form:input path = "email" type="text" class="form-control" placeholder="email"/>
+                                        <form:input path = "email" type="text" class="form-control" placeholder="email" autocomplete="off"/>
                                     </div>
                                 </div>
                                 <div class="card-footer">

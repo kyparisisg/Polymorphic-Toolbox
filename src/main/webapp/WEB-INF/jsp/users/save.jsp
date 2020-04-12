@@ -6,7 +6,7 @@
     <link rel="apple-touch-icon" sizes="76x76" href="/images/apple-icon.png">
     <link rel="icon" type="image/png" href="/images/favicon.png">
     <title>
-        Blk• Design System by Creative Tim
+        Toolbox
     </title>
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet" />
@@ -113,7 +113,7 @@
                                 <img class="card-img" src="/images/square1.png" alt="Card image">
                                 <h4 class="card-title">UserInfo</h4>
                             </div>
-                            <form:form class = "form" method = "POST" action = "/api/users/save">
+                            <form:form class = "form" method = "POST" action = "/api/users/save" autocomplete="false">
                                 <div class="card-body">
 
                                     <div class="input-group">
@@ -122,7 +122,15 @@
                                                 <i class="tim-icons icon-single-02"></i>
                                             </div>
                                         </div>
-                                        <form:input path = "firstName" type="text" class="form-control" placeholder="firstName"/>
+                                        <form:input path = "firstName" type="text" class="form-control" placeholder="firstName" autocomplete="false"/>
+                                    </div>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="tim-icons icon-single-02"></i>
+                                            </div>
+                                        </div>
+                                        <form:input path = "lastName"  type="text" placeholder="lastName" class="form-control" autocomplete="false"/>
                                     </div>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
@@ -130,7 +138,7 @@
                                                 <i class="tim-icons icon-email-85"></i>
                                             </div>
                                         </div>
-                                        <form:input path = "lastName"  type="text" placeholder="lastName" class="form-control"/>
+                                        <form:input path = "email" type="text" class="form-control" placeholder="email" autocomplete="false"/>
                                     </div>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
@@ -138,15 +146,7 @@
                                                 <i class="tim-icons icon-lock-circle"></i>
                                             </div>
                                         </div>
-                                        <form:input path = "email" type="text" class="form-control" placeholder="email"/>
-                                    </div>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text">
-                                                <i class="tim-icons icon-lock-circle"></i>
-                                            </div>
-                                        </div>
-                                        <form:input path = "role" type="text" class="form-control" placeholder="role"/>
+                                        <form:input path = "role" type="text" class="form-control" placeholder="role" autocomplete="false"/>
                                     </div>
 
                                 </div>

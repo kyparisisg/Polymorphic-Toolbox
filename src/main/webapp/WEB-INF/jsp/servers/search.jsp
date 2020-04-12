@@ -113,7 +113,7 @@
                                 <img class="card-img" src="/images/square1.png" alt="Card image">
                                 <h4 class="card-title">Search Server</h4>
                             </div>
-                            <form:form class = "form" method = "POST" action = "/api/servers/get">
+                            <form:form class = "form" method = "POST" action = "/api/servers/get" autocomplete="false">
                                 <div class="card-body">
 
                                     <div class="input-group">
@@ -122,7 +122,7 @@
                                                 <i class="tim-icons icon-single-02"></i>
                                             </div>
                                         </div>
-                                        <form:input path = "ip" type="text" class="form-control" placeholder="IPv4 Address"/>
+                                        <form:input path = "ip" type="text" class="form-control" placeholder="IPv4 Address" autocomplete="false"/>
                                     </div>
                                 </div>
                                 <div class="card-footer">

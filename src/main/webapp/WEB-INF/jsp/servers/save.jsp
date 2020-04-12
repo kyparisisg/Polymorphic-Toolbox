@@ -109,31 +109,31 @@
                                 <img class="card-img" src="/images/square1.png" alt="Card image">
                                 <h4 class="card-title">Add Server</h4>
                             </div>
-<form:form method = "POST" action = "/api/servers/save">
+<form:form method = "POST" action = "/api/servers/save" autocomplete="false">
     <table>
         <tr>
             <td><form:label path = "name">Hostname:</form:label></td>
-            <td><form:input path = "name" /></td>
+            <td><form:input path = "name" autocomplete="false"/></td>
         </tr>
         <tr>
             <td><form:label path = "ip">IPv4 Address:</form:label></td>
-            <td><form:input path = "ip" /></td>
+            <td><form:input path = "ip" autocomplete="false"/></td>
         </tr>
         <tr>
             <td><form:label path = "port">Port:</form:label></td>
-            <td><form:input path = "port" value="22"/><small> <b>Hint:</b> If configured otherwise please <u><i>correct the value</i></u>.</small></td>
+            <td><form:input path = "port" value="22" autocomplete="false"/><small> <b>Hint:</b> If configured otherwise please <u><i>correct the value</i></u>.</small></td>
         </tr>
         <tr>
             <td><form:label path = "usernameCred">Admin User:</form:label></td>
-            <td><form:input path = "usernameCred" /></td>
+            <td><form:input path = "usernameCred" autocomplete="false"/></td>
         </tr>
         <tr>
             <td><form:label path = "passwordCred">Admin Password:</form:label></td>
-            <td><form:input path = "passwordCred" type = "password"/></td>
+            <td><form:input path = "passwordCred" type = "password" autocomplete="false"/></td>
         </tr>
         <tr>
             <td><form:label path = "keyLocation">Private Key Location (Optional):</form:label></td>
-            <td><form:input path = "keyLocation" /><small> <b>Hint:</b> If only the default using public key authentication</small></td>
+            <td><form:input path = "keyLocation" autocomplete="false"/><small> <b>Hint:</b> If only the default using public key authentication</small></td>
         </tr>
         <tr>
             <td colspan = "2">
