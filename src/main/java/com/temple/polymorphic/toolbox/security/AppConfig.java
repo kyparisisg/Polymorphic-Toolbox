@@ -27,18 +27,21 @@ public class AppConfig extends WebSecurityConfigurerAdapter {
 //                .antMatchers("/client/**").access("hasRole('ROLE_USER')")
 //                .antMatchers("/**").permitAll().and().formLogin();
 
-
         //http.authorizeRequests().antMatchers("src/main/resources/public/**","/css/**","/js/**").permitAll().and().authorizeRequests().antMatchers("/**").authenticated().and().formLogin();
 
         //http.authorizeRequests().antMatchers("/","/client/**").hasRole("USER").and().authorizeRequests().antMatchers("/**").hasRole("ADMIN").and().formLogin();
-        http.authorizeRequests().antMatchers("src/main/resources/public/**","/css/**","/js/**").permitAll().and().authorizeRequests().antMatchers("/","/client/**").hasRole("USER").and().authorizeRequests().antMatchers("/**").hasRole("ADMIN").and().formLogin();
+
+        http.authorizeRequests().antMatchers("src/main/resources/public/**","/css/**","/js/**").permitAll()
+                .and().authorizeRequests().antMatchers("/","/home","/client/**").hasRole("USER")
+                .and().authorizeRequests().antMatchers("/**").hasRole("ADMIN")
+                .and().formLogin()
+                .and().exceptionHandling().accessDeniedPage("/403");
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 //        auth.authenticationProvider(new SecurityConfig());
         auth.inMemoryAuthentication().withUser("user").password("user").roles("USER").and().withUser("admin").password("admin").roles("ADMIN","USER");
-
     }
 
     @Bean
@@ -53,7 +56,5 @@ public class AppConfig extends WebSecurityConfigurerAdapter {
     public PasswordEncoder getPasswordEncoder(){
         return NoOpPasswordEncoder.getInstance();
     }
-
-
 
 }
