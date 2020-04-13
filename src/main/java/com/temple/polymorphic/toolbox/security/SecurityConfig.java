@@ -21,7 +21,9 @@
 //
 //        public SecurityConfig() {
 //            users.add(new User("admin", "admin", "ROLE_ADMIN"));
+//            users.add(new User("admin", "admin", "ADMIN"));
 //            users.add(new User("user", "user", "ROLE_USER"));
+//            users.add(new User("user", "user", "USER"));
 //            //users = addUsers(us.getUsers());
 //        }
 //
