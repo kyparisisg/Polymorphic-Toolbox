@@ -1,8 +1,12 @@
 package com.temple.polymorphic.toolbox.services;
 
+import com.temple.polymorphic.toolbox.PermissionRepository;
 import com.temple.polymorphic.toolbox.UserRepository;
+import com.temple.polymorphic.toolbox.ServerRepository;
 import com.temple.polymorphic.toolbox.models.User;
 import com.temple.polymorphic.toolbox.dto.UserDto;
+import com.temple.polymorphic.toolbox.models.Permissions;
+import com.temple.polymorphic.toolbox.dto.PermissionsDto;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +17,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -26,9 +31,17 @@ public class UserService {
     private UserRepository userRepository;
 
     @Autowired
+    private ServerRepository serverRepository;
+
+    @Autowired
+    private PermissionRepository permissionsRepository;
+
+    @Autowired
     private JavaMailSender javaMailSender;
 
     public void setUserRepository(UserRepository userRepository) { this.userRepository = userRepository; }
+
+    public void setPermissionsRepository(PermissionRepository permissionRepository) { this.permissionsRepository = permissionRepository; }
 
     public List<UserDto> getUsers() {
         Type listType = new TypeToken<List<UserDto>>() {}.getType();
@@ -132,16 +145,22 @@ public class UserService {
         if( email.isEmpty() || !(email.contains("@")) )
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
 
+        PermissionRepository permissionsRepository= applicationContext.getBean(PermissionRepository.class);
         UserRepository userRepository = applicationContext.getBean(UserRepository.class);
-        ModelMapper modelmapper = new ModelMapper();
+//        ModelMapper modelmapper = new ModelMapper();
 //        User user = modelmapper.map(userdto, User.class);
         if(userRepository.findByEmail(email)!=null){
             //user found so delete existing user
+
+            if(permissionsRepository.findUserByEmail(email) != null){
+                permissionsRepository.deleteByUser(userRepository.findByEmail(email));
+            }
             userRepository.deleteById(userRepository.findByEmail(email).getId());
             return;
         }
         throw new ResponseStatusException(HttpStatus.CONFLICT);
     }
+
 
     private boolean inviteUser(UserDto userdto) {
 
@@ -164,4 +183,43 @@ public class UserService {
         //not implemented yet
         return "password";
     }
+
+    public List<PermissionsDto> getPermissions(String email) {
+        List<Permissions> perms = permissionsRepository.findAllByEmail(email);
+        ArrayList<PermissionsDto> permsDto = new ArrayList<PermissionsDto>();
+        for(Permissions perm : perms) {
+            permsDto.add(new PermissionsDto(perm.getUser(), perm.getServer(), perm.getCreationDate(), perm.getUsernameCred(), perm.getPasswordCred(), perm.getValid()));
+        }
+        return permsDto;
+    }
+
+    public void addPerm(String email, Long serverId, String username, String password){
+        if(email == null || !(email.contains("@")) || serverId == null)
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+
+        PermissionRepository permissionsRepository= applicationContext.getBean(PermissionRepository.class);
+
+        Permissions newPerm;
+        if(username == null || username.isEmpty() || password == null || password.isEmpty()){
+            newPerm = new Permissions(userRepository.findByEmail(email), serverRepository.findById(serverId).get());
+        }
+        else{
+            newPerm = new Permissions(userRepository.findByEmail(email), serverRepository.findById(serverId).get(), username, password);
+        }
+        permissionsRepository.save(newPerm);
+    }
+
+    public void deletePerm(Long userId, Long serverId){
+        if(userId == null || serverId == null)
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+
+        PermissionRepository permissionsRepository= applicationContext.getBean(PermissionRepository.class);
+
+        if(permissionsRepository.findByIds(userId, serverId) != null){
+            permissionsRepository.deleteById(permissionsRepository.findByIds(userId, serverId).getId());
+            return;
+        }
+        throw new ResponseStatusException(HttpStatus.CONFLICT);
+    }
+
 }

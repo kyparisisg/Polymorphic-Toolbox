@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Table(name = "Users")
@@ -13,6 +14,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
     @Column(name="first_name")
     private String firstName;
@@ -33,6 +35,15 @@ public class User {
     @Column(name="last_login")
     private Date lastLogin;
 
+//was not working
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
+    private Set<Permissions> userPermissions;
+
+    //@OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL)
+    //private Set<Specific_Creds> userCreds;
+
+//    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL)
+//    private Set<Transactions> userTransactions;
 
     public User() {
 
@@ -46,6 +57,20 @@ public class User {
         this.role = role;
         this.setRegisterDate(new Date());   //for current datetime
         this.lastLogin = null;
+    }
+
+    public User(String firstName, String lastName, String email, String password, String role,
+                Set<Permissions> userPermissions, Set<Transactions> userTransactions) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+        this.setRegisterDate(new Date());   //for current datetime
+        this.lastLogin = null;
+        //this.userPermissions = userPermissions;
+        //this.userCreds = userCreds;
+        //this.userTransactions = userTransactions;
     }
 
     public Long getId() {
@@ -112,5 +137,34 @@ public class User {
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date date = new Date();
         this.registerDate = date;
+    }
+
+    public Set<Permissions> getUserPermissions() {
+        return userPermissions;
+    }
+
+    public void setUserPermissions(Set<Permissions> userPermissions) {
+        this.userPermissions = userPermissions;
+    }
+
+    /*public Set<Specific_Creds> getUserCreds() {
+        return userCreds;
+    }
+
+    public void setUserCreds(Set<Specific_Creds> userCreds) {
+        this.userCreds = userCreds;
+    }*/
+
+//    public Set<Transactions> getUserTransactions() {
+//        return userTransactions;
+//    }
+//
+//    public void setUserTransactions(Set<Transactions> userTransactions) {
+//        this.userTransactions = userTransactions;
+//    }
+
+    @Override
+    public String toString() {
+        return firstName + " " + lastName;
     }
 }

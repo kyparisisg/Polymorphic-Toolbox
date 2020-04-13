@@ -3,7 +3,7 @@ CREATE TABLE Users (
     first_name VARCHAR(200),
     last_name VARCHAR(200) NOT NULL,
     email VARCHAR(50) UNIQUE NOT NULL,
-    password VARCHAR(50) NOT NULL DEFAULT 'defpassword',
+    password VARCHAR(50) NOT NULL DEFAULT 'password',
     role VARCHAR(6) NOT NULL,
     register_date DATE
 );
@@ -17,5 +17,30 @@ CREATE TABLE Servers (
     password_cred VARCHAR(50) NOT NULL,
     health INT DEFAULT 0,
     register_date DATE,
-    key_location VARCHAR(1000) UNIQUE
+    key_location VARCHAR(200) UNIQUE
 );
+
+CREATE TABLE Permissions(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    server_id INT NOT NULL,
+    creation_date DATE,
+    username_cred VARCHAR(50),
+    password_cred VARCHAR(50),
+    valid INT DEFAULT 0,
+    CONSTRAINT fk_user FOREIGN KEY(user_id) REFERENCES Users (id),
+    CONSTRAINT fk_server FOREIGN KEY(server_id) REFERENCES Servers (id)
+);
+
+CREATE TABLE Transactions(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    src_server INT NOT NULL,
+    dst_server INT NOT NULL,
+    file_name VARCHAR(200),
+    creation_date DATE,
+    status INT DEFAULT 0
+);
+ALTER TABLE Transactions ADD FOREIGN KEY (user_id) REFERENCES Users(id);
+ALTER TABLE Transactions ADD FOREIGN KEY (src_server) REFERENCES Servers(id);
+ALTER TABLE Transactions ADD FOREIGN KEY (dst_server) REFERENCES Servers(id);

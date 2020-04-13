@@ -16,21 +16,25 @@ public class LoginHandler {
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String index(Model model) {
-        LOGGER.debug("index()");
-        return "redirect:/login.html";
+        return "navigate";
     }
 
-    @RequestMapping(value = "login", method = RequestMethod.GET)
-    public String loginRed(Model model) {
-        LOGGER.debug("index()");
-        return "redirect:/login.html";
+    @RequestMapping(value = "home", method = RequestMethod.GET)
+    public String index2(Model model) {
+        return "navigate";
     }
 
+//    @RequestMapping(value = "client", method = RequestMethod.GET)
+//    public String client(Model model) {
+//        return "clientDashboard";
+//    }
 
-    @RequestMapping(value = "login.html", method = RequestMethod.GET)
-    public String login(Model model) {
+    @RequestMapping(value = "logout", method = RequestMethod.GET)
+    public String logout(Model model) {
         LOGGER.debug("index()");
-        return "redirect:/login.html";
+        //return "redirect:/login.jsp";
+        return "logout";
+
     }
 
 }

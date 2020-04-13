@@ -1,17 +1,28 @@
 package com.temple.polymorphic.toolbox.controllers;
 
+import com.temple.polymorphic.toolbox.dto.PermOperation;
+import com.temple.polymorphic.toolbox.dto.PermissionsDto;
+import com.temple.polymorphic.toolbox.dto.ServerDto;
 import com.temple.polymorphic.toolbox.dto.UserDto;
+import com.temple.polymorphic.toolbox.models.Server;
+import com.temple.polymorphic.toolbox.models.User;
 import com.temple.polymorphic.toolbox.services.ServerService;
 import com.temple.polymorphic.toolbox.services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.security.Permission;
 import java.util.List;
 
 @Controller
@@ -21,7 +32,10 @@ public class UsersController {
     @Autowired
     private UserService userService;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ServerService.class);
+    @Autowired
+    private ServerService serverService;
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserService.class);
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public ModelAndView index(Model model) {
@@ -68,8 +82,14 @@ public class UsersController {
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public String addUser(@ModelAttribute("SpringWeb")UserDto userDto, ModelMap model) {
-        Long pk_id = userService.addUser(userDto);
+    public String addUser(@ModelAttribute("SpringWeb")UserDto userDto, Model model) {
+        Long pk_id = null;
+        try{
+            pk_id = userService.addUser(userDto);
+        }catch (ResponseStatusException e){
+            return this.handleRequest(e, model, "Failed to create new User, please try again");
+
+        }
         model.addAttribute("userDto", userDto);    //can user either on jsp ${userDto.field} OR ${field}
         model.addAttribute("id", pk_id);
         model.addAttribute("firstName", userDto.getFirstName());
@@ -118,15 +138,30 @@ public class UsersController {
         return new ModelAndView("users/delete", "command", new UserDto()); //maybe new UserDto like user()
     }
 
-    @RequestMapping(value = "/delete/{email}", method = RequestMethod.GET)
-    public ModelAndView deleteUserForm(@PathVariable("email") String email, Model model) {
-        UserDto userDto = userService.getUser(email);
-        //to not return the password
-        userDto.setPassword("");
-        model.addAttribute("userDto", userDto);
-        model.addAttribute("email",email);
+//    @RequestMapping(value = "/delete/{email}", method = RequestMethod.GET)
+//    public ModelAndView deleteUserForm(@PathVariable("email") String email, Model model) {
+//        UserDto userDto = userService.getUser(email);
+//        //to not return the password
+//        userDto.setPassword("");
+//        //model.addAttribute("userDto", userDto);
+//        model.addAttribute("email",email);
+//
+//        return new ModelAndView("users/delete", "command", new UserDto());
+//    }
 
-        return new ModelAndView("users/delete", "command", new UserDto());
+    @RequestMapping(value = "/delete/{email}", method = RequestMethod.GET)
+    public String deleteUserForm(@PathVariable("email") String email, Model model) {
+        UserDto us = userService.getUser(email);
+        userService.deleteUser(email);
+
+        model.addAttribute("id", us.getId());
+        model.addAttribute("firstName", us.getFirstName());
+        model.addAttribute("lastName", us.getLastName());
+        model.addAttribute("email", us.getEmail());
+        model.addAttribute("role", us.getRole());
+        model.addAttribute("request", "Deleted user");
+
+        return "users/requestSuccess";
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
@@ -144,5 +179,113 @@ public class UsersController {
 
         return "users/requestSuccess";
     }
+
+    @RequestMapping(value = "/permissions/get/{email}", method = RequestMethod.GET)
+    public String getPermissions(@PathVariable("email") String email, Model model){
+        List<PermissionsDto> perms = getPermissions(email);
+        model.addAttribute("perms", perms);
+        model.addAttribute("email", email);
+
+        return "users/viewPerm";
+    }
+
+    public List<PermissionsDto> getPermissions(@ModelAttribute String email) {
+        return userService.getPermissions(email);
+    }
+
+
+
+    //For the User's Permission
+    @RequestMapping(value = "/permissions/add/{email}", method = RequestMethod.GET)
+    public ModelAndView setPermissions(@PathVariable("email") String email, Model model){
+        //see if user exists
+        UserDto us = userService.getUser(email);
+
+        //add model attributes for email and permissionsDto
+        model.addAttribute("email",email);
+
+        //ServerListToDisplay and select one
+        List<ServerDto> serversList = serverService.getServers();
+        model.addAttribute("list", serversList);
+
+        return new ModelAndView("users/addPermissions","command", new PermOperation());
+    }
+
+    @RequestMapping(value = "/permissions/add", method = RequestMethod.POST)
+    public String setPermissions(@ModelAttribute PermOperation perm, Model model){
+        //verify User's existence by email
+        UserDto us;
+        try{
+            us = userService.getUser(perm.getEmail());
+        }catch (ResponseStatusException e){
+            return this.handleRequest(e, model, "Failed to set new permission for User. Please try again");
+
+        }
+        //verify Server's existence by IP
+        ServerDto s;
+        try{
+            s = serverService.getServerById(perm.getServerId());
+        }catch (ResponseStatusException e){
+            return this.handleRequest(e, model, "Failed to set new permission for User, server id does not exist. Please try again");
+
+        }
+        //set permission to access server with id, for the given User (email), if permission does not already exist
+        userService.addPerm(perm.getEmail(), perm.getServerId(), perm.getUsername(), perm.getPassword());
+        //return success or fail status by adding attributes to the model
+
+        //return user that the permissions were assigned
+        model.addAttribute("id", us.getId());
+        model.addAttribute("firstName", us.getFirstName());
+        model.addAttribute("lastName", us.getLastName());
+        model.addAttribute("email", us.getEmail());
+        model.addAttribute("role", us.getRole());
+        model.addAttribute("request", "Permissions access on server: "+ perm.getServerId() +", granted for user.");
+
+        return "users/requestSuccess";
+    }
+
+    @RequestMapping(value = "/permissions/delete/{userId}+{serverId}", method = RequestMethod.POST)
+    public String deletePermissions(@PathVariable("userId")Long userId, @PathVariable("serverId") Long serverId, Model model){
+        //verify User's existence by email
+        UserDto us;
+        try{
+            us = userService.getUserById(userId);
+        }catch (ResponseStatusException e){
+            return this.handleRequest(e, model, "Failed to set new permission for User. Please try again");
+
+        }
+        //verify Server's existence by IP
+        ServerDto s;
+        try{
+            s = serverService.getServerById(serverId);
+        }catch (ResponseStatusException e){
+            return this.handleRequest(e, model, "Failed to set new permission for User, server id does not exist. Please try again");
+
+        }
+        //delete permission to access server with IP, for the given User (email), if permission exists
+        userService.deletePerm(userId, serverId);
+        //return success or fail status by adding attributes to the model
+
+        //return user that the permissions were revoked
+
+        model.addAttribute("id", us.getId());
+        model.addAttribute("firstName", us.getFirstName());
+        model.addAttribute("lastName", us.getLastName());
+        model.addAttribute("email", us.getEmail());
+        model.addAttribute("role", us.getRole());
+        model.addAttribute("request", "Permissions access on server: "+ serverId +", revoked for user.");
+
+        return "users/requestSuccess";
+    }
+
+    public String handleRequest(ResponseStatusException e, Model model, String reason) {
+
+        model.addAttribute("msg", e.getMessage());
+        model.addAttribute("status", e.getStatus());
+        model.addAttribute("reason", reason);
+        return "error";
+    }
+
+
 
 }

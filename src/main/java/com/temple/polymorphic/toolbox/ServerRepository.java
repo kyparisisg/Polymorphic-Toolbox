@@ -11,6 +11,4 @@ public interface ServerRepository extends JpaRepository<Server, Long> {
 
     @Query(FIND_BY_IP)
     public Server findByIp(String ip);
-
-
 }
