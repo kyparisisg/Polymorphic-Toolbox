@@ -59,7 +59,7 @@ public class AwsController {
         model.addAttribute("status",status);
         model.addAttribute("file_name",fileInfoDto.getFile_name());
         model.addAttribute("s3dir",fileInfoDto.getS3dir());
-        model.addAttribute("bucketName",bucketName);
+//        model.addAttribute("bucketName",bucketName);
 
 
         return "aws/awsApiSuccess";

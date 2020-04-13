@@ -7,7 +7,7 @@ public class FileInfoDto {
     private String user;    // how can I make this visible to me when the user logs in.
     private String encryption_token;
     private String s3dir;
-    private String bucket
+//    private String bucket
 
     public FileInfoDto() {
 

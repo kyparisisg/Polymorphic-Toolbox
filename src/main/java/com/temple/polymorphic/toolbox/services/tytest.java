@@ -13,7 +13,7 @@ public class tytest {
 //        String bucketName = "testname";
 //        TransferService.createS3b(bucketName);
 
-//        TransferService.fileUpload("greekarmy","server 1/","important.txt");
+        TransferService.fileUpload("greekarmy","server 1/","important.txt");
 //        TransferService.fileDownload("greekarmy","server 1","important.txt");
         String fileName = "important.txt";
 //        Path path = Paths.get("\\capstone\\Polymorphic-Toolbox\\src\\resources");
