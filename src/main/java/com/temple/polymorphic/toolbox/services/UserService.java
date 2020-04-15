@@ -97,7 +97,7 @@ public class UserService {
         User user = new User(userdto.getFirstName(), userdto.getLastName(), userdto.getEmail(), userdto.getPassword(), userdto.getRole());
         if( userRepository.findByEmail(userdto.getEmail()) == null ) {
             //send user email invitation
-            if(inviteUser(userdto)){
+            if(inviteUser(userdto, encodedPass)){
                 //default role if not given
                 user.setRole("user");
                 //success, then save user in db
@@ -165,13 +165,13 @@ public class UserService {
     }
 
 
-    private boolean inviteUser(UserDto userdto) {
+    private boolean inviteUser(UserDto userdto, String UnEncryptedPassword) {
 
         SimpleMailMessage msg = new SimpleMailMessage();
         msg.setTo(userdto.getEmail());
 
         msg.setSubject("Polymorphic Toolbox Registration Invitation!");
-        msg.setText("Hello, " + userdto.getLastName() + "\n Please use the following temporary password to login: " + userdto.getPassword() + "\n");
+        msg.setText("Hello, " + userdto.getLastName() + "\n Please use the following temporary password to login: " + UnEncryptedPassword + "\n");
 
         try {
             javaMailSender.send(msg);
