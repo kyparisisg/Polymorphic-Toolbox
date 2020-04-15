@@ -14,12 +14,15 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpStatus;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import java.lang.reflect.Type;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 @Service
 public class UserService {
@@ -84,18 +87,24 @@ public class UserService {
     }
 
     public Long addUser(UserDto userdto){
+
         if( userdto.getEmail() == null || !(userdto.getEmail().contains("@")) )
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
 
         UserRepository userRepository = applicationContext.getBean(UserRepository.class);
         //generate tmp password -- change this to set password with email invitation
-        userdto.setPassword(generateRndPassword());
+        String randToken = generateRndPassword();
+        String encodedPass = new BCryptPasswordEncoder().encode(randToken);//to encrypt the random generated password
+        userdto.setPassword(encodedPass);
         User user = new User(userdto.getFirstName(), userdto.getLastName(), userdto.getEmail(), userdto.getPassword(), userdto.getRole());
         if( userRepository.findByEmail(userdto.getEmail()) == null ) {
             //send user email invitation
-            if(inviteUser(userdto)){
+            if(inviteUser(userdto, randToken)){
+                if(user.getRole().equalsIgnoreCase("admin")){
+                    user.setRole("ROLE_ADMIN");
+                }
                 //default role if not given
-                user.setRole("user");
+                user.setRole("ROLE_USER");
                 //success, then save user in db
                 userRepository.save(user);
 
@@ -147,8 +156,7 @@ public class UserService {
 
         PermissionRepository permissionsRepository= applicationContext.getBean(PermissionRepository.class);
         UserRepository userRepository = applicationContext.getBean(UserRepository.class);
-//        ModelMapper modelmapper = new ModelMapper();
-//        User user = modelmapper.map(userdto, User.class);
+
         if(userRepository.findByEmail(email)!=null){
             //user found so delete existing user
 
@@ -162,13 +170,13 @@ public class UserService {
     }
 
 
-    private boolean inviteUser(UserDto userdto) {
+    private boolean inviteUser(UserDto userdto, String UnEncryptedPassword) {
 
         SimpleMailMessage msg = new SimpleMailMessage();
         msg.setTo(userdto.getEmail());
 
-        msg.setSubject("Testing from Spring Boot, toolbox invitation!");
-        msg.setText("Hello, " + userdto.getLastName() + "\n Please use the following temporary password to login: " + userdto.getPassword() + "\n");
+        msg.setSubject("Polymorphic Toolbox Registration Invitation!");
+        msg.setText("Hello, " + userdto.getLastName() + "\n Please use the following temporary password to login: " + UnEncryptedPassword + "\n");
 
         try {
             javaMailSender.send(msg);
@@ -181,7 +189,21 @@ public class UserService {
 
     private String generateRndPassword(){
         //not implemented yet
-        return "password";
+        //String passwd = "password";
+
+        int leftLimit = 48; // numeral '0'
+        int rightLimit = 122; // letter 'z'
+        int targetStringLength = 10;
+        Random random = new Random();
+
+        String passwd = random.ints(leftLimit, rightLimit + 1)
+                .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
+                .limit(targetStringLength)
+                .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+                .toString();
+
+
+        return passwd;
     }
 
     public List<PermissionsDto> getPermissions(String email) {

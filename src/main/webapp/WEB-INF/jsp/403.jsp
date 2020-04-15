@@ -111,20 +111,14 @@
         <div class="container">
             <div class="content-center brand">
                 <%--                <h1 class="h1-seo"></h1>--%>
-                <h3>Welcome to the Admin Dashboard</h3>
-                <div class="row justify-content-md-center">
+                <h3>HTTP Status 403 - Access is denied</h3>
+                <h4>${msg}</h4>
+                    <br>
                     <div class="text-center col-md-12 col-lg-8">
-                        <a href="/api/users" class="btn btn-primary btn-round btn-lg" role="button">
-                            Manage Users
-                        </a>
-
-                    </div>
-                    <div class="text-center col-md-12 col-lg-8">
-                        <a href="/api/servers" class="btn btn-primary btn-round btn-lg" role="button">
-                            Manage Servers
+                        <a href="/client" class="text-center btn btn-primary btn-round btn-lg" role="button">
+                                Client Dashboard
                         </a>
                     </div>
-                    <br><br><br><br>
                     <div class="text-center col-md-12 col-lg-8">
                         <a href="/logout" class="btn btn-primary btn-round btn-lg" role="button">
                             Logout

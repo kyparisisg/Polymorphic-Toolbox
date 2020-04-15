@@ -3,8 +3,8 @@ CREATE TABLE Users (
     first_name VARCHAR(200),
     last_name VARCHAR(200) NOT NULL,
     email VARCHAR(50) UNIQUE NOT NULL,
-    password VARCHAR(50) NOT NULL DEFAULT 'password',
-    role VARCHAR(6) NOT NULL,
+    password VARCHAR(150) NOT NULL DEFAULT 'password',
+    role VARCHAR(16) NOT NULL,
     register_date DATE
 );
 
