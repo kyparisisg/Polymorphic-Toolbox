@@ -9,12 +9,12 @@ public class tytest {
     public static void main(String[] args) throws IOException {
         boolean IS_WINDOWS = System.getProperty( "os.name" ).contains( "indow" );
 
-        //creating an s3 bucket
-//        String bucketName = "testname";
-//        TransferService.createS3b(bucketName);
 
+//    upload file first
         TransferService.fileUpload("greekarmy","server 1/","important.txt");
-//        TransferService.fileDownload("greekarmy","server 1","important.txt");
+
+
+        TransferService.fileDownload("greekarmy","server 1","important.txt");
         String fileName = "important.txt";
 //        Path path = Paths.get("\\capstone\\Polymorphic-Toolbox\\src\\resources");
         File t;

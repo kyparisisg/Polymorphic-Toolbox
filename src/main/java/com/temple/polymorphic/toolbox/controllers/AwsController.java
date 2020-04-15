@@ -5,11 +5,14 @@ import com.temple.polymorphic.toolbox.services.TransferService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.io.IOException;
 
 @Controller
 @RequestMapping("/aws/")
@@ -21,7 +24,7 @@ public class AwsController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TransferService.class);
 
-    @RequestMapping(value = "upload", method = RequestMethod.GET)
+    @RequestMapping(value = "/upload", method = RequestMethod.GET)
     public ModelAndView uploadFile(){
 
         return new ModelAndView("aws/uploadFile","command", new FileInfoDto());
@@ -32,8 +35,8 @@ public class AwsController {
 //        return "aws/uploadFile";
 //    }
 
-    @RequestMapping(value = "upload", method = RequestMethod.POST)
-    public String uploadFileUsingAwsApi(FileInfoDto fileInfoDto, Model model){
+    @RequestMapping(value = "/upload", method = RequestMethod.POST)
+    public String uploadFileUsingAwsApi(@ModelAttribute("SpringWeb")FileInfoDto fileInfoDto, Model model) throws IOException {
 
 //        TransferService.fileUpload(s3bucketName,fileInfoDto.getS3dir(),fileInfoDto.getFile_name());
 
@@ -55,10 +58,17 @@ public class AwsController {
         //use the transferService to implement the services and just call them from here!
 
         //add attributes (one or more) to model so you can use them while rendering the awsApiSuccess.jsp
+        TransferService.fileUpload(fileInfoDto.getBucket(),fileInfoDto.getS3dir(),fileInfoDto.getFile_name());
+        model.addAttribute("fileInfoDto", fileInfoDto);
         String status = "The transaction was successfully, the file was uploaded!";
         model.addAttribute("status",status);
         model.addAttribute("file_name",fileInfoDto.getFile_name());
         model.addAttribute("s3dir",fileInfoDto.getS3dir());
+        model.addAttribute("ipv4",fileInfoDto.getIpv4());
+        model.addAttribute("user",fileInfoDto.getUser());
+        model.addAttribute("bucket",fileInfoDto.getBucket());
+
+
 //        model.addAttribute("bucketName",bucketName);
 
 

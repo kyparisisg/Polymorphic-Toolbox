@@ -18,15 +18,31 @@ EXAMPLE FORM FOR POST ON OUR APIs
 <h2>Upload File</h2>
     <form:form method = "POST" action = "/aws/upload">
         <table>
-        <tr>
-        <td><form:label path = "fileName">File</form:label></td>
-        <td><form:input path = "fileName" /></td>
-        </tr>
-        <tr>
-        <td colspan = "2">
-        <input type = "submit" value = "Submit"/>
-        </td>
-        </tr>
+            <tr>
+                <td><form:label path = "file_name">File Name</form:label></td>
+                <td><form:input path = "file_name" /></td>
+            </tr>
+            <tr>
+                <td><form:label path = "s3dir">S3 Directory Path</form:label></td>
+                <td><form:input path = "s3dir" /></td>
+            </tr>
+            <tr>
+                <td><form:label path = "ipv4">ipv4 Address</form:label></td>
+                <td><form:input path = "ipv4" /></td>
+            </tr>
+            <tr>
+                <td><form:label path = "user">User</form:label></td>
+                <td><form:input path = "user" /></td>
+            </tr>
+            <tr>
+                <td><form:label path = "bucket">Bucket Name</form:label></td>
+                <td><form:input path = "bucket" /></td>
+            </tr>
+            <tr>
+                <td colspan = "2">
+                    <input type = "submit" value = "Update"/>
+                </td>
+            </tr>
         </table>
     </form:form>
 </body>
