@@ -9,7 +9,7 @@
     <body>
         <p>
             Status: <td>${status}</td>
-        DownloadLink : <td>${filepath}</td>
+        DownloadLink : <td><a href=""+${filepath}>${file_name}</a></td>
         </p>
     </body>
 

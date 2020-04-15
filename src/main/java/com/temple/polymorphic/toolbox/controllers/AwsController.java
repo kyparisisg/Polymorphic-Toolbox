@@ -90,6 +90,7 @@ public class AwsController {
         //use the transferService to implement the services and just call them from here!
 
         //add attributes (one or more) to model so you can use them while rendering the awsApiSuccess.jsp
+        
         TransferService.fileDownload(fileInfoDto.getBucket(),fileInfoDto.getS3dir(),fileInfoDto.getFile_name());
 
         String status = "The transaction was successfully, the file was downloaded!";
