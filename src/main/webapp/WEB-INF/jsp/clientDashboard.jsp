@@ -114,7 +114,7 @@
                 <h3>Welcome to the User Dashboard</h3>
                 <div class="row justify-content-md-center">
                     <div class="text-center col-md-12 col-lg-8">
-                        <a href="/client/transfer/" class="btn btn-primary btn-round btn-lg" role="button">
+                        <a href="/client/transfer/form" class="btn btn-primary btn-round btn-lg" role="button">
                             Server Transfer
                         </a>
 
@@ -129,6 +129,12 @@
                     <div class="text-center col-md-12 col-lg-8">
                         <a href="/client/cloud/restore" class="btn btn-primary btn-round btn-lg" role="button">
                             Restore
+                        </a>
+                    </div>
+
+                    <div class="text-center col-md-12 col-lg-8">
+                        <a href="/client/myHistory" class="btn btn-primary btn-round btn-lg" role="button">
+                            History
                         </a>
                     </div>
 

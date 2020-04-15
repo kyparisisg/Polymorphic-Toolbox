@@ -34,7 +34,6 @@ public interface PermissionRepository extends JpaRepository<Permissions, Long>{
     public static final String FIND_PERM_BY_SERVER_ID = "SELECT p FROM Permissions p" +
             " WHERE p.server=?1";
 
-
     public static final String DELETE_BY_USER="DELETE FROM Permissions p" +
             " WHERE p.user=?1";
 

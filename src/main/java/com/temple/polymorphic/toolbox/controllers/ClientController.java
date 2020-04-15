@@ -1,7 +1,9 @@
 package com.temple.polymorphic.toolbox.controllers;
 
 
+import com.temple.polymorphic.toolbox.dto.TransactionDto;
 import com.temple.polymorphic.toolbox.dto.UserDto;
+import com.temple.polymorphic.toolbox.models.User;
 import com.temple.polymorphic.toolbox.services.TransferService;
 import com.temple.polymorphic.toolbox.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,12 +15,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/client")
 public class ClientController {
 
     @Autowired
-    private TransferService serverService;
+    private TransferService transferService;
 
     @Autowired
     private UserService userService;
@@ -35,19 +39,22 @@ public class ClientController {
     }
 
 
-//    @RequestMapping(value = "/viewhistory" , method = RequestMethod.GET)
-//    public ModelAndView myHistory(){
-//
-//        return new ModelAndView("/client/viewhistory");
-//    }
-
-    @RequestMapping(value = "/viewhistory" , method = RequestMethod.GET)
-    public String myHistory(@CookieValue(value = "username", defaultValue = "NOT_FOUND") String username, Model model){
-        //if cookie value is not found then logout user
-        UserDto userDto = userService.getUser(username);
-        model.addAttribute("userDto",userDto);
+    @RequestMapping(value = "/myHistory" , method = RequestMethod.GET)
+    public String myHistory(@CookieValue(value = "username", defaultValue = "NOT_FOUND") String email, Model model){
 
         return "client/viewHistory";
-        //return new ModelAndView("/client/viewhistory", "command", userDto);
+    }
+
+    public List<TransactionDto> myHistory(String email){
+
+        return null;//transferService.getTransfers(email);
+    }
+
+
+    //this function intentionally not mapped linked to the rest of the front end - must type in link manually
+    @RequestMapping(value = "/viewUser" , method = RequestMethod.GET) //this function intentionally not mapped
+    public String viewUser(@CookieValue(value = "username", defaultValue = "NOT_FOUND") String email, Model model){
+        model.addAttribute("userDto",userService.getUser(email));
+        return "client/viewUser";
     }
 }

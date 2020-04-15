@@ -1,6 +1,6 @@
 package com.temple.polymorphic.toolbox.controllers;
 
-import com.temple.polymorphic.toolbox.dto.FileInfoDto;
+import com.temple.polymorphic.toolbox.dto.TransactionDto;
 import com.temple.polymorphic.toolbox.services.TransferService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,11 +23,11 @@ public class AwsController {
     @RequestMapping(value = "upload", method = RequestMethod.GET)
     public ModelAndView uploadFile(){
 
-        return new ModelAndView("client/aws/upload","command", new FileInfoDto());
+        return new ModelAndView("client/aws/upload","command", new TransactionDto());
     }
 
     @RequestMapping(value = "upload", method = RequestMethod.POST)
-    public String uploadFileUsingAwsApi(FileInfoDto fileInfoDto, Model model){
+    public String uploadFileUsingAwsApi(TransactionDto transactionDto, Model model){
         //Make the API calls to AWS using the FileInfoDto given
         //...
         //...
@@ -43,11 +43,11 @@ public class AwsController {
     @RequestMapping(value = "restore", method = RequestMethod.GET)
     public ModelAndView restore(){
 
-        return new ModelAndView("client/aws/restore","command", new FileInfoDto());
+        return new ModelAndView("client/aws/restore","command", new TransactionDto());
     }
 
     @RequestMapping(value = "restore", method = RequestMethod.POST)
-    public String downloadFileUsingAwsApi(FileInfoDto fileInfoDto, Model model){
+    public String downloadFileUsingAwsApi(TransactionDto transactionDto, Model model){
         //Make the API calls to AWS to download a file from S3
         //...
         //...
