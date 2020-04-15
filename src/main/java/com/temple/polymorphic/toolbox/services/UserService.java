@@ -98,8 +98,11 @@ public class UserService {
         if( userRepository.findByEmail(userdto.getEmail()) == null ) {
             //send user email invitation
             if(inviteUser(userdto, encodedPass)){
+                if(user.getRole().equalsIgnoreCase("admin")){
+                    user.setRole("ROLE_ADMIN");
+                }
                 //default role if not given
-                user.setRole("user");
+                user.setRole("ROLE_USER");
                 //success, then save user in db
                 userRepository.save(user);
 
