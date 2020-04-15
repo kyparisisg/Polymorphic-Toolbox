@@ -18,9 +18,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import java.lang.reflect.Type;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 @Service
 public class UserService {
@@ -91,12 +93,13 @@ public class UserService {
 
         UserRepository userRepository = applicationContext.getBean(UserRepository.class);
         //generate tmp password -- change this to set password with email invitation
-        String encodedPass = new BCryptPasswordEncoder().encode(generateRndPassword());//to encrypt the random generated password
+        String randToken = generateRndPassword();
+        String encodedPass = new BCryptPasswordEncoder().encode(randToken);//to encrypt the random generated password
         userdto.setPassword(encodedPass);
         User user = new User(userdto.getFirstName(), userdto.getLastName(), userdto.getEmail(), userdto.getPassword(), userdto.getRole());
         if( userRepository.findByEmail(userdto.getEmail()) == null ) {
             //send user email invitation
-            if(inviteUser(userdto, encodedPass)){
+            if(inviteUser(userdto, randToken)){
                 if(user.getRole().equalsIgnoreCase("admin")){
                     user.setRole("ROLE_ADMIN");
                 }
@@ -186,7 +189,20 @@ public class UserService {
 
     private String generateRndPassword(){
         //not implemented yet
-        String passwd = "password";
+        //String passwd = "password";
+
+        int leftLimit = 48; // numeral '0'
+        int rightLimit = 122; // letter 'z'
+        int targetStringLength = 10;
+        Random random = new Random();
+
+        String passwd = random.ints(leftLimit, rightLimit + 1)
+                .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
+                .limit(targetStringLength)
+                .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+                .toString();
+
+
         return passwd;
     }
 
