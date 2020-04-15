@@ -65,6 +65,11 @@ public class AwsController {
         model.addAttribute("user",fileInfoDto.getUser());
         model.addAttribute("bucket",fileInfoDto.getBucket());
 
+        String downloadPath = "";
+        model.addAttribute("filepath",filepath);
+
+
+
 //        model.addAttribute("bucketName",bucketName);
 
 
@@ -88,7 +93,19 @@ public class AwsController {
         TransferService.fileDownload(fileInfoDto.getBucket(),fileInfoDto.getS3dir(),fileInfoDto.getFile_name());
 
         String status = "The transaction was successfully, the file was downloaded!";
+
         model.addAttribute("status",status);
+
+
+        model.addAttribute("fileInfoDto", fileInfoDto);
+        model.addAttribute("file_name",fileInfoDto.getFile_name());
+        model.addAttribute("s3dir",fileInfoDto.getS3dir());
+        model.addAttribute("bucket",fileInfoDto.getBucket());
+
+        String downloadPath = "C:\\Users\\taira\\Documents\\"+fileInfoDto.getFile_name();
+        model.addAttribute("filepath",filepath);
+
+
 
         return "aws/awsApiSuccess";
     }
