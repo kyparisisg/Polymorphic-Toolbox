@@ -24,7 +24,7 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity
-public class AppConfig extends WebSecurityConfigurerAdapter {
+public class SecurityAppConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     UserDetailsService userDetailsService;
@@ -56,8 +56,6 @@ public class AppConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.authenticationProvider(new SecurityConfig());
-
         //auth.inMemoryAuthentication().withUser("tuk12920@temple.edu").password("user").roles("USER").and().withUser("admin").password("admin").roles("ADMIN","USER");
 
         auth.jdbcAuthentication().dataSource(dataSource)
