@@ -15,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import java.lang.reflect.Type;
@@ -85,12 +86,14 @@ public class UserService {
     }
 
     public Long addUser(UserDto userdto){
+
         if( userdto.getEmail() == null || !(userdto.getEmail().contains("@")) )
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
 
         UserRepository userRepository = applicationContext.getBean(UserRepository.class);
         //generate tmp password -- change this to set password with email invitation
-        userdto.setPassword(generateRndPassword());
+        String encodedPass = new BCryptPasswordEncoder().encode(generateRndPassword());//to encrypt the random generated password
+        userdto.setPassword(encodedPass);
         User user = new User(userdto.getFirstName(), userdto.getLastName(), userdto.getEmail(), userdto.getPassword(), userdto.getRole());
         if( userRepository.findByEmail(userdto.getEmail()) == null ) {
             //send user email invitation
@@ -148,8 +151,7 @@ public class UserService {
 
         PermissionRepository permissionsRepository= applicationContext.getBean(PermissionRepository.class);
         UserRepository userRepository = applicationContext.getBean(UserRepository.class);
-//        ModelMapper modelmapper = new ModelMapper();
-//        User user = modelmapper.map(userdto, User.class);
+
         if(userRepository.findByEmail(email)!=null){
             //user found so delete existing user
 
@@ -168,7 +170,7 @@ public class UserService {
         SimpleMailMessage msg = new SimpleMailMessage();
         msg.setTo(userdto.getEmail());
 
-        msg.setSubject("Testing from Spring Boot, toolbox invitation!");
+        msg.setSubject("Polymorphic Toolbox Registration Invitation!");
         msg.setText("Hello, " + userdto.getLastName() + "\n Please use the following temporary password to login: " + userdto.getPassword() + "\n");
 
         try {
@@ -182,7 +184,8 @@ public class UserService {
 
     private String generateRndPassword(){
         //not implemented yet
-        return "password";
+        String passwd = "password";
+        return passwd;
     }
 
     public List<PermissionsDto> getPermissions(String email) {
