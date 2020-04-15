@@ -9,6 +9,8 @@ Form to uploads file from server.
 EXAMPLE FORM FOR POST ON OUR APIs
 
 <%@taglib uri = "http://www.springframework.org/tags/form" prefix = "form"%>
+<%@ page import="java.io.*,java.util.*, javax.servlet.*" %>
+<%@ page import="javax.servlet.http.*" %>
 <html>
 <head>
 <title>Upload File - Transfer Operation</title>
@@ -20,7 +22,7 @@ EXAMPLE FORM FOR POST ON OUR APIs
         <table>
             <tr>
                 <td><form:label path = "file_name">File Name</form:label></td>
-                <td><form:input path = "file_name" /></td>
+                <td>Select File: <input type="file" name="file"/> </td>
             </tr>
             <tr>
                 <td><form:label path = "s3dir">S3 Directory Path</form:label></td>
@@ -38,6 +40,7 @@ EXAMPLE FORM FOR POST ON OUR APIs
                 <td><form:label path = "bucket">Bucket Name</form:label></td>
                 <td><form:input path = "bucket" /></td>
             </tr>
+
             <tr>
                 <td colspan = "2">
                     <input type = "submit" value = "Update"/>

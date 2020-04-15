@@ -32,8 +32,10 @@ dependencies {
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
+	compile "commons-fileupload:commons-fileupload:1.2.2"
+	compile "commons-io:commons-io:2.4"
 	testImplementation 'org.springframework.security:spring-security-test'
-    	implementation 'org.jetbrains:annotations:15.0'
+	implementation 'org.jetbrains:annotations:15.0'
 	implementation 'org.slf4j:slf4j-api:1.7.30'
 	implementation 'org.springframework.boot:spring-boot-starter-mail:2.0.1.RELEASE'
 	implementation 'com.jcraft:jsch:0.1.55'

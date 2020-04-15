@@ -55,14 +55,14 @@ public class TransferService {
     }
 
     public static void  fileUpload(String bcktnm, String dir,String fileName) throws IOException{
-        AmazonS3 s3Client = setUpclient();
+            AmazonS3 s3Client = setUpclient();
 
             if(s3Client.doesBucketExistV2(bcktnm)){
             try {
                 s3Client.putObject(
                         bcktnm,
                         dir + "" + fileName,
-                        new File("C:\\Users\\taira\\Documents\\capstone\\Polymorphic-Toolbox\\src\\main\\resources\\tempStorage\\" + fileName)
+                        new File("C:\\Users\\taira\\Documents\\" + fileName)
                 );
             }
             catch(AmazonServiceException ase){
