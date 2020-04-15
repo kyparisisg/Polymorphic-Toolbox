@@ -40,14 +40,6 @@ public class AppConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-//        http.authorizeRequests().antMatchers("/api/**").access("hasRole('ROLE_ADMIN')")
-//                .antMatchers("/client/**").access("hasRole('ROLE_USER')")
-//                .antMatchers("/**").permitAll().and().formLogin();
-
-        //http.authorizeRequests().antMatchers("src/main/resources/public/**","/css/**","/js/**").permitAll().and().authorizeRequests().antMatchers("/**").authenticated().and().formLogin();
-
-        //http.authorizeRequests().antMatchers("/","/client/**").hasRole("USER").and().authorizeRequests().antMatchers("/**").hasRole("ADMIN").and().formLogin();
-
 //        http.authorizeRequests().antMatchers("src/main/resources/public/**","/css/**","/js/**").permitAll()
 //                .and().authorizeRequests().antMatchers("/","/home","/client/**").hasRole("USER")
 //                .and().authorizeRequests().antMatchers("/**",).hasRole("ADMIN")
@@ -73,8 +65,6 @@ public class AppConfig extends WebSecurityConfigurerAdapter {
                 .authoritiesByUsernameQuery("select u.email as username, u.role as authority from users u where u.email=?")//.passwordEncoder(getPasswordEncoder()); this is for avoiding auth
                 .passwordEncoder(new BCryptPasswordEncoder());
 
-//        String encpass1 = new BCryptPasswordEncoder().encode("admin");
-//        String encpass2 = new BCryptPasswordEncoder().encode("user");
     }
 
     @Bean
