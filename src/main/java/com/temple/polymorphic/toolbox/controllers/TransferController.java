@@ -1,16 +1,17 @@
 package com.temple.polymorphic.toolbox.controllers;
 
+import com.temple.polymorphic.toolbox.dto.ServerDto;
 import com.temple.polymorphic.toolbox.dto.TransactionDto;
 import com.temple.polymorphic.toolbox.services.TransferService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CookieValue;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/client/transfer/")
@@ -29,13 +30,20 @@ public class TransferController {
 
     @RequestMapping(value = "form", method = RequestMethod.GET)
     public String serverList(@CookieValue(value = "username", defaultValue = "NOT_FOUND") String email, Model model) {
-        //get list of servers for a given user
-        //add to model
+        List<ServerDto> serverList = getServers(email);
+        model.addAttribute("serverList", serverList);
+        model.addAttribute("email", email);
         return "client/transfer/scp";
     }
 
+    public List<ServerDto> getServers(String email){
+        return transferService.getServersForUser(email);
+    }
+
+
+
     @RequestMapping(value = "scp", method = RequestMethod.POST)
-    public String scpTransfer(Model model) {
+    public String scpTransfer(@ModelAttribute TransactionDto trans, Model model) {
         /*
         New transaction function (
         success = SCP function
