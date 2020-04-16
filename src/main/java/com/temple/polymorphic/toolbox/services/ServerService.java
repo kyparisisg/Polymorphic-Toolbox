@@ -136,7 +136,7 @@ public class ServerService {
             }
 
             //FOR NOW retrieve object and return id to the delete
-            serverRepository.deleteById(serverRepository.findByIp(ip).getId());
+            serverRepository.delete(server);
             ModelMapper mapper = new ModelMapper();
             server.setPasswordCred("******");
             return mapper.map(server, ServerDto.class);

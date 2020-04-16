@@ -158,23 +158,20 @@ public class UserService {
         if( email.isEmpty() || !(email.contains("@")) )
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
 
-        TransactionRepository transactionRepository = applicationContext.getBean(TransactionRepository.class);
-        PermissionRepository permissionRepository= applicationContext.getBean(PermissionRepository.class);
-        UserRepository userRepository = applicationContext.getBean(UserRepository.class);
-
-        if(userRepository.findByEmail(email)!=null) {
+        User user = userRepository.findByEmail(email);
+        if(user != null) {
             //user found so delete existing user
-            if (permissionRepository.findUserByEmail(email) != null) { //find foreign keys in permissions
-                permissionRepository.deleteByUser(userRepository.findByEmail(email));
+            if (permissionsRepository.findUserByEmail(email) != null) { //find foreign keys in permissions
+                permissionsRepository.deleteByUser(user);
             }
             if (transactionRepository.findUserByEmail(email) != null) { //find foreign keys in transactions
-                transactionRepository.deleteByUser(userRepository.findByEmail(email));
+                transactionRepository.deleteByUser(user);
             }
             //delete user
-            userRepository.deleteById(userRepository.findByEmail(email).getId());
+            userRepository.delete(user);
             return;
         }
-        //throw new ResponseStatusException(HttpStatus.CONFLICT);
+        throw new ResponseStatusException(HttpStatus.CONFLICT);
     }
 
 
