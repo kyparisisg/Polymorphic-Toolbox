@@ -1,6 +1,7 @@
 package com.temple.polymorphic.toolbox.controllers;
 
 
+import com.temple.polymorphic.toolbox.dto.PermissionsDto;
 import com.temple.polymorphic.toolbox.dto.TransactionDto;
 import com.temple.polymorphic.toolbox.dto.UserDto;
 import com.temple.polymorphic.toolbox.models.User;
@@ -41,13 +42,14 @@ public class ClientController {
 
     @RequestMapping(value = "/myHistory" , method = RequestMethod.GET)
     public String myHistory(@CookieValue(value = "username", defaultValue = "NOT_FOUND") String email, Model model){
-
+        List<TransactionDto> transList = myHistory(email);
+        model.addAttribute("transList", transList);
+        //model.addAttribute("email", email);
         return "client/viewHistory";
     }
 
     public List<TransactionDto> myHistory(String email){
-
-        return null;//transferService.getTransfers(email);
+        return transferService.getTransactions(email);
     }
 
 

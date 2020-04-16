@@ -8,27 +8,23 @@ import java.util.Date;
 public class TransactionDto {
 
     private User user;
-    private Server srcServer;
-    private Server dstServer;
-    private String file_name;
+    private Server src_server;
+    private Server dst_server;
+    private String fileName;
     private Date creationDate;
-    private String usernameCred;
-    private String passwordCred;
-    private int valid;
+    private int status;
     //private String encryption_token; Is this necessary?
 
     public TransactionDto() {
     }
 
-    public TransactionDto(User user, Server srcServer, Server dstServer, String file_name, Date creationDate, String usernameCred, String passwordCred, int valid){//, String encryption_token) {
+    public TransactionDto(User user, Server srcServer, Server dstServer, String fileName, Date creationDate, int status){//, String encryption_token) {
         this.user = user;
-        this.srcServer = srcServer;
-        this.dstServer = dstServer;
-        this.file_name = file_name;
+        this.src_server = srcServer;
+        this.dst_server = dstServer;
+        this.fileName = fileName;
         this.creationDate = creationDate;
-        this.usernameCred = usernameCred;
-        this.passwordCred = passwordCred;
-        this.valid = valid;
+        this.status = status;
         //this.encryption_token = encryption_token;
     }
 
@@ -40,28 +36,28 @@ public class TransactionDto {
         this.user = user;
     }
 
-    public Server getSrcServer() {
-        return srcServer;
+    public Server getSrc_server() {
+        return src_server;
     }
 
-    public void setSrcServer(Server srcServer) {
-        this.srcServer = srcServer;
+    public void setSrc_server(Server src_server) {
+        this.src_server = src_server;
     }
 
-    public Server getDstServer() {
-        return dstServer;
+    public Server getDst_server() {
+        return dst_server;
     }
 
-    public void setDstServer(Server dstServer) {
-        this.dstServer = dstServer;
+    public void setDst_server(Server dst_server) {
+        this.dst_server = dst_server;
     }
 
-    public String getFile_name() {
-        return file_name;
+    public String getFileName() {
+        return fileName;
     }
 
-    public void setFile_name(String file_name) {
-        this.file_name = file_name;
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 
     public Date getCreationDate() {
@@ -72,27 +68,11 @@ public class TransactionDto {
         this.creationDate = creationDate;
     }
 
-    public String getUsernameCred() {
-        return usernameCred;
+    public int getStatus() {
+        return status;
     }
 
-    public void setUsernameCred(String usernameCred) {
-        this.usernameCred = usernameCred;
-    }
-
-    public String getPasswordCred() {
-        return passwordCred;
-    }
-
-    public void setPasswordCred(String passwordCred) {
-        this.passwordCred = passwordCred;
-    }
-
-    public int getValid() {
-        return valid;
-    }
-
-    public void setValid(int valid) {
-        this.valid = valid;
+    public void setStatus(int status) {
+        this.status = status;
     }
 }

@@ -9,8 +9,15 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Repository
 public interface TransactionRepository extends JpaRepository<Transactions, Long>{
+
+    public static final String FIND_ALL_BY_EMAIL = "SELECT t FROM Transactions t" +
+            " INNER JOIN t.user u" +
+            " WHERE u.email=?1";
+
     public static final String FIND_USER_BY_EMAIL = "SELECT u FROM Transactions t" +
             " INNER JOIN t.user u" +
             " WHERE u.email=?1";
@@ -29,6 +36,8 @@ public interface TransactionRepository extends JpaRepository<Transactions, Long>
     public static final String DELETE_BY_SERVER="DELETE FROM Transactions t" +
             " WHERE t.src_server=?1 OR t.dst_server=?1";
 
+    @Query(FIND_ALL_BY_EMAIL)
+    public List<Transactions> findAllByEmail(String email);
 
     @Query(FIND_USER_BY_EMAIL)
     public User findUserByEmail(String email);
