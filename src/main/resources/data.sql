@@ -51,8 +51,8 @@ JOIN Servers ON Permissions.server_id = Servers.id
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
---INSERT INTO Transactions (user_id, src_server, dst_server, file_name, creation_date, status)
---VALUES('1', '1', '2', 'test file', SYSDATE(), '0');
+INSERT INTO Transactions (user_id, src_server, dst_server, file_name, creation_date, status)
+VALUES('1', '1', '2', 'test file', SYSDATE(), '0');
 
 /*
 SELECT first_name, last_name, s1.name AS "Source Server", s2.name AS "Destination Server", file_name, creation_date

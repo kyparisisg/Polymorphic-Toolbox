@@ -185,7 +185,6 @@ public class UsersController {
         List<PermissionsDto> perms = getPermissions(email);
         model.addAttribute("perms", perms);
         model.addAttribute("email", email);
-
         return "users/viewPerm";
     }
 
