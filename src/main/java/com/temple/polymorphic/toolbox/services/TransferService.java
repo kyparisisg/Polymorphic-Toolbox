@@ -55,15 +55,20 @@ public class TransferService {
     }
 
     public static void  fileUpload(String bcktnm, String dir,String fileName) throws IOException{
-            AmazonS3 s3Client = setUpclient();
+
+
+        AmazonS3 s3Client = setUpclient();
 
             if(s3Client.doesBucketExistV2(bcktnm)){
             try {
                 s3Client.putObject(
                         bcktnm,
                         dir + "" + fileName,
-                        new File("C:\\Users\\taira\\Documents\\" + fileName)
+                        new File("C:\\Users\\taira\\Documents\\capstone\\Polymorphic-Toolbox\\src\\main\\webapp\\" + fileName)
                 );
+                File file = new File("C:\\Users\\taira\\Documents\\capstone\\Polymorphic-Toolbox\\src\\main\\webapp\\" + fileName);
+                file.delete();
+
             }
             catch(AmazonServiceException ase){
                 System.out.println("Caught an AmazonServiceException, which " +
@@ -95,6 +100,7 @@ public class TransferService {
         S3Object s3obj = s3Client.getObject(new GetObjectRequest(bcktnm, dir+"/"+fileName));
 
         InputStream objectdata = s3obj.getObjectContent();
+
         java.nio.file.Files.copy(objectdata, Paths.get("C:\\Users\\taira\\Documents\\"+fileName),StandardCopyOption.REPLACE_EXISTING);
 
     }

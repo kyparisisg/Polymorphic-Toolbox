@@ -11,6 +11,10 @@ EXAMPLE FORM FOR POST ON OUR APIs
 <%@taglib uri = "http://www.springframework.org/tags/form" prefix = "form"%>
 <%@ page import="java.io.*,java.util.*, javax.servlet.*" %>
 <%@ page import="javax.servlet.http.*" %>
+<%@ page import="org.apache.commons.fileupload.*" %>
+<%@ page import="org.apache.commons.fileupload.disk.*" %>
+<%@ page import="org.apache.commons.fileupload.servlet.*" %>
+<%@ page import="org.apache.commons.io.output.*" %>
 <html>
 <head>
 <title>Upload File - Transfer Operation</title>
@@ -20,10 +24,6 @@ EXAMPLE FORM FOR POST ON OUR APIs
 <h2>Upload File</h2>
     <form:form method = "POST" action = "/aws/upload">
         <table>
-            <tr>
-                <td><form:label path = "file_name">File Name</form:label></td>
-                <td>Select File: <input type="file" name="file"/> </td>
-            </tr>
             <tr>
                 <td><form:label path = "s3dir">S3 Directory Path</form:label></td>
                 <td><form:input path = "s3dir" /></td>
@@ -43,7 +43,7 @@ EXAMPLE FORM FOR POST ON OUR APIs
 
             <tr>
                 <td colspan = "2">
-                    <input type = "submit" value = "Update"/>
+                    <input type = "submit" value = "Search"/>
                 </td>
             </tr>
         </table>
