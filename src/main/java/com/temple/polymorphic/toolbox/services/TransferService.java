@@ -101,7 +101,7 @@ public class TransferService {
 
         InputStream objectdata = s3obj.getObjectContent();
 
-        java.nio.file.Files.copy(objectdata, Paths.get("C:\\Users\\taira\\Documents\\"+fileName),StandardCopyOption.REPLACE_EXISTING);
+        java.nio.file.Files.copy(objectdata, Paths.get("C:\\Users\\taira\\Documents\\capstone\\Polymorphic-Toolbox\\src\\main\\webapp\\"+fileName),StandardCopyOption.REPLACE_EXISTING);
 
     }
 

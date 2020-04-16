@@ -58,11 +58,11 @@ public class AwsController {
         return new ModelAndView("aws/uploadFile","command", new FileInfoDto());
     }
 
-    @RequestMapping(value = "/upload", method = RequestMethod.GET)
-    public ModelAndView uploadFile(){
-
-        return new ModelAndView("aws/uploadFile","command", new FileInfoDto());
-    }
+//    @RequestMapping(value = "/upload", method = RequestMethod.GET)
+//    public ModelAndView uploadFile(){
+//
+//        return new ModelAndView("aws/uploadFile","command", new FileInfoDto());
+//    }
 
 
 
@@ -81,7 +81,7 @@ public class AwsController {
         model.addAttribute("bucket",fileInfoDto.getBucket());
 
         String downloadPath = "";
-        model.addAttribute("filepath",filepath);
+//        model.addAttribute("filepath",filepath);
 
 
 
@@ -109,6 +109,7 @@ public class AwsController {
         TransferService.fileDownload(fileInfoDto.getBucket(),fileInfoDto.getS3dir(),fileInfoDto.getFile_name());
         String dpath = "C:\\Users\\taira\\Documents\\";
         String status = "The transaction was successfully, the file was downloaded!";
+        String filePath = "C:\\Users\\taira\\Documents\\capstone\\Polymorphic-Toolbox\\src\\main\\webapp\\";
 
         model.addAttribute("status",status);
 //        model.addAttribute("dpath",dpath);
@@ -124,8 +125,8 @@ public class AwsController {
         model.addAttribute("s3dir",fileInfoDto.getS3dir());
         model.addAttribute("bucket",fileInfoDto.getBucket());
 
-        String downloadPath = "C:\\Users\\taira\\Documents\\"+fileInfoDto.getFile_name();
-        model.addAttribute("filepath",filepath);
+//        String downloadPath = "C:\\Users\\taira\\Documents\\"+fileInfoDto.getFile_name();
+        model.addAttribute("filepath",filePath);
 
 
 
