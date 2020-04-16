@@ -80,6 +80,11 @@ public class AwsController {
         model.addAttribute("user",fileInfoDto.getUser());
         model.addAttribute("bucket",fileInfoDto.getBucket());
 
+        String downloadPath = "";
+        model.addAttribute("filepath",filepath);
+
+
+
 //        model.addAttribute("bucketName",bucketName);
 
 
@@ -100,15 +105,28 @@ public class AwsController {
         //use the transferService to implement the services and just call them from here!
 
         //add attributes (one or more) to model so you can use them while rendering the awsApiSuccess.jsp
+        
         TransferService.fileDownload(fileInfoDto.getBucket(),fileInfoDto.getS3dir(),fileInfoDto.getFile_name());
         String dpath = "C:\\Users\\taira\\Documents\\";
         String status = "The transaction was successfully, the file was downloaded!";
+
         model.addAttribute("status",status);
 //        model.addAttribute("dpath",dpath);
         model.addAttribute("file_name",fileInfoDto.getFile_name());
         model.addAttribute("s3dir",fileInfoDto.getS3dir());
         model.addAttribute("file_name",fileInfoDto.getFile_name());
         model.addAttribute("bucket",fileInfoDto.getBucket());
+
+
+
+        model.addAttribute("fileInfoDto", fileInfoDto);
+        model.addAttribute("file_name",fileInfoDto.getFile_name());
+        model.addAttribute("s3dir",fileInfoDto.getS3dir());
+        model.addAttribute("bucket",fileInfoDto.getBucket());
+
+        String downloadPath = "C:\\Users\\taira\\Documents\\"+fileInfoDto.getFile_name();
+        model.addAttribute("filepath",filepath);
+
 
 
         return "aws/awsApiSuccess";
