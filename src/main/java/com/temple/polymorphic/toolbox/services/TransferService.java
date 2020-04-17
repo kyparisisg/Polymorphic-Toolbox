@@ -1,10 +1,12 @@
 package com.temple.polymorphic.toolbox.services;
 
 import com.temple.polymorphic.toolbox.TransactionRepository;
+import com.temple.polymorphic.toolbox.UserRepository;
 import com.temple.polymorphic.toolbox.dto.TransactionDto;
 import com.temple.polymorphic.toolbox.PermissionRepository;
 import com.temple.polymorphic.toolbox.dto.ServerDto;
 import com.temple.polymorphic.toolbox.models.Server;
+import com.temple.polymorphic.toolbox.models.Permissions;
 import com.temple.polymorphic.toolbox.models.Transactions;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -25,6 +27,9 @@ public class TransferService {
     private TransactionRepository transactionRepository;
 
     @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
     private PermissionRepository permissionsRepository;
 
     public List<TransactionDto> getTransactions(String email) {
@@ -34,6 +39,11 @@ public class TransferService {
             transDto.add(new TransactionDto(tran.getUser(), tran.getSrc_server(), tran.getDst_server(), tran.getFileName(), tran.getCreationDate(), tran.getStatus()));
         }
         return transDto;
+    }
+
+    public boolean hasPermission(String email, Long serverId){
+        Permissions perm = permissionsRepository.findByIds(userRepository.findByEmail(email).getId(), serverId);
+        return perm != null;
     }
 
     public List<ServerDto> getServersForUser(String email){

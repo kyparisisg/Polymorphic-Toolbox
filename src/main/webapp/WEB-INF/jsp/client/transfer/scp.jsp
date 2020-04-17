@@ -1,6 +1,6 @@
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@taglib uri = "http://www.springframework.org/tags/form" prefix = "form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<jsp:useBean id="user" class="com.temple.polymorphic.toolbox.dto.UserDto"/>
+<jsp:useBean id="tran" class="com.temple.polymorphic.toolbox.dto.TransferOperation"/>
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
@@ -144,13 +144,18 @@
                                     </tr>
                                 </table>
                             </div>
-                            <!--
-                            Inputs here - need tranferoperation dto - maybe multiple?
-                            -->
+                            <tr>
+                                <%--<td><form:label path = "email">Email</form:label></td>--%>
+                            <td><form:input path = "email" type="hidden" value="${email}" autocomplete="false" /></td>
+                        </tr>
+                            <tr>
+                                    <%--<td><form:label path = "srcServerId">Source Server</form:label></td>--%>
+                                <td><form:input path = "srcServerId" autocomplete="false" placeholder="Source Server"/></td>
+                            </tr>
                             <br><br>
                             <tr>
                                 <td colspan = "2">
-                                    <input type = "submit" value = "Next"/>
+                                    <input type = "submit" value = "Set"/>
                                 </td>
                             </tr>
                         </div>
