@@ -22,7 +22,7 @@ EXAMPLE FORM FOR POST ON OUR APIs
 
 <body>
 <h2>Upload File</h2>
-    <form:form method = "POST" action = "/aws/upload">
+    <form:form method = "POST" action = "/client/aws/upload">
         <table>
             <tr>
                 <td><form:label path = "s3dir">S3 Directory Path</form:label></td>

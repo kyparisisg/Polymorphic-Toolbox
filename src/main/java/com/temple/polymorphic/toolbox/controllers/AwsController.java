@@ -4,6 +4,8 @@ import com.temple.polymorphic.toolbox.dto.FileInfoDto;
 import com.temple.polymorphic.toolbox.dto.UserDto;
 import com.temple.polymorphic.toolbox.services.TransferService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -22,7 +24,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 @Controller
-@RequestMapping("/aws/")
+@RequestMapping("/client/aws/")
 public class AwsController {
     public String fdt;
 
@@ -33,7 +35,7 @@ public class AwsController {
 
     @RequestMapping(value = "/filePick", method = RequestMethod.GET)
     public ModelAndView wel(Model model){
-        return new ModelAndView("aws/chooseFile");
+        return new ModelAndView("client/aws/chooseFile");
     }
 
 
@@ -55,7 +57,7 @@ public class AwsController {
         }catch (Exception e){System.out.println((e));}
 
 
-        return new ModelAndView("aws/uploadFile","command", new FileInfoDto());
+        return new ModelAndView("client/aws/uploadFile","command", new FileInfoDto());
     }
 
 //    @RequestMapping(value = "/upload", method = RequestMethod.GET)
@@ -88,13 +90,13 @@ public class AwsController {
 //        model.addAttribute("bucketName",bucketName);
 
 
-        return "aws/awsApiSuccess";
+        return "client/aws/awsApiSuccess";
     }
 
     @RequestMapping(value = "/download", method = RequestMethod.GET)
     public ModelAndView downloadFile(){
 
-        return new ModelAndView("aws/downloadFile", "command", new FileInfoDto());
+        return new ModelAndView("client/aws/downloadFile", "command", new FileInfoDto());
     }
 
     @RequestMapping(value = "/download", method = RequestMethod.POST)
@@ -126,12 +128,13 @@ public class AwsController {
         model.addAttribute("bucket",fileInfoDto.getBucket());
 
 //        String downloadPath = "C:\\Users\\taira\\Documents\\"+fileInfoDto.getFile_name();
-        model.addAttribute("filepath",filePath);
+        model.addAttribute("filePath",filePath);
 
 
 
-        return "aws/awsApiSuccess";
+        return "client/aws/awsApiSuccess";
     }
+
 
     // add transfer
     // create bucket

@@ -19,7 +19,7 @@ EXAMPLE FORM FOR POST ON OUR APIs
 <body>
 <h2>Upload File</h2>
 
-<form action="/aws/fileinput" method="POST" enctype="multipart/form-data">
+<form action="/client/aws/fileinput" method="POST" enctype="multipart/form-data">
     <input type="file" name="file" size="100"/>
     <br/>
     <input type="submit" value="Upload File"/>

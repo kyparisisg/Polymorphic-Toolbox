@@ -18,7 +18,7 @@ EXAMPLE FORM FOR POST ON OUR APIs
 
 <body>
 <h2>Upload File</h2>
-<form:form method = "POST" action = "/aws/download">
+<form:form method = "POST" action = "/client/aws/download">
     <table>
         <tr>
             <td><form:label path = "file_name">File Name</form:label></td>
