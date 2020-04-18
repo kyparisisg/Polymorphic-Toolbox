@@ -18,7 +18,6 @@ import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import javax.annotation.PostConstruct;
 import java.io.*;
 import java.nio.file.StandardCopyOption;
@@ -29,7 +28,6 @@ import java.util.Collections;
 import java.nio.file.Files;
 import java.util.Iterator;
 import java.nio.file.Paths;
-
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.auth.profile.ProfileCredentialsProvider;
@@ -37,12 +35,21 @@ import com.amazonaws.regions.Region;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.*;
-import sun.rmi.runtime.Log;
-
+//import sun.rmi.runtime.Log;
 import java.util.List;
 
 @Service
 public class TransferService {
+    @Autowired
+    private TransactionRepository transactionRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
+
+    @Autowired
+    private PermissionRepository permissionsRepository;
+
 
     // for creating new buckets
     public static void createS3b(String bcknm){
@@ -70,15 +77,7 @@ public class TransferService {
 
     public static void  fileUpload(String bcktnm, String dir,String fileName) throws IOException{
 
-    @Autowired
-    private TransactionRepository transactionRepository;
-
-    @Autowired
-    private UserRepository userRepository;
-
         AmazonS3 s3Client = setUpclient();
-    @Autowired
-    private PermissionRepository permissionsRepository;
 
             if(s3Client.doesBucketExistV2(bcktnm)){
             try {
