@@ -4,6 +4,9 @@ import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.util.IOUtils;
+import com.jcraft.jsch.JSch;
+import com.jcraft.jsch.JSchException;
+import com.jcraft.jsch.Session;
 import com.temple.polymorphic.toolbox.ServerRepository;
 import com.temple.polymorphic.toolbox.TransactionRepository;
 import com.temple.polymorphic.toolbox.UserRepository;
@@ -20,16 +23,15 @@ import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.modelmapper.ModelMapper;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import javax.annotation.PostConstruct;
 import java.io.*;
 import java.nio.file.StandardCopyOption;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.*;
 import java.nio.file.Files;
-import java.util.Iterator;
 import java.nio.file.Paths;
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.AmazonServiceException;
@@ -38,8 +40,9 @@ import com.amazonaws.regions.Region;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.*;
+import org.springframework.web.server.ResponseStatusException;
 //import sun.rmi.runtime.Log;
-import java.util.List;
+
 
 @Service
 public class TransferService {
@@ -193,44 +196,67 @@ public class TransferService {
     }
 
     public int scp(String email, Long srcServerId, String filePath, Long dstServerId, String targetPath){
-        ModelMapper mapper = new ModelMapper();
-        ServerDto srcServer = mapper.map(serverRepository.findById(srcServerId).get(), ServerDto.class);
-        ServerDto dstServer = mapper.map(serverRepository.findById(dstServerId).get(), ServerDto.class);
-        User user = userRepository.findByEmail(email);
-
-        Permissions srcPerm = permissionsRepository.findByIds(user.getId(), srcServerId);
-        //check for specific userName creds for src
-        if(srcPerm.getUsernameCred()!=null){
-            if(!srcPerm.getUsernameCred().equals("")){
-                srcServer.setUsernameCred(srcPerm.getUsernameCred());
-            }
-        }
-        //check for specific password creds for src
-        if(srcPerm.getPasswordCred()!=null){
-            if(!srcPerm.getPasswordCred().equals("")){
-                srcServer.setPasswordCred(srcPerm.getPasswordCred());
-            }
-        }
-
-        Permissions dstPerm = permissionsRepository.findByIds(user.getId(), dstServerId);
-        //check for specific userName creds for dst
-        if(dstPerm.getUsernameCred()!=null){
-            if(!dstPerm.getUsernameCred().equals("")){
-                dstServer.setUsernameCred(dstPerm.getUsernameCred());
-            }
-        }
-        //check for specific password creds for dst
-        if(dstPerm.getPasswordCred()!=null){
-            if(!dstPerm.getPasswordCred().equals("")){
-                dstServer.setPasswordCred(dstPerm.getPasswordCred());
-            }
-        }
-
         /*
         SCP from src server to dst server
          */
-
         return 0;
-
     }
+
+    public boolean scpFrom(String email, Long srcServerId, String filePath){
+        ServerDto srcServer = getServerWithSpecificPerms(email, srcServerId);
+        Session session = createSession(srcServer);
+
+        return false;
+    }
+
+    public boolean scpTo(String email, Long dstServerId, String targetPath){
+        ServerDto dstServer = getServerWithSpecificPerms(email, dstServerId);
+        Session session = createSession(dstServer);
+
+        return false;
+    }
+
+    public ServerDto getServerWithSpecificPerms(String email, Long serverId){
+        User user = userRepository.findByEmail(email);
+        ModelMapper mapper = new ModelMapper();
+        ServerDto server = mapper.map(serverRepository.findById(serverId).get(), ServerDto.class);
+        Permissions perm = permissionsRepository.findByIds(user.getId(), serverId);
+        //check for specific username cred
+        if(perm.getUsernameCred()!=null){
+            if(!perm.getUsernameCred().equals("")){
+                server.setUsernameCred(perm.getUsernameCred());
+            }
+        }
+        //check for specific password cred
+        if(perm.getPasswordCred()!=null){
+            if(!perm.getPasswordCred().equals("")){
+                server.setPasswordCred(perm.getPasswordCred());
+            }
+        }
+        return server;
+    }
+
+    public Session createSession(ServerDto server){
+        JSch jsch = new JSch();
+        jsch.setConfig("StrictHostKeyChecking", "no");
+        jsch.setConfig("PreferredAuthentications", "publickey,password,keyboard-interactive");
+        Session session = null;
+        try {
+            if(server.getKeyLocation() != null) {
+                if(!server.getKeyLocation().equals("")) {
+                    jsch.addIdentity(System.getProperty("user.dir") + server.getKeyLocation());
+                }
+            }
+            session = jsch.getSession(server.getUsernameCred(), server.getIp(), server.getPort());
+            if(server.getKeyLocation() == null) {
+                session.setPassword(server.getPasswordCred());
+            }
+            session.connect();
+
+        } catch (JSchException e) {
+            throw new ResponseStatusException(HttpStatus.PRECONDITION_FAILED);
+        }
+        return session;
+    }
+
 }

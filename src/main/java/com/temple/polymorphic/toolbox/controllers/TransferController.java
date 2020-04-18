@@ -139,6 +139,7 @@ public class TransferController {
         model.addAttribute("status", status);
         model.addAttribute("request", "Transaction completed from: " + srcServerName + " to " + dstServerName);
 
+
         return "client/transferSuccess";
     }
 

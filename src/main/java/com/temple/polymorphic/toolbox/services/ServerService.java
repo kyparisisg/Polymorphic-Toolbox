@@ -146,11 +146,6 @@ public class ServerService {
     }
 
     private void checkServerHealth(Server server) throws Exception{
-        String host=server.getIp();
-        String user=server.getUsernameCred();
-        int port=server.getPort();
-        String keyLocation=server.getKeyLocation();
-
         //For port forwarding, might be used later
         //int tunnelLocalPort=9080;
         //String tunnelRemoteHost="YYY.YYY.YYY.YYY";    //forward to --> IP
@@ -161,17 +156,14 @@ public class ServerService {
         jsch.setConfig("PreferredAuthentications", "publickey,password,keyboard-interactive");
         Session session = null;
         try {
-            if(keyLocation != null) {
-                //LOGGER.info("Working Directory = " + System.getProperty("user.dir"));
-                jsch.addIdentity(System.getProperty("user.dir") + keyLocation);
+            if(server.getKeyLocation() != null) {
+                jsch.addIdentity(System.getProperty("user.dir") + server.getKeyLocation());
             }
-            session = jsch.getSession(user, host, port);
-
-            localUserInfo lui = new localUserInfo();
-            session.setUserInfo(lui);
-
+            session = jsch.getSession(server.getUsernameCred(), server.getIp(), server.getPort());
+            if(server.getKeyLocation() == null) {
+                session.setPassword(server.getPasswordCred());
+            }
             //session.setPortForwardingL(tunnelLocalPort,tunnelRemoteHost,tunnelRemotePort);
-
             session.connect();
             //Channel channel = session.openChannel("shell");
             //channel.setInputStream(System.in);
@@ -212,33 +204,5 @@ public class ServerService {
     public String getServerNameFromId(Long serverId){
         Server server = serverRepository.findById(serverId).get();
         return server.getName();
-    }
-
-    class localUserInfo implements UserInfo {
-        String passwd;
-        @Override
-        public String getPassword(){
-            return passwd;
-        }
-        @Override
-        public boolean promptYesNo(String str){
-            return true;
-        }
-        @Override
-        public String getPassphrase(){
-            return null;
-        }
-        @Override
-        public boolean promptPassphrase(String message){
-            return true;
-        }
-        @Override
-        public boolean promptPassword(String message){
-            return true;
-        }
-        @Override
-        public void showMessage(String message){
-
-        }
     }
 }
