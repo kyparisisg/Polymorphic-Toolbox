@@ -126,9 +126,8 @@ public class TransferController {
             comparison
         }
         */
-
-        //handle specific perms here too
-        boolean status = transferService.scp(tran.getSrcServerId(), tran.getFilePath(), tran.getDstServerId(), tran.getTargetPath());
+        int status = transferService.scp(tran.getEmail(), tran.getSrcServerId(), tran.getFilePath(), tran.getDstServerId(), tran.getTargetPath());
+        transferService.addTransaction(tran.getEmail(), tran.getSrcServerId(), tran.getFilePath(), tran.getDstServerId(), status);
 
         model.addAttribute("status", status);
         return "client/transferSuccess";

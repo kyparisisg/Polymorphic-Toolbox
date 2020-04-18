@@ -13,6 +13,7 @@ import com.temple.polymorphic.toolbox.dto.ServerDto;
 import com.temple.polymorphic.toolbox.models.Server;
 import com.temple.polymorphic.toolbox.models.Permissions;
 import com.temple.polymorphic.toolbox.models.Transactions;
+import com.temple.polymorphic.toolbox.models.User;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.tomcat.util.http.fileupload.FileUtils;
@@ -181,12 +182,21 @@ public class TransferService {
         return directory;
     }
 
-    public boolean scp(Long srcServerId, String filePath, Long dstServerId, String targetPath){
+    public void addTransaction(String email, Long srcServerId, String filePath, Long dstServerId, int status){
+        User user = userRepository.findByEmail(email);
+        Server srcServer = serverRepository.findById(srcServerId).get();
+        Server dstServer = serverRepository.findById(dstServerId).get();
+        String file = filePath.trim(); //will need more string manipulation to only get file
+        Transactions transaction = new Transactions(user, srcServer, dstServer, file, status);
+        transactionRepository.save(transaction);
+    }
+
+    public int scp(String email, Long srcServerId, String filePath, Long dstServerId, String targetPath){
         Server srcServer = serverRepository.findById(srcServerId).get();
         Server dstServer = serverRepository.findById(dstServerId).get();
         /*
         SCP from src server to dst server
          */
-        return false;
+        return 0;
     }
 }

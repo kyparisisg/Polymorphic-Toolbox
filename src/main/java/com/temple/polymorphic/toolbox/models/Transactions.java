@@ -35,13 +35,13 @@ public class Transactions {
     public Transactions(){
     }
 
-    public Transactions(User user, Server src_server, Server dst_server, String fileName){
+    public Transactions(User user, Server src_server, Server dst_server, String fileName, int status){
         this.user = user;
         this.src_server = src_server;
         this.dst_server = dst_server;
         this.fileName = fileName;
         this.setCreationDate(new Date());   //for current datetime
-        this.status = 0; //not tested if completed yet
+        this.status = status;
     }
 
     public Long getId() {
