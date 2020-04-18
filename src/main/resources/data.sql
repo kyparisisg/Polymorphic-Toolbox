@@ -48,24 +48,11 @@ JOIN Users ON Permissions.user_id = Users.id
 JOIN Servers ON Permissions.server_id = Servers.id
  */
 
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
---INSERT INTO Specific_Creds (user_id, server_id, username_cred, password_cred)
---VALUES('1', '1', 'newUsername', 'newPassword');
-
-/*
-SELECT first_name, last_name, SERVERS.username_cred AS "Old Username", SERVERS.password_cred AS "Old Password",
-    Specific_Creds.username_cred AS "New Username", Specific_Creds.password_cred AS "New Password"
-FROM Specific_Creds
-JOIN Users ON Specific_Creds.user_id = Users.id
-JOIN Servers ON Specific_Creds.server_id = Servers.id
-*/
-
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
---INSERT INTO Transactions (user_id, src_server, dst_server, file_name, creation_date, status)
---VALUES('1', '1', '2', 'test file', SYSDATE(), '0');
+INSERT INTO Transactions (user_id, src_server, dst_server, file_name, creation_date, status)
+VALUES('1', '1', '2', 'test file', SYSDATE(), '0');
 
 /*
 SELECT first_name, last_name, s1.name AS "Source Server", s2.name AS "Destination Server", file_name, creation_date

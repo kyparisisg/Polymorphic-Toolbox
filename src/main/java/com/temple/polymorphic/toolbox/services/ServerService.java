@@ -3,6 +3,7 @@ package com.temple.polymorphic.toolbox.services;
 import com.jcraft.jsch.*;
 import com.temple.polymorphic.toolbox.PermissionRepository;
 import com.temple.polymorphic.toolbox.ServerRepository;
+import com.temple.polymorphic.toolbox.TransactionRepository;
 import com.temple.polymorphic.toolbox.models.Server;
 import com.temple.polymorphic.toolbox.dto.ServerDto;
 import org.modelmapper.ModelMapper;
@@ -32,6 +33,9 @@ public class ServerService {
 
     @Autowired
     private PermissionRepository permissionRepository;
+
+    @Autowired
+    private TransactionRepository transactionRepository;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ServerService.class);
 
@@ -121,14 +125,18 @@ public class ServerService {
     public ServerDto deleteServerByIp(String ip) {
         Server server = serverRepository.findByIp(ip);
         if(server != null){
-
-            //Delete all existing permission for this server
-            if(permissionRepository.findServerById(server.getId()) != null ){
+            if(permissionRepository.findServerById(server.getId()) != null ){ //find foreign keys in permissions
                 permissionRepository.deleteByServer(server);
+            }
+            if(transactionRepository.findSrcServerById(server.getId()) != null ){ //find foreign keys in transaction src_server
+                transactionRepository.deleteByServer(server);
+            }
+            if(transactionRepository.findDstServerById(server.getId()) != null ){ //find foreign keys in transaction dst_server
+                transactionRepository.deleteByServer(server);
             }
 
             //FOR NOW retrieve object and return id to the delete
-            serverRepository.deleteById(serverRepository.findByIp(ip).getId());
+            serverRepository.delete(server);
             ModelMapper mapper = new ModelMapper();
             server.setPasswordCred("******");
             return mapper.map(server, ServerDto.class);

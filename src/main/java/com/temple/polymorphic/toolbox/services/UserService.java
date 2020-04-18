@@ -1,6 +1,7 @@
 package com.temple.polymorphic.toolbox.services;
 
 import com.temple.polymorphic.toolbox.PermissionRepository;
+import com.temple.polymorphic.toolbox.TransactionRepository;
 import com.temple.polymorphic.toolbox.UserRepository;
 import com.temple.polymorphic.toolbox.ServerRepository;
 import com.temple.polymorphic.toolbox.models.User;
@@ -38,6 +39,9 @@ public class UserService {
 
     @Autowired
     private PermissionRepository permissionsRepository;
+
+    @Autowired
+    private TransactionRepository transactionRepository;
 
     @Autowired
     private JavaMailSender javaMailSender;
@@ -154,16 +158,17 @@ public class UserService {
         if( email.isEmpty() || !(email.contains("@")) )
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
 
-        PermissionRepository permissionsRepository= applicationContext.getBean(PermissionRepository.class);
-        UserRepository userRepository = applicationContext.getBean(UserRepository.class);
-
-        if(userRepository.findByEmail(email)!=null){
+        User user = userRepository.findByEmail(email);
+        if(user != null) {
             //user found so delete existing user
-
-            if(permissionsRepository.findUserByEmail(email) != null){
-                permissionsRepository.deleteByUser(userRepository.findByEmail(email));
+            if (permissionsRepository.findUserByEmail(email) != null) { //find foreign keys in permissions
+                permissionsRepository.deleteByUser(user);
             }
-            userRepository.deleteById(userRepository.findByEmail(email).getId());
+            if (transactionRepository.findUserByEmail(email) != null) { //find foreign keys in transactions
+                transactionRepository.deleteByUser(user);
+            }
+            //delete user
+            userRepository.delete(user);
             return;
         }
         throw new ResponseStatusException(HttpStatus.CONFLICT);

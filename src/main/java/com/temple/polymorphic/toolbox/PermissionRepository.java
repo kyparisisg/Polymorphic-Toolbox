@@ -31,9 +31,10 @@ public interface PermissionRepository extends JpaRepository<Permissions, Long>{
             " INNER JOIN p.server s" +
             " WHERE s.id=?1";
 
-    public static final String FIND_PERM_BY_SERVER_ID = "SELECT p FROM Permissions p" +
-            " WHERE p.server=?1";
-
+    public static final String FIND_ALL_SERVERS_BY_EMAIL = "SELECT s FROM Permissions p" +
+            " INNER JOIN p.user u" +
+            " INNER JOIN p.server s" +
+            " WHERE u.email=?1";
 
     public static final String DELETE_BY_USER="DELETE FROM Permissions p" +
             " WHERE p.user=?1";
@@ -53,8 +54,8 @@ public interface PermissionRepository extends JpaRepository<Permissions, Long>{
     @Query(FIND_SERVER_BY_SERVER_ID)
     public Server findServerById(Long id);
 
-    @Query(FIND_PERM_BY_SERVER_ID)
-    public List<Permissions> findPermByServer(Server server);
+    @Query(FIND_ALL_SERVERS_BY_EMAIL)
+    public List<Server> findAllServersByEmail(String email);
 
     @Transactional
     @Modifying
