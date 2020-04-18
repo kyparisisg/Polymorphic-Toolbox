@@ -4,6 +4,7 @@ import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.util.IOUtils;
+import com.temple.polymorphic.toolbox.ServerRepository;
 import com.temple.polymorphic.toolbox.TransactionRepository;
 import com.temple.polymorphic.toolbox.UserRepository;
 import com.temple.polymorphic.toolbox.dto.TransactionDto;
@@ -40,16 +41,23 @@ import java.util.List;
 
 @Service
 public class TransferService {
-    @Autowired
-    private TransactionRepository transactionRepository;
 
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private ServerRepository serverRepository;
 
     @Autowired
     private PermissionRepository permissionsRepository;
 
+    @Autowired
+    private TransactionRepository transactionRepository;
+
+
+    /*----------------------------------------------------------------------------------------------------------------
+    S3 OPERATIONS
+     ----------------------------------------------------------------------------------------------------------------*/
 
     // for creating new buckets
     public static void createS3b(String bcknm){
@@ -69,13 +77,12 @@ public class TransferService {
     }
 
     //Use This to Delete 'Serevers' aka aws buckets from lists for admins
-
     public static void deleteRequest(String bcknm) throws IOException {
         AmazonS3 s3Client = setUpclient();
         BucketTools.deleteBucket(bcknm,s3Client);
     }
 
-    public static void  fileUpload(String bcktnm, String dir,String fileName) throws IOException{
+    public static void fileUpload(String bcktnm, String dir,String fileName) throws IOException{
 
         AmazonS3 s3Client = setUpclient();
 
@@ -132,6 +139,11 @@ public class TransferService {
 
         return s3Client;
     }
+
+    /*----------------------------------------------------------------------------------------------------------------
+    TRANSFER OPERATIONS
+     ----------------------------------------------------------------------------------------------------------------*/
+
     public List<TransactionDto> getTransactions(String email) {
         List<Transactions> trans = transactionRepository.findAllByEmail(email);
         ArrayList<TransactionDto> transDto = new ArrayList<TransactionDto>();
@@ -154,5 +166,27 @@ public class TransferService {
                     server.getUsernameCred(), server.getPasswordCred(), server.getHealth(), server.getRegisterDate(), server.getKeyLocation()));
         }
         return serverList;
+    }
+
+    public List<String> getDirectory(Long serverId){
+        /*
+        Verify server
+        Connect to server
+        Get ls recursively
+        return
+         */
+        ArrayList<String> directory = new ArrayList<>();
+        directory.add("Example Path 1 for server" + serverId);
+        directory.add("Example Path 2 for server" + serverId);
+        return directory;
+    }
+
+    public boolean scp(Long srcServerId, String filePath, Long dstServerId, String targetPath){
+        Server srcServer = serverRepository.findById(srcServerId).get();
+        Server dstServer = serverRepository.findById(dstServerId).get();
+        /*
+        SCP from src server to dst server
+         */
+        return false;
     }
 }

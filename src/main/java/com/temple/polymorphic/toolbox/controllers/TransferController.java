@@ -37,49 +37,101 @@ public class TransferController {
 
     @RequestMapping(value = "form", method = RequestMethod.GET)
     public ModelAndView serverList(@CookieValue(value = "username", defaultValue = "NOT_FOUND") String email, Model model) {
-        List<ServerDto> serverList = getServers(email);
-        model.addAttribute("serverList", serverList);
+        //get server list for user
+        model.addAttribute("serverList", getServers(email));
+        //cascade transfer info
         model.addAttribute("email", email);
 
-        return new ModelAndView("client/transfer/scp","command", new TransferOperation());
+        return new ModelAndView("client/transfer/src","command", new TransferOperation());
     }
 
     public List<ServerDto> getServers(String email){
         return transferService.getServersForUser(email);
     }
 
-    @RequestMapping(value = "scp", method = RequestMethod.POST)
-    public String scpTransfer(@ModelAttribute TransferOperation tran, Model model) {
-        /*
-        New transaction function (
-        success = SCP function
-        if(success){
-            Update transaction status in db function ("success")
-            String status = "The transfer was successfully, the file was sent to the server!";
-        else{
-            Update transaction status in db function ("failure")
-            String status = "The transfer was NOT successfully, the file was NOT sent to the server!";
-        }
-        */
-        ServerDto src;
+    @RequestMapping(value = "src", method = RequestMethod.POST)
+    public ModelAndView srcServer(@ModelAttribute TransferOperation tran, Model model) {
+        //verify src server
         try{
-            src = serverService.getServerById(tran.getSrcServerId());
+//            if(!tran.getSrcServerId().getClass().getName().equals("java.lang.Long")){
+//                throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+//            }
+            if(serverService.getServerById(tran.getSrcServerId())==null){
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+            }
             if(!transferService.hasPermission(tran.getEmail(), tran.getSrcServerId())){
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
             }
-        }catch (ResponseStatusException e) {
-            return this.handleRequest(e, model, "Failed to start new Transaction for User, server id does not exist. Please try again");
+        } catch (ResponseStatusException e) {
+            return new ModelAndView("403","command", new TransferOperation());
         }
+        //get directory for server
+        model.addAttribute("directory", transferService.getDirectory(tran.getSrcServerId()));
+        //cascade transfer info
+        model.addAttribute("email", tran.getEmail());
+        model.addAttribute("srcServerId", tran.getSrcServerId());
 
-        model.addAttribute("status", src);
-        return "client/transferSuccess";
+        return new ModelAndView("client/transfer/file","command", new TransferOperation());
     }
 
-    public String handleRequest(ResponseStatusException e, Model model, String reason) {
-        model.addAttribute("msg", e.getMessage());
-        model.addAttribute("status", e.getStatus());
-        model.addAttribute("reason", reason);
-        return "error";
+    @RequestMapping(value="file", method = RequestMethod.POST)
+    public ModelAndView srcFile(@ModelAttribute TransferOperation tran, Model model) {
+        //verify filePath?
+        /*
+        List<String> directory = transferService.getDirectory(tran.getSrcServerId());
+        for(String path: directory){
+            comparison
+        }
+        */
+        //get server list for user
+        model.addAttribute("serverList", getServers(tran.getEmail()));
+        //cascade transfer info
+        model.addAttribute("email", tran.getEmail());
+        model.addAttribute("srcServerId", tran.getSrcServerId());
+        model.addAttribute("filePath", tran.getFilePath());
+
+        return new ModelAndView("client/transfer/dst","command", new TransferOperation());
+    }
+
+    @RequestMapping(value="dst", method = RequestMethod.POST)
+    public ModelAndView dstServer(@ModelAttribute TransferOperation tran, Model model) {
+        //verify dst server
+        try{
+            if(serverService.getServerById(tran.getDstServerId())==null){
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+            }
+            if(!transferService.hasPermission(tran.getEmail(), tran.getDstServerId())){
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+            }
+        } catch (ResponseStatusException e) {
+            return new ModelAndView("403","command", new TransferOperation());
+        }
+        //get directory for server
+        model.addAttribute("directory", transferService.getDirectory(tran.getDstServerId()));
+        //cascade transfer info
+        model.addAttribute("email", tran.getEmail());
+        model.addAttribute("srcServerId", tran.getSrcServerId());
+        model.addAttribute("filePath", tran.getFilePath());
+        model.addAttribute("dstServerId", tran.getDstServerId());
+
+        return new ModelAndView("client/transfer/target","command", new TransferOperation());
+    }
+
+    @RequestMapping(value="scp", method = RequestMethod.POST)
+    public String scp(@ModelAttribute TransferOperation tran, Model model) {
+        //verify targetPath?
+        /*
+        List<String> directory = transferService.getDirectory(tran.getDstServerId());
+        for(String path: directory){
+            comparison
+        }
+        */
+
+        //handle specific perms here too
+        boolean status = transferService.scp(tran.getSrcServerId(), tran.getFilePath(), tran.getDstServerId(), tran.getTargetPath());
+
+        model.addAttribute("status", status);
+        return "client/transferSuccess";
     }
 
 }

@@ -117,7 +117,7 @@
             <div class="content-center brand">
                 <h1 class="h1-seo">Accessible Servers</h1>
                 <div th:case="*">
-                    <form:form method = "POST" action = "/client/transfer/scp" autocomplete="false">
+                    <form:form method = "POST" action = "/client/transfer/src" autocomplete="false">
                         <div class="container my-2">
                             <div th:case="*">
                                 <table class="table table-striped table-responsive-md">
@@ -146,8 +146,8 @@
                             </div>
                             <tr>
                                 <%--<td><form:label path = "email">Email</form:label></td>--%>
-                            <td><form:input path = "email" type="hidden" value="${email}" autocomplete="false" /></td>
-                        </tr>
+                                <td><form:input path = "email" type="hidden" value="${email}" autocomplete="false" /></td>
+                            </tr>
                             <tr>
                                     <%--<td><form:label path = "srcServerId">Source Server</form:label></td>--%>
                                 <td><form:input path = "srcServerId" autocomplete="false" placeholder="Source Server"/></td>

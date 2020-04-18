@@ -20,6 +20,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.lang.reflect.Type;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -186,7 +187,11 @@ public class ServerService {
     }
 
     public ServerDto getServerById(Long serverId) {
-        Server server = serverRepository.findById(serverId).get();
+        Optional<Server> checkServer = serverRepository.findById(serverId);
+        if(!checkServer.isPresent()){
+            return null;
+        }
+        Server server = checkServer.get();
         ModelMapper mm = new ModelMapper();
         ServerDto serverDto = mm.map(server, ServerDto.class);
         if (serverDto == null){
