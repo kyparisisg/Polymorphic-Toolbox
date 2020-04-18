@@ -116,51 +116,102 @@
         <div class="container">
             <div class="content-center brand">
                 <h1 class="h1-seo">View All Users</h1>
-<%--                <div class="row justify-content-md-center">--%>
-<%--                    <div class="container my-2">--%>
-
-                        <div th:case="*">
-                            <table class="table table-striped table-responsive-md">
-                                <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>First Name</th>
-                                    <th>Last Name</th>
-                                    <th>Email</th>
-                                    <th>Role</th>
-                                    <th>Edit</th>
-                                    <th>Permissions</th>
-                                    <th>Delete</th>
-                                </tr>
-                                </thead>
-                                <c:forEach items="${list}" var="user">
-                                    <tr>
-                                        <td>${user.id}</td>
-                                        <td>${user.firstName}</td>
-                                        <td>${user.lastName}</td>
-                                        <td>${user.email}</td>
-                                        <td>${user.role}</td>
-                                        <td><form:form name="edit" method="GET" action="/api/users/update/${user.email}"><input type="submit" value="Edit"></form:form></td>
-                                        <td><form:form name="permissions" method="GET" action="/api/users/permissions/get/${user.email}"><input type="submit" value="Permissions"></form:form></td>
-                                        <td><form:form name="delete" method="GET" action="/api/users/delete/${user.email}"><input type="submit" value="Delete"></form:form></td>
-                                    </tr>
-                                </c:forEach>
-                                </tr>
-                            </table>
-                        </div>
+                <div th:case="*">
+                    <table class="table table-striped table-responsive-md">
+                        <thead>
                         <tr>
-                            <td>Return to :</td>
-                            <td><a href="/api/users/">Manage Users</a></td>
+                            <th>ID</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Edit</th>
+                            <th>Permissions</th>
+                            <th>Delete</th>
                         </tr>
+                        </thead>
+                        <c:forEach items="${list}" var="user">
+                            <tr>
+                                <td>${user.id}</td>
+                                <td>${user.firstName}</td>
+                                <td>${user.lastName}</td>
+                                <td>${user.email}</td>
+                                <td>${user.role}</td>
+                                <td><form:form name="edit" method="GET" action="/api/users/update/${user.email}"><input type="submit" value="Edit"></form:form></td>
+                                <td><form:form name="permissions" method="GET" action="/api/users/permissions/get/${user.email}"><input type="submit" value="Permissions"></form:form></td>
+                                <td><form:form name="delete" method="GET" action="/api/users/delete/${user.email}"><input type="submit" value="Delete"></form:form></td>
+                            </tr>
+                        </c:forEach>
+                        </tr>
+                    </table>
+                </div>
+                <tr>
+                    <td>Return to :</td>
+                    <td><a href="/api/users/">Manage Users</a></td>
+                </tr>
 
-<%--                    </div>--%>
-<%--                </div>--%>
+            </div>
+            </div>
+        </div>
+
+
+    </div>
+
+<div class="section section-download" id="#download-section" data-background-color="black">
+    <img src="assets/img/path1.png" class="path">
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <div class="text-center col-md-12 col-lg-8">
+                <h2 class="title">Do you love this Bootstrap 4 Design System?</h2>
+                <h4 class="description">Cause if you do, it can be yours for FREE. Hit the button below to navigate to Creative Tim where you can find the design system in HTML format. Start a new project or give an old Bootstrap project a new look!</h4>
+            </div>
+            <div class="text-center col-md-12 col-lg-8">
+                <a href="https://www.creative-tim.com/product/blk-design-system" class="btn btn-primary btn-round btn-lg" role="button">
+                    Download HTML
+                </a>
+                <!-- <a href="https://www.invisionapp.com/now" target="_blank" class="btn btn-primary btn-lg btn-simple btn-round" role="button">
+                          Download PSD/Sketch
+                      </a> -->
+            </div>
+        </div>
+        <br>
+        <br>
+        <br>
+        <!-- <div class="row text-center mt-5">
+              <div class="col-md-8 ml-auto mr-auto">
+                  <h2>Want more?</h2>
+                  <h5 class="description">We've just launched <a href="http://demos.creative-tim.com/black-kit-pro/presentation.html" target="_blank">BLK• Design System PRO</a>. It has a huge number of components, sections and example pages. Start Your Development With A Badass Bootstrap 4 Design System.</h4>
+              </div>
+              <div class="col-md-12">
+                  <a href="http://demos.creative-tim.com/black-kit-pro/presentation.html" class="btn btn-neutral btn-round btn-lg" target="_blank">
+                      <i class="tim-icons icon-cloud-upload-94"></i> Upgrade to PRO
+                  </a>
+              </div>
+          </div> -->
+        <br>
+        <br>
+        <div class="row row-grid align-items-center my-md">
+            <div class="col-lg-6">
+                <h3 class="text-primary font-weight-light mb-2">Thank you for supporting us!</h3>
+                <h4 class="mb-0 font-weight-light">Let's get in touch on any of these platforms.</h4>
+            </div>
+            <div class="col-lg-6 text-lg-center btn-wrapper">
+                <a id="twitter" class="btn btn-icon btn-twitter btn-round btn-lg" data-toggle="tooltip" data-original-title="Tweet!">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a id="facebook" class="btn btn-icon btn-facebook btn-round btn-lg" data-toggle="tooltip" data-original-title="Share!">
+                    <i class="fab fa-facebook-square"></i>
+                </a>
+                <a target="_blank" href="https://github.com/creativetimofficial" class="btn btn-icon btn-github btn-round btn-lg" data-toggle="tooltip" data-original-title="Star on Github">
+                    <i class="fab fa-github"></i>
+                </a>
             </div>
         </div>
     </div>
+</div>
 
     <!--  End Modal -->
-</div>
+
 <footer class="footer">
     <div class="container">
         <div class="row">
