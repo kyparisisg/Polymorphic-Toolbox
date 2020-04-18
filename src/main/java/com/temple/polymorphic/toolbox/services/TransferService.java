@@ -17,6 +17,7 @@ import com.temple.polymorphic.toolbox.models.User;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.tomcat.util.http.fileupload.FileUtils;
+import org.modelmapper.ModelMapper;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -192,11 +193,44 @@ public class TransferService {
     }
 
     public int scp(String email, Long srcServerId, String filePath, Long dstServerId, String targetPath){
-        Server srcServer = serverRepository.findById(srcServerId).get();
-        Server dstServer = serverRepository.findById(dstServerId).get();
+        ModelMapper mapper = new ModelMapper();
+        ServerDto srcServer = mapper.map(serverRepository.findById(srcServerId).get(), ServerDto.class);
+        ServerDto dstServer = mapper.map(serverRepository.findById(dstServerId).get(), ServerDto.class);
+        User user = userRepository.findByEmail(email);
+
+        Permissions srcPerm = permissionsRepository.findByIds(user.getId(), srcServerId);
+        //check for specific userName creds for src
+        if(srcPerm.getUsernameCred()!=null){
+            if(!srcPerm.getUsernameCred().equals("")){
+                srcServer.setUsernameCred(srcPerm.getUsernameCred());
+            }
+        }
+        //check for specific password creds for src
+        if(srcPerm.getPasswordCred()!=null){
+            if(!srcPerm.getPasswordCred().equals("")){
+                srcServer.setPasswordCred(srcPerm.getPasswordCred());
+            }
+        }
+
+        Permissions dstPerm = permissionsRepository.findByIds(user.getId(), dstServerId);
+        //check for specific userName creds for dst
+        if(dstPerm.getUsernameCred()!=null){
+            if(!dstPerm.getUsernameCred().equals("")){
+                dstServer.setUsernameCred(dstPerm.getUsernameCred());
+            }
+        }
+        //check for specific password creds for dst
+        if(dstPerm.getPasswordCred()!=null){
+            if(!dstPerm.getPasswordCred().equals("")){
+                dstServer.setPasswordCred(dstPerm.getPasswordCred());
+            }
+        }
+
         /*
         SCP from src server to dst server
          */
+
         return 0;
+
     }
 }
