@@ -209,6 +209,11 @@ public class ServerService {
         return (List<ServerDto>)list;
     }
 
+    public String getServerNameFromId(Long serverId){
+        Server server = serverRepository.findById(serverId).get();
+        return server.getName();
+    }
+
     class localUserInfo implements UserInfo {
         String passwd;
         @Override

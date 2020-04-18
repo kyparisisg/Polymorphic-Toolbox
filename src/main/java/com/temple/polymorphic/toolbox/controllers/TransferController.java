@@ -129,7 +129,16 @@ public class TransferController {
         int status = transferService.scp(tran.getEmail(), tran.getSrcServerId(), tran.getFilePath(), tran.getDstServerId(), tran.getTargetPath());
         transferService.addTransaction(tran.getEmail(), tran.getSrcServerId(), tran.getFilePath(), tran.getDstServerId(), status);
 
+        String srcServerName  = serverService.getServerNameFromId(tran.getSrcServerId());
+        String dstServerName  = serverService.getServerNameFromId(tran.getDstServerId());
+
+        model.addAttribute("email", tran.getEmail());
+        model.addAttribute("src", srcServerName);
+        model.addAttribute("dst", dstServerName);
+        model.addAttribute("file", tran.getFilePath().trim()); //duplicate concatenation from add transaction when available
         model.addAttribute("status", status);
+        model.addAttribute("request", "Transaction completed from: " + srcServerName + " to " + dstServerName);
+
         return "client/transferSuccess";
     }
 
