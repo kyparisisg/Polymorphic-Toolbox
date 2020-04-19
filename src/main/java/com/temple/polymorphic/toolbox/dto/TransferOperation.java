@@ -4,7 +4,7 @@ public class TransferOperation {
 
     private String email;
     private Long srcServerId;
-    private String filePath;
+    private String fileName;
     private Long dstServerId;
     private String targetPath;
 
@@ -17,26 +17,19 @@ public class TransferOperation {
         this.srcServerId = srcServerId;
     }
 
-    public TransferOperation(String email, Long srcServerId, String filePath) {
+    public TransferOperation(String email, Long srcServerId, String fileName) {
         this.email = email;
         this.srcServerId = srcServerId;
-        this.filePath = filePath;
+        this.fileName = fileName;
     }
 
-    public TransferOperation(String email, Long srcServerId, String filePath, Long dstServerId) {
+    public TransferOperation(String email, Long srcServerId, String fileName, Long dstServerId) {
         this.email = email;
         this.srcServerId = srcServerId;
-        this.filePath = filePath;
+        this.fileName = fileName;
         this.dstServerId = dstServerId;
     }
 
-    public TransferOperation(String email, Long srcServerId, String filePath, Long dstServerId, String targetPath) {
-        this.email = email;
-        this.srcServerId = srcServerId;
-        this.filePath = filePath;
-        this.dstServerId = dstServerId;
-        this.targetPath = targetPath;
-    }
 
     public String getEmail() {
         return email;
@@ -54,12 +47,12 @@ public class TransferOperation {
         this.srcServerId = srcServerId;
     }
 
-    public String getFilePath() {
-        return filePath;
+    public String getFileName() {
+        return fileName;
     }
 
-    public void setFilePath(String filePath) {
-        this.filePath = filePath;
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 
     public Long getDstServerId() {
@@ -70,11 +63,4 @@ public class TransferOperation {
         this.dstServerId = dstServerId;
     }
 
-    public String getTargetPath() {
-        return targetPath;
-    }
-
-    public void setTargetPath(String targetPath) {
-        this.targetPath = targetPath;
-    }
 }

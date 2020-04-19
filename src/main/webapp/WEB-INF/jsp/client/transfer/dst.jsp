@@ -117,7 +117,7 @@
             <div class="content-center brand">
                 <h1 class="h1-seo">Accessible Servers</h1>
                 <div th:case="*">
-                    <form:form method = "POST" action = "/client/transfer/dst" autocomplete="false">
+                    <form:form method = "POST" action = "/client/transfer/scp" autocomplete="false">
                         <div class="container my-2">
                             <div th:case="*">
                                 <table class="table table-striped table-responsive-md">
@@ -153,7 +153,7 @@
                                 <td><form:input path = "srcServerId" type="hidden" value="${srcServerId}" autocomplete="false"/></td>
                             </tr>
                             <tr>
-                                <td><form:input path = "filePath" type="hidden" value="${filePath}" autocomplete="false"/></td>
+                                <td><form:input path = "fileName" type="hidden" value="${fileName}" autocomplete="false"/></td>
                             </tr>
                             <tr>
                                 <td><form:input path = "dstServerId" autocomplete="false" placeholder="Destination Server"/></td>

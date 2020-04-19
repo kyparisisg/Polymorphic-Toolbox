@@ -1,7 +1,6 @@
 package com.temple.polymorphic.toolbox.controllers;
 
 import com.temple.polymorphic.toolbox.dto.ServerDto;
-import com.temple.polymorphic.toolbox.dto.TransactionDto;
 import com.temple.polymorphic.toolbox.dto.TransferOperation;
 import com.temple.polymorphic.toolbox.services.ServerService;
 import com.temple.polymorphic.toolbox.services.TransferService;
@@ -88,13 +87,13 @@ public class TransferController {
         //cascade transfer info
         model.addAttribute("email", tran.getEmail());
         model.addAttribute("srcServerId", tran.getSrcServerId());
-        model.addAttribute("filePath", tran.getFilePath());
+        model.addAttribute("fileName", tran.getFileName());
 
         return new ModelAndView("client/transfer/dst","command", new TransferOperation());
     }
 
-    @RequestMapping(value="dst", method = RequestMethod.POST)
-    public ModelAndView dstServer(@ModelAttribute TransferOperation tran, Model model) {
+    @RequestMapping(value="scp", method = RequestMethod.POST)
+    public String scp(@ModelAttribute TransferOperation tran, Model model) {
         //verify dst server
         try{
             if(serverService.getServerById(tran.getDstServerId())==null){
@@ -104,30 +103,10 @@ public class TransferController {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
             }
         } catch (ResponseStatusException e) {
-            return new ModelAndView("403","command", new TransferOperation());
+            return "403";
         }
-        //get directory for server
-        model.addAttribute("directory", transferService.getDirectory(tran.getDstServerId()));
-        //cascade transfer info
-        model.addAttribute("email", tran.getEmail());
-        model.addAttribute("srcServerId", tran.getSrcServerId());
-        model.addAttribute("filePath", tran.getFilePath());
-        model.addAttribute("dstServerId", tran.getDstServerId());
-
-        return new ModelAndView("client/transfer/target","command", new TransferOperation());
-    }
-
-    @RequestMapping(value="scp", method = RequestMethod.POST)
-    public String scp(@ModelAttribute TransferOperation tran, Model model) {
-        //verify targetPath?
-        /*
-        List<String> directory = transferService.getDirectory(tran.getDstServerId());
-        for(String path: directory){
-            comparison
-        }
-        */
-        int status = transferService.scp(tran.getEmail(), tran.getSrcServerId(), tran.getFilePath(), tran.getDstServerId(), tran.getTargetPath());
-        transferService.addTransaction(tran.getEmail(), tran.getSrcServerId(), tran.getFilePath(), tran.getDstServerId(), status);
+        int status = transferService.scp(tran.getEmail(), tran.getSrcServerId(), tran.getFileName(), tran.getDstServerId());
+        transferService.addTransaction(tran.getEmail(), tran.getSrcServerId(), tran.getFileName(), tran.getDstServerId(), status);
 
         String srcServerName  = serverService.getServerNameFromId(tran.getSrcServerId());
         String dstServerName  = serverService.getServerNameFromId(tran.getDstServerId());
@@ -135,7 +114,7 @@ public class TransferController {
         model.addAttribute("email", tran.getEmail());
         model.addAttribute("src", srcServerName);
         model.addAttribute("dst", dstServerName);
-        model.addAttribute("file", tran.getFilePath().trim()); //duplicate concatenation from add transaction when available
+        model.addAttribute("file", tran.getFileName().trim()); //duplicate concatenation from add transaction when available
         model.addAttribute("status", status);
         model.addAttribute("request", "Transaction completed from: " + srcServerName + " to " + dstServerName);
 

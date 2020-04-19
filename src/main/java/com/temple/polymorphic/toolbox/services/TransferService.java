@@ -195,21 +195,21 @@ public class TransferService {
         transactionRepository.save(transaction);
     }
 
-    public int scp(String email, Long srcServerId, String filePath, Long dstServerId, String targetPath){
+    public int scp(String email, Long srcServerId, String fileName, Long dstServerId){
         /*
         SCP from src server to dst server
          */
         return 0;
     }
 
-    public boolean scpFrom(String email, Long srcServerId, String filePath){
+    public boolean scpFrom(String email, Long srcServerId, String fileName){
         ServerDto srcServer = getServerWithSpecificPerms(email, srcServerId);
         Session session = createSession(srcServer);
 
         return false;
     }
 
-    public boolean scpTo(String email, Long dstServerId, String targetPath){
+    public boolean scpTo(String email, Long dstServerId){
         ServerDto dstServer = getServerWithSpecificPerms(email, dstServerId);
         Session session = createSession(dstServer);
 

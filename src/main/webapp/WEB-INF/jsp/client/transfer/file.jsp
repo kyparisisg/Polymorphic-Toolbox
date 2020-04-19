@@ -123,12 +123,12 @@
                                 <table class="table table-striped table-responsive-md">
                                     <thead>
                                     <tr>
-                                        <th>File Paths</th>
+                                        <th>Files</th>
                                     </tr>
                                     </thead>
-                                    <c:forEach items="${directory}" var="path">
+                                    <c:forEach items="${directory}" var="file">
                                         <tr>
-                                            <td>${path}</td>
+                                            <td>${file}</td>
                                         </tr>
                                     </c:forEach>
                                     </tr>
@@ -144,7 +144,7 @@
                             </tr>
                             <tr>
                                     <%--<td><form:label path = "srcServerId">Source Server</form:label></td>--%>
-                                <td><form:input path = "filePath" autocomplete="false" placeholder="File Path"/></td>
+                                <td><form:input path = "fileName" autocomplete="false" placeholder="File Name"/></td>
                             </tr>
                             <br><br>
                             <tr>
