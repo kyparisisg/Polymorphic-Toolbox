@@ -1,10 +1,7 @@
 package com.temple.polymorphic.toolbox.controllers;
 
 
-import com.temple.polymorphic.toolbox.dto.PermissionsDto;
 import com.temple.polymorphic.toolbox.dto.TransactionDto;
-import com.temple.polymorphic.toolbox.dto.UserDto;
-import com.temple.polymorphic.toolbox.models.User;
 import com.temple.polymorphic.toolbox.services.TransferService;
 import com.temple.polymorphic.toolbox.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-
 import java.util.List;
 
 @Controller

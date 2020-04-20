@@ -121,7 +121,8 @@
                     </div>
 
                     <div class="text-center col-md-12 col-lg-8">
-                        <a href="/client/aws/filePick/" class="btn btn-primary btn-round btn-lg" role="button">
+<%--                        <a href="/client/aws/filePick/" class="btn btn-primary btn-round btn-lg" role="button">--%>
+                        <a href="/client/aws/serverSelection/" class="btn btn-primary btn-round btn-lg" role="button">
                             Back Up
                         </a>
                     </div>

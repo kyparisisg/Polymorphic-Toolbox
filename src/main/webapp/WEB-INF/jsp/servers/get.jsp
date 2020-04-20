@@ -129,8 +129,10 @@
                             <th>Port</th>
                             <th>Admin User</th>
                             <th>Health</th>
+                            <th>Health Check</th>
                             <th>Edit</th>
                             <th>Delete</th>
+
                         </tr>
                         </thead>
                         <c:forEach items="${list}" var="server">
@@ -141,8 +143,10 @@
                                 <td>${server.port}</td>
                                 <td>${server.usernameCred}</td>
                                 <td>${server.health}</td>
+                                <td><form:form name="check" method="GET" action="/api/servers/check/${server.ip}"><input type="submit" value="Check"></form:form></td>
                                 <td><form:form name="edit" method="GET" action="/api/servers/update/${server.ip}"><input type="submit" value="Edit"></form:form></td>
                                 <td><form:form name="delete" method="GET" action="/api/servers/delete/${server.ip}"><input type="submit" value="Delete"></form:form></td>
+
                             </tr>
                         </c:forEach>
                         </tr>

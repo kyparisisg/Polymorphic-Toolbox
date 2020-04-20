@@ -6,11 +6,12 @@ import com.temple.polymorphic.toolbox.services.ServerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.ModelAndView;
-
 import java.util.List;
 
 @Controller
@@ -135,7 +136,7 @@ public class ServersController {
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public String deleteServer(@ModelAttribute ServerDto serverDto, Model model){
         ServerDto serverDto1 = serverService.deleteServerByIp(serverDto.getIp());
-        model.addAttribute("server", serverDto1);
+//        model.addAttribute("server", serverDto1);
         //OR
         model.addAttribute("id", serverDto1.getId());
         model.addAttribute("name", serverDto1.getName());
@@ -143,6 +144,30 @@ public class ServersController {
         model.addAttribute("port", serverDto1.getPort());
         model.addAttribute("usernameCred", serverDto1.getUsernameCred());
         model.addAttribute("request", "Delete Server");
+
+        return "servers/requestSuccess";
+    }
+
+    @RequestMapping(value = "/check/{ip}", method = RequestMethod.GET)
+    public String checkServerHealth(@PathVariable("ip") String ip, Model model){
+        boolean health;
+        try{
+            boolean pkey = false;
+            serverService.checkServerHealth(ip, pkey);
+            health = serverService.updateHealth(ip, true);
+        }catch (Exception e){
+            health = serverService.updateHealth(ip, false);
+        }
+        //update health in db since I reached this point... means ssh was successful
+        int status = 0;
+        if(health)  status = 1;
+        ServerDto serverDto1 = serverService.getServerDtoByIp(ip);
+        model.addAttribute("id", serverDto1.getId());
+        model.addAttribute("name", serverDto1.getName());
+        model.addAttribute("ip", serverDto1.getIp());
+        model.addAttribute("port", serverDto1.getPort());
+        model.addAttribute("usernameCred", serverDto1.getUsernameCred());
+        model.addAttribute("request", "Health Check Set to: " + status);
 
         return "servers/requestSuccess";
     }

@@ -102,8 +102,6 @@
     </div>
 </nav>
 <!-- End Navbar -->
-
-
 <div class="wrapper">
     <div class="page-header header-filter">
         <div class="squares square1"></div>
@@ -117,7 +115,7 @@
             <div class="content-center brand">
                 <h1 class="h1-seo">Accessible Servers</h1>
                 <div th:case="*">
-                    <form:form method = "POST" action = "/client/transfer/src" autocomplete="false">
+                    <form:form method = "POST" action = "/client/aws/fileSelection" autocomplete="false">
                         <div class="container my-2">
                             <div th:case="*">
                                 <table class="table table-striped table-responsive-md">
@@ -145,11 +143,9 @@
                                 </table>
                             </div>
                             <tr>
-                                    <%--<td><form:label path = "email">Email</form:label></td>--%>
                                 <td><form:input path = "email" type="hidden" value="${email}" autocomplete="false" /></td>
                             </tr>
                             <tr>
-                                    <%--<td><form:label path = "srcServerId">Source Server</form:label></td>--%>
                                 <td><form:input path = "srcServerId" autocomplete="false" placeholder="Source Server"/></td>
                             </tr>
                             <br><br>
@@ -178,7 +174,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-3">
-                <h1 class="title">POLYMORPHIC TOLLBOX</h1>
+                <h1 class="title">POLYMORPHIC TOOLBOX</h1>
             </div>
             <div class="col-md-3">
                 <ul class="nav">

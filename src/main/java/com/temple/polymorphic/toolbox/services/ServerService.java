@@ -178,6 +178,43 @@ public class ServerService {
         }
     }
 
+    public boolean checkServerHealth(String ip, boolean pkey) throws Exception{
+        //For port forwarding, might be used later
+        //int tunnelLocalPort=9080;
+        //String tunnelRemoteHost="YYY.YYY.YYY.YYY";    //forward to --> IP
+        //int tunnelRemotePort=80;
+        Server server = this.getServerByIp(ip);
+
+
+        JSch jsch = new JSch();
+        jsch.setConfig("StrictHostKeyChecking", "no");
+        jsch.setConfig("PreferredAuthentications", "publickey,password,keyboard-interactive");
+        Session session = null;
+        try {
+            if(server.getKeyLocation() != null && pkey) {
+                jsch.addIdentity(System.getProperty("user.dir") + server.getKeyLocation());
+            }
+            session = jsch.getSession(server.getUsernameCred(), server.getIp(), server.getPort());
+            if(server.getKeyLocation() != null ) {
+                session.setPassword(server.getPasswordCred());
+            }
+            //session.setPortForwardingL(tunnelLocalPort,tunnelRemoteHost,tunnelRemotePort);
+            session.connect();
+            //Channel channel = session.openChannel("shell");
+            //channel.setInputStream(System.in);
+            //channel.setOutputStream(System.out);
+            //channel.connect();
+            //channel.disconnect();
+            session.disconnect();
+            return true;
+
+        } catch (JSchException e) {
+            LOGGER.info(String.valueOf(e));
+            throw new ResponseStatusException(HttpStatus.PRECONDITION_FAILED);
+
+        }
+    }
+
     public ServerDto getServerById(Long serverId) {
         Optional<Server> checkServer = serverRepository.findById(serverId);
         if(!checkServer.isPresent()){
@@ -204,5 +241,29 @@ public class ServerService {
     public String getServerNameFromId(Long serverId){
         Server server = serverRepository.findById(serverId).get();
         return server.getName();
+    }
+
+    private Server getServerByIp(String ip){
+        //do the function to throw exception if not found
+        ip = ip.replace(" ", ""); //replace spaces
+        return serverRepository.findByIp(ip);
+    }
+
+    public ServerDto getServerDtoByIp(String ip){
+        //do the function to throw exception if not found
+        ModelMapper mapper = new ModelMapper();
+        ServerDto s = mapper.map(serverRepository.findByIp(ip), ServerDto.class);
+        return s;
+
+    }
+
+    public boolean updateHealth(String ip, boolean h){
+        Long serverId = this.getServerByIp(ip).getId();
+        if(h){//means true then set 1
+            serverRepository.updateServerHealth(1, serverId);
+            return true;
+        }
+        serverRepository.updateServerHealth(0, serverId);
+        return false;
     }
 }

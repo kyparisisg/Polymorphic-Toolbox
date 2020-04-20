@@ -3,10 +3,7 @@ package com.temple.polymorphic.toolbox.services;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
-import com.amazonaws.util.IOUtils;
-import com.jcraft.jsch.JSch;
-import com.jcraft.jsch.JSchException;
-import com.jcraft.jsch.Session;
+import com.jcraft.jsch.*;
 import com.temple.polymorphic.toolbox.ServerRepository;
 import com.temple.polymorphic.toolbox.TransactionRepository;
 import com.temple.polymorphic.toolbox.UserRepository;
@@ -17,29 +14,22 @@ import com.temple.polymorphic.toolbox.models.Server;
 import com.temple.polymorphic.toolbox.models.Permissions;
 import com.temple.polymorphic.toolbox.models.Transactions;
 import com.temple.polymorphic.toolbox.models.User;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.modelmapper.ModelMapper;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import javax.annotation.PostConstruct;
 import java.io.*;
 import java.nio.file.StandardCopyOption;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
-import java.nio.file.Files;
 import java.nio.file.Paths;
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.AmazonServiceException;
-import com.amazonaws.auth.profile.ProfileCredentialsProvider;
-import com.amazonaws.regions.Region;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.*;
+import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.server.ResponseStatusException;
 //import sun.rmi.runtime.Log;
 
@@ -59,6 +49,14 @@ public class TransferService {
     @Autowired
     private TransactionRepository transactionRepository;
 
+
+    public void setUserRepository(UserRepository userRepository) { this.userRepository = userRepository; }
+
+    public void setPermissionsRepository(PermissionRepository permissionRepository) { this.permissionsRepository = permissionRepository; }
+
+    public void setServerRepository(ServerRepository serverRepository) { this.serverRepository = serverRepository; }
+
+    public void setTransactionRepository(TransactionRepository transactionRepository) { this.transactionRepository = transactionRepository; }
 
     /*----------------------------------------------------------------------------------------------------------------
     S3 OPERATIONS
@@ -216,6 +214,64 @@ public class TransferService {
         return false;
     }
 
+    public void lsServer(Long serverId){
+        ModelMapper m = new ModelMapper();
+        ServerDto s = m.map(serverRepository.findById(serverId), ServerDto.class);
+        Session session = createSession(s);
+        JSch jschSSHChannel = new JSch();
+
+        try{
+            this.sendCommand("ls", session, jschSSHChannel);
+        }catch (Exception e){
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Command 'ls' could not be executed! Could not retrieve files!");
+        }
+
+    }
+
+    public String sendCommand(String command, Session sesConnection, JSch jschSSHChannel) {
+        StringBuilder outputBuffer = new StringBuilder();
+        String errorMessage = "";
+
+        try {
+            if(!sesConnection.isConnected()){
+                throw new JSchException("Connection was broken");
+            }
+        }
+        catch(JSchException jschX)
+        {
+            errorMessage = jschX.getMessage();
+        }
+
+        try
+        {
+            Channel channel = sesConnection.openChannel("exec");
+            ((ChannelExec)channel).setCommand(command);
+            InputStream commandOutput = channel.getInputStream();
+            channel.connect();
+            int readByte = commandOutput.read();
+
+            while(readByte != 0xffffffff)
+            {
+                outputBuffer.append((char)readByte);
+                readByte = commandOutput.read();
+            }
+
+        }
+        catch(IOException ioX)
+        {
+            errorMessage = ioX.getMessage();
+            return errorMessage;
+        }
+        catch(JSchException jschX)
+        {
+            errorMessage = jschX.getMessage();
+            return errorMessage;
+        }
+
+        return outputBuffer.toString();
+    }
+
+
     public ServerDto getServerWithSpecificPerms(String email, Long serverId){
         User user = userRepository.findByEmail(email);
         ModelMapper mapper = new ModelMapper();
@@ -235,6 +291,7 @@ public class TransferService {
         }
         return server;
     }
+
 
     public Session createSession(ServerDto server){
         JSch jsch = new JSch();
@@ -257,6 +314,17 @@ public class TransferService {
             throw new ResponseStatusException(HttpStatus.PRECONDITION_FAILED);
         }
         return session;
+    }
+
+    public boolean destroySession(Session session) {
+        if (session.isConnected()){
+            try{
+                session.disconnect();
+            }catch (Exception e){
+                throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Could not destroy session: " + session.toString());
+            }
+        }
+        return true;
     }
 
 }

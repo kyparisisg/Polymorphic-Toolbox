@@ -1,27 +1,25 @@
 package com.temple.polymorphic.toolbox.controllers;
 
 import com.temple.polymorphic.toolbox.dto.FileInfoDto;
-import com.temple.polymorphic.toolbox.dto.UserDto;
+import com.temple.polymorphic.toolbox.dto.ServerDto;
+import com.temple.polymorphic.toolbox.dto.TransferOperation;
+import com.temple.polymorphic.toolbox.services.ServerService;
 import com.temple.polymorphic.toolbox.services.TransferService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.ModelAndView;
-
 import javax.servlet.http.HttpSession;
 import java.io.BufferedOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
 
 @Controller
 @RequestMapping("/client/aws/")
@@ -31,13 +29,54 @@ public class AwsController {
     @Autowired
     private TransferService transferService;
 
+    @Autowired
+    private ServerService serverService;
+
     private static final Logger LOGGER = LoggerFactory.getLogger(TransferService.class);
 
-    @RequestMapping(value = "/filePick", method = RequestMethod.GET)
-    public ModelAndView wel(Model model){
-        return new ModelAndView("client/aws/chooseFile");
+    @RequestMapping(value = "/serverSelection", method = RequestMethod.GET)
+    public ModelAndView wel(@CookieValue(value = "username", defaultValue = "NOT_FOUND") String email, Model model) {
+        //get server list for user
+        model.addAttribute("serverList", getServers(email));
+        //cascade transfer info
+        model.addAttribute("email", email);
+        return new ModelAndView("client/aws/src","command", new TransferOperation());
+
+        //return new ModelAndView("client/aws/chooseFile"); //Tyler
     }
 
+    public List<ServerDto> getServers(String email){
+        return transferService.getServersForUser(email);
+    }
+
+    @RequestMapping(value = "/fileSelection", method = RequestMethod.POST)
+    public ModelAndView testjs(@ModelAttribute TransferOperation tran, Model model){
+        //verify src server
+
+        try{
+//            if(!tran.getSrcServerId().getClass().getName().equals("java.lang.Long")){
+//                throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+//            }
+            if(serverService.getServerById(tran.getSrcServerId())==null){
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+            }
+            if(!transferService.hasPermission(tran.getEmail(), tran.getSrcServerId())){
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+            }
+        } catch (ResponseStatusException e) {
+            return new ModelAndView("403","command", new TransferOperation());
+        }
+        //get directory for server
+        //model.addAttribute("directory", transferService.getDirectory(tran.getSrcServerId()));
+
+        //get all files from default user directory
+        transferService.lsServer(tran.getSrcServerId());
+        //cascade transfer info
+        model.addAttribute("email", tran.getEmail());
+        model.addAttribute("srcServerId", tran.getSrcServerId());
+
+        return new ModelAndView("client/aws/fileUpload","command", new TransferOperation());
+    }
 
     @RequestMapping(value = "/fileinput", method = RequestMethod.POST)
     public ModelAndView up(@RequestParam MultipartFile file, HttpSession session){
@@ -59,14 +98,6 @@ public class AwsController {
 
         return new ModelAndView("client/aws/uploadFile","command", new FileInfoDto());
     }
-
-//    @RequestMapping(value = "/upload", method = RequestMethod.GET)
-//    public ModelAndView uploadFile(){
-//
-//        return new ModelAndView("aws/uploadFile","command", new FileInfoDto());
-//    }
-
-
 
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     public String uploadFileUsingAwsApi(@ModelAttribute("SpringWeb")FileInfoDto fileInfoDto, Model model) throws IOException {
@@ -134,7 +165,6 @@ public class AwsController {
 
         return "client/aws/awsApiSuccess";
     }
-
 
     // add transfer
     // create bucket
