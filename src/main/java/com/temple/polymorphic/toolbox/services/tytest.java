@@ -11,23 +11,24 @@ public class tytest {
 
 
 //    upload file first
-        TransferService.fileUpload("greekarmy","server 1/","important.txt");
+//        TransferService.fileUpload("greekarmy","server 1/","important.txt");
 
 
-        TransferService.fileDownload("greekarmy","server 1","important.txt");
-        String fileName = "important.txt";
+//        TransferService.fileDownload("greekarmy","server 1","important.txt");
+//        String fileName = "important.txt";
+        TransferService.fileList("greekarmy");
 //        Path path = Paths.get("\\capstone\\Polymorphic-Toolbox\\src\\resources");
         File t;
-        if(IS_WINDOWS){
-            String g = System.getenv("SystemDrive");
-            t =  new File(g+"/pop/"+fileName);
-            System.out.println(g);
-        }else{
-            t =  new File("C:\\Users\\taira\\Documents\\capstone\\Polymorphic-Toolbox\\src\\main\\resources\\tempStorage\\"+fileName);
-            System.out.println("missed");
-        }
+//        if(IS_WINDOWS){
+//            String g = System.getenv("SystemDrive");
+//            t =  new File(g+"/pop/"+fileName);
+//            System.out.println(g);
+//        }else{
+//            t =  new File("C:\\Users\\taira\\Documents\\capstone\\Polymorphic-Toolbox\\src\\main\\resources\\tempStorage\\"+fileName);
+//            System.out.println("missed");
+//        }
 //        File t =  new File("C:\\Users\\taira\\Documents\\capstone\\Polymorphic-Toolbox\\src\\main\\resources\\tempStorage\\"+fileName);
-        System.out.println(t.exists());
+//        System.out.println(t.exists());
 
 
         //deleting a bucket

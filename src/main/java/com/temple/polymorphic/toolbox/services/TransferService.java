@@ -4,6 +4,7 @@ import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.util.IOUtils;
+import com.temple.polymorphic.toolbox.dto.FileInfoDto;
 import org.apache.commons.logging.LogFactory;
 import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.slf4j.LoggerFactory;
@@ -16,6 +17,7 @@ import java.util.Collections;
 import java.nio.file.Files;
 import java.util.Iterator;
 import java.nio.file.Paths;
+import java.util.List;
 
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.AmazonServiceException;
@@ -29,12 +31,13 @@ import sun.rmi.runtime.Log;
 
 @Service
 public class TransferService {
+    private static final String internalpath= "C:\\Users\\taira\\Documents\\capstone\\Polymorphic-Toolbox\\src\\main\\webapp\\" ;
 
     // for creating new buckets
     public static void createS3b(String bcknm){
-        BasicAWSCredentials awsCreds = new BasicAWSCredentials(Credentials.access_key_id, Credentials.secret_access_key);
 
-        AmazonS3 s3Client = AmazonS3ClientBuilder.standard().withRegion("us-east-2").withCredentials(new AWSStaticCredentialsProvider(awsCreds)).build();
+
+        AmazonS3 s3Client = setUpclient();
 
 
         String newBucketName = ""+bcknm;
@@ -64,9 +67,9 @@ public class TransferService {
                 s3Client.putObject(
                         bcktnm,
                         dir + "" + fileName,
-                        new File("C:\\Users\\taira\\Documents\\capstone\\Polymorphic-Toolbox\\src\\main\\webapp\\" + fileName)
+                        new File(internalpath+"" + fileName)
                 );
-                File file = new File("C:\\Users\\taira\\Documents\\capstone\\Polymorphic-Toolbox\\src\\main\\webapp\\" + fileName);
+                File file = new File(internalpath+"" + fileName);
                 file.delete();
 
             }
@@ -101,7 +104,13 @@ public class TransferService {
 
         InputStream objectdata = s3obj.getObjectContent();
 
-        java.nio.file.Files.copy(objectdata, Paths.get("C:\\Users\\taira\\Documents\\capstone\\Polymorphic-Toolbox\\src\\main\\webapp\\"+fileName),StandardCopyOption.REPLACE_EXISTING);
+        java.nio.file.Files.copy(objectdata, Paths.get(internalpath+""+fileName),StandardCopyOption.REPLACE_EXISTING);
+
+    }
+
+    public static  void fileList(String bucketname){
+        AmazonS3 s3client = setUpclient();
+        BucketTools.getBucketItemList(bucketname, s3client);
 
     }
 
@@ -112,4 +121,6 @@ public class TransferService {
 
         return s3Client;
     }
+
+    // delete files from bucket
 }

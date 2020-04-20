@@ -6,18 +6,21 @@ import com.amazonaws.regions.Region;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.*;
+import com.temple.polymorphic.toolbox.dto.FileInfoDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 public class BucketTools {
     private static final Logger LOG = LoggerFactory.getLogger(BucketTools.class);
     //checking os of user
-    private static final boolean IS_WINDOWS = System.getProperty( "os.name" ).contains( "indow" );
+//    private static final boolean IS_WINDOWS = System.getProperty( "os.name" ).contains( "indow" );
 
 
     // tyler Remember you might have to change println out to logger
@@ -38,6 +41,7 @@ public class BucketTools {
                     break;
                 }
             };
+
             VersionListing list = s3client.listVersions(new ListVersionsRequest().withBucketName(bucketName));
             for ( Iterator<?> iterator = list.getVersionSummaries().iterator(); iterator.hasNext(); ) {
                 S3VersionSummary s = (S3VersionSummary)iterator.next();
@@ -64,6 +68,31 @@ public class BucketTools {
                     "such as not being able to access the network.");
             System.out.println("Error Message: " + ace.getMessage());
         }
+    }
+
+    public static void getBucketItemList(String bucketName, AmazonS3 s3client){
+        ObjectListing objectListing = s3client.listObjects(bucketName);
+        List<FileInfoDto> s3filesList = new ArrayList<FileInfoDto>();
+
+            for ( Iterator<?> iterator = objectListing.getObjectSummaries().iterator(); iterator.hasNext(); ) {
+                FileInfoDto tempfileobj = new FileInfoDto();
+                S3ObjectSummary objectSummary = (S3ObjectSummary) iterator.next();
+                String temp = objectSummary.getKey();
+                if(temp.charAt(temp.length() - 1) != '/'){
+                    String [] parts = temp.split("/");
+                    String actualFileName = parts[parts.length - 1];
+                    tempfileobj.setFile_name(actualFileName);
+
+                }else{ continue;}
+
+                tempfileobj.setFile_name(objectSummary.getKey());
+                tempfileobj.setBucket(objectSummary.getBucketName());
+
+                System.out.println(objectSummary.getKey());
+
+            }
+
+
     }
 
     public static void transferobj(String filename,String bucketNamefrom,String dirFrom, String bucketNameTo, String dirTo,AmazonS3 s3client){
