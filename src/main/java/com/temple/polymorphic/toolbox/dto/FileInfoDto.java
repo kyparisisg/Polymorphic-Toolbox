@@ -8,8 +8,7 @@ public class FileInfoDto {
     private String encryption_token;
     private String s3dir;
     private String bucket;
-    private  String owner;
-    Private String
+
 
 
 
@@ -29,7 +28,6 @@ public class FileInfoDto {
         this.encryption_token = encryption_token;
         this.s3dir = s3dir;
         this.bucket = bucket;
-        this.owner = owner;
     }
 
     public String getFile_name() {

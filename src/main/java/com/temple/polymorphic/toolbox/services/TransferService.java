@@ -108,7 +108,7 @@ public class TransferService {
 
     }
 
-    public static  void fileList(String bucketname){
+    public static void getfileList(String bucketname){
         AmazonS3 s3client = setUpclient();
         BucketTools.getBucketItemList(bucketname, s3client);
 

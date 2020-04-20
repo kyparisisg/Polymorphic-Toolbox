@@ -70,7 +70,7 @@ public class BucketTools {
         }
     }
 
-    public static void getBucketItemList(String bucketName, AmazonS3 s3client){
+    public static List<FileInfoDto> getBucketItemList(String bucketName, AmazonS3 s3client){
         ObjectListing objectListing = s3client.listObjects(bucketName);
         List<FileInfoDto> s3filesList = new ArrayList<FileInfoDto>();
 
@@ -79,22 +79,31 @@ public class BucketTools {
                 S3ObjectSummary objectSummary = (S3ObjectSummary) iterator.next();
                 String temp = objectSummary.getKey();
                 if(temp.charAt(temp.length() - 1) != '/'){
+
                     String [] parts = temp.split("/");
+
                     String actualFileName = parts[parts.length - 1];
+
                     tempfileobj.setFile_name(actualFileName);
+
+                    tempfileobj.setBucket(objectSummary.getBucketName());
+
+                    int dirEnd = temp.lastIndexOf("/");
+
+                    temp.replace(actualFileName+"","");
+
+                    tempfileobj.setS3dir(temp);
+
+                    s3filesList.add(tempfileobj);
+
 
                 }else{ continue;}
 
-                tempfileobj.setFile_name(objectSummary.getKey());
-                tempfileobj.setBucket(objectSummary.getBucketName());
-
-                System.out.println(objectSummary.getKey());
-
             }
-
-
+            return s3filesList;
     }
 
+    //come back to later
     public static void transferobj(String filename,String bucketNamefrom,String dirFrom, String bucketNameTo, String dirTo,AmazonS3 s3client){
         if(s3client.doesBucketExistV2(bucketNamefrom) == false || s3client.doesBucketExistV2(bucketNameTo) == false){
             //user logger class to log error for bukkets not existing then throw an exception
