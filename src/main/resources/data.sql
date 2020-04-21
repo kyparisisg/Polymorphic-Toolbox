@@ -62,9 +62,3 @@ JOIN Servers S1 ON Transactions.src_server = S1.id
 JOIN Servers S2 ON Transactions.dst_server = S2.id
  */
 
-
-INSERT INTO Servers (name, ip, port, username_cred, password_cred, health, register_date)
-VALUES ('MacOS', '192.168.0.3', '22', 'kiouris', 'Oknat-73i', '1', Now() );
-
-INSERT INTO Permissions (user_id, server_id, creation_date)
-VALUES('1', '4', SYSDATE());
