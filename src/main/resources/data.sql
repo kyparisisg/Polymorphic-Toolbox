@@ -64,25 +64,20 @@ JOIN Servers S2 ON Transactions.dst_server = S2.id
 
 
 INSERT INTO Servers (name, ip, port, username_cred, password_cred, health, register_date)
-VALUES ('MacOS', '192.168.0.3', '22', 'test', 'test', '1', Now() );
+VALUES ('MacOS Giannis Test', '192.168.0.3', '22', 'giannistest', '1Q2w3e4R_', '1', Now() );
 
 INSERT INTO Permissions (user_id, server_id, creation_date)
 VALUES('1', '4', SYSDATE());
 
 INSERT INTO Servers (name, ip, port, username_cred, password_cred, health, register_date)
-VALUES ('MacOS', '192.168.0.4', '22', 'test2', 'test2', '1', Now() );
+VALUES ('MacOS 2', '192.168.0.4', '22', 'test2', 'test2', '1', Now() );
 
 INSERT INTO Permissions (user_id, server_id, creation_date)
 VALUES('1', '5', SYSDATE());
 
 INSERT INTO Servers (name, ip, port, username_cred, password_cred, health, register_date)
-VALUES ('MacOS', '192.168.0.5', '22', 'test3', 'test3', '1', Now() );
+VALUES ('MacOS 3', '192.168.0.5', '22', 'test3', 'test3', '0', Now() );
 
 INSERT INTO Permissions (user_id, server_id, creation_date)
 VALUES('1', '6', SYSDATE());
 
-INSERT INTO Servers (name, ip, port, username_cred, password_cred, health, register_date)
-VALUES ('MacOS', '192.168.0.6', '22', 'test4', 'test4', '1', Now() );
-
-INSERT INTO Permissions (user_id, server_id, creation_date)
-VALUES('1', '7', SYSDATE());

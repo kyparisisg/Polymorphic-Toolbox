@@ -140,9 +140,10 @@ public class UserService {
             if(userdto.getLastName()!=null && !userdto.getLastName().isEmpty() && userdto.getLastName().length() > 1)
                 user.setLastName(userdto.getLastName());
 
-            if(userdto.getPassword()!=null && !userdto.getPassword().isEmpty() && userdto.getPassword().length() > 6)
-                user.setPassword(userdto.getPassword());
-
+            if(userdto.getPassword()!=null && !userdto.getPassword().isEmpty() && userdto.getPassword().length() > 6) {
+                String encodedPass = new BCryptPasswordEncoder().encode(userdto.getPassword());//to encrypt password
+                user.setPassword(encodedPass);
+            }
             if(userdto.getRole()!=null && !userdto.getRole().isEmpty() && userdto.getRole().length() > 3)
                 user.setRole(userdto.getRole());
 

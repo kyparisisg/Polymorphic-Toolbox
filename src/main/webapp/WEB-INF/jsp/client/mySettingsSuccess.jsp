@@ -1,14 +1,17 @@
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<!DOCTYPE HTML>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<jsp:useBean id="user" class="com.temple.polymorphic.toolbox.dto.UserDto"/>
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <title>ToolBox</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="apple-touch-icon" sizes="76x76" href="/images/apple-icon.png">
     <link rel="icon" type="image/png" href="/images/favicon.png">
-
+    <title>
+        Blk• Design System by Creative Tim
+    </title>
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet" />
     <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
@@ -16,17 +19,17 @@
     <link href="/css/nucleo-icons.css" rel="stylesheet" />
     <!-- CSS Files -->
     <link href="/css/blk-design-system.css?v=1.0.0" rel="stylesheet" />
-    <!-- CSS Just for demo purpose, (probably going to take this out) -->
-    <link href="/demo/demo.css" rel="stylesheet" />
-    <%--    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />--%>
+    <%--    <!-- CSS Just for demo purpose, don't include it in your project -->--%>
+    <%--    <link href="/demo/demo.css" rel="stylesheet" />--%>
 </head>
-<body class="index-page">
 
+
+<body class="index-page">
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg fixed-top navbar-transparent " color-on-scroll="100">
     <div class="container">
         <div class="navbar-translate">
-            <a class="navbar-brand" href="/home" rel="tooltip" title="" data-placement="bottom" >
+            <a class="navbar-brand" href="/api/admin" rel="tooltip"  data-placement="bottom" >
                 <span>POLYMORPHIC TOOLBOX</span>
             </a>
             <button class="navbar-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
@@ -110,52 +113,47 @@
         <div class="squares square7"></div>
         <div class="container">
             <div class="content-center brand">
-                <%--                <h1 class="h1-seo"></h1>--%>
-                <h3>Welcome to the User Dashboard</h3>
-                <div class="row justify-content-md-center">
-                    <div class="text-center col-md-12 col-lg-8">
-                        <a href="/client/transfer/form" class="btn btn-primary btn-round btn-lg" role="button">
-                            Server Transfer
-                        </a>
+                <h1 class="h1-seo">Updating My Information</h1>
 
-                    </div>
+                <p>Your Information Change Request Status: ${request}</p>
+                <div class="container my-2">
 
-                    <div class="text-center col-md-12 col-lg-8">
-<%--                        <a href="/client/aws/filePick/" class="btn btn-primary btn-round btn-lg" role="button">--%>
-                        <a href="/client/aws/serverSelection/" class="btn btn-primary btn-round btn-lg" role="button">
-                            Back Up
-                        </a>
+                    <div th:case="*">
+                        <table class="table table-striped table-responsive-md">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Email</th>
+                                <th>Role</th>
+                                <th>Registration Date</th>
+                            </tr>
+                            </thead>
+                            <tr>
+                                <td>${id}</td>
+                                <td>${firstName}</td>
+                                <td>${lastName}</td>
+                                <td>${email}</td>
+                                <td>${role}</td>
+                                <td>${regDate}</td>
+                            </tr>
+                            </tr>
+                        </table>
                     </div>
-
-                    <div class="text-center col-md-12 col-lg-8">
-                        <a href="/client/aws/download" class="btn btn-primary btn-round btn-lg" role="button">
-                            Restore
-                        </a>
-                    </div>
-
-                    <div class="text-center col-md-12 col-lg-8">
-                        <a href="/client/myHistory" class="btn btn-primary btn-round btn-lg" role="button">
-                            History
-                        </a>
-                    </div>
-
-                    <div class="text-center col-md-12 col-lg-8">
-                        <a href="/client/mySettings" class="btn btn-primary btn-round btn-lg" role="button">
-                            My Settings
-                        </a>
-                    </div>
-
-                    <br><br><br><br>
-                    <div class="text-center col-md-12 col-lg-8">
-                        <a href="/logout" class="btn btn-primary btn-round btn-lg" role="button">
-                            Logout
-                        </a>
-                    </div>
+                    <tr>
+                        <td>Return to :</td>
+                        <td><a href="/client/">Client Dashboard</a></td>
+                    </tr>
 
                 </div>
             </div>
         </div>
+
+
+
     </div>
+
 
     <!--  End Modal -->
 </div>
@@ -163,12 +161,12 @@
     <div class="container">
         <div class="row">
             <div class="col-md-3">
-                <h1 class="title">POLYMORPHIC TOOLBOX</h1>
+                <h1 class="title">POLYMORPHIC TOLLBOX</h1>
             </div>
             <div class="col-md-3">
                 <ul class="nav">
                     <li class="nav-item">
-                        <a href="/api/admin" class="nav-link">
+                        <a href="/home" class="nav-link">
                             Home
                         </a>
                     </li>
@@ -239,14 +237,14 @@
 <script src="/js/plugins/perfect-scrollbar.jquery.min.js"></script>
 <!--  Plugin for Switches -->
 <script src="/js/plugins/bootstrap-switch.js"></script>
-<!--  Plugin for the Sliders -->
+<!--  Plugin for the Sliders-->
 <script src="/js/plugins/nouislider.min.js" type="text/javascript"></script>
 <!-- Chart JS -->
 <script src="/js/plugins/chartjs.min.js"></script>
 <!--  Plugin for the DatePicker-->
 <script src="/js/plugins/moment.min.js"></script>
 <script src="/js/plugins/bootstrap-datetimepicker.js" type="text/javascript"></script>
-<!-- Black Dashboard DEMO methods, (might get rid of this) -->
+<!-- Black Dashboard DEMO methods, (take this out) -->
 <script src="/demo/demo.js"></script>
 <!-- Control Center for Black UI Kit: parallax effects, scripts for the example pages etc -->
 <script src="/js/blk-design-system.min.js?v=1.0.0" type="text/javascript"></script>
@@ -263,7 +261,5 @@
         }
     }
 </script>
-
 </body>
 </html>
-
