@@ -214,18 +214,19 @@ public class TransferService {
         return false;
     }
 
-    public void lsServer(Long serverId){
+    public String lsServer(Long serverId){
         ModelMapper m = new ModelMapper();
-        ServerDto s = m.map(serverRepository.findById(serverId), ServerDto.class);
+        ServerDto s = m.map(serverRepository.findById(serverId).get(), ServerDto.class);
         Session session = createSession(s);
         JSch jschSSHChannel = new JSch();
 
         try{
-            this.sendCommand("ls", session, jschSSHChannel);
+//            return this.sendCommand("ls", session, jschSSHChannel);
+//            return this.sendCommand("ls -lF", session, jschSSHChannel);   //lists files and directories
+            return this.sendCommand("ls -l | egrep -v '^d'", session, jschSSHChannel); //lists only files
         }catch (Exception e){
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Command 'ls' could not be executed! Could not retrieve files!");
         }
-
     }
 
     public String sendCommand(String command, Session sesConnection, JSch jschSSHChannel) {
@@ -299,7 +300,7 @@ public class TransferService {
         jsch.setConfig("PreferredAuthentications", "publickey,password,keyboard-interactive");
         Session session = null;
         try {
-            if(server.getKeyLocation() != null) {
+            if(server.getKeyLocation() != null ) {
                 if(!server.getKeyLocation().equals("")) {
                     jsch.addIdentity(System.getProperty("user.dir") + server.getKeyLocation());
                 }
@@ -326,5 +327,16 @@ public class TransferService {
         }
         return true;
     }
+
+    public List<String> makeListOfFiles(String files){
+        List<String> list = new LinkedList<>();
+        Scanner scanner = new Scanner(files);
+        while(scanner!=null && scanner.hasNextLine()){
+            list.add(scanner.nextLine());
+        }
+
+        return list;
+    }
+
 
 }

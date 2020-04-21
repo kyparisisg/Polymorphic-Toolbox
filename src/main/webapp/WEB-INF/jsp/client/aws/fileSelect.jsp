@@ -113,37 +113,33 @@
         <div class="squares square7"></div>
         <div class="container">
             <div class="content-center brand">
-                <h1 class="h1-seo">Accessible Servers</h1>
+                <h1 class="h1-seo">Accessible Files</h1>
                 <div th:case="*">
-                    <form:form method = "POST" action = "/client/aws/fileSelection" autocomplete="false">
+                    <form:form method = "POST" action = "/client/aws/fileUpload" autocomplete="false">
                         <div class="container my-2">
                             <div th:case="*">
                                 <table class="table table-striped table-responsive-md">
                                     <thead>
                                     <tr>
-                                        <th>File Name</th>
-                                        <th>Mode</th>
-                                        <th>Owner</th>
+                                        <th>Files Info</th>
                                     </tr>
                                     </thead>
                                     <c:forEach items="${fileList}" var="file">
                                         <tr>
-                                            <td>${file.name}</td>
-                                            <td>${file.mode}</td>
-                                            <td>${file.owner}</td>
+                                            <td>${file}</td>
                                         </tr>
                                     </c:forEach>
                                     </tr>
                                 </table>
                             </div>
                             <tr>
-                                <td><form:input path = "fileName" autocomplete="false" /></td>
+                                <td><form:input path = "fileName" autocomplete="false" placeholder="File Name" /></td>
                             </tr>
                             <tr>
                                 <td><form:input path = "email" type="hidden" value="${email}" autocomplete="false" /></td>
                             </tr>
                             <tr>
-                                <td><form:input path = "srcServerId" autocomplete="false" placeholder="Source Server"/></td>
+                                <td><form:input path = "srcServerId" type="hidden" autocomplete="false"/></td>
                             </tr>
                             <br><br>
                             <tr>

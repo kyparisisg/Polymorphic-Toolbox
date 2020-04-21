@@ -70,13 +70,18 @@ public class AwsController {
         //model.addAttribute("directory", transferService.getDirectory(tran.getSrcServerId()));
 
         //get all files from default user directory
-        transferService.lsServer(tran.getSrcServerId());
+        String files = transferService.lsServer(tran.getSrcServerId());
+        List<String> fileList = transferService.makeListOfFiles(files); //fileList[0] is the total number of files found, exctract it
+        fileList.remove(0);
         //cascade transfer info
+        model.addAttribute("fileList", fileList);
         model.addAttribute("email", tran.getEmail());
         model.addAttribute("srcServerId", tran.getSrcServerId());
 
-        return new ModelAndView("client/aws/fileUpload","command", new TransferOperation());
+        return new ModelAndView("client/aws/fileSelect","command", new TransferOperation());
     }
+
+
 
     @RequestMapping(value = "/fileinput", method = RequestMethod.POST)
     public ModelAndView up(@RequestParam MultipartFile file, HttpSession session){
