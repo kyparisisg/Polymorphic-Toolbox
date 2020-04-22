@@ -182,19 +182,18 @@ public class TransferService {
         return serverList;
     }
 
-    public void addTransaction(String email, Long srcServerId, String filePath, Long dstServerId, int status){
+    public void addTransaction(String email, Long srcServerId, String fileName, Long dstServerId, int status){
         User user = userRepository.findByEmail(email);
         Server srcServer = serverRepository.findById(srcServerId).get();
         Server dstServer = serverRepository.findById(dstServerId).get();
-        String file = filePath.trim(); //will need more string manipulation to only get file
-        Transactions transaction = new Transactions(user, srcServer, dstServer, file, status);
+        Transactions transaction = new Transactions(user, srcServer, dstServer, fileName, status);
         transactionRepository.save(transaction);
     }
 
     public int scp(String email, Long srcServerId, String fileName, Long dstServerId){
         if(scpFrom(email, srcServerId, fileName)){
             if(scpTo(email, dstServerId, fileName)){
-                //delete file
+                deleteTempFile(fileName);
                 return 1;
             }
         }
@@ -460,7 +459,6 @@ public class TransferService {
         return outputBuffer.toString();
     }
 
-
     public ServerDto getServerWithSpecificPerms(String email, Long serverId){
         User user = userRepository.findByEmail(email);
         ModelMapper mapper = new ModelMapper();
@@ -483,7 +481,6 @@ public class TransferService {
         }
         return server;
     }
-
 
     public Session createSession(ServerDto server){
         JSch jsch = new JSch();
@@ -559,8 +556,13 @@ public class TransferService {
     }
 
     public boolean deleteTempFile(String fileName){
-
-        return true;
+        String localPath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "tempFileStorage" + File.separator + fileName;
+        File localFile = new File(localPath);
+        if(localFile.delete()) {
+            return true;
+        } else {
+            return false;
+        }
     }
-
 }
