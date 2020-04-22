@@ -256,8 +256,6 @@ public class TransferService {
                     }
                 }
 
-                System.out.println("file-size=" + filesize + ", file=" + file);
-
                 // send '\0'
                 buf[0] = 0;
                 out.write(buf, 0, 1);
@@ -280,7 +278,9 @@ public class TransferService {
                 }
 
                 if (checkAck(in) != 0) {
-                    System.exit(0);
+                    channel.disconnect();
+                    destroySession(session);
+                    return false;
                 }
 
                 // send '\0'
@@ -325,9 +325,10 @@ public class TransferService {
             channel.connect();
 
             if (checkAck(in) != 0) {
-                System.exit(0);
+                channel.disconnect();
+                destroySession(session);
+                return false;
             }
-
 
             File _lfile = new File(localFile);
 
@@ -339,11 +340,13 @@ public class TransferService {
                 out.write(command.getBytes());
                 out.flush();
                 if (checkAck(in) != 0) {
-                    System.exit(0);
+                    channel.disconnect();
+                    destroySession(session);
+                    return false;
                 }
             }
 
-            // send "C0644 filesize filename", where filename should not include '/'
+            // send "C0644 filesize filename", where filename should not include file separator
             long filesize = _lfile.length();
             command = "C0644 " + filesize + " ";
             if (localFile.lastIndexOf(File.separator) > 0) {
@@ -357,7 +360,9 @@ public class TransferService {
             out.flush();
 
             if (checkAck(in) != 0) {
-                System.exit(0);
+                channel.disconnect();
+                destroySession(session);
+                return false;
             }
 
             // send a content of lfile
@@ -375,7 +380,9 @@ public class TransferService {
             out.flush();
 
             if (checkAck(in) != 0) {
-                System.exit(0);
+                channel.disconnect();
+                destroySession(session);
+                return false;
             }
             out.close();
 
@@ -549,6 +556,11 @@ public class TransferService {
             }
         }
         return b;
+    }
+
+    public boolean deleteTempFile(String fileName){
+
+        return true;
     }
 
 }
