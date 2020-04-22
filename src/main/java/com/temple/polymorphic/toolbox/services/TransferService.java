@@ -317,11 +317,12 @@ public class TransferService {
         ServerDto dstServer = getServerWithSpecificPerms(email, dstServerId);
         Session session = createSession(dstServer);
         boolean ptimestamp = true;
-        String remoteDir;
-        if(determineOS(session).equals("ubuntu")){
+        String remoteDir = "";
+        String os = determineOS(session);
+        if(os.equals("ubuntu")){
             remoteDir = "/home/" + dstServer.getUsernameCred() + "/";
         }
-        else if(determineOS(session).equals("mac")){
+        else if(os.equals("mac")){
             remoteDir = "/Users/" + dstServer.getUsernameCred() + "/";
         } else {
             return false;
@@ -505,7 +506,11 @@ public class TransferService {
         try {
             if(server.getKeyLocation() != null ) {
                 if(!server.getKeyLocation().equals("")) {
-                    jsch.addIdentity(System.getProperty("user.dir") + server.getKeyLocation());
+                    String keyLocation = server.getKeyLocation();
+                    keyLocation = keyLocation.replace('/', '&');
+                    keyLocation = keyLocation.replace('\\', '&');
+                    keyLocation = keyLocation.replace('&', File.separatorChar);
+                    jsch.addIdentity(System.getProperty("user.dir") + keyLocation);
                 }
             }
             session = jsch.getSession(server.getUsernameCred(), server.getIp(), server.getPort());
@@ -587,7 +592,7 @@ public class TransferService {
     public String determineOS(Session session){
         JSch jschSSHChannel = new JSch();
         try{
-            String homeDir =  this.sendCommand("cd ../../; ls", session, jschSSHChannel);
+            String homeDir =  this.sendCommand("pwd", session, jschSSHChannel);
             if(homeDir == null){
                 return "unknown";
             }
