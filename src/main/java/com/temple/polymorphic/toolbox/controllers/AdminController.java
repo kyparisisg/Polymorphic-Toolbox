@@ -14,9 +14,11 @@ import org.springframework.web.servlet.ModelAndView;
 public class AdminController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ServerService.class);
+
     @RequestMapping(value = "", method = RequestMethod.GET)
     public ModelAndView index(Model model) {
 
         return new ModelAndView("adminDashboard");
     }
+
 }

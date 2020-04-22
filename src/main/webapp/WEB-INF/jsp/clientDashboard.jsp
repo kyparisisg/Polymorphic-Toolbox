@@ -3,7 +3,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>ToolBox</title>
+    <title>Polymorphic Toolbox</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="apple-touch-icon" sizes="76x76" href="/images/apple-icon.png">
@@ -114,21 +114,34 @@
                 <h3>Welcome to the User Dashboard</h3>
                 <div class="row justify-content-md-center">
                     <div class="text-center col-md-12 col-lg-8">
-                        <a href="/client/transfer/" class="btn btn-primary btn-round btn-lg" role="button">
+                        <a href="/client/transfer/form" class="btn btn-primary btn-round btn-lg" role="button">
                             Server Transfer
                         </a>
 
                     </div>
 
                     <div class="text-center col-md-12 col-lg-8">
-                        <a href="/client/cloud/upload" class="btn btn-primary btn-round btn-lg" role="button">
+<%--                        <a href="/client/aws/filePick/" class="btn btn-primary btn-round btn-lg" role="button">--%>
+                        <a href="/client/aws/serverSelection/" class="btn btn-primary btn-round btn-lg" role="button">
                             Back Up
                         </a>
                     </div>
 
                     <div class="text-center col-md-12 col-lg-8">
-                        <a href="/client/cloud/restore" class="btn btn-primary btn-round btn-lg" role="button">
+                        <a href="/client/aws/download" class="btn btn-primary btn-round btn-lg" role="button">
                             Restore
+                        </a>
+                    </div>
+
+                    <div class="text-center col-md-12 col-lg-8">
+                        <a href="/client/myHistory" class="btn btn-primary btn-round btn-lg" role="button">
+                            History
+                        </a>
+                    </div>
+
+                    <div class="text-center col-md-12 col-lg-8">
+                        <a href="/client/mySettings" class="btn btn-primary btn-round btn-lg" role="button">
+                            My Settings
                         </a>
                     </div>
 

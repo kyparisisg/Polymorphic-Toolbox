@@ -17,7 +17,7 @@ CREATE TABLE Servers (
     password_cred VARCHAR(50) NOT NULL,
     health INT DEFAULT 0,
     register_date DATE,
-    key_location VARCHAR(200) UNIQUE
+    key_location VARCHAR(200)
 );
 
 CREATE TABLE Permissions(
@@ -28,8 +28,8 @@ CREATE TABLE Permissions(
     username_cred VARCHAR(50),
     password_cred VARCHAR(50),
     valid INT DEFAULT 0,
-    CONSTRAINT fk_user FOREIGN KEY(user_id) REFERENCES Users (id),
-    CONSTRAINT fk_server FOREIGN KEY(server_id) REFERENCES Servers (id)
+    CONSTRAINT fk_perm_user FOREIGN KEY(user_id) REFERENCES Users (id),
+    CONSTRAINT fk_perm_server FOREIGN KEY(server_id) REFERENCES Servers (id)
 );
 
 CREATE TABLE Transactions(
@@ -39,8 +39,8 @@ CREATE TABLE Transactions(
     dst_server INT NOT NULL,
     file_name VARCHAR(200),
     creation_date DATE,
-    status INT DEFAULT 0
+    status INT DEFAULT 0,
+    CONSTRAINT fk_trans_user FOREIGN KEY(user_id) REFERENCES Users (id),
+    CONSTRAINT fk_src_server FOREIGN KEY(src_server) REFERENCES Servers (id),
+    CONSTRAINT fk_dst_server FOREIGN KEY(dst_server) REFERENCES Servers (id)
 );
-ALTER TABLE Transactions ADD FOREIGN KEY (user_id) REFERENCES Users(id);
-ALTER TABLE Transactions ADD FOREIGN KEY (src_server) REFERENCES Servers(id);
-ALTER TABLE Transactions ADD FOREIGN KEY (dst_server) REFERENCES Servers(id);

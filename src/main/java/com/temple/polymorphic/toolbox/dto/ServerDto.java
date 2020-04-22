@@ -20,7 +20,18 @@ public class ServerDto {
     private String keyLocation;
 
     public ServerDto(){
+    }
 
+    public ServerDto(Long id, String name, @NotNull String ip, int port, String usernameCred, String passwordCred, int health, Date registerDate, String keyLocation) {
+        this.id = id;
+        this.name = name;
+        this.ip = ip;
+        this.port = port;
+        this.usernameCred = usernameCred;
+        this.passwordCred = passwordCred;
+        this.health = health;
+        this.registerDate = registerDate;
+        this.keyLocation = keyLocation;
     }
 
     public Long getId() {

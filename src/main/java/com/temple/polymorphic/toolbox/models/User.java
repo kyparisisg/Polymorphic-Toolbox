@@ -147,14 +147,6 @@ public class User {
         this.userPermissions = userPermissions;
     }
 
-    /*public Set<Specific_Creds> getUserCreds() {
-        return userCreds;
-    }
-
-    public void setUserCreds(Set<Specific_Creds> userCreds) {
-        this.userCreds = userCreds;
-    }*/
-
 //    public Set<Transactions> getUserTransactions() {
 //        return userTransactions;
 //    }

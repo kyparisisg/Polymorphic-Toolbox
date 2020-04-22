@@ -41,12 +41,13 @@ public class SecurityAppConfig extends WebSecurityConfigurerAdapter {
 //                .and().formLogin().successHandler(mySimpleUrlAuthenticationSuccessHandler)
 //                .and().exceptionHandling().accessDeniedPage("/403");
 
-        http.authorizeRequests().antMatchers("src/main/resources/public/**","/css/**","/js/**").permitAll()
+        http.authorizeRequests().antMatchers("src/main/resources/public/**","/css/**","/js/**","/console/**").permitAll()
                 .and().authorizeRequests().antMatchers("/","/home","/client/**").hasAnyRole("USER","ADMIN")
                 .and().authorizeRequests().antMatchers("/**").hasRole("ADMIN")
                 .and().formLogin().successHandler(mySimpleUrlAuthenticationSuccessHandler)
                 .and().exceptionHandling().accessDeniedPage("/403");
-
+        http.csrf().disable();
+        http.headers().frameOptions().disable();
     }
 
     @Override
