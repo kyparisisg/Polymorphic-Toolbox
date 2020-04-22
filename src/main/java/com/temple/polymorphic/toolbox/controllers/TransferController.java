@@ -28,12 +28,6 @@ public class TransferController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TransferService.class);
 
-    /*@RequestMapping(value = "", method = RequestMethod.GET)
-    public ModelAndView uploadFile(){
-
-        return new ModelAndView("client/transfer/scp","command", new TransactionDto());
-    }*/
-
     @RequestMapping(value = "form", method = RequestMethod.GET)
     public ModelAndView serverList(@CookieValue(value = "username", defaultValue = "NOT_FOUND") String email, Model model) {
         //get server list for user
@@ -58,7 +52,12 @@ public class TransferController {
             if(!transferService.hasPermission(tran.getEmail(), tran.getSrcServerId())){
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
             }
-        } catch (ResponseStatusException e) {
+            serverService.checkServerHealthWithUpdate(tran.getSrcServerId());
+            if(!serverService.isHealthy(tran.getSrcServerId())){
+                //should return a different error page in future
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+            }
+        } catch (Exception e) {
             return new ModelAndView("403","command", new TransferOperation());
         }
         //get directory for server
@@ -92,7 +91,12 @@ public class TransferController {
             if(!transferService.hasPermission(tran.getEmail(), tran.getDstServerId())){
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
             }
-        } catch (ResponseStatusException e) {
+            serverService.checkServerHealthWithUpdate(tran.getDstServerId());
+            if(!serverService.isHealthy(tran.getDstServerId())){
+                //should return a different error page in future
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+            }
+        } catch (Exception e) {
             return "403";
         }
         int status = transferService.scp(tran.getEmail(), tran.getSrcServerId(), tran.getFileName(), tran.getDstServerId());

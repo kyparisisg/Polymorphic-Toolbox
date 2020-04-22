@@ -148,20 +148,21 @@ public class ServersController {
         return "servers/requestSuccess";
     }
 
-    @RequestMapping(value = "/check/{ip}", method = RequestMethod.GET)
-    public String checkServerHealth(@PathVariable("ip") String ip, Model model){
-        boolean health;
+    @RequestMapping(value = "/check/{id}", method = RequestMethod.GET)
+    public String checkServerHealth(@PathVariable("id") Long id, Model model){
+        //boolean health;
         try{
-            boolean pkey = false;
-            serverService.checkServerHealth(ip, pkey);
-            health = serverService.updateHealth(ip, true);
+            //boolean pkey = false;
+            //serverService.checkServerHealth(ip, pkey);
+            serverService.checkServerHealthWithUpdate(id);
+            //health = serverService.updateHealth(ip, true);
         }catch (Exception e){
-            health = serverService.updateHealth(ip, false);
+            //health = serverService.updateHealth(ip, false);
         }
         //update health in db since I reached this point... means ssh was successful
         int status = 0;
-        if(health)  status = 1;
-        ServerDto serverDto1 = serverService.getServerDtoByIp(ip);
+        if(serverService.isHealthy(id))  status = 1;
+        ServerDto serverDto1 = serverService.getServerDtoById(id);
         model.addAttribute("id", serverDto1.getId());
         model.addAttribute("name", serverDto1.getName());
         model.addAttribute("ip", serverDto1.getIp());

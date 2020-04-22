@@ -157,6 +157,9 @@ public class TransferService {
     }
 
     public boolean hasPermission(String email, Long serverId){
+        if(userRepository.findByEmail(email).getRole().equals("ROLE_ADMIN")){
+            return true;
+        }
         Permissions perm = permissionsRepository.findByIds(userRepository.findByEmail(email).getId(), serverId);
         return perm != null;
     }

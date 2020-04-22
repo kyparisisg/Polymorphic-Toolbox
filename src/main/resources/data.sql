@@ -6,15 +6,15 @@
 
 --Encrypted password for "admin"
 INSERT INTO Users (first_name, last_name, email, password, role, register_date)
-VALUES ('Giannis', 'K', 'tuk12920@temple.edu', '$2a$10$l/hXkTYppnqpW8rITe6QTu3o/jgwA1xUqy21LgAoGANbUFr5mYxJy', 'ROLE_ADMIN', NOW() );
+VALUES ('Giannis', 'K', 'tuk12920@temple.edu', '$2a$10$l/hXkTYppnqpW8rITe6QTu3o/jgwA1xUqy21LgAoGANbUFr5mYxJy', 'ROLE_ADMIN', NOW());
 
 --Encrypted password for "user"
 INSERT INTO Users (first_name, last_name, email, password, role, register_date)
-VALUES ('Matthew', 'Jahn', 'tug68805@temple.edu', '$2a$10$GZv3j7gZJ1trrloPvKeFG.WPTSTtT8iU2w17ECmhnjUC/3nMNu0uW', 'ROLE_USER', SYSDATE() );
+VALUES ('Matthew', 'Jahn', 'tug68805@temple.edu', '$2a$10$GZv3j7gZJ1trrloPvKeFG.WPTSTtT8iU2w17ECmhnjUC/3nMNu0uW', 'ROLE_USER', SYSDATE());
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 INSERT INTO Servers (name, ip, port, username_cred, password_cred, health, register_date)
-VALUES ('Localhost SSH test', '127.0.0.1', '22222', 'username', 'password', '1', Now() );
+VALUES ('Localhost SSH test', '127.0.0.1', '22222', 'username', 'password', '0', Now() );
 
 --INSERT INTO Servers (name, ip, port, username_cred, password_cred, register_date)
 --VALUES ('Linode SSH test', '97.107.128.107', '22', 'giannis', 'giannispswd', SYSDATE() );
