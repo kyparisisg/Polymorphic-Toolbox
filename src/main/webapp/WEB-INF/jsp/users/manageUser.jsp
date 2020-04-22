@@ -50,24 +50,24 @@
                 </div>
             </div>
             <ul class="navbar-nav">
-                <li class="nav-item p-0">
-                    <a class="nav-link" rel="tooltip" title="Follow us on Twitter" data-placement="bottom" href="" target="_blank">
-                        <i class="fab fa-twitter"></i>
-                        <p class="d-lg-none d-xl-none">Twitter</p>
-                    </a>
-                </li>
-                <li class="nav-item p-0">
-                    <a class="nav-link" rel="tooltip" title="Like us on Facebook" data-placement="bottom" href="" target="_blank">
-                        <i class="fab fa-facebook-square"></i>
-                        <p class="d-lg-none d-xl-none">Facebook</p>
-                    </a>
-                </li>
-                <li class="nav-item p-0">
-                    <a class="nav-link" rel="tooltip" title="Follow us on Instagram" data-placement="bottom" href="" target="_blank">
-                        <i class="fab fa-instagram"></i>
-                        <p class="d-lg-none d-xl-none">Instagram</p>
-                    </a>
-                </li>
+<%--                <li class="nav-item p-0">--%>
+<%--                    <a class="nav-link" rel="tooltip" title="Follow us on Twitter" data-placement="bottom" href="" target="_blank">--%>
+<%--                        <i class="fab fa-twitter"></i>--%>
+<%--                        <p class="d-lg-none d-xl-none">Twitter</p>--%>
+<%--                    </a>--%>
+<%--                </li>--%>
+<%--                <li class="nav-item p-0">--%>
+<%--                    <a class="nav-link" rel="tooltip" title="Like us on Facebook" data-placement="bottom" href="" target="_blank">--%>
+<%--                        <i class="fab fa-facebook-square"></i>--%>
+<%--                        <p class="d-lg-none d-xl-none">Facebook</p>--%>
+<%--                    </a>--%>
+<%--                </li>--%>
+<%--                <li class="nav-item p-0">--%>
+<%--                    <a class="nav-link" rel="tooltip" title="Follow us on Instagram" data-placement="bottom" href="" target="_blank">--%>
+<%--                        <i class="fab fa-instagram"></i>--%>
+<%--                        <p class="d-lg-none d-xl-none">Instagram</p>--%>
+<%--                    </a>--%>
+<%--                </li>--%>
                 <li class="dropdown nav-item">
                     <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
                         <i class="fa fa-cogs d-lg-none d-xl-none"></i> Getting started
@@ -88,8 +88,8 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link btn btn-default d-none d-lg-block" href="javascript:void(0)" onclick="scrollToDownload()">
-                        <i class="tim-icons icon-cloud-download-93"></i> Download
+                    <a class="nav-link btn btn-default d-none d-lg-block" href="/logout" role = "button" onclick="scrollToDownload()">
+                        Logout
                     </a>
                 </li>
             </ul>
@@ -110,36 +110,69 @@
             <div class="content-center brand">
                 <h1 class="h1-seo">Manage Users</h1>
                 <div class="row justify-content-md-center">
-                    <div class="text-center col-md-12 col-lg-8">
-                        <a href="/api/users/all" class="btn btn-primary btn-round btn-lg" role="button">
-                            View All
-                        </a>
-                    </div>
-                    <div class="text-center col-md-12 col-lg-8">
-                        <a href="/api/users/get" class="btn btn-primary btn-round btn-lg" role="button">
-                            Search User
-                        </a>
-                    </div>
-                    <div class="text-center col-md-12 col-lg-8">
-                        <a href="/api/users/save" class="btn btn-primary btn-round btn-lg" role="button">
-                                Add User
-                        </a>
-                    </div>
-                    <div class="text-center col-md-12 col-lg-8">
-                        <a href="/api/users/update" class="btn btn-primary btn-round btn-lg" role="button">
-                                Update User
-                        </a>
-                    </div>
-                    <div class="text-center col-md-12 col-lg-8">
-                        <a href="/api/users/delete" class="btn btn-primary btn-round btn-lg" role="button">
-                            Delete User
-                        </a>
-                    </div>
-                    <div class="text-center col-md-12 col-lg-8">
-                        <a href="/api/admin" class="btn btn-primary btn-round btn-lg" role="button">
-                            Go back
-                        </a>
-                    </div>
+                    <ul class="nav nav-pills nav-pills-primary nav-pills-icons">
+                        <li class="nav-item">
+                            <a class="nav-link active show" href="/api/users/all" role="button">
+                                <i class="fas fa-users"></i> View   All Users
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active show" href="/api/users/get"  role="button" >
+                                <i class="fas fa-users"></i> Search Users
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active show" href="/api/users/save" role="button">
+                                <i class="fas fa-users"></i> Add Users
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active show" href="/api/users/update"  role="button" >
+                                <i class="fas fa-users"></i> Update Users
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active show" href="/api/users/delete"  role="button" >
+                                <i class="fas fa-users"></i> Delete Users
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active show" href="/api/admin"  role="button" >
+                                <i class="fas fa-users"></i> Go Back
+                            </a>
+                        </li>
+
+                    </ul>
+<%--                    <div class="text-center col-md-12 col-lg-8">--%>
+<%--                        <a href="/api/users/all" class="btn btn-primary btn-round btn-lg" role="button">--%>
+<%--                            View All--%>
+<%--                        </a>--%>
+<%--                    </div>--%>
+<%--                    <div class="text-center col-md-12 col-lg-8">--%>
+<%--                        <a href="/api/users/get" class="btn btn-primary btn-round btn-lg" role="button">--%>
+<%--                            Search User--%>
+<%--                        </a>--%>
+<%--                    </div>--%>
+<%--                    <div class="text-center col-md-12 col-lg-8">--%>
+<%--                        <a href="/api/users/save" class="btn btn-primary btn-round btn-lg" role="button">--%>
+<%--                                Add User--%>
+<%--                        </a>--%>
+<%--                    </div>--%>
+<%--                    <div class="text-center col-md-12 col-lg-8">--%>
+<%--                        <a href="/api/users/update" class="btn btn-primary btn-round btn-lg" role="button">--%>
+<%--                                Update User--%>
+<%--                        </a>--%>
+<%--                    </div>--%>
+<%--                    <div class="text-center col-md-12 col-lg-8">--%>
+<%--                        <a href="/api/users/delete" class="btn btn-primary btn-round btn-lg" role="button">--%>
+<%--                            Delete User--%>
+<%--                        </a>--%>
+<%--                    </div>--%>
+<%--                    <div class="text-center col-md-12 col-lg-8">--%>
+<%--                        <a href="/api/admin" class="btn btn-primary btn-round btn-lg" role="button">--%>
+<%--                            Go back--%>
+<%--                        </a>--%>
+<%--                    </div>--%>
                 </div>
             </div>
         </div>

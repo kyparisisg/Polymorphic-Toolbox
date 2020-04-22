@@ -50,24 +50,24 @@
                 </div>
             </div>
             <ul class="navbar-nav">
-                <li class="nav-item p-0">
-                    <a class="nav-link" rel="tooltip" title="Follow us on Twitter" data-placement="bottom" href="" target="_blank">
-                        <i class="fab fa-twitter"></i>
-                        <p class="d-lg-none d-xl-none">Twitter</p>
-                    </a>
-                </li>
-                <li class="nav-item p-0">
-                    <a class="nav-link" rel="tooltip" title="Like us on Facebook" data-placement="bottom" href="" target="_blank">
-                        <i class="fab fa-facebook-square"></i>
-                        <p class="d-lg-none d-xl-none">Facebook</p>
-                    </a>
-                </li>
-                <li class="nav-item p-0">
-                    <a class="nav-link" rel="tooltip" title="Follow us on Instagram" data-placement="bottom" href="" target="_blank">
-                        <i class="fab fa-instagram"></i>
-                        <p class="d-lg-none d-xl-none">Instagram</p>
-                    </a>
-                </li>
+<%--                <li class="nav-item p-0">--%>
+<%--                    <a class="nav-link" rel="tooltip" title="Follow us on Twitter" data-placement="bottom" href="" target="_blank">--%>
+<%--                        <i class="fab fa-twitter"></i>--%>
+<%--                        <p class="d-lg-none d-xl-none">Twitter</p>--%>
+<%--                    </a>--%>
+<%--                </li>--%>
+<%--                <li class="nav-item p-0">--%>
+<%--                    <a class="nav-link" rel="tooltip" title="Like us on Facebook" data-placement="bottom" href="" target="_blank">--%>
+<%--                        <i class="fab fa-facebook-square"></i>--%>
+<%--                        <p class="d-lg-none d-xl-none">Facebook</p>--%>
+<%--                    </a>--%>
+<%--                </li>--%>
+<%--                <li class="nav-item p-0">--%>
+<%--                    <a class="nav-link" rel="tooltip" title="Follow us on Instagram" data-placement="bottom" href="" target="_blank">--%>
+<%--                        <i class="fab fa-instagram"></i>--%>
+<%--                        <p class="d-lg-none d-xl-none">Instagram</p>--%>
+<%--                    </a>--%>
+<%--                </li>--%>
                 <li class="dropdown nav-item">
                     <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
                         <i class="fa fa-cogs d-lg-none d-xl-none"></i> Getting started
@@ -88,8 +88,8 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link btn btn-default d-none d-lg-block" href="javascript:void(0)" onclick="scrollToDownload()">
-                        <i class="tim-icons icon-cloud-download-93"></i> Download
+                    <a class="nav-link btn btn-default d-none d-lg-block" href="/logout" role = "button" onclick="scrollToDownload()">
+                        Logout
                     </a>
                 </li>
             </ul>
@@ -114,7 +114,7 @@
                                 <h3 class="card-title">UserInfo</h3>
                             </div>
                             <%--                            <form:form class = "form" method = "POST" action = "/api/users/save">--%>
-                            <div class="card-body">
+
                                 <h3>(email must be the same as one in the db to update the rest information)</h3>
                                 <form:form method = "POST" action = "/api/users/update" autocomplete="off">
                                     <div class="card-body">
@@ -125,22 +125,35 @@
                                                     <i class="tim-icons icon-single-02"></i>
                                                 </div>
                                             </div>
-                                            <div></div>
-                                            <div>
-                                                <form:input path = "email" type="text" class="form-control" placeholder="email" autocomplete="off"/>
-                                            </div>
-                                            <div>
-                                                <form:input path = "firstName" type="text" class="form-control" placeholder="First Name" autocomplete="off"/>
-                                            </div>
-                                            <div>
-                                                <form:input path = "lastName" type="text" class="form-control" placeholder="Last Name" autocomplete="off"/>
-                                            </div>
-                                            <div>
-                                                <form:input path = "role" type="text" class="form-control" placeholder="Role" autocomplete="off"/>
-                                            </div>
-
+                                            <form:input path = "email" type="text" class="form-control" placeholder="email" autocomplete="off"/>
                                         </div>
-                                    </div>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <i class="tim-icons icon-single-02"></i>
+                                                </div>
+                                            </div>
+                                            <form:input path = "firstName" type="text" class="form-control" placeholder="First Name" autocomplete="off"/>
+                                        </div>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <i class="tim-icons icon-single-02"></i>
+                                                </div>
+                                            </div>
+                                            <form:input path = "lastName" type="text" class="form-control" placeholder="Last Name" autocomplete="off"/>
+                                        </div>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <i class="tim-icons icon-single-02"></i>
+                                                </div>
+                                            </div>
+                                            <form:input path = "role" type="text" class="form-control" placeholder="Role" autocomplete="off"/>
+                                        </div>
+                                        </div>
+
+
 
                             <div class="card-footer">
                                 <input type = "submit" value="Update" class="btn btn-info btn-round btn-lg">
@@ -148,9 +161,8 @@
                              </form:form>
                         </div>
                     </div>
-                        <br><br><br><br><br><br>
                 </div>
-                    <br><br><br>
+
                 <div class="register-bg"></div>
                 <div id="square1" class="square square-1"></div>
                 <div id="square2" class="square square-2"></div>
