@@ -519,12 +519,15 @@ public class TransferService {
     public List<String> makeListOfFiles(String files){
         List<String> list = new LinkedList<>();
         Scanner scanner = new Scanner(files);
-        while(scanner!=null && scanner.hasNextLine()){
-            String nextLine = scanner.nextLine();
-            //edit nextLine permissions and date for each file?
-            list.add(nextLine);
+        if(scanner == null){
+            return list;
         }
-
+        scanner.nextLine(); //kill first line
+        while(scanner.hasNextLine()){
+            String nextLine = scanner.nextLine();
+            String fileName = nextLine.substring(nextLine.lastIndexOf(" ") + 1);
+            list.add(fileName);
+        }
         return list;
     }
 
