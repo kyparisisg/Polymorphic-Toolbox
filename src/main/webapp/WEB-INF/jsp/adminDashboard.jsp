@@ -89,8 +89,8 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link btn btn-default d-none d-lg-block" href="javascript:void(0)" onclick="scrollToDownload()">
-                        <i class="tim-icons icon-cloud-download-93"></i> Download
+                    <a class="nav-link btn btn-default d-none d-lg-block" href="/logout" role = "button" onclick="scrollToDownload()">
+                         Logout
                     </a>
                 </li>
             </ul>
@@ -114,21 +114,32 @@
                 <h3>Welcome to the Admin Dashboard</h3>
                 <div class="row justify-content-md-center">
                     <div class="text-center col-md-12 col-lg-8">
-                        <a href="/api/users" class="btn btn-primary btn-round btn-lg" role="button">
-                            Manage Users
-                        </a>
 
-                    </div>
-                    <div class="text-center col-md-12 col-lg-8">
-                        <a href="/api/servers" class="btn btn-primary btn-round btn-lg" role="button">
-                            Manage Servers
-                        </a>
-                    </div>
-                    <br><br><br><br>
-                    <div class="text-center col-md-12 col-lg-8">
-                        <a href="/logout" class="btn btn-primary btn-round btn-lg" role="button">
-                            Logout
-                        </a>
+                        <ul class="nav nav-pills nav-pills-primary nav-pills-icons">
+                            <li class="nav-item">
+                                <a class="nav-link active show" data-toggle="tab" href="#link7">
+                                    <i class="tim-icons icon-atom"></i> Home
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/api/users" role="button" >
+                                    <i class="fas fa-users"></i> Manage Users
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/api/servers" role="button">
+                                    <i class="tim-icons icon-settings-gear-63"></i> Manage Servers
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#link9">
+                                    <i class="tim-icons icon-settings-gear-63"></i> Settings
+                                </a>
+                            </li>
+
+                        </ul>
+
+
                     </div>
                 </div>
             </div>

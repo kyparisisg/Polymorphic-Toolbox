@@ -182,19 +182,18 @@ public class TransferService {
         return serverList;
     }
 
-    public void addTransaction(String email, Long srcServerId, String filePath, Long dstServerId, int status){
+    public void addTransaction(String email, Long srcServerId, String fileName, Long dstServerId, int status){
         User user = userRepository.findByEmail(email);
         Server srcServer = serverRepository.findById(srcServerId).get();
         Server dstServer = serverRepository.findById(dstServerId).get();
-        String file = filePath.trim(); //will need more string manipulation to only get file
-        Transactions transaction = new Transactions(user, srcServer, dstServer, file, status);
+        Transactions transaction = new Transactions(user, srcServer, dstServer, fileName, status);
         transactionRepository.save(transaction);
     }
 
     public int scp(String email, Long srcServerId, String fileName, Long dstServerId){
         if(scpFrom(email, srcServerId, fileName)){
             if(scpTo(email, dstServerId, fileName)){
-                //delete file
+                deleteTempFile(fileName);
                 return 1;
             }
         }
@@ -204,11 +203,21 @@ public class TransferService {
     public boolean scpFrom(String email, Long srcServerId, String fileName){
         ServerDto srcServer = getServerWithSpecificPerms(email, srcServerId);
         Session session = createSession(srcServer);
-        String remoteFile = "/home/" + srcServer.getUsernameCred() + "/" + fileName;
-        String local = System.getProperty("user.dir") + "\\src\\main\\resources\\tempFileStorage" + File.separator;
+        String remoteFile = "";
+        String os = determineOS(session);
+        if(os.equals("ubuntu")){
+            remoteFile = "/home/" + srcServer.getUsernameCred() + "/" + fileName;
+        }
+        else if(os.equals("mac")){
+            remoteFile = "/Users/" + srcServer.getUsernameCred() + "/" + fileName;
+        } else {
+            return false;
+        }
+        String localDir = System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "tempFileStorage" + File.separator;
         String prefix = null;
-        if (new File(local).isDirectory()) {
-            prefix = local + File.separator;
+        if (new File(localDir).isDirectory()) {
+            prefix = localDir + File.separator;
         }
 
         try{
@@ -255,15 +264,13 @@ public class TransferService {
                     }
                 }
 
-                System.out.println("file-size=" + filesize + ", file=" + file);
-
                 // send '\0'
                 buf[0] = 0;
                 out.write(buf, 0, 1);
                 out.flush();
 
                 // read a content of lfile
-                FileOutputStream fos = new FileOutputStream(prefix == null ? local : prefix + file);
+                FileOutputStream fos = new FileOutputStream(prefix == null ? localDir : prefix + file);
                 int foo;
                 while (true) {
                     if (buf.length < filesize) foo = buf.length;
@@ -279,7 +286,9 @@ public class TransferService {
                 }
 
                 if (checkAck(in) != 0) {
-                    System.exit(0);
+                    channel.disconnect();
+                    destroySession(session);
+                    return false;
                 }
 
                 // send '\0'
@@ -308,11 +317,21 @@ public class TransferService {
         ServerDto dstServer = getServerWithSpecificPerms(email, dstServerId);
         Session session = createSession(dstServer);
         boolean ptimestamp = true;
-        String remote = "/home/" + dstServer.getUsernameCred() + "/";
-        String localFile = System.getProperty("user.dir") + "\\src\\main\\resources\\tempFileStorage\\" + fileName;
+        String remoteDir = "";
+        String os = determineOS(session);
+        if(os.equals("ubuntu")){
+            remoteDir = "/home/" + dstServer.getUsernameCred() + "/";
+        }
+        else if(os.equals("mac")){
+            remoteDir = "/Users/" + dstServer.getUsernameCred() + "/";
+        } else {
+            return false;
+        }
+        String localFile = System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "tempFileStorage" + File.separator + fileName;
         try{
             // exec 'scp -t rfile' remotely
-            String command = "scp " + (ptimestamp ? "-p" : "") + " -t " + remote;
+            String command = "scp " + (ptimestamp ? "-p" : "") + " -t " + remoteDir;
             Channel channel = session.openChannel("exec");
             ((ChannelExec) channel).setCommand(command);
 
@@ -323,9 +342,10 @@ public class TransferService {
             channel.connect();
 
             if (checkAck(in) != 0) {
-                System.exit(0);
+                channel.disconnect();
+                destroySession(session);
+                return false;
             }
-
 
             File _lfile = new File(localFile);
 
@@ -337,11 +357,13 @@ public class TransferService {
                 out.write(command.getBytes());
                 out.flush();
                 if (checkAck(in) != 0) {
-                    System.exit(0);
+                    channel.disconnect();
+                    destroySession(session);
+                    return false;
                 }
             }
 
-            // send "C0644 filesize filename", where filename should not include '/'
+            // send "C0644 filesize filename", where filename should not include file separator
             long filesize = _lfile.length();
             command = "C0644 " + filesize + " ";
             if (localFile.lastIndexOf(File.separator) > 0) {
@@ -355,7 +377,9 @@ public class TransferService {
             out.flush();
 
             if (checkAck(in) != 0) {
-                System.exit(0);
+                channel.disconnect();
+                destroySession(session);
+                return false;
             }
 
             // send a content of lfile
@@ -373,7 +397,9 @@ public class TransferService {
             out.flush();
 
             if (checkAck(in) != 0) {
-                System.exit(0);
+                channel.disconnect();
+                destroySession(session);
+                return false;
             }
             out.close();
 
@@ -398,7 +424,6 @@ public class TransferService {
         ServerDto s = m.map(serverRepository.findById(serverId).get(), ServerDto.class);
         Session session = createSession(s);
         JSch jschSSHChannel = new JSch();
-
         try{
 //            return this.sendCommand("ls", session, jschSSHChannel);
 //            return this.sendCommand("ls -lF", session, jschSSHChannel);   //lists files and directories
@@ -435,7 +460,7 @@ public class TransferService {
                 outputBuffer.append((char)readByte);
                 readByte = commandOutput.read();
             }
-
+            channel.disconnect();
         }
         catch(IOException ioX)
         {
@@ -447,10 +472,8 @@ public class TransferService {
             errorMessage = jschX.getMessage();
             return errorMessage;
         }
-
         return outputBuffer.toString();
     }
-
 
     public ServerDto getServerWithSpecificPerms(String email, Long serverId){
         User user = userRepository.findByEmail(email);
@@ -475,7 +498,6 @@ public class TransferService {
         return server;
     }
 
-
     public Session createSession(ServerDto server){
         JSch jsch = new JSch();
         jsch.setConfig("StrictHostKeyChecking", "no");
@@ -484,7 +506,11 @@ public class TransferService {
         try {
             if(server.getKeyLocation() != null ) {
                 if(!server.getKeyLocation().equals("")) {
-                    jsch.addIdentity(System.getProperty("user.dir") + server.getKeyLocation());
+                    String keyLocation = server.getKeyLocation();
+                    keyLocation = keyLocation.replace('/', '&');
+                    keyLocation = keyLocation.replace('\\', '&');
+                    keyLocation = keyLocation.replace('&', File.separatorChar);
+                    jsch.addIdentity(System.getProperty("user.dir") + keyLocation);
                 }
             }
             session = jsch.getSession(server.getUsernameCred(), server.getIp(), server.getPort());
@@ -513,12 +539,15 @@ public class TransferService {
     public List<String> makeListOfFiles(String files){
         List<String> list = new LinkedList<>();
         Scanner scanner = new Scanner(files);
-        while(scanner!=null && scanner.hasNextLine()){
-            String nextLine = scanner.nextLine();
-            //edit nextLine permissions and date for each file?
-            list.add(nextLine);
+        if(scanner == null){
+            return list;
         }
-
+        scanner.nextLine(); //kill first line
+        while(scanner.hasNextLine()){
+            String nextLine = scanner.nextLine();
+            String fileName = nextLine.substring(nextLine.lastIndexOf(" ") + 1);
+            list.add(fileName);
+        }
         return list;
     }
 
@@ -549,4 +578,33 @@ public class TransferService {
         return b;
     }
 
+    public boolean deleteTempFile(String fileName){
+        String localPath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "tempFileStorage" + File.separator + fileName;
+        File localFile = new File(localPath);
+        if(localFile.delete()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public String determineOS(Session session){
+        JSch jschSSHChannel = new JSch();
+        try{
+            String homeDir =  this.sendCommand("pwd", session, jschSSHChannel);
+            if(homeDir == null){
+                return "unknown";
+            }
+            if(homeDir.contains("home")){
+                return "ubuntu";
+            }
+            if(homeDir.contains("Users")){
+                return "mac";
+            }
+            return "unknown";
+        }catch (Exception e){
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Command 'ls' could not be executed! Could determine os!");
+        }
+    }
 }

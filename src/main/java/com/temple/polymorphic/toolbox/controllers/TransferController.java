@@ -110,7 +110,11 @@ public class TransferController {
         model.addAttribute("dst", dstServerName);
         model.addAttribute("file", tran.getFileName().trim()); //duplicate concatenation from add transaction when available
         model.addAttribute("status", status);
-        model.addAttribute("request", "Transaction completed from: " + srcServerName + " to " + dstServerName);
+        if(status==1){
+            model.addAttribute("request", "Transfer completed from: " + srcServerName + " to " + dstServerName);
+        }else{
+            model.addAttribute("request", "Transfer NOT completed from: " + srcServerName + " to " + dstServerName);
+        }
 
 
         return "client/transferSuccess";

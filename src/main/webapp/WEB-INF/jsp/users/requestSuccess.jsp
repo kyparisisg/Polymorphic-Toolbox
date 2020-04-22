@@ -54,24 +54,24 @@
                 </div>
             </div>
             <ul class="navbar-nav">
-                <li class="nav-item p-0">
-                    <a class="nav-link" rel="tooltip" title="Follow us on Twitter" data-placement="bottom" href="" target="_blank">
-                        <i class="fab fa-twitter"></i>
-                        <p class="d-lg-none d-xl-none">Twitter</p>
-                    </a>
-                </li>
-                <li class="nav-item p-0">
-                    <a class="nav-link" rel="tooltip" title="Like us on Facebook" data-placement="bottom" href="" target="_blank">
-                        <i class="fab fa-facebook-square"></i>
-                        <p class="d-lg-none d-xl-none">Facebook</p>
-                    </a>
-                </li>
-                <li class="nav-item p-0">
-                    <a class="nav-link" rel="tooltip" title="Follow us on Instagram" data-placement="bottom" href="" target="_blank">
-                        <i class="fab fa-instagram"></i>
-                        <p class="d-lg-none d-xl-none">Instagram</p>
-                    </a>
-                </li>
+<%--                <li class="nav-item p-0">--%>
+<%--                    <a class="nav-link" rel="tooltip" title="Follow us on Twitter" data-placement="bottom" href="" target="_blank">--%>
+<%--                        <i class="fab fa-twitter"></i>--%>
+<%--                        <p class="d-lg-none d-xl-none">Twitter</p>--%>
+<%--                    </a>--%>
+<%--                </li>--%>
+<%--                <li class="nav-item p-0">--%>
+<%--                    <a class="nav-link" rel="tooltip" title="Like us on Facebook" data-placement="bottom" href="" target="_blank">--%>
+<%--                        <i class="fab fa-facebook-square"></i>--%>
+<%--                        <p class="d-lg-none d-xl-none">Facebook</p>--%>
+<%--                    </a>--%>
+<%--                </li>--%>
+<%--                <li class="nav-item p-0">--%>
+<%--                    <a class="nav-link" rel="tooltip" title="Follow us on Instagram" data-placement="bottom" href="" target="_blank">--%>
+<%--                        <i class="fab fa-instagram"></i>--%>
+<%--                        <p class="d-lg-none d-xl-none">Instagram</p>--%>
+<%--                    </a>--%>
+<%--                </li>--%>
                 <li class="dropdown nav-item">
                     <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
                         <i class="fa fa-cogs d-lg-none d-xl-none"></i> Getting started
@@ -92,8 +92,8 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link btn btn-default d-none d-lg-block" href="javascript:void(0)" onclick="scrollToDownload()">
-                        <i class="tim-icons icon-cloud-download-93"></i> Download
+                    <a class="nav-link btn btn-default d-none d-lg-block" href="/logout" role = "button" onclick="scrollToDownload()">
+                        Logout
                     </a>
                 </li>
             </ul>
