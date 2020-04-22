@@ -204,11 +204,12 @@ public class TransferService {
     public boolean scpFrom(String email, Long srcServerId, String fileName){
         ServerDto srcServer = getServerWithSpecificPerms(email, srcServerId);
         Session session = createSession(srcServer);
-        String remoteFile = "/home/" + srcServer.getUsernameCred() + "/" + fileName;
-        String local = System.getProperty("user.dir") + "\\src\\main\\resources\\tempFileStorage" + File.separator;
+        String remoteFile = "/home/" + srcServer.getUsernameCred() + "/" + fileName; //assume linux
+        String localDir = System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "tempFileStorage" + File.separator;
         String prefix = null;
-        if (new File(local).isDirectory()) {
-            prefix = local + File.separator;
+        if (new File(localDir).isDirectory()) {
+            prefix = localDir + File.separator;
         }
 
         try{
@@ -263,7 +264,7 @@ public class TransferService {
                 out.flush();
 
                 // read a content of lfile
-                FileOutputStream fos = new FileOutputStream(prefix == null ? local : prefix + file);
+                FileOutputStream fos = new FileOutputStream(prefix == null ? localDir : prefix + file);
                 int foo;
                 while (true) {
                     if (buf.length < filesize) foo = buf.length;
@@ -308,11 +309,12 @@ public class TransferService {
         ServerDto dstServer = getServerWithSpecificPerms(email, dstServerId);
         Session session = createSession(dstServer);
         boolean ptimestamp = true;
-        String remote = "/home/" + dstServer.getUsernameCred() + "/";
-        String localFile = System.getProperty("user.dir") + "\\src\\main\\resources\\tempFileStorage\\" + fileName;
+        String remoteDir = "/home/" + dstServer.getUsernameCred() + "/"; //assume linux
+        String localFile = System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "tempFileStorage" + File.separator + fileName;
         try{
             // exec 'scp -t rfile' remotely
-            String command = "scp " + (ptimestamp ? "-p" : "") + " -t " + remote;
+            String command = "scp " + (ptimestamp ? "-p" : "") + " -t " + remoteDir;
             Channel channel = session.openChannel("exec");
             ((ChannelExec) channel).setCommand(command);
 

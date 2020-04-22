@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.io.File;
 import java.lang.reflect.Type;
 import java.util.LinkedList;
 import java.util.List;
@@ -157,7 +158,11 @@ public class ServerService {
         Session session = null;
         try {
             if(server.getKeyLocation() != null && !server.getKeyLocation().equals("")) {
-                jsch.addIdentity(System.getProperty("user.dir") + server.getKeyLocation());
+                String keyLocation = server.getKeyLocation();
+                keyLocation = keyLocation.replace('/', '&');
+                keyLocation = keyLocation.replace('\\', '&');
+                keyLocation = keyLocation.replace('&', File.separatorChar);
+                jsch.addIdentity(System.getProperty("user.dir") + keyLocation);
             }
             session = jsch.getSession(server.getUsernameCred(), server.getIp(), server.getPort());
             if(server.getKeyLocation() == null || server.getKeyLocation().equals("")) {
@@ -180,7 +185,11 @@ public class ServerService {
         Session session = null;
         try {
             if(server.getKeyLocation() != null && !server.getKeyLocation().equals("")) {
-                jsch.addIdentity(System.getProperty("user.dir") + server.getKeyLocation());
+                String keyLocation = server.getKeyLocation();
+                keyLocation = keyLocation.replace('/', '&');
+                keyLocation = keyLocation.replace('\\', '&');
+                keyLocation = keyLocation.replace('&', File.separatorChar);
+                jsch.addIdentity(System.getProperty("user.dir") + keyLocation);
             }
             session = jsch.getSession(server.getUsernameCred(), server.getIp(), server.getPort());
             if(server.getKeyLocation() == null || server.getKeyLocation().equals("")) {
