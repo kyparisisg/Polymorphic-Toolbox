@@ -56,24 +56,24 @@
                 </div>
             </div>
             <ul class="navbar-nav">
-                <li class="nav-item p-0">
-                    <a class="nav-link" rel="tooltip" title="Follow us on Twitter" data-placement="bottom" href="" target="_blank">
-                        <i class="fab fa-twitter"></i>
-                        <p class="d-lg-none d-xl-none">Twitter</p>
-                    </a>
-                </li>
-                <li class="nav-item p-0">
-                    <a class="nav-link" rel="tooltip" title="Like us on Facebook" data-placement="bottom" href="" target="_blank">
-                        <i class="fab fa-facebook-square"></i>
-                        <p class="d-lg-none d-xl-none">Facebook</p>
-                    </a>
-                </li>
-                <li class="nav-item p-0">
-                    <a class="nav-link" rel="tooltip" title="Follow us on Instagram" data-placement="bottom" href="" target="_blank">
-                        <i class="fab fa-instagram"></i>
-                        <p class="d-lg-none d-xl-none">Instagram</p>
-                    </a>
-                </li>
+<%--                <li class="nav-item p-0">--%>
+<%--                    <a class="nav-link" rel="tooltip" title="Follow us on Twitter" data-placement="bottom" href="" target="_blank">--%>
+<%--                        <i class="fab fa-twitter"></i>--%>
+<%--                        <p class="d-lg-none d-xl-none">Twitter</p>--%>
+<%--                    </a>--%>
+<%--                </li>--%>
+<%--                <li class="nav-item p-0">--%>
+<%--                    <a class="nav-link" rel="tooltip" title="Like us on Facebook" data-placement="bottom" href="" target="_blank">--%>
+<%--                        <i class="fab fa-facebook-square"></i>--%>
+<%--                        <p class="d-lg-none d-xl-none">Facebook</p>--%>
+<%--                    </a>--%>
+<%--                </li>--%>
+<%--                <li class="nav-item p-0">--%>
+<%--                    <a class="nav-link" rel="tooltip" title="Follow us on Instagram" data-placement="bottom" href="" target="_blank">--%>
+<%--                        <i class="fab fa-instagram"></i>--%>
+<%--                        <p class="d-lg-none d-xl-none">Instagram</p>--%>
+<%--                    </a>--%>
+<%--                </li>--%>
                 <li class="dropdown nav-item">
                     <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
                         <i class="fa fa-cogs d-lg-none d-xl-none"></i> Getting started
@@ -94,8 +94,8 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link btn btn-default d-none d-lg-block" href="javascript:void(0)" onclick="scrollToDownload()">
-                        <i class="tim-icons icon-cloud-download-93"></i> Download
+                    <a class="nav-link btn btn-default d-none d-lg-block" href="/logout" role = "button" onclick="scrollToDownload()">
+                        Logout
                     </a>
                 </li>
             </ul>
@@ -131,29 +131,48 @@
                                     <th>Port</th>
                                     <th>Admin User</th>
                                     <th>Health</th>
+                                    <th>Checkbox</th>
                                 </tr>
                                 </thead>
                                 <c:forEach items="${list}" var="server">
                                     <tr>
-                                        <td>${server.id}</td>
+                                        <td class = "s-id">${server.id}</td>
                                         <td>${server.name}</td>
                                         <td>${server.ip}</td>
                                         <td>${server.port}</td>
                                         <td>${server.usernameCred}</td>
                                         <td>${server.health}</td>
+                                        <td>
+                                            <div class="form-check">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="checkbox">
+                                                    <span class="form-check-sign"></span>
+
+                                                </label>
+                                            </div>
+
+                                        </td>
                                     </tr>
                                 </c:forEach>
                                 </tr>
                             </table>
                         </div>
                             <tr>
+                                    <%--                                <td><form:label path = "email">Email</form:label></td>--%>
+                                <td><select c:forEach items="${list}">
+                                    <option  th:text="${server.id}">
+                                    </option>
+                                </select c:forEach></td>
+                            </tr>
+                            <br><br>
+                            <tr>
 <%--                                <td><form:label path = "email">Email</form:label></td>--%>
-                                <td><form:input path = "email" type="hidden" value="${email}" autocomplete="false" /></td>
+                                <td><form:input  path = "email" type="hidden" value="${email}" autocomplete="false" /></td>
                             </tr>
                         <br><br>
                             <tr>
 <%--                                <td><form:label path = "serverId">Server ID</form:label></td>--%>
-                                <td><form:input path = "serverId" autocomplete="false" placeholder="Server ID"/></td>
+                                <td><form:input class = "form-control-A" path = "serverId"  placeholder="Server ID"/></td>
                             </tr>
                         <br><br>
                             <tr>
