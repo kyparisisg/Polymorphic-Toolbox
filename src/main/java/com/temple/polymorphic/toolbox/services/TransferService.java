@@ -162,12 +162,19 @@ public class TransferService {
     }
 
     public List<ServerDto> getServersForUser(String email){
-
-        List<Server> servers = permissionsRepository.findAllServersByEmail(email);
-        ArrayList<ServerDto> serverList = new ArrayList<ServerDto>();
-        for(Server server: servers){
-            serverList.add(new ServerDto(server.getId(), server.getName(), server.getIp(), server.getPort(),
-                    server.getUsernameCred(), server.getPasswordCred(), server.getHealth(), server.getRegisterDate(), server.getKeyLocation()));
+        List<Server> servers;
+        ArrayList<ServerDto> serverList = new ArrayList<>();
+        if(userRepository.findByEmail(email) != null){
+            if(userRepository.findByEmail(email).getRole().equals("ROLE_ADMIN")){
+                servers = serverRepository.findAll();
+            }
+            else{
+                servers = permissionsRepository.findAllServersByEmail(email);
+            }
+            for(Server server: servers){
+                serverList.add(new ServerDto(server.getId(), server.getName(), server.getIp(), server.getPort(),
+                        server.getUsernameCred(), server.getPasswordCred(), server.getHealth(), server.getRegisterDate(), server.getKeyLocation()));
+            }
         }
         return serverList;
     }
