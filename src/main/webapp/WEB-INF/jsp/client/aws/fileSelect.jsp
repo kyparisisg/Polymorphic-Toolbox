@@ -10,7 +10,7 @@
     <link rel="apple-touch-icon" sizes="76x76" href="/images/apple-icon.png">
     <link rel="icon" type="image/png" href="/images/favicon.png">
     <title>
-        Blk• Design System by Creative Tim
+        Polymorphic Toolbox
     </title>
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet" />
@@ -30,7 +30,7 @@
 <nav class="navbar navbar-expand-lg fixed-top navbar-transparent " color-on-scroll="100">
     <div class="container">
         <div class="navbar-translate">
-            <a class="navbar-brand" href="/api/admin" rel="tooltip"  data-placement="bottom" >
+            <a class="navbar-brand" href="/client" rel="tooltip"  data-placement="bottom" >
                 <span>POLYMORPHIC TOOLBOX</span>
             </a>
             <button class="navbar-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">

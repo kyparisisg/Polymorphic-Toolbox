@@ -30,7 +30,7 @@
 <nav class="navbar navbar-expand-lg fixed-top navbar-transparent " color-on-scroll="100">
     <div class="container">
         <div class="navbar-translate">
-            <a class="navbar-brand" href="/api/admin" rel="tooltip"  data-placement="bottom" >
+            <a class="navbar-brand" href="/client" rel="tooltip"  data-placement="bottom" >
                 <span>POLYMORPHIC TOOLBOX</span>
             </a>
             <button class="navbar-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
