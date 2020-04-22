@@ -162,6 +162,7 @@ public class TransferService {
     }
 
     public List<ServerDto> getServersForUser(String email){
+
         List<Server> servers = permissionsRepository.findAllServersByEmail(email);
         ArrayList<ServerDto> serverList = new ArrayList<ServerDto>();
         for(Server server: servers){
@@ -169,19 +170,6 @@ public class TransferService {
                     server.getUsernameCred(), server.getPasswordCred(), server.getHealth(), server.getRegisterDate(), server.getKeyLocation()));
         }
         return serverList;
-    }
-
-    public List<String> getDirectory(Long serverId){
-        /*
-        Verify server
-        Connect to server
-        Get ls recursively
-        return
-         */
-        ArrayList<String> directory = new ArrayList<>();
-        directory.add("Example Path 1 for server" + serverId);
-        directory.add("Example Path 2 for server" + serverId);
-        return directory;
     }
 
     public void addTransaction(String email, Long srcServerId, String filePath, Long dstServerId, int status){
@@ -332,7 +320,9 @@ public class TransferService {
         List<String> list = new LinkedList<>();
         Scanner scanner = new Scanner(files);
         while(scanner!=null && scanner.hasNextLine()){
-            list.add(scanner.nextLine());
+            String nextLine = scanner.nextLine();
+            //edit nextLine permissions and date for each file?
+            list.add(nextLine);
         }
 
         return list;

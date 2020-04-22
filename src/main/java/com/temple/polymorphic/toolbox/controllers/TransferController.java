@@ -52,9 +52,6 @@ public class TransferController {
     public ModelAndView srcServer(@ModelAttribute TransferOperation tran, Model model) {
         //verify src server
         try{
-//            if(!tran.getSrcServerId().getClass().getName().equals("java.lang.Long")){
-//                throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
-//            }
             if(serverService.getServerById(tran.getSrcServerId())==null){
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
             }
@@ -65,7 +62,7 @@ public class TransferController {
             return new ModelAndView("403","command", new TransferOperation());
         }
         //get directory for server
-        model.addAttribute("directory", transferService.getDirectory(tran.getSrcServerId()));
+        model.addAttribute("directory", transferService.makeListOfFiles(transferService.lsServer(tran.getSrcServerId())));
         //cascade transfer info
         model.addAttribute("email", tran.getEmail());
         model.addAttribute("srcServerId", tran.getSrcServerId());
@@ -75,13 +72,6 @@ public class TransferController {
 
     @RequestMapping(value="file", method = RequestMethod.POST)
     public ModelAndView srcFile(@ModelAttribute TransferOperation tran, Model model) {
-        //verify filePath?
-        /*
-        List<String> directory = transferService.getDirectory(tran.getSrcServerId());
-        for(String path: directory){
-            comparison
-        }
-        */
         //get server list for user
         model.addAttribute("serverList", getServers(tran.getEmail()));
         //cascade transfer info
