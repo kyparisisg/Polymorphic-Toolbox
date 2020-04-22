@@ -4,25 +4,17 @@ import com.temple.polymorphic.toolbox.dto.PermOperation;
 import com.temple.polymorphic.toolbox.dto.PermissionsDto;
 import com.temple.polymorphic.toolbox.dto.ServerDto;
 import com.temple.polymorphic.toolbox.dto.UserDto;
-import com.temple.polymorphic.toolbox.models.Server;
-import com.temple.polymorphic.toolbox.models.User;
 import com.temple.polymorphic.toolbox.services.ServerService;
 import com.temple.polymorphic.toolbox.services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.ModelAndView;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.security.Permission;
 import java.util.List;
 
 @Controller
@@ -38,7 +30,7 @@ public class UsersController {
     private static final Logger LOGGER = LoggerFactory.getLogger(UserService.class);
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public ModelAndView index(Model model) {
+    public ModelAndView index() {
 
         return new ModelAndView("users/manageUser");
     }
@@ -185,7 +177,6 @@ public class UsersController {
         List<PermissionsDto> perms = getPermissions(email);
         model.addAttribute("perms", perms);
         model.addAttribute("email", email);
-
         return "users/viewPerm";
     }
 

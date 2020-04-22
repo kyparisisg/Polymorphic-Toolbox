@@ -1793,7 +1793,7 @@ pre code {
   }
 }
 
-@media (max-width: 767.98px) {
+@media (max-width: 991.98px) {
   .table-responsive-md {
     display: block;
     width: 100%;
@@ -1806,7 +1806,7 @@ pre code {
   }
 }
 
-@media (max-width: 991.98px) {
+@media (max-width: 1199.98px) {
   .table-responsive-lg {
     display: block;
     width: 100%;
@@ -17691,7 +17691,7 @@ hr.line-deafult {
 }
 
 .page-header .content-center.brand {
-  width: 47%;
+  width: 70%;
 }
 
 .page-header footer {
