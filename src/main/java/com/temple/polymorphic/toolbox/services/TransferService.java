@@ -203,7 +203,16 @@ public class TransferService {
     public boolean scpFrom(String email, Long srcServerId, String fileName){
         ServerDto srcServer = getServerWithSpecificPerms(email, srcServerId);
         Session session = createSession(srcServer);
-        String remoteFile = "/home/" + srcServer.getUsernameCred() + "/" + fileName; //assume linux
+        String remoteFile = "";
+        String os = determineOS(session);
+        if(os.equals("ubuntu")){
+            remoteFile = "/home/" + srcServer.getUsernameCred() + "/" + fileName;
+        }
+        else if(os.equals("mac")){
+            remoteFile = "/Users/" + srcServer.getUsernameCred() + "/" + fileName;
+        } else {
+            return false;
+        }
         String localDir = System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
                 + File.separator + "resources" + File.separator + "tempFileStorage" + File.separator;
         String prefix = null;
@@ -308,7 +317,15 @@ public class TransferService {
         ServerDto dstServer = getServerWithSpecificPerms(email, dstServerId);
         Session session = createSession(dstServer);
         boolean ptimestamp = true;
-        String remoteDir = "/home/" + dstServer.getUsernameCred() + "/"; //assume linux
+        String remoteDir;
+        if(determineOS(session).equals("ubuntu")){
+            remoteDir = "/home/" + dstServer.getUsernameCred() + "/";
+        }
+        else if(determineOS(session).equals("mac")){
+            remoteDir = "/Users/" + dstServer.getUsernameCred() + "/";
+        } else {
+            return false;
+        }
         String localFile = System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
                 + File.separator + "resources" + File.separator + "tempFileStorage" + File.separator + fileName;
         try{
@@ -406,7 +423,6 @@ public class TransferService {
         ServerDto s = m.map(serverRepository.findById(serverId).get(), ServerDto.class);
         Session session = createSession(s);
         JSch jschSSHChannel = new JSch();
-
         try{
 //            return this.sendCommand("ls", session, jschSSHChannel);
 //            return this.sendCommand("ls -lF", session, jschSSHChannel);   //lists files and directories
@@ -443,7 +459,7 @@ public class TransferService {
                 outputBuffer.append((char)readByte);
                 readByte = commandOutput.read();
             }
-
+            channel.disconnect();
         }
         catch(IOException ioX)
         {
@@ -455,7 +471,6 @@ public class TransferService {
             errorMessage = jschX.getMessage();
             return errorMessage;
         }
-
         return outputBuffer.toString();
     }
 
@@ -566,6 +581,25 @@ public class TransferService {
             return true;
         } else {
             return false;
+        }
+    }
+
+    public String determineOS(Session session){
+        JSch jschSSHChannel = new JSch();
+        try{
+            String homeDir =  this.sendCommand("cd ../../; ls", session, jschSSHChannel);
+            if(homeDir == null){
+                return "unknown";
+            }
+            if(homeDir.contains("home")){
+                return "ubuntu";
+            }
+            if(homeDir.contains("Users")){
+                return "mac";
+            }
+            return "unknown";
+        }catch (Exception e){
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Command 'ls' could not be executed! Could determine os!");
         }
     }
 }
