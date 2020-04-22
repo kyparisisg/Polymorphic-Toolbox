@@ -156,7 +156,7 @@ public class ServerService {
         jsch.setConfig("PreferredAuthentications", "publickey,password,keyboard-interactive");
         Session session = null;
         try {
-            if(server.getKeyLocation() != null || !server.getKeyLocation().equals("")) {
+            if(server.getKeyLocation() != null && !server.getKeyLocation().equals("")) {
                 jsch.addIdentity(System.getProperty("user.dir") + server.getKeyLocation());
             }
             session = jsch.getSession(server.getUsernameCred(), server.getIp(), server.getPort());
@@ -179,7 +179,7 @@ public class ServerService {
         jsch.setConfig("PreferredAuthentications", "publickey,password,keyboard-interactive");
         Session session = null;
         try {
-            if(server.getKeyLocation() != null || !server.getKeyLocation().equals("")) {
+            if(server.getKeyLocation() != null && !server.getKeyLocation().equals("")) {
                 jsch.addIdentity(System.getProperty("user.dir") + server.getKeyLocation());
             }
             session = jsch.getSession(server.getUsernameCred(), server.getIp(), server.getPort());

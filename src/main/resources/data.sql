@@ -72,4 +72,6 @@ VALUES ('MacOS 2', '192.168.0.4', '22', 'test2', 'test2', '1', Now() );
 INSERT INTO Servers (name, ip, port, username_cred, password_cred, health, register_date)
 VALUES ('MacOS 3', '192.168.0.5', '22', 'test3', 'test3', '0', Now() );
 
-
+--Not gonna keep this one up 24/7 - for testing purposes only
+INSERT INTO Servers (name, ip, port, username_cred, password_cred, health, register_date, key_location)
+VALUES ('TEST EC2 2', 'ec2-100-27-20-252.compute-1.amazonaws.com', '22', 'ec2-user', '', '1', SYSDATE(), '\src\main\resources\privateKeys\testkey1.pem' );

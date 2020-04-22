@@ -17,7 +17,7 @@ CREATE TABLE Servers (
     password_cred VARCHAR(50) NOT NULL,
     health INT DEFAULT 0,
     register_date DATE,
-    key_location VARCHAR(200) UNIQUE
+    key_location VARCHAR(200)
 );
 
 CREATE TABLE Permissions(
