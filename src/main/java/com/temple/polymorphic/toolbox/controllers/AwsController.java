@@ -150,7 +150,7 @@ public class AwsController {
     }
 
     @RequestMapping(value = "/download", method = RequestMethod.POST)
-    public ModelAndView downloadFileUsingAwsApi(@CookieValue(value = "username", defaultValue = "NOT_FOUND") String email,@ModelAttribute("SpringWeb")TransferOperation tran, Model model)
+    public ModelAndView downloadFileUsingAwsApi(@CookieValue(value = "username", defaultValue = "NOT_FOUND") String email,@ModelAttribute()TransferOperation tran, Model model)
             throws IOException {
 
         try {
@@ -195,8 +195,33 @@ public class AwsController {
         return "client/transferSuccess";
     }
 
-    // add transfer
-    // create bucket
-    // delete bucket
+    @RequestMapping(value = "/delete", method = RequestMethod.GET)
+    public ModelAndView getFilesToDelete(@CookieValue(value = "username", defaultValue = "NOT_FOUND") String email, Model model ){
+        //bucketTool to return list
+        AmazonS3 s3Client = transferService.setUpclient();
+        List<FileInfoDto> fileList = bucketTools.getBucketItemList(bucketNameC, s3Client, email);   //email is the name of directory to be traversed
+
+        model.addAttribute("fileList",fileList);
+        model.addAttribute("email",email);
+
+        return new ModelAndView("client/aws/displayS3Files", "command", new TransferOperation());
+    }
+
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    public String deleteFileOnS3(@ModelAttribute TransferOperation tran, Model model ){
+
+        //delete file tran.getFileName() from S3 Bucket directory with name tran.email
+
+
+        String srcServerName = "Amazon S3 Bucket";
+
+        model.addAttribute("email",tran.getEmail());
+        model.addAttribute("src",srcServerName);
+        model.addAttribute("file",tran.getEmail());
+        model.addAttribute("status", 1);
+        model.addAttribute("request", "Delete file completed on: " + srcServerName );
+
+        return "client/transferSuccess";
+    }
 
 }
