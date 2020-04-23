@@ -136,7 +136,7 @@ public class TransferService {
             try {
                 s3Client.putObject(
                         bcktnm,
-                        dir + "" + fileName,
+                        "/"+dir + "/" + fileName,
                         new File(localPath)
                 );
             }
