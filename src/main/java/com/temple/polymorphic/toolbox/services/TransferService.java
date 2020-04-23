@@ -85,20 +85,60 @@ public class TransferService {
         BucketTools.deleteBucket(bcknm,s3Client);
     }
 
+    public static boolean doesObjectExist(String fileName, String bucketName, String S3Dir){
+        AmazonS3  s3client =  setUpclient();
+
+
+        try{
+            boolean exists =  s3client.doesObjectExist(bucketName, S3Dir+"/"+fileName);
+            if(exists){
+                System.out.println("files: "+fileName+"exist");
+                return true;
+
+            }else{
+                System.out.println("file not found on s3");
+                return false;
+            }
+
+        }
+
+        catch(AmazonServiceException ase){
+            System.out.println("Caught an AmazonServiceException, which " +
+                    "means your request made it " +
+                    "to Amazon S3, but was rejected with an error response" +
+                    " for some reason.");
+            System.out.println("Error Message:    " + ase.getMessage());
+            System.out.println("HTTP Status Code: " + ase.getStatusCode());
+            System.out.println("AWS Error Code:   " + ase.getErrorCode());
+            System.out.println("Error Type:       " + ase.getErrorType());
+            System.out.println("Request ID:       " + ase.getRequestId());
+        }
+        catch (AmazonClientException ace){
+            System.out.println("Caught an AmazonClientException, which " +
+                    "means the client encountered " +
+                    "an internal error while trying to " +
+                    "communicate with S3, " +
+                    "such as not being able to access the network.");
+            System.out.println("Error Message: " + ace.getMessage());
+
+        }
+
+        return false;
+    }
+
     public static void fileUpload(String bcktnm, String dir,String fileName) throws IOException{
 
         AmazonS3 s3Client = setUpclient();
+        String localPath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "tempFileStorage" + File.separator + fileName;
 
             if(s3Client.doesBucketExistV2(bcktnm)){
             try {
                 s3Client.putObject(
                         bcktnm,
-                        dir + "" + fileName,
-                        new File("C:\\Users\\taira\\Documents\\capstone\\Polymorphic-Toolbox\\src\\main\\webapp\\" + fileName)
+                        dir + "/" + fileName,
+                        new File(localPath)
                 );
-                File file = new File("C:\\Users\\taira\\Documents\\capstone\\Polymorphic-Toolbox\\src\\main\\webapp\\" + fileName);
-                file.delete();
-
             }
             catch(AmazonServiceException ase){
                 System.out.println("Caught an AmazonServiceException, which " +
@@ -131,12 +171,45 @@ public class TransferService {
 
         InputStream objectdata = s3obj.getObjectContent();
 
-        java.nio.file.Files.copy(objectdata, Paths.get("C:\\Users\\taira\\Documents\\capstone\\Polymorphic-Toolbox\\src\\main\\webapp\\"+fileName),StandardCopyOption.REPLACE_EXISTING);
+        String localPath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                + File.separator + "resources" + File.separator + "tempFileStorage" + File.separator + fileName;
+
+        java.nio.file.Files.copy(objectdata, Paths.get(localPath),StandardCopyOption.REPLACE_EXISTING);
 
     }
 
+    public static void fileDelete(String bucketName, String fileName, String s3Dir)throws IOException{
+        AmazonS3 s3Client = setUpclient();
+
+        try{
+            s3Client.deleteObject(bucketName,s3Dir+"/"+fileName);
+        }
+
+
+        catch(AmazonServiceException ase){
+            System.out.println("Caught an AmazonServiceException, which " +
+                    "means your request made it " +
+                    "to Amazon S3, but was rejected with an error response" +
+                    " for some reason.");
+            System.out.println("Error Message:    " + ase.getMessage());
+            System.out.println("HTTP Status Code: " + ase.getStatusCode());
+            System.out.println("AWS Error Code:   " + ase.getErrorCode());
+            System.out.println("Error Type:       " + ase.getErrorType());
+            System.out.println("Request ID:       " + ase.getRequestId());
+        }
+        catch (AmazonClientException ace){
+            System.out.println("Caught an AmazonClientException, which " +
+                    "means the client encountered " +
+                    "an internal error while trying to " +
+                    "communicate with S3, " +
+                    "such as not being able to access the network.");
+            System.out.println("Error Message: " + ace.getMessage());
+
+        }
+    }
+
     //Method that takes the credentials for S3 access and returns amazon s3 client object
-    private static AmazonS3 setUpclient() {
+    public static AmazonS3 setUpclient() {
         BasicAWSCredentials awsCreds = new BasicAWSCredentials(Credentials.access_key_id, Credentials.secret_access_key);
         AmazonS3 s3Client = AmazonS3ClientBuilder.standard().withRegion("us-east-2").withCredentials(new AWSStaticCredentialsProvider(awsCreds)).build();
 
@@ -317,11 +390,12 @@ public class TransferService {
         ServerDto dstServer = getServerWithSpecificPerms(email, dstServerId);
         Session session = createSession(dstServer);
         boolean ptimestamp = true;
-        String remoteDir;
-        if(determineOS(session).equals("ubuntu")){
+        String remoteDir = "";
+        String os = determineOS(session);
+        if(os.equals("ubuntu")){
             remoteDir = "/home/" + dstServer.getUsernameCred() + "/";
         }
-        else if(determineOS(session).equals("mac")){
+        else if(os.equals("mac")){
             remoteDir = "/Users/" + dstServer.getUsernameCred() + "/";
         } else {
             return false;
@@ -505,7 +579,11 @@ public class TransferService {
         try {
             if(server.getKeyLocation() != null ) {
                 if(!server.getKeyLocation().equals("")) {
-                    jsch.addIdentity(System.getProperty("user.dir") + server.getKeyLocation());
+                    String keyLocation = server.getKeyLocation();
+                    keyLocation = keyLocation.replace('/', '&');
+                    keyLocation = keyLocation.replace('\\', '&');
+                    keyLocation = keyLocation.replace('&', File.separatorChar);
+                    jsch.addIdentity(System.getProperty("user.dir") + keyLocation);
                 }
             }
             session = jsch.getSession(server.getUsernameCred(), server.getIp(), server.getPort());
@@ -587,7 +665,7 @@ public class TransferService {
     public String determineOS(Session session){
         JSch jschSSHChannel = new JSch();
         try{
-            String homeDir =  this.sendCommand("cd ../../; ls", session, jschSSHChannel);
+            String homeDir =  this.sendCommand("pwd", session, jschSSHChannel);
             if(homeDir == null){
                 return "unknown";
             }
