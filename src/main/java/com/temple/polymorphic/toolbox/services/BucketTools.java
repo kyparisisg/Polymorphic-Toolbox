@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -85,17 +86,22 @@ public class BucketTools {
 
                 String actualFileName = parts[parts.length - 1];
 
-                tempfileobj.setFile_name(actualFileName);
+                boolean contains =  Arrays.stream(parts).anyMatch(dirName ::equals);
 
-                tempfileobj.setBucket(objectSummary.getBucketName());
+                if(contains){
+                    tempfileobj.setFile_name(actualFileName);
 
-                int dirEnd = temp.lastIndexOf("/");
+                    tempfileobj.setBucket(objectSummary.getBucketName());
 
-                temp.replace(actualFileName+"","");
+                    int dirEnd = temp.lastIndexOf("/");
 
-                tempfileobj.setS3dir(temp);
+                    temp.replace(actualFileName+"","");
 
-                s3filesList.add(tempfileobj);
+                    tempfileobj.setS3dir(temp);
+
+                    s3filesList.add(tempfileobj);
+
+                }
 
 
             }else{ continue;}
