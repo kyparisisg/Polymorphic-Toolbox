@@ -78,11 +78,11 @@ public class AwsController {
         model.addAttribute("email", tran.getEmail());
         model.addAttribute("srcServerId", tran.getSrcServerId());
 
-        return new ModelAndView("client/aws/fileInput","command", new TransferOperation());
+        return new ModelAndView("client/aws/fileUpload","command", new TransferOperation());
     }
 
 
-    @RequestMapping(value = "/fileInput", method = RequestMethod.POST)
+    @RequestMapping(value = "/fileUpload", method = RequestMethod.POST)
     public String fileInput(@ModelAttribute TransferOperation tran, Model model ){
         //scp the file from the SrcServer to the following path /resources/tempFileStorage
         boolean scpStatus = transferService.scpFrom(tran.getEmail(), tran.getSrcServerId(), tran.getFileName());
