@@ -78,13 +78,33 @@ public class AwsController {
         model.addAttribute("email", tran.getEmail());
         model.addAttribute("srcServerId", tran.getSrcServerId());
 
-        return new ModelAndView("client/aws/fileSelect","command", new TransferOperation());
+        return new ModelAndView("client/aws/fileInput","command", new TransferOperation());
     }
 
 
+    @RequestMapping(value = "/fileInput", method = RequestMethod.POST)
+    public ModelAndView fileInput(@ModelAttribute TransferOperation tran, HttpSession session ){
+        //scp the file from the SrcServer to the following path /resources/tempFileStorage
+        boolean scpStatus = transferService.scpFrom(tran.getEmail(), tran.getSrcServerId(), tran.getFileName());
+        if(!scpStatus){
+            //return error file could not be scp to our infrastructure
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "SCP failed to copy file: " + tran.getFileName() + ", to Polymorphic Temporary Storage Drive. Operation Aborted!");
+        }
 
-    @RequestMapping(value = "/fileinput", method = RequestMethod.POST)
-    public ModelAndView up(@RequestParam MultipartFile file, HttpSession session){
+        //take /resources/tempFileStorage/fileToBeUploadedOnS3.ext and uploaded to S3
+        //tran.getFileName();
+        //BucketName = tran.getEmail();
+
+        //verify that file has been uploaded
+
+        //delete the file from /resources/tempFileStorage/
+
+        //add a new transaction
+
+        //return status success
+
+
+
         String path = session.getServletContext().getRealPath("/");
         String filename = file.getOriginalFilename();
 
