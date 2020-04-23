@@ -176,7 +176,7 @@ public class TransferService {
     }
 
     //Method that takes the credentials for S3 access and returns amazon s3 client object
-    private static AmazonS3 setUpclient() {
+    public static AmazonS3 setUpclient() {
         BasicAWSCredentials awsCreds = new BasicAWSCredentials(Credentials.access_key_id, Credentials.secret_access_key);
         AmazonS3 s3Client = AmazonS3ClientBuilder.standard().withRegion("us-east-2").withCredentials(new AWSStaticCredentialsProvider(awsCreds)).build();
 

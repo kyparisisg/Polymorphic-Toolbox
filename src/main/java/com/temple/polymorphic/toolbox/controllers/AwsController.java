@@ -1,5 +1,6 @@
 package com.temple.polymorphic.toolbox.controllers;
 
+import com.amazonaws.services.s3.AmazonS3;
 import com.temple.polymorphic.toolbox.dto.FileInfoDto;
 import com.temple.polymorphic.toolbox.dto.ServerDto;
 import com.temple.polymorphic.toolbox.dto.TransferOperation;
@@ -36,6 +37,9 @@ public class AwsController {
 
     @Autowired
     private BucketTools bucketTools;
+
+    private static String bucketNameC = "greekarmy";
+
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TransferService.class);
 
@@ -160,6 +164,8 @@ public class AwsController {
     @RequestMapping(value = "/download", method = RequestMethod.GET)
     public ModelAndView downloadFile(@CookieValue(value = "username", defaultValue = "NOT_FOUND") String email, Model model ){
         //bucketTool to return list
+        AmazonS3 s3Client = transferService.setUpclient();
+        List<FileInfoDto> fileList = bucketTools.getBucketItemList(bucketNameC, s3Client, email);   //email is the name of directory to be traversed
 
 
         return new ModelAndView("client/aws/downloadFile", "command", new FileInfoDto());

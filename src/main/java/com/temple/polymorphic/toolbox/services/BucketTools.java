@@ -71,7 +71,7 @@ public class BucketTools {
         }
     }
 
-    public static List<FileInfoDto> getBucketItemList(String bucketName, AmazonS3 s3client){
+    public static List<FileInfoDto> getBucketItemList(String bucketName, AmazonS3 s3client, String dirName){
         ObjectListing objectListing = s3client.listObjects(bucketName);
         List<FileInfoDto> s3filesList = new ArrayList<FileInfoDto>();
 

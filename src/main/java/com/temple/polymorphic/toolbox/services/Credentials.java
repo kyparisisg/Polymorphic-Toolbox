@@ -1,5 +1,7 @@
 package com.temple.polymorphic.toolbox.services;
 
+import org.springframework.stereotype.Service;
+
 public class Credentials {
     public static final String bucketNameC = "greekarmy";
     public static final String access_key_id= "AKIAJBU3EAP7P6YEEQIQ";
