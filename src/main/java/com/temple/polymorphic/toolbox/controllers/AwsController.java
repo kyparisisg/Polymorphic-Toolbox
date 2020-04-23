@@ -104,8 +104,9 @@ public class AwsController {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "");    //just display thrown Exception msg
         }
 
-        //delete the file from /resources/tempFileStorage/
+
         boolean isthere =  TransferService.doesObjectExist(tran.getFileName(),Credentials.bucketNameC, tran.getEmail());
+        //delete the file from /resources/tempFileStorage/
         if(!transferService.deleteTempFile(tran.getFileName())){
             //error handler
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Could not delete tmp file from Polymorphic Temporary Storage Drive.");
