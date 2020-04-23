@@ -78,7 +78,7 @@ public class AwsController {
         model.addAttribute("email", tran.getEmail());
         model.addAttribute("srcServerId", tran.getSrcServerId());
 
-        return new ModelAndView("client/aws/fileUpload","command", new TransferOperation());
+        return new ModelAndView("client/aws/fileSelect","command", new TransferOperation());
     }
 
 
