@@ -6,6 +6,7 @@ import com.amazonaws.regions.Region;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.*;
+import com.temple.polymorphic.toolbox.dto.FileInfoDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -13,7 +14,9 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 @Service
 public class BucketTools {
@@ -67,6 +70,40 @@ public class BucketTools {
             System.out.println("Error Message: " + ace.getMessage());
         }
     }
+
+    public static List<FileInfoDto> getBucketItemList(String bucketName, AmazonS3 s3client){
+        ObjectListing objectListing = s3client.listObjects(bucketName);
+        List<FileInfoDto> s3filesList = new ArrayList<FileInfoDto>();
+
+        for ( Iterator<?> iterator = objectListing.getObjectSummaries().iterator(); iterator.hasNext(); ) {
+            FileInfoDto tempfileobj = new FileInfoDto();
+            S3ObjectSummary objectSummary = (S3ObjectSummary) iterator.next();
+            String temp = objectSummary.getKey();
+            if(temp.charAt(temp.length() - 1) != '/'){
+
+                String [] parts = temp.split("/");
+
+                String actualFileName = parts[parts.length - 1];
+
+                tempfileobj.setFile_name(actualFileName);
+
+                tempfileobj.setBucket(objectSummary.getBucketName());
+
+                int dirEnd = temp.lastIndexOf("/");
+
+                temp.replace(actualFileName+"","");
+
+                tempfileobj.setS3dir(temp);
+
+                s3filesList.add(tempfileobj);
+
+
+            }else{ continue;}
+
+        }
+        return s3filesList;
+    }
+
 
     public static void transferobj(String filename,String bucketNamefrom,String dirFrom, String bucketNameTo, String dirTo,AmazonS3 s3client){
         if(s3client.doesBucketExistV2(bucketNamefrom) == false || s3client.doesBucketExistV2(bucketNameTo) == false){
