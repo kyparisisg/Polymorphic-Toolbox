@@ -211,6 +211,7 @@ public class AwsController {
     public String deleteFileOnS3(@ModelAttribute TransferOperation tran, Model model ){
 
         //delete file tran.getFileName() from S3 Bucket directory with name tran.email
+        transferService.fileDelete(bucketNameC,tran.getFileName(),tran.getEmail());
 
 
         String srcServerName = "Amazon S3 Bucket";
