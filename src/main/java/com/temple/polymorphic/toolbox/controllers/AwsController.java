@@ -115,7 +115,7 @@ public class AwsController {
         //return status success
 
         String srcServerName = serverService.getServerNameFromId(tran.getSrcServerId());
-        String dstServerName = serverService.getServerNameFromId(tran.getSrcServerId());
+        String dstServerName = "Amazon S3";
 
         model.addAttribute("email",tran.getEmail());
         model.addAttribute("src",srcServerName);
