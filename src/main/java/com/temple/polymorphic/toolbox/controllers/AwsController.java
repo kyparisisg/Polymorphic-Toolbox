@@ -3,6 +3,7 @@ package com.temple.polymorphic.toolbox.controllers;
 import com.temple.polymorphic.toolbox.dto.FileInfoDto;
 import com.temple.polymorphic.toolbox.dto.ServerDto;
 import com.temple.polymorphic.toolbox.dto.TransferOperation;
+import com.temple.polymorphic.toolbox.services.Credentials;
 import com.temple.polymorphic.toolbox.services.ServerService;
 import com.temple.polymorphic.toolbox.services.TransferService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -96,8 +97,10 @@ public class AwsController {
         //BucketName = tran.getEmail();
 
         //verify that file has been uploaded
+        TransferService.fileUpload(Credentials.bucketNameC,tran.getEmail(),tran.getFileName());
 
         //delete the file from /resources/tempFileStorage/
+       boolean isthere =  TransferService.doesObjectExist(tran.getFileName(),Credentials.bucketNameC, tran.getEmail());
 
         //add a new transaction
 

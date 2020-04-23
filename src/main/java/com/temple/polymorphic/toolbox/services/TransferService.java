@@ -85,6 +85,47 @@ public class TransferService {
         BucketTools.deleteBucket(bcknm,s3Client);
     }
 
+    public static boolean doesObjectExist(String fileName, String bucketName, String S3Dir){
+        AmazonS3  s3client =  setUpclient();
+
+
+        try{
+            boolean exists =  s3client.doesObjectExist(bucketName, S3Dir+"/"+fileName);
+            if(exists){
+                System.out.println("files: "+fileName+"exist");
+                return true;
+
+            }else{
+                System.out.println("file not found on s3");
+                return false;
+            }
+
+        }
+
+        catch(AmazonServiceException ase){
+            System.out.println("Caught an AmazonServiceException, which " +
+                    "means your request made it " +
+                    "to Amazon S3, but was rejected with an error response" +
+                    " for some reason.");
+            System.out.println("Error Message:    " + ase.getMessage());
+            System.out.println("HTTP Status Code: " + ase.getStatusCode());
+            System.out.println("AWS Error Code:   " + ase.getErrorCode());
+            System.out.println("Error Type:       " + ase.getErrorType());
+            System.out.println("Request ID:       " + ase.getRequestId());
+        }
+        catch (AmazonClientException ace){
+            System.out.println("Caught an AmazonClientException, which " +
+                    "means the client encountered " +
+                    "an internal error while trying to " +
+                    "communicate with S3, " +
+                    "such as not being able to access the network.");
+            System.out.println("Error Message: " + ace.getMessage());
+
+        }
+
+        return false;
+    }
+
     public static void fileUpload(String bcktnm, String dir,String fileName) throws IOException{
 
         AmazonS3 s3Client = setUpclient();
