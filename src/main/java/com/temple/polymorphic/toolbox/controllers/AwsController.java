@@ -97,11 +97,19 @@ public class AwsController {
         //BucketName = tran.getEmail();
 
         //verify that file has been uploaded
-        TransferService.fileUpload(Credentials.bucketNameC,tran.getEmail(),tran.getFileName());
+        try {
+            TransferService.fileUpload(Credentials.bucketNameC, tran.getEmail(), tran.getFileName());
+        }catch (IOException e){
+            //error handler
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "");    //just display thrown Exception msg
+        }
 
         //delete the file from /resources/tempFileStorage/
-       boolean isthere =  TransferService.doesObjectExist(tran.getFileName(),Credentials.bucketNameC, tran.getEmail());
-
+        boolean isthere =  TransferService.doesObjectExist(tran.getFileName(),Credentials.bucketNameC, tran.getEmail());
+        if(!transferService.deleteTempFile(tran.getFileName())){
+            //error handler
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Could not delete tmp file from Polymorphic Temporary Storage Drive.");
+        }
         //add a new transaction
 
         //return status success
