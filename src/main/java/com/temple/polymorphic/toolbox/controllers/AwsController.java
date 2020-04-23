@@ -3,6 +3,7 @@ package com.temple.polymorphic.toolbox.controllers;
 import com.temple.polymorphic.toolbox.dto.FileInfoDto;
 import com.temple.polymorphic.toolbox.dto.ServerDto;
 import com.temple.polymorphic.toolbox.dto.TransferOperation;
+import com.temple.polymorphic.toolbox.services.Credentials;
 import com.temple.polymorphic.toolbox.services.ServerService;
 import com.temple.polymorphic.toolbox.services.TransferService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,22 +84,30 @@ public class AwsController {
 
 
 
-    @RequestMapping(value = "/fileinput", method = RequestMethod.POST)
-    public ModelAndView up(@RequestParam MultipartFile file, HttpSession session){
-        String path = session.getServletContext().getRealPath("/");
-        String filename = file.getOriginalFilename();
+    @RequestMapping(value = "/fileInput", method = RequestMethod.POST)
+    public ModelAndView fileInput(@ModelAttribute TransferOperation tran, HttpSession session) throws IOException {
 
-        try{
-            byte barr[] = file.getBytes();
-            BufferedOutputStream bout = new BufferedOutputStream(new FileOutputStream(path+"/"+filename));
-            Object o = bout;
-            bout.write(barr);
-            bout.flush();
-            bout.close();
 
-            fdt = filename;
 
-        }catch (Exception e){System.out.println((e));}
+
+        TransferService.fileUpload(Credentials.bucketNameC,tran.getEmail(),tran.getFileName());
+
+       boolean isthere =  TransferService.doesObjectExist(tran.getFileName(),Credentials.bucketNameC, tran.getEmail());
+
+
+
+
+//        try{
+//            byte barr[] = file.getBytes();
+//            BufferedOutputStream bout = new BufferedOutputStream(new FileOutputStream(path+"/"+filename));
+//            Object o = bout;
+//            bout.write(barr);
+//            bout.flush();
+//            bout.close();
+//
+//            fdt = filename;
+//
+//        }catch (Exception e){System.out.println((e));}
 
 
         return new ModelAndView("client/aws/uploadFile","command", new FileInfoDto());
