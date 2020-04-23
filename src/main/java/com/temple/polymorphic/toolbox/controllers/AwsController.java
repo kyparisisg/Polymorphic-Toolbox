@@ -3,6 +3,7 @@ package com.temple.polymorphic.toolbox.controllers;
 import com.temple.polymorphic.toolbox.dto.FileInfoDto;
 import com.temple.polymorphic.toolbox.dto.ServerDto;
 import com.temple.polymorphic.toolbox.dto.TransferOperation;
+import com.temple.polymorphic.toolbox.services.BucketTools;
 import com.temple.polymorphic.toolbox.services.Credentials;
 import com.temple.polymorphic.toolbox.services.ServerService;
 import com.temple.polymorphic.toolbox.services.TransferService;
@@ -32,6 +33,9 @@ public class AwsController {
 
     @Autowired
     private ServerService serverService;
+
+    @Autowired
+    private BucketTools bucketTools;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TransferService.class);
 
@@ -154,7 +158,9 @@ public class AwsController {
     }
 
     @RequestMapping(value = "/download", method = RequestMethod.GET)
-    public ModelAndView downloadFile(){
+    public ModelAndView downloadFile(@CookieValue(value = "username", defaultValue = "NOT_FOUND") String email, Model model ){
+        //bucketTool to return list
+
 
         return new ModelAndView("client/aws/downloadFile", "command", new FileInfoDto());
     }

@@ -8,12 +8,14 @@ import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Iterator;
 
+@Service
 public class BucketTools {
     private static final Logger LOG = LoggerFactory.getLogger(BucketTools.class);
     //checking os of user
