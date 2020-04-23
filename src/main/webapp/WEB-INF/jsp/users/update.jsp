@@ -111,18 +111,19 @@
                         <div class="card card-register">
                             <div class="card-header">
                                 <img class="card-img" src="/images/square1.png" alt="Card image">
-                                <h3 class="card-title">UserInfo</h3>
+                                <h3 class="card-title">Info</h3>
                             </div>
                             <%--                            <form:form class = "form" method = "POST" action = "/api/users/save">--%>
 
-                                <h3>(email must be the same as one in the db to update the rest information)</h3>
+
                                 <form:form method = "POST" action = "/api/users/update" autocomplete="off">
                                     <div class="card-body">
+                                        <p>(email must be the same as one in the db to update the rest information)</p>
 
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <div class="input-group-text">
-                                                    <i class="tim-icons icon-single-02"></i>
+                                                    <i class="tim-icons icon-email-85"></i>
                                                 </div>
                                             </div>
                                             <form:input path = "email" type="text" class="form-control" placeholder="email" autocomplete="off"/>
@@ -146,7 +147,7 @@
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <div class="input-group-text">
-                                                    <i class="tim-icons icon-single-02"></i>
+                                                    <i class="tim-icons icon-lock-circle"></i>
                                                 </div>
                                             </div>
                                             <form:input path = "role" type="text" class="form-control" placeholder="Role" autocomplete="off"/>

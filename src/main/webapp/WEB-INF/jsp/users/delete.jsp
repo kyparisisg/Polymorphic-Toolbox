@@ -119,7 +119,7 @@
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <div class="input-group-text">
-                                                <i class="tim-icons icon-single-02"></i>
+                                                <i class="tim-icons icon-email-85"></i>
                                             </div>
                                         </div>
                                         <form:input path = "email" type="text" class="form-control" placeholder="email" autocomplete="false"/>

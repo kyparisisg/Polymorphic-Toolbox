@@ -71,7 +71,7 @@
                 </li>
                 <li class="dropdown nav-item">
                     <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-                        <i class="fa fa-cogs d-lg-none d-xl-none"></i> Getting started
+                        <i class="fa fa-cogs d-lg-none d-xl-none"></i> Administrator
                     </a>
                     <div class="dropdown-menu dropdown-with-icons">
                         <a href="" class="dropdown-item">
@@ -113,6 +113,30 @@
                 <%--                <h1 class="h1-seo"></h1>--%>
                 <h3>Welcome to the Admin Dashboard</h3>
                 <div class="row justify-content-md-center">
+                    <div class="col-lg-6 col-md-6">
+                        <h1 class="text-white">We keep your coin
+                            <br/>
+                            <span class="text-white">secured</span>
+                        </h1>
+                        <p class="text-white mb-3">A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart. I am alone, and feel...</p>
+                        <div class="btn-wrapper mb-3">
+                            <p class="category text-success d-inline">From 9.99%/mo</p>
+                            <a href="#blk" class="btn btn-success btn-link btn-sm"><i class="tim-icons icon-minimal-right"></i></a>
+                        </div>
+                        <div class="btn-wrapper">
+                            <div class="button-container">
+                                <button href="javascript:void(0)" class="btn btn-icon btn-simple btn-round btn-neutral">
+                                    <i class="fab fa-twitter"></i>
+                                </button>
+                                <button href="javascript:void(0)" class="btn btn-icon btn-simple btn-round btn-neutral">
+                                    <i class="fab fa-dribbble"></i>
+                                </button>
+                                <button href="javascript:void(0)" class="btn btn-icon btn-simple btn-round btn-neutral">
+                                    <i class="fab fa-facebook"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                     <div class="text-center col-md-12 col-lg-8">
 
                         <ul class="nav nav-pills nav-pills-primary nav-pills-icons">

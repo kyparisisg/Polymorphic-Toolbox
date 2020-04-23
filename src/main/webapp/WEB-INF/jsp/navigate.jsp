@@ -71,7 +71,7 @@
                 </li>
                 <li class="dropdown nav-item">
                     <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-                        <i class="fa fa-cogs d-lg-none d-xl-none"></i> Getting started
+                        <i class="fa fa-cogs d-lg-none d-xl-none"></i> Administrator
                     </a>
                     <div class="dropdown-menu dropdown-with-icons">
                         <a href="" class="dropdown-item">
@@ -89,8 +89,8 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link btn btn-default d-none d-lg-block" href="javascript:void(0)" onclick="scrollToDownload()">
-                        <i class="tim-icons icon-cloud-download-93"></i> Download
+                    <a class="nav-link btn btn-default d-none d-lg-block" href="/logout" role = "button" onclick="scrollToDownload()">
+                        Logout
                     </a>
                 </li>
             </ul>
@@ -100,6 +100,7 @@
 <!-- End Navbar -->
 
 <div class="wrapper">
+    <img src="/images/dots.png" class = "dots">
     <div class="page-header header-filter">
         <div class="squares square1"></div>
         <div class="squares square2"></div>
@@ -112,17 +113,12 @@
             <div class="content-center brand">
                 <%--                <h1 class="h1-seo"></h1>--%>
                 <h3>Welcome</h3>
-                <div class="row justify-content-md-center">
-                    <div class="text-center col-md-12 col-lg-8">
-                        <a href="/api/admin" class="btn btn-primary btn-round btn-lg" role="button">
-                            Admin Dashboard
-                        </a>
-                    </div>
-                    <div class="text-center col-md-12 col-lg-8">
-                        <a href="/client" class="btn btn-primary btn-round btn-lg" role="button">
-                            Client Dashboard
-                        </a>
-                    </div>
+<%--                    <div class="text-center col-md-12 col-lg-8">--%>
+<%--                        <a href="/api/admin" class="btn btn-primary btn-round btn-lg" role="button">--%>
+<%--                            Admin Dashboard--%>
+<%--                        </a>--%>
+<%--                    </div>--%>
+
                 </div>
             </div>
         </div>
