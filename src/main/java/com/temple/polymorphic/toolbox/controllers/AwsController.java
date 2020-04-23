@@ -20,6 +20,7 @@ import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpSession;
 import java.io.BufferedOutputStream;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
@@ -136,31 +137,6 @@ public class AwsController {
         return "client/transferSuccess";
     }
 
-    @RequestMapping(value = "/upload", method = RequestMethod.POST)
-    public String uploadFileUsingAwsApi(@ModelAttribute("SpringWeb")FileInfoDto fileInfoDto, Model model) throws IOException {
-
-        fileInfoDto.setFile_name(fdt);
-        TransferService.fileUpload(fileInfoDto.getBucket(),fileInfoDto.getS3dir(),fileInfoDto.getFile_name());
-        model.addAttribute("fileInfoDto", fileInfoDto);
-        String status = "The transaction was successfully, the file was uploaded!";
-        model.addAttribute("status",status);
-        model.addAttribute("File_name",fileInfoDto.getFile_name());
-        model.addAttribute("s3dir",fileInfoDto.getS3dir());
-        model.addAttribute("ipv4",fileInfoDto.getIpv4());
-        model.addAttribute("user",fileInfoDto.getUser());
-        model.addAttribute("bucket",fileInfoDto.getBucket());
-
-        String downloadPath = "";
-//        model.addAttribute("filepath",filepath);
-
-
-
-//        model.addAttribute("bucketName",bucketName);
-
-
-        return "client/aws/awsApiSuccess";
-    }
-
     @RequestMapping(value = "/download", method = RequestMethod.GET)
     public ModelAndView downloadFile(@CookieValue(value = "username", defaultValue = "NOT_FOUND") String email, Model model ){
         //bucketTool to return list
@@ -174,39 +150,49 @@ public class AwsController {
     }
 
     @RequestMapping(value = "/download", method = RequestMethod.POST)
-    public String downloadFileUsingAwsApi(@ModelAttribute("SpringWeb")FileInfoDto fileInfoDto, Model model) throws IOException {
-        //Make the API calls to AWS to download a file from S3
-        //...
-        //...
-        //use the transferService to implement the services and just call them from here!
+    public ModelAndView downloadFileUsingAwsApi(@CookieValue(value = "username", defaultValue = "NOT_FOUND") String email,@ModelAttribute("SpringWeb")TransferOperation tran, Model model)
+            throws IOException {
 
-        //add attributes (one or more) to model so you can use them while rendering the awsApiSuccess.jsp
-
-        TransferService.fileDownload(fileInfoDto.getBucket(),fileInfoDto.getS3dir(),fileInfoDto.getFile_name());
-        String dpath = "C:\\Users\\taira\\Documents\\";
-        String status = "The transaction was successfully, the file was downloaded!";
-        String filePath = "C:\\Users\\taira\\Documents\\capstone\\Polymorphic-Toolbox\\src\\main\\webapp\\";
-
-        model.addAttribute("status",status);
-//        model.addAttribute("dpath",dpath);
-        model.addAttribute("file_name",fileInfoDto.getFile_name());
-        model.addAttribute("s3dir",fileInfoDto.getS3dir());
-        model.addAttribute("file_name",fileInfoDto.getFile_name());
-        model.addAttribute("bucket",fileInfoDto.getBucket());
+        try {
+            TransferService.fileDownload(bucketNameC, email, tran.getFileName());
+        }catch (IOException e){
+            //error handler if file was not successfully downloaded
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "File could not been downloaded from S3 Bucket");
+        }
+        //since file is downloaded, display servers to select server destination to complete transfer
+        model.addAttribute("serverList", getServers(email));
+        model.addAttribute("email", email);
+        model.addAttribute("fileName", tran.getFileName());
 
 
+        return new ModelAndView("client/aws/downloadDst", "command", new TransferOperation());
+    }
 
-        model.addAttribute("fileInfoDto", fileInfoDto);
-        model.addAttribute("file_name",fileInfoDto.getFile_name());
-        model.addAttribute("s3dir",fileInfoDto.getS3dir());
-        model.addAttribute("bucket",fileInfoDto.getBucket());
+    @RequestMapping(value = "/destScp", method = RequestMethod.POST)
+    public String sendFileToDstServer(@ModelAttribute TransferOperation tran, Model model ){
+        String dstServerName = serverService.getServerNameFromId(tran.getDstServerId());
+        boolean scpStatus = transferService.scpTo(tran.getEmail(), tran.getDstServerId(), tran.getFileName());
+        if(!scpStatus){
+            //return error file could not be scp to our infrastructure
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "SCP failed to copy file: " + tran.getFileName() + ", to Destination Server:"+ dstServerName +". Operation Aborted!");
+        }
 
-//        String downloadPath = "C:\\Users\\taira\\Documents\\"+fileInfoDto.getFile_name();
-        model.addAttribute("filePath",filePath);
+        //delete the file from /resources/tempFileStorage/
+        if(!transferService.deleteTempFile(tran.getFileName())){
+            //error handler
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Could not delete tmp file from Polymorphic Temporary Storage Drive.");
+        }
 
+        String srcServerName = "Amazon S3 Bucket";
 
+        model.addAttribute("email",tran.getEmail());
+        model.addAttribute("src",srcServerName);
+        model.addAttribute("dst",dstServerName);
+        model.addAttribute("file",tran.getEmail());
+        model.addAttribute("status", 1);
+        model.addAttribute("request", "Transfer completed from: " + srcServerName + " to " + dstServerName);
 
-        return "client/aws/awsApiSuccess";
+        return "client/transferSuccess";
     }
 
     // add transfer
