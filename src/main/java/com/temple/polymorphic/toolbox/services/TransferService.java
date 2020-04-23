@@ -175,6 +175,36 @@ public class TransferService {
 
     }
 
+    public static void fileDelete(String bucketName, String fileName, String s3Dir)throws IOException{
+        AmazonS3 s3Client = setUpclient();
+
+        try{
+            s3Client.deleteObject(bucketName,s3Dir+"/"+fileName);
+        }
+
+
+        catch(AmazonServiceException ase){
+            System.out.println("Caught an AmazonServiceException, which " +
+                    "means your request made it " +
+                    "to Amazon S3, but was rejected with an error response" +
+                    " for some reason.");
+            System.out.println("Error Message:    " + ase.getMessage());
+            System.out.println("HTTP Status Code: " + ase.getStatusCode());
+            System.out.println("AWS Error Code:   " + ase.getErrorCode());
+            System.out.println("Error Type:       " + ase.getErrorType());
+            System.out.println("Request ID:       " + ase.getRequestId());
+        }
+        catch (AmazonClientException ace){
+            System.out.println("Caught an AmazonClientException, which " +
+                    "means the client encountered " +
+                    "an internal error while trying to " +
+                    "communicate with S3, " +
+                    "such as not being able to access the network.");
+            System.out.println("Error Message: " + ace.getMessage());
+
+        }
+    }
+
     //Method that takes the credentials for S3 access and returns amazon s3 client object
     public static AmazonS3 setUpclient() {
         BasicAWSCredentials awsCreds = new BasicAWSCredentials(Credentials.access_key_id, Credentials.secret_access_key);
