@@ -167,8 +167,10 @@ public class AwsController {
         AmazonS3 s3Client = transferService.setUpclient();
         List<FileInfoDto> fileList = bucketTools.getBucketItemList(bucketNameC, s3Client, email);   //email is the name of directory to be traversed
 
+        model.addAttribute("fileList",fileList);
+        model.addAttribute("email",email);
 
-        return new ModelAndView("client/aws/downloadFile", "command", new FileInfoDto());
+        return new ModelAndView("client/aws/downloadFile", "command", new TransferOperation());
     }
 
     @RequestMapping(value = "/download", method = RequestMethod.POST)
