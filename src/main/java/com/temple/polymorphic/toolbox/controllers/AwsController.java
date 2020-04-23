@@ -83,7 +83,7 @@ public class AwsController {
 
 
     @RequestMapping(value = "/fileInput", method = RequestMethod.POST)
-    public ModelAndView fileInput(@ModelAttribute TransferOperation tran, HttpSession session ){
+    public String fileInput(@ModelAttribute TransferOperation tran, Model model ){
         //scp the file from the SrcServer to the following path /resources/tempFileStorage
         boolean scpStatus = transferService.scpFrom(tran.getEmail(), tran.getSrcServerId(), tran.getFileName());
         if(!scpStatus){
@@ -103,25 +103,17 @@ public class AwsController {
 
         //return status success
 
+        String srcServerName = serverService.getServerNameFromId(tran.getSrcServerId());
+        String dstServerName = serverService.getServerNameFromId(tran.getSrcServerId());
 
+        model.addAttribute("email",tran.getEmail());
+        model.addAttribute("src",srcServerName);
+        model.addAttribute("dst",dstServerName);
+        model.addAttribute("file",tran.getEmail());
+        model.addAttribute("status", 1);
+        model.addAttribute("request", "Transfer completed from: " + srcServerName + " to " + dstServerName);
 
-        String path = session.getServletContext().getRealPath("/");
-        String filename = file.getOriginalFilename();
-
-        try{
-            byte barr[] = file.getBytes();
-            BufferedOutputStream bout = new BufferedOutputStream(new FileOutputStream(path+"/"+filename));
-            Object o = bout;
-            bout.write(barr);
-            bout.flush();
-            bout.close();
-
-            fdt = filename;
-
-        }catch (Exception e){System.out.println((e));}
-
-
-        return new ModelAndView("client/aws/uploadFile","command", new FileInfoDto());
+        return "client/transferSuccess";
     }
 
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
