@@ -38,8 +38,8 @@ public class AwsController {
     @Autowired
     private BucketTools bucketTools;
 
-    //private static String bucketNameC = "greekarmy";
-    private static String bucketNameC = "none";
+    private static String bucketNameC = "greekarmy";
+//    private static String bucketNameC = "none";
     private static String privateKey = "none";
     private static String publicKey = "none";
 

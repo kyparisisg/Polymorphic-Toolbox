@@ -1,19 +1,13 @@
 package com.temple.polymorphic.toolbox.services;
+
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.auth.BasicAWSCredentials;
-import com.amazonaws.auth.profile.ProfileCredentialsProvider;
-import com.amazonaws.regions.Region;
 import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.*;
 import com.temple.polymorphic.toolbox.BucketCredRepository;
-import com.temple.polymorphic.toolbox.ServerRepository;
 import com.temple.polymorphic.toolbox.dto.FileInfoDto;
-import com.temple.polymorphic.toolbox.dto.ServerDto;
 import com.temple.polymorphic.toolbox.models.BucketCred;
-import com.temple.polymorphic.toolbox.models.Server;
-import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +15,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -106,23 +96,23 @@ public class BucketTools {
             s3client.deleteBucket(bucketName);
 
 
-//        } catch (AmazonServiceException ase) {
-//            System.out.println("Caught an AmazonServiceException, which " +
-//                    "means your request made it " +
-//                    "to Amazon S3, but was rejected with an error response" +
-//                    " for some reason.");
-//            System.out.println("Error Message:    " + ase.getMessage());
-//            System.out.println("HTTP Status Code: " + ase.getStatusCode());
-//            System.out.println("AWS Error Code:   " + ase.getErrorCode());
-//            System.out.println("Error Type:       " + ase.getErrorType());
-//            System.out.println("Request ID:       " + ase.getRequestId());
+        } catch (AmazonServiceException ase) {
+            System.out.println("Caught an AmazonServiceException, which " +
+                    "means your request made it " +
+                    "to Amazon S3, but was rejected with an error response" +
+                    " for some reason.");
+            System.out.println("Error Message:    " + ase.getMessage());
+            System.out.println("HTTP Status Code: " + ase.getStatusCode());
+            System.out.println("AWS Error Code:   " + ase.getErrorCode());
+            System.out.println("Error Type:       " + ase.getErrorType());
+            System.out.println("Request ID:       " + ase.getRequestId());
         } catch (AmazonClientException ace) {
-//            System.out.println("Caught an AmazonClientException, which " +
-//                    "means the client encountered " +
-//                    "an internal error while trying to " +
-//                    "communicate with S3, " +
-//                    "such as not being able to access the network.");
-//            System.out.println("Error Message: " + ace.getMessage());
+            System.out.println("Caught an AmazonClientException, which " +
+                    "means the client encountered " +
+                    "an internal error while trying to " +
+                    "communicate with S3, " +
+                    "such as not being able to access the network.");
+            System.out.println("Error Message: " + ace.getMessage());
         }
     }
 
@@ -171,10 +161,7 @@ public class BucketTools {
             //user logger class to log error for bukkets not existing then throw an exception
             System.out.println("Buckets listed do not exist");
 
-
-
         }else if(s3client.doesObjectExist(bucketNamefrom,dirFrom+"/"+filename) == false){
-
 
         }else{
 
