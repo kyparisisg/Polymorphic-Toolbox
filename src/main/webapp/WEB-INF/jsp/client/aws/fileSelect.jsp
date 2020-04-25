@@ -139,7 +139,7 @@
                                 <td><form:input path = "email" type="hidden" value="${email}" autocomplete="false" /></td>
                             </tr>
                             <tr>
-                                <td><form:input path = "srcServerId" type="hidden" autocomplete="false"/></td>
+                                <td><form:input path = "srcServerId" type="hidden" value="${srcServerId}" autocomplete="false"/></td>
                             </tr>
                             <br><br>
                             <tr>

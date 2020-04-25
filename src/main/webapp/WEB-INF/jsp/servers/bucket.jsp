@@ -1,13 +1,14 @@
-<!DOCTYPE html>
+<%@taglib uri = "http://www.springframework.org/tags/form" prefix = "form"%>
+<jsp:useBean id="user" class="com.temple.polymorphic.toolbox.models.BucketCred"/>
 <html lang="en">
-
 <head>
-    <title>Polymorphic Toolbox</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="apple-touch-icon" sizes="76x76" href="/images/apple-icon.png">
     <link rel="icon" type="image/png" href="/images/favicon.png">
-
+    <title>
+        Polymorphic Toolbox
+    </title>
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet" />
     <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
@@ -15,17 +16,15 @@
     <link href="/css/nucleo-icons.css" rel="stylesheet" />
     <!-- CSS Files -->
     <link href="/css/blk-design-system.css?v=1.0.0" rel="stylesheet" />
-    <!-- CSS Just for demo purpose, (probably going to takeout) -->
-    <link href="/demo/demo.css" rel="stylesheet" />
-    <%--    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />--%>
-</head>
 
+</head>
 <body class="register-page">
+
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg fixed-top navbar-transparent " color-on-scroll="100">
     <div class="container">
         <div class="navbar-translate">
-            <a class="navbar-brand" href="/home" rel="tooltip"  data-placement="bottom" >
+            <a class="navbar-brand" href="/api/admin" rel="tooltip" title="" data-placement="bottom" >
                 <span>POLYMORPHIC TOOLBOX</span>
             </a>
             <button class="navbar-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
@@ -50,24 +49,24 @@
                 </div>
             </div>
             <ul class="navbar-nav">
-<%--                <li class="nav-item p-0">--%>
-<%--                    <a class="nav-link" rel="tooltip" title="Follow us on Twitter" data-placement="bottom" href="" target="_blank">--%>
-<%--                        <i class="fab fa-twitter"></i>--%>
-<%--                        <p class="d-lg-none d-xl-none">Twitter</p>--%>
-<%--                    </a>--%>
-<%--                </li>--%>
-<%--                <li class="nav-item p-0">--%>
-<%--                    <a class="nav-link" rel="tooltip" title="Like us on Facebook" data-placement="bottom" href="" target="_blank">--%>
-<%--                        <i class="fab fa-facebook-square"></i>--%>
-<%--                        <p class="d-lg-none d-xl-none">Facebook</p>--%>
-<%--                    </a>--%>
-<%--                </li>--%>
-<%--                <li class="nav-item p-0">--%>
-<%--                    <a class="nav-link" rel="tooltip" title="Follow us on Instagram" data-placement="bottom" href="" target="_blank">--%>
-<%--                        <i class="fab fa-instagram"></i>--%>
-<%--                        <p class="d-lg-none d-xl-none">Instagram</p>--%>
-<%--                    </a>--%>
-<%--                </li>--%>
+                <li class="nav-item p-0">
+                    <a class="nav-link" rel="tooltip" title="Follow us on Twitter" data-placement="bottom" href="" target="_blank">
+                        <i class="fab fa-twitter"></i>
+                        <p class="d-lg-none d-xl-none">Twitter</p>
+                    </a>
+                </li>
+                <li class="nav-item p-0">
+                    <a class="nav-link" rel="tooltip" title="Like us on Facebook" data-placement="bottom" href="" target="_blank">
+                        <i class="fab fa-facebook-square"></i>
+                        <p class="d-lg-none d-xl-none">Facebook</p>
+                    </a>
+                </li>
+                <li class="nav-item p-0">
+                    <a class="nav-link" rel="tooltip" title="Follow us on Instagram" data-placement="bottom" href="" target="_blank">
+                        <i class="fab fa-instagram"></i>
+                        <p class="d-lg-none d-xl-none">Instagram</p>
+                    </a>
+                </li>
                 <li class="dropdown nav-item">
                     <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
                         <i class="fa fa-cogs d-lg-none d-xl-none"></i> Getting started
@@ -88,8 +87,8 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link btn btn-default d-none d-lg-block" href="/logout" role = "button" onclick="scrollToDownload()">
-                        Logout
+                    <a class="nav-link btn btn-default d-none d-lg-block" href="javascript:void(0)" onclick="scrollToDownload()">
+                        <i class="tim-icons icon-cloud-download-93"></i> Download
                     </a>
                 </li>
             </ul>
@@ -108,48 +107,30 @@
                         <div id="square8" class="square square-8"></div>
                         <div class="card card-register">
                             <div class="card-header">
-                                <img class="card-img" src="../public/img/square1.png" alt="Card image">
-                                <h4 class="card-title" style="color:white; text-align: center;">Register</h4>
+                                <img class="card-img" src="/images/square1.png" alt="Card image">
+                                <h4 class="card-title">Add Server</h4>
                             </div>
-                            <div class="card-body">
-                                <form class="form">
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text">
-                                                <i class="tim-icons icon-single-02"></i>
-                                            </div>
-                                        </div>
-                                        <input type="text" class="form-control" placeholder="Full Name">
-                                    </div>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text">
-                                                <i class="tim-icons icon-email-85"></i>
-                                            </div>
-                                        </div>
-                                        <input type="text" placeholder="Email" class="form-control">
-                                    </div>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text">
-                                                <i class="tim-icons icon-lock-circle"></i>
-                                            </div>
-                                        </div>
-                                        <input type="text" class="form-control" placeholder="Password">
-                                    </div>
-                                    <div class="form-check text-left">
-                                        <label class="form-check-label">
-                                            <input class="form-check-input" type="checkbox">
-                                            <span class="form-check-sign"></span>
-                                            I agree to the
-                                            <a href="javascript:void(0)">terms and conditions</a>.
-                                        </label>
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="card-footer">
-                                <a href="javascript:void(0)" class="btn btn-info btn-round btn-lg">Get Started</a>
-                            </div>
+                            <form:form method = "POST" action = "/api/servers/s3bucket" autocomplete="false">
+                                <table>
+                                    <tr>
+                                        <td><form:label path = "bucketName">Bucket Name:</form:label></td>
+                                        <td><form:input path = "bucketName" autocomplete="false"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><form:label path = "privateKey">Private Key:</form:label></td>
+                                        <td><form:input path = "privateKey" autocomplete="false"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><form:label path = "publicKey">Public Key:</form:label></td>
+                                        <td><form:input path = "publicKey" autocomplete="false"/>
+                                    </tr>
+                                    <tr>
+                                        <td colspan = "2">
+                                            <input type = "submit" class="btn btn-info btn-round btn-lg" value = "Submit"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </form:form>
                         </div>
                     </div>
                 </div>
@@ -167,7 +148,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-3">
-                    <h1 class="title">PolyMorphic Toolbox</h1>
+                    <h1 class="title">BLK•</h1>
                 </div>
                 <div class="col-md-3">
                     <ul class="nav">
@@ -235,37 +216,25 @@
         </div>
     </footer>
 </div>
+
 <!--   Core JS Files   -->
-<script src="../public/js/core/jquery.min.js" type="text/javascript"></script>
-<script src="../public/js/core/popper.min.js" type="text/javascript"></script>
-<script src="../public/js/core/bootstrap.min.js" type="text/javascript"></script>
-<script src="../public/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+<script src="/js/core/jquery.min.js" type="text/javascript"></script>
+<script src="/js/core/popper.min.js" type="text/javascript"></script>
+<script src="/js/core/bootstrap.min.js" type="text/javascript"></script>
+<script src="/js/plugins/perfect-scrollbar.jquery.min.js"></script>
 <!--  Plugin for Switches, full documentation here: http://www.jque.re/plugins/version3/bootstrap.switch/ -->
-<script src="../public/js/plugins/bootstrap-switch.js"></script>
+<script src="/js/plugins/bootstrap-switch.js"></script>
 <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
-<script src="../public/js/plugins/nouislider.min.js" type="text/javascript"></script>
+<script src="/js/plugins/nouislider.min.js" type="text/javascript"></script>
 <!-- Chart JS -->
-<script src="../public/js/plugins/chartjs.min.js"></script>
+<script src="/js/plugins/chartjs.min.js"></script>
 <!--  Plugin for the DatePicker, full documentation here: https://github.com/uxsolutions/bootstrap-datepicker -->
-<script src="../public/js/plugins/moment.min.js"></script>
-<script src="../public/js/plugins/bootstrap-datetimepicker.js" type="text/javascript"></script>
-<!-- Black Dashboard DEMO methods, don't include it in your project! -->
-<script src="../public/demo/demo.js"></script>
+<script src="/js/plugins/moment.min.js"></script>
+<script src="/js/plugins/bootstrap-datetimepicker.js" type="text/javascript"></script>
+<%--<!-- Black Dashboard DEMO methods, don't include it in your project! -->--%>
+<%--<script src="/demo/demo.js"></script>--%>
 <!-- Control Center for Black UI Kit: parallax effects, scripts for the example pages etc -->
-<script src="../public/js/blk-design-system.min.js?v=1.0.0" type="text/javascript"></script>
-<script>
-    $(document).ready(function() {
-        blackKit.initDatePicker();
-        blackKit.initSliders();
-    });
-    function scrollToDownload() {
-        if ($('.section-download').length != 0) {
-            $("html, body").animate({
-                scrollTop: $('.section-download').offset().top
-            }, 1000);
-        }
-    }
-</script>
+<script src="/js/blk-design-system.min.js?v=1.0.0" type="text/javascript"></script>
 </body>
 
 </html>

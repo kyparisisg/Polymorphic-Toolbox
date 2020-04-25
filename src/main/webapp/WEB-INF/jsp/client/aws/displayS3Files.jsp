@@ -1,14 +1,17 @@
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<!DOCTYPE HTML>
+<%@taglib uri = "http://www.springframework.org/tags/form" prefix = "form"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<jsp:useBean id="tran" class="com.temple.polymorphic.toolbox.dto.TransferOperation"/>
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <title>Polymorphic Toolbox</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="apple-touch-icon" sizes="76x76" href="/images/apple-icon.png">
     <link rel="icon" type="image/png" href="/images/favicon.png">
-
+    <title>
+        Polymorphic Toolbox
+    </title>
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet" />
     <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
@@ -16,16 +19,18 @@
     <link href="/css/nucleo-icons.css" rel="stylesheet" />
     <!-- CSS Files -->
     <link href="/css/blk-design-system.css?v=1.0.0" rel="stylesheet" />
-    <!-- CSS Just for demo purpose, (probably going to takeout) -->
-    <link href="/demo/demo.css" rel="stylesheet" />
-    <%--    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />--%>
+    <%--    <!-- CSS Just for demo purpose, don't include it in your project -->--%>
+    <%--    <link href="/demo/demo.css" rel="stylesheet" />--%>
 </head>
+
+
+
 <body class="index-page">
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg fixed-top navbar-transparent " color-on-scroll="100">
     <div class="container">
         <div class="navbar-translate">
-            <a class="navbar-brand" href="/home" rel="tooltip"  data-placement="bottom" >
+            <a class="navbar-brand" href="/client" rel="tooltip"  data-placement="bottom" >
                 <span>POLYMORPHIC TOOLBOX</span>
             </a>
             <button class="navbar-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
@@ -88,8 +93,8 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link btn btn-default d-none d-lg-block" href="/logout" role = "button" onclick="scrollToDownload()">
-                        Logout
+                    <a class="nav-link btn btn-default d-none d-lg-block" href="javascript:void(0)" onclick="scrollToDownload()">
+                        <i class="tim-icons icon-cloud-download-93"></i> Download
                     </a>
                 </li>
             </ul>
@@ -108,62 +113,64 @@
         <div class="squares square7"></div>
         <div class="container">
             <div class="content-center brand">
-                <h1 class="h1-seo">Manage Servers</h1>
-                <div class="row justify-content-md-center">
-
-                    <div class="text-center col-md-12 col-lg-8">
-                        <a href="/api/servers/all" class="btn btn-primary btn-round btn-lg" role="button">
-                            View All
-                        </a>
-                    </div>
-                    <div class="text-center col-md-12 col-lg-8">
-                        <a href="/api/servers/get" class="btn btn-primary btn-round btn-lg" role="button">
-                            Search Server
-                        </a>
-                    </div>
-
-                    <div class="text-center col-md-12 col-lg-8">
-                        <a href="/api/servers/save" class="btn btn-primary btn-round btn-lg" role="button">
-                            Add Server
-                        </a>
-                    </div>
-                    <div class="text-center col-md-12 col-lg-8">
-                        <a href="/api/servers/update" class="btn btn-primary btn-round btn-lg" role="button">
-                            Update Server
-                        </a>
-                    </div>
-                    <div class="text-center col-md-12 col-lg-8">
-                        <a href="/api/servers/delete" class="btn btn-primary btn-round btn-lg" role="button">
-                            Delete Server
-                        </a>
-                    </div>
-                    <div class="text-center col-md-12 col-lg-8">
-                        <a href="/api/servers/s3bucket" class="btn btn-primary btn-round btn-lg" role="button">
-                            S3 Bucket Setup
-                        </a>
-                    </div>
-                    <div class="text-center col-md-12 col-lg-8">
-                        <a href="/api/admin" class="btn btn-primary btn-round btn-lg" role="button">
-                            Go back
-                        </a>
-                    </div>
+                <h1 class="h1-seo">Delete Files From S3 Bucket</h1>
+                <h3 class="h1-seo">User: ${email}</h3>
+                <div th:case="*">
+                    <form:form method = "POST" action = "/client/aws/delete" autocomplete="false">
+                        <div class="container my-2">
+                            <div th:case="*">
+                                <table class="table table-striped table-responsive-md">
+                                    <thead>
+                                    <tr>
+                                        <th>File Name</th>
+                                    </tr>
+                                    </thead>
+                                    <c:forEach items="${fileList}" var="fileInfoDto">
+                                        <tr>
+                                            <td>${fileInfoDto.file_name}</td>
+                                        </tr>
+                                    </c:forEach>
+                                    </tr>
+                                </table>
+                            </div>
+                            <tr>
+                                <td><form:input path = "fileName" autocomplete="false" placeholder="File Name" /></td>
+                            </tr>
+                            <tr>
+                                <td><form:input path = "email" type="hidden" value="${email}" autocomplete="false" /></td>
+                            </tr>
+                            <br><br>
+                            <tr>
+                                <td colspan = "2">
+                                    <input type = "submit" value = "Set"/>
+                                </td>
+                            </tr>
+                        </div>
+                    </form:form>
                 </div>
+                <tr>
+                    <td>Return to:</td>
+                    <td><a href="/client">Client Dashboard</a></td>
+                </tr>
+
             </div>
+
         </div>
     </div>
+</div>
 
-    <!--  End Modal -->
+<!--  End Modal -->
 </div>
 <footer class="footer">
     <div class="container">
         <div class="row">
             <div class="col-md-3">
-                <h1 class="title">POLYMORPHIC TOLLBOX</h1>
+                <h1 class="title">POLYMORPHIC TOOLBOX</h1>
             </div>
             <div class="col-md-3">
                 <ul class="nav">
                     <li class="nav-item">
-                        <a href="/api/admin" class="nav-link">
+                        <a href="/home" class="nav-link">
                             Home
                         </a>
                     </li>
@@ -258,7 +265,5 @@
         }
     }
 </script>
-
-
 </body>
 </html>

@@ -113,6 +113,9 @@
                 <%--                <h1 class="h1-seo"></h1>--%>
                 <h3>Welcome to the User Dashboard</h3>
                 <div class="row justify-content-md-center">
+
+
+
                     <div class="text-center col-md-12 col-lg-8">
                         <a href="/client/transfer/form" class="btn btn-primary btn-round btn-lg" role="button">
                             Server Transfer
@@ -130,6 +133,12 @@
                     <div class="text-center col-md-12 col-lg-8">
                         <a href="/client/aws/download" class="btn btn-primary btn-round btn-lg" role="button">
                             Restore
+                        </a>
+                    </div>
+
+                    <div class="text-center col-md-12 col-lg-8">
+                        <a href="/client/aws/delete" class="btn btn-primary btn-round btn-lg" role="button">
+                            Delete File
                         </a>
                     </div>
 

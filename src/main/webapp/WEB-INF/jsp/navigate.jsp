@@ -71,7 +71,7 @@
                 </li>
                 <li class="dropdown nav-item">
                     <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-                        <i class="fa fa-cogs d-lg-none d-xl-none"></i> Getting started
+                        <i class="fa fa-cogs d-lg-none d-xl-none"></i> Administrator
                     </a>
                     <div class="dropdown-menu dropdown-with-icons">
                         <a href="" class="dropdown-item">
@@ -100,6 +100,7 @@
 <!-- End Navbar -->
 
 <div class="wrapper">
+    <img src="/images/dots.png" class = "dots">
     <div class="page-header header-filter">
         <div class="squares square1"></div>
         <div class="squares square2"></div>
@@ -113,16 +114,50 @@
                 <%--                <h1 class="h1-seo"></h1>--%>
                 <h3>Welcome</h3>
                 <div class="row justify-content-md-center">
-                    <div class="text-center col-md-12 col-lg-8">
-                        <a href="/api/admin" class="btn btn-primary btn-round btn-lg" role="button">
-                            Admin Dashboard
-                        </a>
+                    <div class="col-lg-3">
+                        <img class="img-fluid" src="/images/manage-users.png">
+                        <br><br>
+                        <p class="text-white mb-3">Invite user to join the Polymorphic Toolbox and experience the wonderful simplicity of our platform. Modify or delete users when necessary.</p>
+                        <div class="btn-wrapper mb-3">
+                            <p class="category text-success d-inline">Manage Users</p>
+                            <a href="/api/users" class="btn btn-success btn-link btn-sm"><i class="tim-icons icon-minimal-right"></i></a>
+                        </div>
+                        <div class="btn-wrapper">
+
+                        </div>
                     </div>
-                    <div class="text-center col-md-12 col-lg-8">
-                        <a href="/client" class="btn btn-primary btn-round btn-lg" role="button">
-                            Client Dashboard
-                        </a>
+                    <div class="col-lg-3">
+                        <img class="img-fluid" src="/images/manage-servers.png">
+                        <br><br>
+                        <p class="text-white mb-3">Add new servers by IP and give privillages to the clients so file transfer operations can take place.
+                            Modify or delete servers when the infrasture changes.</p>
+                        <div class="btn-wrapper mb-3">
+                            <p class="category text-success d-inline">Manage Servers</p>
+                            <a href="/api/servers" class="btn btn-success btn-link btn-sm"><i class="tim-icons icon-minimal-right"></i></a>
+                        </div>
+                        <div class="btn-wrapper">
+
+                        </div>
                     </div>
+                    <div class="col-lg-3">
+                        <img class="img-fluid" src="/images/client-view.jpg">
+                        <br><br>
+                        <p class="text-white mb-3">Client view allows the Admin of the infrastracture to select and execute operation like a simple user.
+                            The Admin can transfer files within the registered servers. Furthermore, back up and retrieve from the cloud storage facility.</p>
+                        <div class="btn-wrapper mb-3">
+                            <p class="category text-success d-inline">Client Dashboard</p>
+                            <a href="/client" class="btn btn-success btn-link btn-sm"><i class="tim-icons icon-minimal-right"></i></a>
+                        </div>
+                        <div class="btn-wrapper">
+
+                        </div>
+                    </div>
+<%--                    <div class="text-center col-md-12 col-lg-8">--%>
+<%--                        <a href="/api/admin" class="btn btn-primary btn-round btn-lg" role="button">--%>
+<%--                            Admin Dashboard--%>
+<%--                        </a>--%>
+<%--                    </div>--%>
+
                 </div>
             </div>
         </div>
