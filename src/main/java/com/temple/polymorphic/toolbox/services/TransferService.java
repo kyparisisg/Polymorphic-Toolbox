@@ -1,19 +1,15 @@
 package com.temple.polymorphic.toolbox.services;
 
+import com.amazonaws.auth.AWSCredentialsProvider;
+import com.amazonaws.auth.AWSCredentialsProviderChain;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.jcraft.jsch.*;
-import com.temple.polymorphic.toolbox.ServerRepository;
-import com.temple.polymorphic.toolbox.TransactionRepository;
-import com.temple.polymorphic.toolbox.UserRepository;
+import com.temple.polymorphic.toolbox.*;
 import com.temple.polymorphic.toolbox.dto.TransactionDto;
-import com.temple.polymorphic.toolbox.PermissionRepository;
 import com.temple.polymorphic.toolbox.dto.ServerDto;
-import com.temple.polymorphic.toolbox.models.Server;
-import com.temple.polymorphic.toolbox.models.Permissions;
-import com.temple.polymorphic.toolbox.models.Transactions;
-import com.temple.polymorphic.toolbox.models.User;
+import com.temple.polymorphic.toolbox.models.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -49,6 +45,10 @@ public class TransferService {
     @Autowired
     private TransactionRepository transactionRepository;
 
+    @Autowired
+    private BucketCredRepository bucketCredRepository;
+
+    private final Long defaultBucket = Long.valueOf(1);
 
     public void setUserRepository(UserRepository userRepository) { this.userRepository = userRepository; }
 
@@ -58,15 +58,21 @@ public class TransferService {
 
     public void setTransactionRepository(TransactionRepository transactionRepository) { this.transactionRepository = transactionRepository; }
 
+    public void setBucketCredRepository(BucketCredRepository bucketCredRepository) { this.bucketCredRepository = bucketCredRepository; }
+
+
     /*----------------------------------------------------------------------------------------------------------------
     S3 OPERATIONS
      ----------------------------------------------------------------------------------------------------------------*/
 
     // for creating new buckets
-    public static void createS3b(String bcknm){
-        BasicAWSCredentials awsCreds = new BasicAWSCredentials(Credentials.access_key_id, Credentials.secret_access_key);
+    //public static void createS3b(String bcknm){
+    public void createS3b(String bcknm){
+        //BasicAWSCredentials awsCreds = new BasicAWSCredentials(Credentials.access_key_id, Credentials.secret_access_key);
+        BasicAWSCredentials awsCreds = new BasicAWSCredentials(bucketCredRepository.findById(defaultBucket).get().getPublicKey(), bucketCredRepository.findById(defaultBucket).get().getPrivateKey());
 
-        AmazonS3 s3Client = AmazonS3ClientBuilder.standard().withRegion("us-east-2").withCredentials(new AWSStaticCredentialsProvider(awsCreds)).build();
+        //AmazonS3 s3Client = AmazonS3ClientBuilder.standard().withRegion("us-east-2").withCredentials(new AWSStaticCredentialsProvider(awsCreds)).build();
+        AmazonS3 s3Client = AmazonS3ClientBuilder.standard().withRegion("us-east-2").withCredentials(new AWSCredentialsProviderChain((AWSCredentialsProvider)awsCreds)).build();
 
 
         String newBucketName = ""+bcknm;
@@ -79,13 +85,13 @@ public class TransferService {
 
     }
 
-    //Use This to Delete 'Serevers' aka aws buckets from lists for admins
-    public static void deleteRequest(String bcknm) throws IOException {
+    //Use This to Delete 'Servers' aka aws buckets from lists for admins
+    public void deleteRequest(String bcknm) throws IOException {
         AmazonS3 s3Client = setUpclient();
         BucketTools.deleteBucket(bcknm,s3Client);
     }
 
-    public static boolean doesObjectExist(String fileName, String bucketName, String S3Dir){
+    public boolean doesObjectExist(String fileName, String bucketName, String S3Dir){
         AmazonS3  s3client =  setUpclient();
 
 
@@ -126,7 +132,7 @@ public class TransferService {
         return false;
     }
 
-    public static void fileUpload(String bcktnm, String dir,String fileName) throws IOException{
+    public void fileUpload(String bcktnm, String dir,String fileName) throws IOException{
 
         AmazonS3 s3Client = setUpclient();
         String localPath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
@@ -140,17 +146,17 @@ public class TransferService {
                         new File(localPath)
                 );
             }
-            catch(AmazonServiceException ase){
-                System.out.println("Caught an AmazonServiceException, which " +
-                        "means your request made it " +
-                        "to Amazon S3, but was rejected with an error response" +
-                        " for some reason.");
-                System.out.println("Error Message:    " + ase.getMessage());
-                System.out.println("HTTP Status Code: " + ase.getStatusCode());
-                System.out.println("AWS Error Code:   " + ase.getErrorCode());
-                System.out.println("Error Type:       " + ase.getErrorType());
-                System.out.println("Request ID:       " + ase.getRequestId());
-            }
+//            catch(AmazonServiceException ase){
+//                System.out.println("Caught an AmazonServiceException, which " +
+//                        "means your request made it " +
+//                        "to Amazon S3, but was rejected with an error response" +
+//                        " for some reason.");
+//                System.out.println("Error Message:    " + ase.getMessage());
+//                System.out.println("HTTP Status Code: " + ase.getStatusCode());
+//                System.out.println("AWS Error Code:   " + ase.getErrorCode());
+//                System.out.println("Error Type:       " + ase.getErrorType());
+//                System.out.println("Request ID:       " + ase.getRequestId());
+//            }
             catch (AmazonClientException ace){
                 System.out.println("Caught an AmazonClientException, which " +
                         "means the client encountered " +
@@ -164,7 +170,7 @@ public class TransferService {
             System.out.println("Bucket does not exist on s3 Instance");
         }
     }
-    public static void fileDownload(String bcktnm, String dir,String fileName) throws IOException{
+    public void fileDownload(String bcktnm, String dir,String fileName) throws IOException{
         AmazonS3 s3Client = setUpclient();
 
         S3Object s3obj = s3Client.getObject(new GetObjectRequest(bcktnm, dir+"/"+fileName));
@@ -178,7 +184,7 @@ public class TransferService {
 
     }
 
-    public static void fileDelete(String bucketName, String fileName, String s3Dir)throws IOException{
+    public void fileDelete(String bucketName, String fileName, String s3Dir)throws IOException{
         AmazonS3 s3Client = setUpclient();
 
         try{
@@ -209,9 +215,12 @@ public class TransferService {
     }
 
     //Method that takes the credentials for S3 access and returns amazon s3 client object
-    public static AmazonS3 setUpclient() {
-        BasicAWSCredentials awsCreds = new BasicAWSCredentials(Credentials.access_key_id, Credentials.secret_access_key);
-        AmazonS3 s3Client = AmazonS3ClientBuilder.standard().withRegion("us-east-2").withCredentials(new AWSStaticCredentialsProvider(awsCreds)).build();
+    public AmazonS3 setUpclient() {
+        BasicAWSCredentials awsCreds = new BasicAWSCredentials(bucketCredRepository.findById(defaultBucket).get().getPublicKey()
+                , bucketCredRepository.findById(defaultBucket).get().getPrivateKey());
+
+        //AmazonS3 s3Client = AmazonS3ClientBuilder.standard().withRegion("us-east-2").withCredentials(new AWSStaticCredentialsProvider(awsCreds)).build();
+        AmazonS3 s3Client = AmazonS3ClientBuilder.standard().withRegion("us-east-2").withCredentials(new AWSCredentialsProviderChain((AWSCredentialsProvider)awsCreds)).build();
 
         return s3Client;
     }

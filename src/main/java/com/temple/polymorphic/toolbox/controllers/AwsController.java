@@ -1,11 +1,11 @@
 package com.temple.polymorphic.toolbox.controllers;
 
 import com.amazonaws.services.s3.AmazonS3;
+import com.temple.polymorphic.toolbox.BucketCredRepository;
 import com.temple.polymorphic.toolbox.dto.FileInfoDto;
 import com.temple.polymorphic.toolbox.dto.ServerDto;
 import com.temple.polymorphic.toolbox.dto.TransferOperation;
 import com.temple.polymorphic.toolbox.services.BucketTools;
-import com.temple.polymorphic.toolbox.services.Credentials;
 import com.temple.polymorphic.toolbox.services.ServerService;
 import com.temple.polymorphic.toolbox.services.TransferService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +28,6 @@ import java.util.List;
 @Controller
 @RequestMapping("/client/aws/")
 public class AwsController {
-    public String fdt;
 
     @Autowired
     private TransferService transferService;
@@ -39,7 +38,10 @@ public class AwsController {
     @Autowired
     private BucketTools bucketTools;
 
-    private static String bucketNameC = "greekarmy";
+    //private static String bucketNameC = "greekarmy";
+    private static String bucketNameC = "none";
+    private static String privateKey = "none";
+    private static String publicKey = "none";
 
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TransferService.class);
@@ -104,17 +106,19 @@ public class AwsController {
         //take /resources/tempFileStorage/fileToBeUploadedOnS3.ext and uploaded to S3
         //tran.getFileName();
         //BucketName = tran.getEmail();
-
+        //bucketNameC = bucketTools.getBucketCred().getBucketName();
         //verify that file has been uploaded
+        String bucketName = bucketTools.getBucketCred().getBucketName();
         try {
-            TransferService.fileUpload(Credentials.bucketNameC, tran.getEmail(), tran.getFileName());
+            TransferService.fileUpload(bucketName, tran.getEmail(), tran.getFileName());
+
         }catch (IOException e){
             //error handler
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "");    //just display thrown Exception msg
         }
 
 
-        boolean isthere =  TransferService.doesObjectExist(tran.getFileName(),Credentials.bucketNameC, tran.getEmail());
+        //boolean isthere =  TransferService.doesObjectExist(tran.getFileName(),Credentials.bucketNameC, tran.getEmail());
         //delete the file from /resources/tempFileStorage/
         if(!transferService.deleteTempFile(tran.getFileName())){
             //error handler

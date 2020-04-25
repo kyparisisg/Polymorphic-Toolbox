@@ -34,6 +34,17 @@ public class ServerDto {
         this.keyLocation = keyLocation;
     }
 
+    public ServerDto(String name, @NotNull String ip, int port, String usernameCred, String passwordCred, int health) {
+        this.name = name;
+        this.ip = ip;
+        this.port = port;
+        this.usernameCred = usernameCred;
+        this.passwordCred = passwordCred;
+        this.health = health;
+        this.registerDate = registerDate;
+        this.keyLocation = keyLocation;
+    }
+
     public Long getId() {
         return id;
     }

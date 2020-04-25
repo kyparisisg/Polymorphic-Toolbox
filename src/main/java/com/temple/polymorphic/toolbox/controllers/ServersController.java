@@ -1,7 +1,10 @@
 package com.temple.polymorphic.toolbox.controllers;
 
 
+import com.amazonaws.services.s3.model.Bucket;
 import com.temple.polymorphic.toolbox.dto.ServerDto;
+import com.temple.polymorphic.toolbox.models.BucketCred;
+import com.temple.polymorphic.toolbox.services.BucketTools;
 import com.temple.polymorphic.toolbox.services.ServerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,6 +24,8 @@ public class ServersController {
     @Autowired
     private ServerService serverService;
 
+    @Autowired
+    private BucketTools bucketTools;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ServerService.class);
 
@@ -169,6 +174,46 @@ public class ServersController {
         model.addAttribute("port", serverDto1.getPort());
         model.addAttribute("usernameCred", serverDto1.getUsernameCred());
         model.addAttribute("request", "Health Check Set to: " + status);
+
+        return "servers/requestSuccess";
+    }
+
+    @RequestMapping(value = "/s3bucket", method = RequestMethod.GET)
+    public ModelAndView getBucketForm(){
+
+        return new ModelAndView("servers/bucket", "command",new BucketCred());
+    }
+
+    @RequestMapping(value = "/s3bucket", method = RequestMethod.POST)
+    public String setBucket(@ModelAttribute BucketCred bucketCred,Model model) {
+        try{
+            bucketTools.setBucketCred(bucketCred);
+        }catch (Exception e){
+            //error handler
+            return "error";
+        }
+
+        //Crafting custom entry for S3 Bucket
+        ServerDto serverDto = new ServerDto("Amazon S3 Bucket", "aws.amazon.com",
+                0, bucketCred.getBucketName(), "Undefined/Encrypted", 1);
+
+        ServerDto serverDto1 = null;
+        Long id = Long.valueOf(0);
+        try{
+            serverDto1 = serverService.addServer(serverDto);
+            id = serverDto1.getId();
+        }catch (Exception e){
+            //error handler
+            return "error";
+        }
+        //OR
+        model.addAttribute("id", id);
+        model.addAttribute("name", "Amazon S3 Bucket");
+        model.addAttribute("ip", "aws.amazon.com");
+        model.addAttribute("port", "Undefined");
+        model.addAttribute("usernameCred", bucketCred.getBucketName());
+        model.addAttribute("keyLocation", "Hidden/Encrypted");
+        model.addAttribute("request", "Add S3 Bucket Server");
 
         return "servers/requestSuccess";
     }

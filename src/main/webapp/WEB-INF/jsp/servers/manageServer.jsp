@@ -138,6 +138,11 @@
                         </a>
                     </div>
                     <div class="text-center col-md-12 col-lg-8">
+                        <a href="/api/servers/s3bucket" class="btn btn-primary btn-round btn-lg" role="button">
+                            S3 Bucket Setup
+                        </a>
+                    </div>
+                    <div class="text-center col-md-12 col-lg-8">
                         <a href="/api/admin" class="btn btn-primary btn-round btn-lg" role="button">
                             Go back
                         </a>
