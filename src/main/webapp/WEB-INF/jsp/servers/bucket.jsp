@@ -114,7 +114,7 @@
                                 <table>
                                     <tr>
                                         <td><form:label path = "bucketName">Bucket Name:</form:label></td>
-                                        <td><form:input path = "name" autocomplete="false"/></td>
+                                        <td><form:input path = "bucketName" autocomplete="false"/></td>
                                     </tr>
                                     <tr>
                                         <td><form:label path = "privateKey">Private Key:</form:label></td>
