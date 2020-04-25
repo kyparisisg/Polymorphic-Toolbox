@@ -108,10 +108,10 @@ public class AwsController {
         //BucketName = tran.getEmail();
         //bucketNameC = bucketTools.getBucketCred().getBucketName();
         //verify that file has been uploaded
-        String bucketName = bucketTools.getBucketCred().getBucketName();
+        //String bucketName = bucketTools.getBucketCred().getBucketName();
 
         try {
-            TransferService.fileUpload(bucketName, tran.getEmail(), tran.getFileName());
+            TransferService.fileUpload(bucketNameC, tran.getEmail(), tran.getFileName());
 
         }catch (IOException e){
             //error handler
