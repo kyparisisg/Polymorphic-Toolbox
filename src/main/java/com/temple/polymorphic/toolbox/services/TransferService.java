@@ -50,6 +50,8 @@ public class TransferService {
 
     private final Long defaultBucket = Long.valueOf(1);
 
+    private static BucketCred bucketCred = new BucketCred("","","");
+
     public void setUserRepository(UserRepository userRepository) { this.userRepository = userRepository; }
 
     public void setPermissionsRepository(PermissionRepository permissionRepository) { this.permissionsRepository = permissionRepository; }
@@ -65,14 +67,20 @@ public class TransferService {
     S3 OPERATIONS
      ----------------------------------------------------------------------------------------------------------------*/
 
+    public BucketCred setBucketWithCred(){
+        return new BucketCred(bucketCredRepository.findById(defaultBucket).get().getBucketName()
+                ,bucketCredRepository.findById(defaultBucket).get().getPrivateKey()
+                ,bucketCredRepository.findById(defaultBucket).get().getPublicKey());
+    }
+
     // for creating new buckets
     //public static void createS3b(String bcknm){
-    public void createS3b(String bcknm){
-        //BasicAWSCredentials awsCreds = new BasicAWSCredentials(Credentials.access_key_id, Credentials.secret_access_key);
-        BasicAWSCredentials awsCreds = new BasicAWSCredentials(bucketCredRepository.findById(defaultBucket).get().getPublicKey(), bucketCredRepository.findById(defaultBucket).get().getPrivateKey());
+    public static void createS3b(String bcknm){
+        BasicAWSCredentials awsCreds = new BasicAWSCredentials(Credentials.access_key_id, Credentials.secret_access_key);
+        //BasicAWSCredentials awsCreds = new BasicAWSCredentials(bucketCredRepository.findById(defaultBucket).get().getPublicKey(), bucketCredRepository.findById(defaultBucket).get().getPrivateKey());
 
-        //AmazonS3 s3Client = AmazonS3ClientBuilder.standard().withRegion("us-east-2").withCredentials(new AWSStaticCredentialsProvider(awsCreds)).build();
-        AmazonS3 s3Client = AmazonS3ClientBuilder.standard().withRegion("us-east-2").withCredentials(new AWSCredentialsProviderChain((AWSCredentialsProvider)awsCreds)).build();
+        AmazonS3 s3Client = AmazonS3ClientBuilder.standard().withRegion("us-east-2").withCredentials(new AWSStaticCredentialsProvider(awsCreds)).build();
+        //AmazonS3 s3Client = AmazonS3ClientBuilder.standard().withRegion("us-east-2").withCredentials(new AWSCredentialsProviderChain((AWSCredentialsProvider)awsCreds)).build();
 
 
         String newBucketName = ""+bcknm;
@@ -86,7 +94,7 @@ public class TransferService {
     }
 
     //Use This to Delete 'Servers' aka aws buckets from lists for admins
-    public void deleteRequest(String bcknm) throws IOException {
+    public static void deleteRequest(String bcknm) throws IOException {
         AmazonS3 s3Client = setUpclient();
         BucketTools.deleteBucket(bcknm,s3Client);
     }
@@ -132,7 +140,7 @@ public class TransferService {
         return false;
     }
 
-    public void fileUpload(String bcktnm, String dir,String fileName) throws IOException{
+    public static void fileUpload(String bcktnm, String dir, String fileName) throws IOException{
 
         AmazonS3 s3Client = setUpclient();
         String localPath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
@@ -170,7 +178,7 @@ public class TransferService {
             System.out.println("Bucket does not exist on s3 Instance");
         }
     }
-    public void fileDownload(String bcktnm, String dir,String fileName) throws IOException{
+    public static void fileDownload(String bcktnm, String dir,String fileName) throws IOException{
         AmazonS3 s3Client = setUpclient();
 
         S3Object s3obj = s3Client.getObject(new GetObjectRequest(bcktnm, dir+"/"+fileName));
@@ -215,12 +223,13 @@ public class TransferService {
     }
 
     //Method that takes the credentials for S3 access and returns amazon s3 client object
-    public AmazonS3 setUpclient() {
-        BasicAWSCredentials awsCreds = new BasicAWSCredentials(bucketCredRepository.findById(defaultBucket).get().getPublicKey()
-                , bucketCredRepository.findById(defaultBucket).get().getPrivateKey());
+    public static AmazonS3 setUpclient() {
+//        BasicAWSCredentials awsCreds = new BasicAWSCredentials(bucketCredRepository.findById(defaultBucket).get().getPublicKey()
+//                , bucketCredRepository.findById(defaultBucket).get().getPrivateKey());
 
-        //AmazonS3 s3Client = AmazonS3ClientBuilder.standard().withRegion("us-east-2").withCredentials(new AWSStaticCredentialsProvider(awsCreds)).build();
-        AmazonS3 s3Client = AmazonS3ClientBuilder.standard().withRegion("us-east-2").withCredentials(new AWSCredentialsProviderChain((AWSCredentialsProvider)awsCreds)).build();
+        BasicAWSCredentials awsCreds = new BasicAWSCredentials(Credentials.access_key_id, Credentials.secret_access_key);
+        AmazonS3 s3Client = AmazonS3ClientBuilder.standard().withRegion("us-east-2").withCredentials(new AWSStaticCredentialsProvider(awsCreds)).build();
+        //AmazonS3 s3Client = AmazonS3ClientBuilder.standard().withRegion("us-east-2").withCredentials(new AWSCredentialsProviderChain((AWSCredentialsProvider)awsCreds)).build();
 
         return s3Client;
     }

@@ -10,8 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 public interface BucketCredRepository extends JpaRepository<BucketCred, Long> {
-    public static final String FIND_BY_BUCKET_NAME = "SELECT b FROM BucketCred b WHERE b.bucket_name=?1 ";
+    public static final String FIND_BY_BUCKET_NAME = "SELECT b FROM BucketCred b WHERE b.bucketName=?1 ";
 
     @Query(FIND_BY_BUCKET_NAME)
-    public User findByBucketName(String bucketName);
+    public BucketCred findByBucketName(String bucketName);
 }

@@ -109,6 +109,7 @@ public class AwsController {
         //bucketNameC = bucketTools.getBucketCred().getBucketName();
         //verify that file has been uploaded
         String bucketName = bucketTools.getBucketCred().getBucketName();
+
         try {
             TransferService.fileUpload(bucketName, tran.getEmail(), tran.getFileName());
 

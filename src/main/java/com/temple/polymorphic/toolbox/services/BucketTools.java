@@ -81,10 +81,10 @@ public class BucketTools {
 
     // tyler Remember you might have to change println out to logger
     //this deletes a bucket and all of the objects within the bucket by iterating through its object list
-    public void deleteBucket(String bucketName,AmazonS3 s3client) throws IOException {
+    public static void deleteBucket(String bucketName,AmazonS3 s3client){
     //public static void deleteBucket(String bucketName,AmazonS3 s3client) throws IOException {
         try {
-            System.out.println("Deleting S3 bucket: " + bucketName);
+            //System.out.println("Deleting S3 bucket: " + bucketName);
             ObjectListing objectListing = s3client.listObjects(bucketName);
 
             while (true) {
@@ -106,28 +106,27 @@ public class BucketTools {
             s3client.deleteBucket(bucketName);
 
 
-        } catch (AmazonServiceException ase) {
-            System.out.println("Caught an AmazonServiceException, which " +
-                    "means your request made it " +
-                    "to Amazon S3, but was rejected with an error response" +
-                    " for some reason.");
-            System.out.println("Error Message:    " + ase.getMessage());
-            System.out.println("HTTP Status Code: " + ase.getStatusCode());
-            System.out.println("AWS Error Code:   " + ase.getErrorCode());
-            System.out.println("Error Type:       " + ase.getErrorType());
-            System.out.println("Request ID:       " + ase.getRequestId());
+//        } catch (AmazonServiceException ase) {
+//            System.out.println("Caught an AmazonServiceException, which " +
+//                    "means your request made it " +
+//                    "to Amazon S3, but was rejected with an error response" +
+//                    " for some reason.");
+//            System.out.println("Error Message:    " + ase.getMessage());
+//            System.out.println("HTTP Status Code: " + ase.getStatusCode());
+//            System.out.println("AWS Error Code:   " + ase.getErrorCode());
+//            System.out.println("Error Type:       " + ase.getErrorType());
+//            System.out.println("Request ID:       " + ase.getRequestId());
         } catch (AmazonClientException ace) {
-            System.out.println("Caught an AmazonClientException, which " +
-                    "means the client encountered " +
-                    "an internal error while trying to " +
-                    "communicate with S3, " +
-                    "such as not being able to access the network.");
-            System.out.println("Error Message: " + ace.getMessage());
+//            System.out.println("Caught an AmazonClientException, which " +
+//                    "means the client encountered " +
+//                    "an internal error while trying to " +
+//                    "communicate with S3, " +
+//                    "such as not being able to access the network.");
+//            System.out.println("Error Message: " + ace.getMessage());
         }
     }
 
-    //public static List<FileInfoDto> getBucketItemList(String bucketName, AmazonS3 s3client, String dirName){
-    public List<FileInfoDto> getBucketItemList(String bucketName, AmazonS3 s3client, String dirName){
+    public static List<FileInfoDto> getBucketItemList(String bucketName, AmazonS3 s3client, String dirName){
         ObjectListing objectListing = s3client.listObjects(bucketName);
         List<FileInfoDto> s3filesList = new ArrayList<FileInfoDto>();
 
@@ -166,8 +165,7 @@ public class BucketTools {
     }
 
 
-//    public static void transferobj(String filename,String bucketNamefrom,String dirFrom, String bucketNameTo, String dirTo,AmazonS3 s3client){
-    public void transferobj(String filename,String bucketNamefrom,String dirFrom, String bucketNameTo, String dirTo,AmazonS3 s3client){
+    public static void transferobj(String filename,String bucketNamefrom,String dirFrom, String bucketNameTo, String dirTo,AmazonS3 s3client){
 
         if(s3client.doesBucketExistV2(bucketNamefrom) == false || s3client.doesBucketExistV2(bucketNameTo) == false){
             //user logger class to log error for bukkets not existing then throw an exception
