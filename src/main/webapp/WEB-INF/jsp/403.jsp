@@ -1,4 +1,5 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
@@ -89,8 +90,8 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link btn btn-default d-none d-lg-block" href="javascript:void(0)" onclick="scrollToDownload()">
-                        <i class="tim-icons icon-cloud-download-93"></i> Download
+                    <a class="nav-link btn btn-default d-none d-lg-block" href="/logout" role = "button" onclick="scrollToDownload()">
+                        Logout
                     </a>
                 </li>
             </ul>

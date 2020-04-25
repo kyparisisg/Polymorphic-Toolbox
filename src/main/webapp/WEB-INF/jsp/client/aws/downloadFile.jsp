@@ -1,4 +1,8 @@
-Form to uploads file from server.
+<li class="nav-item">
+    <a class="nav-link btn btn-default d-none d-lg-block" href="/logout" role = "button" onclick="scrollToDownload()">
+        Logout
+    </a>
+</li>Form to uploads file from server.
 
 **For now just to test the aws api, upload a file from your localhost**
 

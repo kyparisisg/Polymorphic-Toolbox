@@ -56,7 +56,7 @@
                     <div class="row">
                         <div class="col-md-12 text-center">
                             <h4 class="text-uppercase">Giannis</h4>
-                            <img src="images/mike.jpg" alt="MISSING JPG"/>
+                            <img src="/images/mike.jpg" alt="MISSING JPG"/>
                             <hr class="line-primary">
                         </div>
                     </div>
@@ -83,7 +83,7 @@
                     <div class="row">
                         <div class="col-md-12 text-center">
                             <h4 class="text-uppercase">Bella</h4>
-                            <img src="images/mike.jpg" alt="MISSING JPG"/>
+                            <img src="/images/mike.jpg" alt="MISSING JPG"/>
                             <hr class="line-success">
                         </div>
                     </div>
@@ -110,7 +110,7 @@
 
                         <div class="col-md-12 text-center">
                             <h4 class="text-uppercase">Tyler</h4>
-                            <img src="images/mike.jpg" alt="MISSING JPG"/>
+                            <img src="/images/mike.jpg" alt="MISSING JPG"/>
                             <hr class="line-info">
                         </div>
                     </div>
