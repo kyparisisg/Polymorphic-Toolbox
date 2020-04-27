@@ -119,8 +119,8 @@
 
 
                     <div class="text-center col-md-12 col-lg-8">
-                        <a href="/client" class="text-center btn btn-primary btn-round btn-lg" role="button">
-                            Client Dashboard
+                        <a href="/home" class="text-center btn btn-primary btn-round btn-lg" role="button">
+                            Home
                         </a>
                     </div>
                     <div class="text-center col-md-12 col-lg-8">
