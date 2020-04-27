@@ -73,18 +73,24 @@ public class ServersController {
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public String saveServer(@ModelAttribute ServerDto serverDto, Model model){
-        ServerDto serverDto1 = serverService.addServer(serverDto);
-        model.addAttribute("server", serverDto1);
-        //OR
-        model.addAttribute("id", serverDto1.getId());
-        model.addAttribute("name", serverDto1.getName());
-        model.addAttribute("ip", serverDto1.getIp());
-        model.addAttribute("port", serverDto1.getPort());
-        model.addAttribute("usernameCred", serverDto1.getUsernameCred());
-        model.addAttribute("keyLocation", serverDto1.getKeyLocation());
-        model.addAttribute("request", "Add Server");
+        try{
+            ServerDto serverDto1 = serverService.addServer(serverDto);
+            model.addAttribute("server", serverDto1);
+            //OR
+            model.addAttribute("id", serverDto1.getId());
+            model.addAttribute("name", serverDto1.getName());
+            model.addAttribute("ip", serverDto1.getIp());
+            model.addAttribute("port", serverDto1.getPort());
+            model.addAttribute("usernameCred", serverDto1.getUsernameCred());
+            model.addAttribute("keyLocation", serverDto1.getKeyLocation());
+            model.addAttribute("request", "Add Server");
 
-        return "servers/requestSuccess";
+            return "servers/requestSuccess";
+        }catch (Exception e){
+            String msg = "Could not add new server, please try again!";
+            model.addAttribute("msg", msg);
+            return "500";
+        }
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.GET)
@@ -102,18 +108,24 @@ public class ServersController {
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public String updateServer(@ModelAttribute ServerDto serverDto, Model model){
-        ServerDto serverDto1 = serverService.updateServer(serverDto);
-        model.addAttribute("server", serverDto1);
-        //OR
-        model.addAttribute("id", serverDto1.getId());
-        model.addAttribute("name", serverDto1.getName());
-        model.addAttribute("ip", serverDto1.getIp());
-        model.addAttribute("port", serverDto1.getPort());
-        model.addAttribute("usernameCred", serverDto1.getUsernameCred());
-        model.addAttribute("keyLocation", serverDto1.getKeyLocation());
-        model.addAttribute("request", "Update Server");
+        try {
+            ServerDto serverDto1 = serverService.updateServer(serverDto);
+            model.addAttribute("server", serverDto1);
+            //OR
+            model.addAttribute("id", serverDto1.getId());
+            model.addAttribute("name", serverDto1.getName());
+            model.addAttribute("ip", serverDto1.getIp());
+            model.addAttribute("port", serverDto1.getPort());
+            model.addAttribute("usernameCred", serverDto1.getUsernameCred());
+            model.addAttribute("keyLocation", serverDto1.getKeyLocation());
+            model.addAttribute("request", "Update Server");
+            return "servers/requestSuccess";
+        }catch (Exception e){
+            String msg = "Could not update existing server, please make sure you completed the form correctly and try again!";
+            model.addAttribute("msg", msg);
+            return "500";
+        }
 
-        return "servers/requestSuccess";
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
@@ -124,22 +136,30 @@ public class ServersController {
 
     @RequestMapping(value = "/delete/{ip}", method = RequestMethod.GET)
     public String deleteForm(@PathVariable("ip") String ip, Model model) {
-        ServerDto serverDto1 = serverService.deleteServerByIp(ip);
-        serverDto1.setPasswordCred("");
-        model.addAttribute("server", serverDto1);
-        //OR
-        model.addAttribute("id", serverDto1.getId());
-        model.addAttribute("name", serverDto1.getName());
-        model.addAttribute("ip", serverDto1.getIp());
-        model.addAttribute("port", serverDto1.getPort());
-        model.addAttribute("usernameCred", serverDto1.getUsernameCred());
-        model.addAttribute("request", "Delete Server");
 
-        return "servers/requestSuccess";
+        try{
+            ServerDto serverDto1 = serverService.deleteServerByIp(ip);
+            serverDto1.setPasswordCred("");
+            model.addAttribute("server", serverDto1);
+            //OR
+            model.addAttribute("id", serverDto1.getId());
+            model.addAttribute("name", serverDto1.getName());
+            model.addAttribute("ip", serverDto1.getIp());
+            model.addAttribute("port", serverDto1.getPort());
+            model.addAttribute("usernameCred", serverDto1.getUsernameCred());
+            model.addAttribute("request", "Delete Server");
+
+            return "servers/requestSuccess";
+        }catch (Exception e){
+            String msg = "Could not delete server, please try again!";
+            model.addAttribute("msg", msg);
+            return "500";
+        }
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public String deleteServer(@ModelAttribute ServerDto serverDto, Model model){
+        try{
         ServerDto serverDto1 = serverService.deleteServerByIp(serverDto.getIp());
 //        model.addAttribute("server", serverDto1);
         //OR
@@ -150,7 +170,12 @@ public class ServersController {
         model.addAttribute("usernameCred", serverDto1.getUsernameCred());
         model.addAttribute("request", "Delete Server");
 
-        return "servers/requestSuccess";
+            return "servers/requestSuccess";
+        }catch (Exception e){
+            String msg = "Could not delete server, please try again!";
+            model.addAttribute("msg", msg);
+            return "500";
+        }
     }
 
     @RequestMapping(value = "/check/{id}", method = RequestMethod.GET)
@@ -190,7 +215,9 @@ public class ServersController {
             bucketTools.setBucketCred(bucketCred);
         }catch (Exception e){
             //error handler
-            return "error";
+            String msg = "Could not set S3 Bucket Credentials, please make sure the information is correct and try again!";
+            model.addAttribute("msg", msg);
+            return "500";
         }
 
         //Crafting custom entry for S3 Bucket
@@ -204,7 +231,9 @@ public class ServersController {
             id = serverDto1.getId();
         }catch (Exception e){
             //error handler
-            return "error";
+            String msg = "Could not set S3 Bucket Credentials, please make sure the information is correct and try again!";
+            model.addAttribute("msg", msg);
+            return "500";
         }
         //OR
         model.addAttribute("id", id);
