@@ -65,10 +65,13 @@ public class ClientController {
             userDto = userService.getUser(email);
         }catch (Exception e){
             //error handler - Internal Error 500
+            String msg = "Could not update user, please contact with administrator";
+            ModelAndView modelAndView = new ModelAndView("500");
+            modelAndView.addObject("msg", msg);
+            return modelAndView;
         }
         model.addAttribute("userDto", userDto);
         model.addAttribute("email", userDto.getEmail());
-
 
         return new ModelAndView("client/mySettings", "command", new UserDto());
     }
@@ -77,6 +80,9 @@ public class ClientController {
     public String mySettingsUpdate(@CookieValue(value = "username", defaultValue = "NOT_FOUND") String email, @ModelAttribute UserDto userDto, Model model){
         if(!email.equals(userDto.getEmail())){
             //throw error and navigate to error handler -- Bad Request
+            String msg = "User's email does not match";
+            model.addAttribute("msg",msg);
+            return "500";
         }
         if(userDto.getPassword().length() <= 8 ){
 //            Exception exp = ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Password does not meet the requirements!");
