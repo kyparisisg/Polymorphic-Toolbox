@@ -118,37 +118,37 @@
                     <ul class="nav nav-pills nav-pills-primary nav-pills-icons">
                         <li class="nav-item">
                             <a class="nav-link active show" href="/cleint/transfer/form/" role="button">
-                                <i class="fas fa-users"></i> Server Transfer
+                                <i class="fas fa-server"></i> Server Transfer
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active show" href="/client/aws/serverSelection/" role="button">
-                                <i class="fas fa-users"></i> Back Up
+                                <i class="fas fa-undo-alt"></i> Back Up
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active show" href="/client/aws/download" role="button">
-                                <i class="fas fa-users"></i> Restore
+                                <i class="fas fa-window-restore"></i> Restore
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active show" href="/client/aws/delete" role="button">
-                                <i class="fas fa-users"></i> Delete File
+                                <i class="fas fa-trash-alt"></i> Delete File
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active show" href="/client/myHistory" role="button">
-                                <i class="fas fa-users"></i> History
+                                <i class="fas fa-history"></i> History
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active show" href="/client/mySettings" role="button">
-                                <i class="fas fa-users"></i> My Settings
+                                <i class="fas fa-cogs"></i> My Settings
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active show" href="/logout" role="button">
-                                <i class="fas fa-users"></i> Logout
+                                <i class="fas fa-sign-out-alt"></i> Logout
                             </a>
                         </li>
                     </ul>
