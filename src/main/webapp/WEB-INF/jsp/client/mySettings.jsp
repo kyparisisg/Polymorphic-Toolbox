@@ -140,7 +140,7 @@
                                                 <form:input path = "role" type="hidden" class="form-control" value="${userDto.role}" autocomplete="off"/>
                                             </div>
                                             <div>
-                                                <form:input path = "email" type="hidden" class="form-control" value="${email}" autocomplete="off"/>
+                                                <form:input path = "email" type="hidden" class="form-control" value="${email}" autocomplete="off"/> Hint: Password has to be at least 8 characters
                                             </div>
                                         </div>
                                     </div>

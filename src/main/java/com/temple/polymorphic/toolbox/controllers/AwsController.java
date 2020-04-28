@@ -5,6 +5,7 @@ import com.temple.polymorphic.toolbox.BucketCredRepository;
 import com.temple.polymorphic.toolbox.dto.FileInfoDto;
 import com.temple.polymorphic.toolbox.dto.ServerDto;
 import com.temple.polymorphic.toolbox.dto.TransferOperation;
+import com.temple.polymorphic.toolbox.models.Server;
 import com.temple.polymorphic.toolbox.services.BucketTools;
 import com.temple.polymorphic.toolbox.services.ServerService;
 import com.temple.polymorphic.toolbox.services.TransferService;
@@ -100,7 +101,10 @@ public class AwsController {
         boolean scpStatus = transferService.scpFrom(tran.getEmail(), tran.getSrcServerId(), tran.getFileName());
         if(!scpStatus){
             //return error file could not be scp to our infrastructure
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "SCP failed to copy file: " + tran.getFileName() + ", to Polymorphic Temporary Storage Drive. Operation Aborted!");
+            //throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "SCP failed to copy file: " + tran.getFileName() + ", to Polymorphic Temporary Storage Drive. Operation Aborted!");
+            String msg = "SCP failed to copy file: " + tran.getFileName() + ", to Polymorphic Temporary Storage Drive. Operation Aborted!";
+            model.addAttribute("msg",msg);
+            return "500";
         }
 
         //take /resources/tempFileStorage/fileToBeUploadedOnS3.ext and uploaded to S3
@@ -115,7 +119,10 @@ public class AwsController {
 
         }catch (IOException e){
             //error handler
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "");    //just display thrown Exception msg
+            //throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "");    //just display thrown Exception msg
+            String msg = "Failed to upload the file on S3 Bucket";
+            model.addAttribute("msg",msg);
+            return "500";
         }
 
 
@@ -123,7 +130,10 @@ public class AwsController {
         //delete the file from /resources/tempFileStorage/
         if(!transferService.deleteTempFile(tran.getFileName())){
             //error handler
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Could not delete tmp file from Polymorphic Temporary Storage Drive.");
+            //throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Could not delete tmp file from Polymorphic Temporary Storage Drive.");
+            String msg = "Could not delete tmp file from Polymorphic Temporary Storage Drive";
+            model.addAttribute("msg",msg);
+            return "500";
         }
         //add a new transaction
 
@@ -131,6 +141,14 @@ public class AwsController {
 
         String srcServerName = serverService.getServerNameFromId(tran.getSrcServerId());
         String dstServerName = "Amazon S3";
+        try{
+            Server dstServer = serverService.getServerByIp("aws.amazon.com");
+            transferService.addTransaction(tran.getEmail(), tran.getSrcServerId(), tran.getFileName(), dstServer.getId(), 1);
+        }catch (Exception e){
+            String msg = "Could not insert transaction into user history!";
+            model.addAttribute("msg",msg);
+            return "500";
+        }
 
         model.addAttribute("email",tran.getEmail());
         model.addAttribute("src",srcServerName);
@@ -162,7 +180,11 @@ public class AwsController {
             TransferService.fileDownload(bucketNameC, email, tran.getFileName());
         }catch (IOException e){
             //error handler if file was not successfully downloaded
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "File could not been downloaded from S3 Bucket");
+            //throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "File could not been downloaded from S3 Bucket");
+            String msg = "File could not been downloaded from S3 Bucket";
+            ModelAndView modelAndView = new ModelAndView("500");
+            modelAndView.addObject("msg", msg);
+            return modelAndView;
         }
         //since file is downloaded, display servers to select server destination to complete transfer
         model.addAttribute("serverList", getServers(email));
@@ -179,16 +201,32 @@ public class AwsController {
         boolean scpStatus = transferService.scpTo(tran.getEmail(), tran.getDstServerId(), tran.getFileName());
         if(!scpStatus){
             //return error file could not be scp to our infrastructure
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "SCP failed to copy file: " + tran.getFileName() + ", to Destination Server:"+ dstServerName +". Operation Aborted!");
+            //throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "SCP failed to copy file: " + tran.getFileName() + ", to Destination Server:"+ dstServerName +". Operation Aborted!");
+            String msg = "SCP failed to copy file: " + tran.getFileName() + ", to Destination Server:"+ dstServerName +". Operation Aborted!";
+            model.addAttribute("msg",msg);
+            return "500";
         }
 
         //delete the file from /resources/tempFileStorage/
         if(!transferService.deleteTempFile(tran.getFileName())){
             //error handler
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Could not delete tmp file from Polymorphic Temporary Storage Drive.");
+            //throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Could not delete tmp file from Polymorphic Temporary Storage Drive");
+            String msg = "Could not delete tmp file from Polymorphic Temporary Storage Drive";
+            model.addAttribute("msg",msg);
+            return "500";
         }
 
         String srcServerName = "Amazon S3 Bucket";
+
+        try{
+            Server srcServer = serverService.getServerByIp("aws.amazon.com");
+            transferService.addTransaction(tran.getEmail(), srcServer.getId(), tran.getFileName(), tran.getDstServerId(), 1);
+        }catch (Exception e){
+            String msg = "Could not insert transaction into user history!";
+            model.addAttribute("msg",msg);
+            return "500";
+        }
+
 
         model.addAttribute("email",tran.getEmail());
         model.addAttribute("src",srcServerName);
@@ -203,7 +241,15 @@ public class AwsController {
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
     public ModelAndView getFilesToDelete(@CookieValue(value = "username", defaultValue = "NOT_FOUND") String email, Model model ){
         //bucketTool to return list
-        AmazonS3 s3Client = transferService.setUpclient();
+        AmazonS3 s3Client = null;
+        try{
+            s3Client = transferService.setUpclient();
+        }catch (Exception e){
+            String msg = "Failed to connect with S3 Bucket";
+            ModelAndView modelAndView = new ModelAndView("500");
+            modelAndView.addObject("msg", msg);
+            return modelAndView;
+        }
         List<FileInfoDto> fileList = bucketTools.getBucketItemList(bucketNameC, s3Client, email);   //email is the name of directory to be traversed
 
         model.addAttribute("fileList",fileList);
@@ -219,7 +265,10 @@ public class AwsController {
         try {
             transferService.fileDelete(bucketNameC,tran.getFileName(),tran.getEmail());
         }catch (IOException e){
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "File could not been deleted on S3 Bucket");
+            //throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "File could not been deleted on S3 Bucket");
+            String msg = "Failed to delete file from S3 Bucket";
+            model.addAttribute("msg",msg);
+            return "500";
         }
 
 

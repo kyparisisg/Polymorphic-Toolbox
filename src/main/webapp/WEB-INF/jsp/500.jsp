@@ -1,17 +1,14 @@
-<%@taglib uri = "http://www.springframework.org/tags/form" prefix = "form"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<jsp:useBean id="tran" class="com.temple.polymorphic.toolbox.dto.TransferOperation"/>
-<!DOCTYPE html>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-
 <head>
+    <title>Polymorphic Toolbox</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="apple-touch-icon" sizes="76x76" href="/images/apple-icon.png">
     <link rel="icon" type="image/png" href="/images/favicon.png">
-    <title>
-        Polymorphic Toolbox
-    </title>
+
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet" />
     <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
@@ -19,18 +16,17 @@
     <link href="/css/nucleo-icons.css" rel="stylesheet" />
     <!-- CSS Files -->
     <link href="/css/blk-design-system.css?v=1.0.0" rel="stylesheet" />
-    <%--    <!-- CSS Just for demo purpose, don't include it in your project -->--%>
-    <%--    <link href="/demo/demo.css" rel="stylesheet" />--%>
+    <!-- CSS Just for demo purpose, (probably going to take this out) -->
+    <link href="/demo/demo.css" rel="stylesheet" />
+    <%--    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />--%>
 </head>
-
-
-
 <body class="index-page">
+
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg fixed-top navbar-transparent " color-on-scroll="100">
     <div class="container">
         <div class="navbar-translate">
-            <a class="navbar-brand" href="/client" rel="tooltip"  data-placement="bottom" >
+            <a class="navbar-brand" href="/home" rel="tooltip" title="" data-placement="bottom" >
                 <span>POLYMORPHIC TOOLBOX</span>
             </a>
             <button class="navbar-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
@@ -93,8 +89,8 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link btn btn-default d-none d-lg-block" href="javascript:void(0)" onclick="scrollToDownload()">
-                        <i class="tim-icons icon-cloud-download-93"></i> Download
+                    <a class="nav-link btn btn-default d-none d-lg-block" href="/logout" role = "button" onclick="scrollToDownload()">
+                        Logout
                     </a>
                 </li>
             </ul>
@@ -102,6 +98,7 @@
     </div>
 </nav>
 <!-- End Navbar -->
+
 <div class="wrapper">
     <div class="page-header header-filter">
         <div class="squares square1"></div>
@@ -113,53 +110,31 @@
         <div class="squares square7"></div>
         <div class="container">
             <div class="content-center brand">
-                <h1 class="h1-seo">Accessible Files On S3 Bucket</h1>
-                <h3 class="h1-seo">User: ${email}</h3>
-                <div th:case="*">
-                    <form:form method = "POST" action = "/client/aws/download" autocomplete="false">
-                        <div class="container my-2">
-                            <div th:case="*">
-                                <table class="table table-striped table-responsive-md">
-                                    <thead>
-                                    <tr>
-                                        <th>File Name</th>
-                                    </tr>
-                                    </thead>
-                                    <c:forEach items="${fileList}" var="fileInfoDto">
-                                        <tr>
-                                            <td>${fileInfoDto.file_name}</td>
-                                        </tr>
-                                    </c:forEach>
-                                    </tr>
-                                </table>
-                            </div>
-                            <tr>
-                                <td><form:input path = "fileName" autocomplete="false" placeholder="File Name" /></td>
-                            </tr>
-                            <tr>
-                                <td><form:input path = "email" type="hidden" value="${email}" autocomplete="false" /></td>
-                            </tr>
-                            <br><br>
-                            <tr>
-                                <td colspan = "2">
-                                    <input type = "submit" value = "Set"/>
-                                </td>
-                            </tr>
-                        </div>
-                    </form:form>
+                <%--                <h1 class="h1-seo"></h1>--%>
+                <h3>Welcome to the User Dashboard</h3>
+                <h3>HTTP Status 500 - Internal Error Handler</h3>
+                    <div class="row justify-content-md-center">
+                    <br>
+                    <h4>${msg}</h4>
+
+
+                    <div class="text-center col-md-12 col-lg-8">
+                        <a href="/home" class="text-center btn btn-primary btn-round btn-lg" role="button">
+                            Home
+                        </a>
+                    </div>
+                    <div class="text-center col-md-12 col-lg-8">
+                        <a href="/logout" class="btn btn-primary btn-round btn-lg" role="button">
+                            Logout
+                        </a>
+                    </div>
+
                 </div>
-                <tr>
-                    <td>Return to:</td>
-                    <td><a href="/client">Client Dashboard</a></td>
-                </tr>
-
             </div>
-
         </div>
     </div>
-</div>
 
-<!--  End Modal -->
+    <!--  End Modal -->
 </div>
 <footer class="footer">
     <div class="container">
@@ -170,7 +145,7 @@
             <div class="col-md-3">
                 <ul class="nav">
                     <li class="nav-item">
-                        <a href="/home" class="nav-link">
+                        <a href="/api/admin" class="nav-link">
                             Home
                         </a>
                     </li>
@@ -241,14 +216,14 @@
 <script src="/js/plugins/perfect-scrollbar.jquery.min.js"></script>
 <!--  Plugin for Switches -->
 <script src="/js/plugins/bootstrap-switch.js"></script>
-<!--  Plugin for the Sliders-->
+<!--  Plugin for the Sliders -->
 <script src="/js/plugins/nouislider.min.js" type="text/javascript"></script>
 <!-- Chart JS -->
 <script src="/js/plugins/chartjs.min.js"></script>
 <!--  Plugin for the DatePicker-->
 <script src="/js/plugins/moment.min.js"></script>
 <script src="/js/plugins/bootstrap-datetimepicker.js" type="text/javascript"></script>
-<!-- Black Dashboard DEMO methods, (take this out) -->
+<!-- Black Dashboard DEMO methods, (might get rid of this) -->
 <script src="/demo/demo.js"></script>
 <!-- Control Center for Black UI Kit: parallax effects, scripts for the example pages etc -->
 <script src="/js/blk-design-system.min.js?v=1.0.0" type="text/javascript"></script>
@@ -265,5 +240,7 @@
         }
     }
 </script>
+
 </body>
 </html>
+

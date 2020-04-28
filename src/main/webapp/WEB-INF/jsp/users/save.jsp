@@ -148,7 +148,7 @@
                                         </div>
                                         <form:input path = "role" type="text" class="form-control" placeholder="role" autocomplete="false"/>
                                     </div>
-
+                                    <div><small>Accepted Role Values: ROLE_ADMIN or ROLE_USER</small></div>
                                 </div>
                                 <div class="card-footer">
                                     <input type = "submit" value="Add" class="btn btn-info btn-round btn-lg">

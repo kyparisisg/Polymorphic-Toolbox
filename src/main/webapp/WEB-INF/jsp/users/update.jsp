@@ -126,7 +126,7 @@
                                                     <i class="tim-icons icon-email-85"></i>
                                                 </div>
                                             </div>
-                                            <form:input path = "email" type="text" class="form-control" placeholder="email" autocomplete="off"/>
+                                            <form:input path = "email" type="text" class="form-control" value="${email}" autocomplete="off"/>
                                         </div>
                                         <div class="input-group">
                                             <div class="input-group-prepend">
