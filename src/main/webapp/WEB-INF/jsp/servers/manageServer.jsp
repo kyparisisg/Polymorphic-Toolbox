@@ -110,47 +110,88 @@
             <div class="content-center brand">
                 <h1 class="h1-seo">Manage Servers</h1>
                 <div class="row justify-content-md-center">
+                    <ul class="nav nav-pills nav-pills-primary nav-pills-icons">
+                        <li class="nav-item">
+                            <a class="nav-link active show" href="/api/servers/all" role="button">
+                                <i class="fas fa-users"></i> View Servers
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active show" href="/api/servers/get"  role="button" >
+                                <i class="fas fa-search"></i> Server Search
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active show" href="/api/servers/save" role="button">
+                                <i class="fas fa-plus-circle"></i> Add Server
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active show" href="/api/servers/delete"  role="button" >
+                                <i class="fa fa-trash" aria-hidden="true"></i> Delete Users
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active show" href="/api/servers/s3bucket"  role="button" >
+                                <i class="fa fa-trash" aria-hidden="true"></i> Cloud Set Up
+                            </a>
+                        </li>
 
-                    <div class="text-center col-md-12 col-lg-8">
-                        <a href="/api/servers/all" class="btn btn-primary btn-round btn-lg" role="button">
-                            View All
-                        </a>
-                    </div>
-                    <div class="text-center col-md-12 col-lg-8">
-                        <a href="/api/servers/get" class="btn btn-primary btn-round btn-lg" role="button">
-                            Search Server
-                        </a>
-                    </div>
-
-                    <div class="text-center col-md-12 col-lg-8">
-                        <a href="/api/servers/save" class="btn btn-primary btn-round btn-lg" role="button">
-                            Add Server
-                        </a>
-                    </div>
-                    <div class="text-center col-md-12 col-lg-8">
-                        <a href="/api/servers/update" class="btn btn-primary btn-round btn-lg" role="button">
-                            Update Server
-                        </a>
-                    </div>
-                    <div class="text-center col-md-12 col-lg-8">
-                        <a href="/api/servers/delete" class="btn btn-primary btn-round btn-lg" role="button">
-                            Delete Server
-                        </a>
-                    </div>
-                    <div class="text-center col-md-12 col-lg-8">
-                        <a href="/api/servers/s3bucket" class="btn btn-primary btn-round btn-lg" role="button">
-                            S3 Bucket Setup
-                        </a>
-                    </div>
-                    <div class="text-center col-md-12 col-lg-8">
-                        <a href="/api/admin" class="btn btn-primary btn-round btn-lg" role="button">
-                            Go back
-                        </a>
-                    </div>
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
+
+<%--    <div class="page-header header-filter">--%>
+<%--        <div class="squares square1"></div>--%>
+<%--        <div class="squares square2"></div>--%>
+<%--        <div class="squares square3"></div>--%>
+<%--        <div class="squares square4"></div>--%>
+<%--        <div class="squares square5"></div>--%>
+<%--        <div class="squares square6"></div>--%>
+<%--        <div class="squares square7"></div>--%>
+<%--        <div class="container">--%>
+<%--            <div class="content-center brand">--%>
+<%--                <h1 class="h1-seo">Manage Users</h1>--%>
+<%--                <div class="row justify-content-md-center">--%>
+
+<%--                    <ul class="nav nav-pills nav-pills-primary nav-pills-icons">--%>
+<%--                        <li class="nav-item">--%>
+<%--                            <a class="nav-link active show" href="/api/users/all" role="button">--%>
+<%--                                <i class="fas fa-users"></i> View Users--%>
+<%--                            </a>--%>
+<%--                        </li>--%>
+<%--                        <li class="nav-item">--%>
+<%--                            <a class="nav-link active show" href="/api/users/get"  role="button" >--%>
+<%--                                <i class="fas fa-search"></i> Search Users--%>
+<%--                            </a>--%>
+<%--                        </li>--%>
+<%--                        <li class="nav-item">--%>
+<%--                            <a class="nav-link active show" href="/api/users/save" role="button">--%>
+<%--                                <i class="fas fa-plus-circle"></i> Add Users--%>
+<%--                            </a>--%>
+<%--                        </li>--%>
+<%--                        <li class="nav-item">--%>
+<%--                            <a class="nav-link active show" href="/api/users/update"  role="button" >--%>
+<%--                                <i class="fas fa-sync-alt"></i>Update Users--%>
+<%--                            </a>--%>
+<%--                        </li>--%>
+<%--                        <li class="nav-item">--%>
+<%--                            <a class="nav-link active show" href="/api/users/delete"  role="button" >--%>
+<%--                                <i class="fa fa-trash" aria-hidden="true"></i> Delete Users--%>
+<%--                            </a>--%>
+<%--                        </li>--%>
+<%--                    </ul>--%>
+<%--                    <br><br>     <br><br>--%>
+<%--                    <div class="text-center">--%>
+<%--                        <td>Return to :</td>--%>
+<%--                        <td><a href="/navigate">Home</a></td>--%>
+<%--                    </div>--%>
+<%--                </div>--%>
+<%--            </div>--%>
+<%--        </div>--%>
+<%--    </div>--%>
 
     <!--  End Modal -->
 </div>
