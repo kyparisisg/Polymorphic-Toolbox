@@ -143,9 +143,9 @@
                                 <td>${server.port}</td>
                                 <td>${server.usernameCred}</td>
                                 <td>${server.health}</td>
-                                <td><form:form name="check" method="GET" action="/api/servers/check/${server.id}"><input type="submit" value="Check"></form:form></td>
-                                <td><form:form name="edit" method="GET" action="/api/servers/update/${server.ip}"><input type="submit" value="Edit"></form:form></td>
-                                <td><form:form name="delete" method="GET" action="/api/servers/delete/${server.ip}"><input type="submit" value="Delete"></form:form></td>
+                                <td><form:form name="check" method="GET" action="/api/servers/check/${server.id}"><button class="btn btn-info btn-sm" type = "submit" value="Check">Check</button></form:form></td>
+                                <td><form:form name="edit" method="GET" action="/api/servers/update/${server.ip}"><button class="btn btn-success btn-sm" type = "submit" value="Edit">Edit</button></form:form></td>
+                                <td><form:form name="delete" method="GET" action="/api/servers/delete/${server.ip}"><button class="btn btn-danger btn-sm" type = "submit" value="Delete">Delete</button></form:form></td>
 
                             </tr>
                         </c:forEach>
