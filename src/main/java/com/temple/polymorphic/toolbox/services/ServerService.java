@@ -256,7 +256,7 @@ public class ServerService {
         return server.getName();
     }
 
-    private Server getServerByIp(String ip){
+    public Server getServerByIp(String ip){
         //do the function to throw exception if not found
         ip = ip.replace(" ", ""); //replace spaces
         return serverRepository.findByIp(ip);

@@ -5,6 +5,7 @@ import com.temple.polymorphic.toolbox.BucketCredRepository;
 import com.temple.polymorphic.toolbox.dto.FileInfoDto;
 import com.temple.polymorphic.toolbox.dto.ServerDto;
 import com.temple.polymorphic.toolbox.dto.TransferOperation;
+import com.temple.polymorphic.toolbox.models.Server;
 import com.temple.polymorphic.toolbox.services.BucketTools;
 import com.temple.polymorphic.toolbox.services.ServerService;
 import com.temple.polymorphic.toolbox.services.TransferService;
@@ -140,6 +141,14 @@ public class AwsController {
 
         String srcServerName = serverService.getServerNameFromId(tran.getSrcServerId());
         String dstServerName = "Amazon S3";
+        try{
+            Server dstServer = serverService.getServerByIp("aws.amazon.com");
+            transferService.addTransaction(tran.getEmail(), tran.getSrcServerId(), tran.getFileName(), dstServer.getId(), 1);
+        }catch (Exception e){
+            String msg = "Could not insert transaction into user history!";
+            model.addAttribute("msg",msg);
+            return "500";
+        }
 
         model.addAttribute("email",tran.getEmail());
         model.addAttribute("src",srcServerName);
@@ -208,6 +217,16 @@ public class AwsController {
         }
 
         String srcServerName = "Amazon S3 Bucket";
+
+        try{
+            Server srcServer = serverService.getServerByIp("aws.amazon.com");
+            transferService.addTransaction(tran.getEmail(), srcServer.getId(), tran.getFileName(), tran.getDstServerId(), 1);
+        }catch (Exception e){
+            String msg = "Could not insert transaction into user history!";
+            model.addAttribute("msg",msg);
+            return "500";
+        }
+
 
         model.addAttribute("email",tran.getEmail());
         model.addAttribute("src",srcServerName);
