@@ -115,7 +115,7 @@
                             </div>
                             <%--                            <form:form class = "form" method = "POST" action = "/api/users/save">--%>
                             <div class="card-body">
-                                <h3>My Information</h3
+                                <h3>My Information</h3>
                                     <h4>User: ${email}</h4>
                                 <form:form method = "POST" action = "/client/mySettings" autocomplete="off">
                                     <div class="card-body">
@@ -168,7 +168,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-3">
-                        <h1 class="title">BLK•</h1>
+                        <h1 class="title">PolyMorphic Toolbox</h1>
                     </div>
                     <div class="col-md-3">
                         <ul class="nav">

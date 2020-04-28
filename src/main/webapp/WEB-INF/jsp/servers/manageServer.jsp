@@ -111,42 +111,49 @@
                 <h1 class="h1-seo">Manage Servers</h1>
                 <div class="row justify-content-md-center">
 
-                    <div class="text-center col-md-12 col-lg-8">
-                        <a href="/api/servers/all" class="btn btn-primary btn-round btn-lg" role="button">
-                            View All
-                        </a>
-                    </div>
-                    <div class="text-center col-md-12 col-lg-8">
-                        <a href="/api/servers/get" class="btn btn-primary btn-round btn-lg" role="button">
-                            Search Server
-                        </a>
+                    <ul class="nav nav-pills nav-pills-primary nav-pills-icons">
+                        <li class="nav-item">
+                            <a class="nav-link active show" href="api/servers/all" role="button">
+                                <i class="fas fa-users"> </i> View All
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active show" href="api/servers/get" role="button">
+                                <i class="fas fa-users"> </i> Search Server
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active show" href="api/servers/save" role="button">
+                                <i class="fas fa-users"> </i> Add Server
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active show" href="api/servers/update" role="button">
+                                <i class="fas fa-users"> </i> Update Server
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active show" href="api/servers/delete" role="button">
+                                <i class="fas fa-users"> </i> Delete
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active show" href="api/servers/s3bucket" role="button">
+                                <i class="fas fa-users"> </i> S3 Bucket Setup
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active show" href="api/admin" role="button">
+                                <i class="fas fa-users"> </i> Go Back
+                            </a>
+                        </li>
+                    </ul>
+                    <br><br>     <br><br>
+                    <div class="text-center">
+                        <td>Return to :</td>
+                        <td><a href="/navigate">Home</a></td>
                     </div>
 
-                    <div class="text-center col-md-12 col-lg-8">
-                        <a href="/api/servers/save" class="btn btn-primary btn-round btn-lg" role="button">
-                            Add Server
-                        </a>
-                    </div>
-                    <div class="text-center col-md-12 col-lg-8">
-                        <a href="/api/servers/update" class="btn btn-primary btn-round btn-lg" role="button">
-                            Update Server
-                        </a>
-                    </div>
-                    <div class="text-center col-md-12 col-lg-8">
-                        <a href="/api/servers/delete" class="btn btn-primary btn-round btn-lg" role="button">
-                            Delete Server
-                        </a>
-                    </div>
-                    <div class="text-center col-md-12 col-lg-8">
-                        <a href="/api/servers/s3bucket" class="btn btn-primary btn-round btn-lg" role="button">
-                            S3 Bucket Setup
-                        </a>
-                    </div>
-                    <div class="text-center col-md-12 col-lg-8">
-                        <a href="/api/admin" class="btn btn-primary btn-round btn-lg" role="button">
-                            Go back
-                        </a>
-                    </div>
                 </div>
             </div>
         </div>
