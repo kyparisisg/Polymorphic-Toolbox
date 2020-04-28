@@ -115,52 +115,48 @@
                 <div class="row justify-content-md-center">
 
 
-
-                    <div class="text-center col-md-12 col-lg-8">
-                        <a href="/client/transfer/form" class="btn btn-primary btn-round btn-lg" role="button">
-                            Server Transfer
-                        </a>
-
+                    <ul class="nav nav-pills nav-pills-primary nav-pills-icons">
+                        <li class="nav-item">
+                            <a class="nav-link active show" href="/cleint/transfer/form/" role="button">
+                                <i class="fas fa-users"></i> Server Transfer
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active show" href="/client/aws/serverSelection/" role="button">
+                                <i class="fas fa-users"></i> Back Up
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active show" href="/client/aws/download" role="button">
+                                <i class="fas fa-users"></i> Restore
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active show" href="/client/aws/delete" role="button">
+                                <i class="fas fa-users"></i> Delete File
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active show" href="/client/myHistory" role="button">
+                                <i class="fas fa-users"></i> History
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active show" href="/client/mySettings" role="button">
+                                <i class="fas fa-users"></i> My Settings
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active show" href="/logout" role="button">
+                                <i class="fas fa-users"></i> Logout
+                            </a>
+                        </li>
+                    </ul>
+                    <br><br>     <br><br>
+                    <div class="text-center">
+                        <td>Return to :</td>
+                        <td><a href="/navigate">Home</a></td>
                     </div>
-
-                    <div class="text-center col-md-12 col-lg-8">
-<%--                        <a href="/client/aws/filePick/" class="btn btn-primary btn-round btn-lg" role="button">--%>
-                        <a href="/client/aws/serverSelection/" class="btn btn-primary btn-round btn-lg" role="button">
-                            Back Up
-                        </a>
-                    </div>
-
-                    <div class="text-center col-md-12 col-lg-8">
-                        <a href="/client/aws/download" class="btn btn-primary btn-round btn-lg" role="button">
-                            Restore
-                        </a>
-                    </div>
-
-                    <div class="text-center col-md-12 col-lg-8">
-                        <a href="/client/aws/delete" class="btn btn-primary btn-round btn-lg" role="button">
-                            Delete File
-                        </a>
-                    </div>
-
-                    <div class="text-center col-md-12 col-lg-8">
-                        <a href="/client/myHistory" class="btn btn-primary btn-round btn-lg" role="button">
-                            History
-                        </a>
-                    </div>
-
-                    <div class="text-center col-md-12 col-lg-8">
-                        <a href="/client/mySettings" class="btn btn-primary btn-round btn-lg" role="button">
-                            My Settings
-                        </a>
-                    </div>
-
-                    <br><br><br><br>
-                    <div class="text-center col-md-12 col-lg-8">
-                        <a href="/logout" class="btn btn-primary btn-round btn-lg" role="button">
-                            Logout
-                        </a>
-                    </div>
-
                 </div>
             </div>
         </div>
