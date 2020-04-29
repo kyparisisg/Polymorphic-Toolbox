@@ -151,9 +151,9 @@
                                 </form:form>
                             </div>
                         </div>
-                        <br><br><br><br><br><br>
+
                     </div>
-                    <br><br><br>
+                </div>
                     <div class="register-bg"></div>
                     <div id="square1" class="square square-1"></div>
                     <div id="square2" class="square square-2"></div>
