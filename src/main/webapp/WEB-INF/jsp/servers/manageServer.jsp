@@ -111,27 +111,27 @@
                 <h1 class="h1-seo">Manage Servers</h1>
                 <div class="row justify-content-md-center">
                     <ul class="nav nav-pills nav-pills-primary nav-pills-icons">
-                        <li class="nav-item">
+                        <li class="nav-item" id="viewall">
                             <a class="nav-link active show" href="/api/servers/all" role="button">
                                 <i class="fas fa-server"></i> View Servers
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" id="search">
                             <a class="nav-link active show" href="/api/servers/get"  role="button" >
                                 <i class="fas fa-search"></i> Server Search
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" id="add">
                             <a class="nav-link active show" href="/api/servers/save" role="button">
                                 <i class="fas fa-plus-circle"></i> Add Server
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" id="delete">
                             <a class="nav-link active show" href="/api/servers/delete"  role="button" >
                                 <i class="fa fa-trash" aria-hidden="true"></i> Delete Server
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" id="cloud">
                             <a class="nav-link active show" href="/api/servers/s3bucket"  role="button" >
                                 <i class="tim-icons icon-settings" aria-hidden="true"></i> Cloud Set Up
                             </a>
@@ -139,10 +139,22 @@
 
 
                     </ul>
+                    <br/><br/>
+                    <div id="detail" style="width: 50%; text-align: center; float: contour;">
+                        <p class="blockquote blockquote-primary">
+
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
+
     </div>
+<%--    <div id="detail" style="width: 50%; text-align: center; float: contour;">--%>
+<%--        <p class="blockquote blockquote-primary">--%>
+
+<%--        </p>--%>
+<%--    </div>--%>
 
 <%--    <div class="page-header header-filter">--%>
 <%--        <div class="squares square1"></div>--%>
@@ -194,7 +206,9 @@
 <%--        </div>--%>
 <%--    </div>--%>
 
+
     <!--  End Modal -->
+
 </div>
 <footer class="footer">
     <div class="container">
@@ -299,6 +313,75 @@
             }, 1000);
         }
     }
+
+    $("#viewall").mouseenter(function () {
+        $("#detail").fadeIn();
+
+        var para = document.getElementsByClassName("blockquote blockquote-primary")[0];
+        para.innerHTML = "This is where you will be able to check the status of servers, delete servers from in-use list, and edit details about servers."
+
+    });
+    $("#viewall").mouseleave(function () {
+        // para.innerHTML = "";
+        $("#detail").fadeOut();
+        // document.getElementById("detail").style.visibility = "hidden";
+
+    });
+
+    $("#search").mouseenter(function () {
+        $("#detail").fadeIn();
+        var para = document.getElementsByClassName("blockquote blockquote-primary")[0];
+        para.innerHTML = "This is where you can quickly search server by its IpV4 address";
+
+    });
+
+    $("#search").mouseleave(function () {
+        // para.innerHTML = "";
+        $("#detail").fadeOut();
+    });
+
+    $("#add").mouseenter(function () {
+        $("#detail").fadeIn();
+        var para = document.getElementsByClassName("blockquote blockquote-primary")[0];
+        para.innerHTML = "You will be able to add a server to the to the system by entering its hostname, IpV4 address, the admin in charge of it, admin password, and optional public key";
+
+    });
+
+    $("#add").mouseleave(function () {
+        // para.innerHTML = "";
+        $("#detail").fadeOut();
+    });
+
+    $("#delete").mouseenter(function () {
+        $("#detail").fadeIn();
+        var para = document.getElementsByClassName("blockquote blockquote-primary")[0];
+        para.innerHTML = "Delete a given server by typing in its IpV4 address";
+
+    });
+
+    $("#delete").mouseleave(function () {
+        // para.innerHTML = "";
+        $("#detail").fadeOut();
+    });
+
+    $("#cloud").mouseenter(function () {
+        $("#detail").fadeIn();
+        var para = document.getElementsByClassName("blockquote blockquote-primary")[0];
+        para.innerHTML = "Set the s3 bucket you want to ask your cloud backup location dump";
+
+    });
+
+    $("#cloud").mouseleave(function () {
+        // para.innerHTML = "";
+        $("#detail").fadeOut();
+    });
+
+
+
+
+
+
+
 </script>
 
 
