@@ -117,12 +117,12 @@
 
                     <ul class="nav nav-pills nav-pills-primary nav-pills-icons">
                         <li class="nav-item">
-                            <a class="nav-link active show" href="/cleint/transfer/form/" role="button">
+                            <a class="nav-link active show" href="/client/transfer/form" role="button">
                                 <i class="fas fa-server"></i> Server Transfer
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active show" href="/client/aws/serverSelection/" role="button">
+                            <a class="nav-link active show" href="/client/aws/serverSelection" role="button">
                                 <i class="fas fa-undo-alt"></i> Back Up
                             </a>
                         </li>
