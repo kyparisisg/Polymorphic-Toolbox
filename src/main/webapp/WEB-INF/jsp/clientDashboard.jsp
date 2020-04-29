@@ -88,6 +88,11 @@
                         </a>
                     </div>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link btn btn-default d-none d-lg-block" href="/logout" role = "button" onclick="scrollToDownload()">
+                        Logout
+                    </a>
+                </li>
             </ul>
         </div>
     </div>
@@ -139,11 +144,6 @@
                         <li class="nav-item">
                             <a class="nav-link active show" href="/client/mySettings" role="button">
                                 <i class="fas fa-cogs"></i> My Settings
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active show" href="/logout" role="button">
-                                <i class="fas fa-sign-out-alt"></i> Logout
                             </a>
                         </li>
                     </ul>
