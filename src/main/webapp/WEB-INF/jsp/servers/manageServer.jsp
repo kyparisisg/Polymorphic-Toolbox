@@ -128,7 +128,7 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active show" href="/api/servers/delete"  role="button" >
-                                <i class="fa fa-trash" aria-hidden="true"></i> Delete Users
+                                <i class="fa fa-trash" aria-hidden="true"></i> Delete Server
                             </a>
                         </li>
                         <li class="nav-item">
