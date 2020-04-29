@@ -137,6 +137,28 @@
                                     <form:input path = "publicKey" type="text" class="form-control" placeholder="Public Key" autocomplete="false"/>
                                 </div>
                             </div>
+                                <div class="card-footer">
+                                    <input type = "submit" value="submit" class="btn btn-info btn-round btn-lg">
+                                </div>
+<%--                                <table>--%>
+<%--                                    <tr>--%>
+<%--                                        <td><form:label path = "bucketName">Bucket Name:</form:label></td>--%>
+<%--                                        <td><form:input path = "bucketName" autocomplete="false"/></td>--%>
+<%--                                    </tr>--%>
+<%--                                    <tr>--%>
+<%--                                        <td><form:label path = "privateKey">Private Key:</form:label></td>--%>
+<%--                                        <td><form:input path = "privateKey" autocomplete="false"/></td>--%>
+<%--                                    </tr>--%>
+<%--                                    <tr>--%>
+<%--                                        <td><form:label path = "publicKey">Public Key:</form:label></td>--%>
+<%--                                        <td><form:input path = "publicKey" autocomplete="false"/>--%>
+<%--                                    </tr>--%>
+<%--                                    <tr>--%>
+<%--                                        <td colspan = "2">--%>
+<%--                                            <input type = "submit" class="btn btn-info btn-round btn-lg" value = "Submit"/>--%>
+<%--                                        </td>--%>
+<%--                                    </tr>--%>
+<%--                                </table>--%>
                             </form:form>
                         </div>
                     </div>

@@ -152,11 +152,41 @@
            <form:input path = "keyLocation" type="text" class="form-control" placeholder="(Optional) Public Key" autocomplete="false"/>
        </div>
        <div class="card-footer">
-           <input type = "submit" value="Add" class="btn btn-info btn-round btn-lg">
+           <input type = "submit" value="Submit" class="btn btn-info btn-round btn-lg">
        </div>
    </div>
+<%--    <table>--%>
+<%--        <tr>--%>
+<%--            <td><form:label path = "name">Hostname:</form:label></td>--%>
+<%--            <td><form:input path = "name" autocomplete="false"/></td>--%>
+<%--        </tr>--%>
+<%--        <tr>--%>
+<%--            <td><form:label path = "ip">IPv4 Address:</form:label></td>--%>
+<%--            <td><form:input path = "ip" autocomplete="false"/></td>--%>
+<%--        </tr>--%>
+<%--        <tr>--%>
+<%--            <td><form:label path = "port">Port:</form:label></td>--%>
+<%--            <td><form:input path = "port" value="22" autocomplete="false"/><small> <b>Hint:</b> If configured otherwise please <u><i>correct the value</i></u>.</small></td>--%>
+<%--        </tr>--%>
+<%--        <tr>--%>
+<%--            <td><form:label path = "usernameCred">Admin User:</form:label></td>--%>
+<%--            <td><form:input path = "usernameCred" autocomplete="false"/></td>--%>
+<%--        </tr>--%>
+<%--        <tr>--%>
+<%--            <td><form:label path = "passwordCred">Admin Password:</form:label></td>--%>
+<%--            <td><form:input path = "passwordCred" type = "password" autocomplete="false"/></td>--%>
+<%--        </tr>--%>
+<%--        <tr>--%>
+<%--            <td><form:label path = "keyLocation">Private Key Location (Optional):</form:label></td>--%>
+<%--            <td><form:input path = "keyLocation" autocomplete="false"/><small> <b>Hint:</b> If only the default using public key authentication</small></td>--%>
+<%--        </tr>--%>
+<%--        <tr>--%>
+<%--            <td colspan = "2">--%>
+<%--                <input type = "submit" class="btn btn-info btn-round btn-lg" value = "Submit"/>--%>
+<%--            </td>--%>
+<%--        </tr>--%>
+<%--    </table>--%>
 </form:form>
-
                         </div>
                     </div>
                 </div>
@@ -169,9 +199,6 @@
                 <div id="square6" class="square square-6"></div>
             </div>
         </div>
-    </div>
-    <div>
-
     </div>
     <footer class="footer">
         <div class="container">
