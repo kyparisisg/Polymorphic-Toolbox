@@ -113,7 +113,7 @@
                     <ul class="nav nav-pills nav-pills-primary nav-pills-icons">
                         <li class="nav-item">
                             <a class="nav-link active show" href="/api/servers/all" role="button">
-                                <i class="fas fa-users"></i> View Servers
+                                <i class="fas fa-server"></i> View Servers
                             </a>
                         </li>
                         <li class="nav-item">
@@ -133,7 +133,7 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active show" href="/api/servers/s3bucket"  role="button" >
-                                <i class="fa fa-trash" aria-hidden="true"></i> Cloud Set Up
+                                <i class="tim-icons icon-settings" aria-hidden="true"></i> Cloud Set Up
                             </a>
                         </li>
 
