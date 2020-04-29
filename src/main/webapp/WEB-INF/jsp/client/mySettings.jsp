@@ -121,21 +121,31 @@
                                     <div class="card-body">
 
                                         <div class="input-group">
-<%--                                            <div class="input-group-prepend">--%>
-<%--                                                <div class="input-group-text">--%>
-<%--                                                    <i class="tim-icons icon-single-02"></i>--%>
-<%--                                                </div>--%>
-<%--                                            </div>--%>
-                                            <div></div>
-                                            <div>
-                                                <form:input path = "firstName" type="text" class="form-control" placeholder="First Name" autocomplete="off"/>
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <i class="tim-icons icon-lock-circle"></i>
+                                                </div>
                                             </div>
-                                            <div>
-                                                <form:input path = "lastName" type="text" class="form-control" placeholder="Last Name" autocomplete="off"/>
+                                            <form:input path = "firstName" type="text" class="form-control" placeholder="First Name" autocomplete="false"/>
+                                        </div>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <i class="tim-icons icon-lock-circle"></i>
+                                                </div>
                                             </div>
-                                            <div>
-                                                <form:input path = "password" type="password" class="form-control" placeholder="password" autocomplete="off"/>
+                                            <form:input path = "lastName" type="text" class="form-control" placeholder="Last Name" autocomplete="false"/>
+                                        </div>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <i class="tim-icons icon-lock-circle"></i>
+                                                </div>
                                             </div>
+                                            <form:input path = "password" type="password" class="form-control" placeholder="Password" autocomplete="false"/>
+                                        </div>
+
+                                        <div class="input-group">
                                             <div>
                                                 <form:input path = "role" type="hidden" class="form-control" value="${userDto.role}" autocomplete="off"/>
                                             </div>
@@ -151,9 +161,9 @@
                                 </form:form>
                             </div>
                         </div>
-                        <br><br><br><br><br><br>
+
                     </div>
-                    <br><br><br>
+                </div>
                     <div class="register-bg"></div>
                     <div id="square1" class="square square-1"></div>
                     <div id="square2" class="square square-2"></div>

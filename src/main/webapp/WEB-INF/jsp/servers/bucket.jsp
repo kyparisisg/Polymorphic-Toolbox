@@ -108,28 +108,57 @@
                         <div class="card card-register">
                             <div class="card-header">
                                 <img class="card-img" src="/images/square1.png" alt="Card image">
-                                <h4 class="card-title">Add Server</h4>
+                                <h4 class="card-title">S3 Cloud Info</h4>
                             </div>
                             <form:form method = "POST" action = "/api/servers/s3bucket" autocomplete="false">
-                                <table>
-                                    <tr>
-                                        <td><form:label path = "bucketName">Bucket Name:</form:label></td>
-                                        <td><form:input path = "bucketName" autocomplete="false"/></td>
-                                    </tr>
-                                    <tr>
-                                        <td><form:label path = "privateKey">Private Key:</form:label></td>
-                                        <td><form:input path = "privateKey" autocomplete="false"/></td>
-                                    </tr>
-                                    <tr>
-                                        <td><form:label path = "publicKey">Public Key:</form:label></td>
-                                        <td><form:input path = "publicKey" autocomplete="false"/>
-                                    </tr>
-                                    <tr>
-                                        <td colspan = "2">
-                                            <input type = "submit" class="btn btn-info btn-round btn-lg" value = "Submit"/>
-                                        </td>
-                                    </tr>
-                                </table>
+                            <div class="card-body">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <i class="tim-icons icon-app"></i>
+                                        </div>
+                                    </div>
+                                    <form:input path = "bucketName" type="text" class="form-control" placeholder="Bucket Name" autocomplete="false"/>
+                                </div>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <i class="tim-icons icon-key-25"></i>
+                                        </div>
+                                    </div>
+                                    <form:input path = "privateKey" type="text" class="form-control" placeholder="Private Key" autocomplete="false"/>
+                                </div>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <i class="tim-icons icon-key-25"></i>
+                                        </div>
+                                    </div>
+                                    <form:input path = "publicKey" type="text" class="form-control" placeholder="Public Key" autocomplete="false"/>
+                                </div>
+                            </div>
+                                <div class="card-footer">
+                                    <input type = "submit" value="submit" class="btn btn-info btn-round btn-lg">
+                                </div>
+<%--                                <table>--%>
+<%--                                    <tr>--%>
+<%--                                        <td><form:label path = "bucketName">Bucket Name:</form:label></td>--%>
+<%--                                        <td><form:input path = "bucketName" autocomplete="false"/></td>--%>
+<%--                                    </tr>--%>
+<%--                                    <tr>--%>
+<%--                                        <td><form:label path = "privateKey">Private Key:</form:label></td>--%>
+<%--                                        <td><form:input path = "privateKey" autocomplete="false"/></td>--%>
+<%--                                    </tr>--%>
+<%--                                    <tr>--%>
+<%--                                        <td><form:label path = "publicKey">Public Key:</form:label></td>--%>
+<%--                                        <td><form:input path = "publicKey" autocomplete="false"/>--%>
+<%--                                    </tr>--%>
+<%--                                    <tr>--%>
+<%--                                        <td colspan = "2">--%>
+<%--                                            <input type = "submit" class="btn btn-info btn-round btn-lg" value = "Submit"/>--%>
+<%--                                        </td>--%>
+<%--                                    </tr>--%>
+<%--                                </table>--%>
                             </form:form>
                         </div>
                     </div>

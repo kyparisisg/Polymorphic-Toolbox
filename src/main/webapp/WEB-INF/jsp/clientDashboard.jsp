@@ -146,11 +146,6 @@
                                 <i class="fas fa-cogs"></i> My Settings
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link active show" href="/logout" role="button">
-                                <i class="fas fa-sign-out-alt"></i> Logout
-                            </a>
-                        </li>
                     </ul>
                     <br><br>     <br><br>
                     <div class="text-center">
