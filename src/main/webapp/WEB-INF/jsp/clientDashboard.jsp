@@ -148,10 +148,7 @@
                         </li>
                     </ul>
                     <br><br>     <br><br>
-                    <div class="text-center">
-                        <td>Return to :</td>
-                        <td><a href="/navigate">Home</a></td>
-                    </div>
+
                 </div>
             </div>
         </div>

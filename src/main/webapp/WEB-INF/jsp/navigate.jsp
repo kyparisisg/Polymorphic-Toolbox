@@ -113,6 +113,41 @@
             <div class="content-center brand">
                 <%--                <h1 class="h1-seo"></h1>--%>
                 <h3>Welcome</h3>
+<%--                <div class="card">--%>
+<%--                    <div class="card-header">--%>
+<%--                        <ul class="nav nav-tabs nav-tabs-primary justify-content-center">--%>
+<%--                            <li class="nav-item">--%>
+<%--                                <a class="nav-link" href="#link1" role="tablist"><i class="tim-icons icon-single-02"></i>Users</a>--%>
+<%--                            </li>--%>
+<%--                            <li class="nav-item">--%>
+<%--                                <a class="nav-link" href="#link2" role="tablist"><i class="tim-icons icon-wifi"></i>Servers</a>--%>
+<%--                            </li>--%>
+<%--                            <li class="nav-item">--%>
+<%--                                <a class="nav-link" href="#link3" role="tablist"><i class="tim-icons icon-wifi"></i>Clients</a>--%>
+<%--                            </li>--%>
+<%--                        </ul>--%>
+<%--                    </div>--%>
+<%--                    <div class="card-body">--%>
+<%--                        <div class="tab-content tab-space">--%>
+<%--                            <div class="tab-pane active show" id="link1">--%>
+<%--                                <p>--%>
+<%--                                    hi--%>
+<%--                                </p>--%>
+<%--                            </div>--%>
+<%--                            <div class="tab-pane" id="link2">--%>
+<%--                                <p>--%>
+<%--                                    hi2--%>
+<%--                                </p>--%>
+<%--                            </div>--%>
+<%--                            <div class="tab-pane" id="link3">--%>
+<%--                                <p>--%>
+<%--                                    hi3--%>
+<%--                                </p>--%>
+<%--                            </div>--%>
+
+<%--                        </div>--%>
+<%--                </div>--%>
+<%--                </div>--%>
                 <div class="row justify-content-md-center">
                     <div class="col-lg-3">
                         <img class="img-fluid" src="/images/manage-users.png">
