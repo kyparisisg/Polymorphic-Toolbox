@@ -1,7 +1,6 @@
 package com.temple.polymorphic.toolbox;
 
 import com.temple.polymorphic.toolbox.models.Server;
-import com.temple.polymorphic.toolbox.controllers.ServersController;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +15,6 @@ class PolymorphicToolboxServerTests {
 
 	@Autowired
 	private ServerRepository serverRepository;
-
-	@Autowired
-	private ServersController serverController;
 
 	@Test
 	void contextLoads() {
@@ -63,6 +59,4 @@ class PolymorphicToolboxServerTests {
 		serverRepository.delete(serverRepository.findByIp("IP3"));
 		assertThat(serverRepository.findByIp("IP3")).isNull();
 	}
-
-
 }

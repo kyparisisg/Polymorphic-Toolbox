@@ -1,7 +1,6 @@
 package com.temple.polymorphic.toolbox;
 
 import com.temple.polymorphic.toolbox.models.User;
-import com.temple.polymorphic.toolbox.controllers.UsersController;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +15,6 @@ class PolymorphicToolboxUserTests {
 
 	@Autowired
 	private UserRepository userRepository;
-
-	@Autowired
-	private UsersController userController;
 
 	@Test
 	void contextLoads() {
