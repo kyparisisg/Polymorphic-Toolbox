@@ -142,7 +142,7 @@
                     <br><br>     <br><br>
                     <div class="text-center">
                         <td>Return to :</td>
-                        <td><a href="/navigate">Home</a></td>
+                        <td><a href="/home">Home</a></td>
                     </div>
                 </div>
             </div>

@@ -89,6 +89,11 @@
                     </div>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link btn btn-default d-none d-lg-block" href="/api/aboutUs" role = "button" onclick="scrollToDownload()">
+                        About Us
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link btn btn-default d-none d-lg-block" href="/logout" role = "button" onclick="scrollToDownload()">
                         Logout
                     </a>

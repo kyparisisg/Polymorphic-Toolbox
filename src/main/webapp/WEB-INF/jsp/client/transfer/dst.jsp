@@ -156,12 +156,21 @@
                                 <td><form:input path = "fileName" type="hidden" value="${fileName}" autocomplete="false"/></td>
                             </tr>
                             <tr>
-                                <td><form:input path = "dstServerId" autocomplete="false" placeholder="Destination Server"/></td>
+                                <td>
+                                    <div class="input-group" style="width: 30%; padding-left: 35%; padding-right: 55%;">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="tim-icons icon-lock-circle"></i>
+                                            </div>
+                                        </div>
+                                        <form:input path = "dstServerId" class="form-control" autocomplete="false" placeholder="Destination Server"/>
+                                    </div>
+                                </td>
                             </tr>
                             <br><br>
                             <tr>
                                 <td colspan = "2">
-                                    <input type = "submit" value = "Set"/>
+                                    <input type = "submit" value = "Set" class="btn btn-info btn-round btn-lg"/>
                                 </td>
                             </tr>
                         </div>

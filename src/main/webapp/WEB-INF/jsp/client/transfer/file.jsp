@@ -144,7 +144,16 @@
                             </tr>
                             <tr>
                                     <%--<td><form:label path = "srcServerId">Source Server</form:label></td>--%>
-                                <td><form:input path = "fileName" autocomplete="false" placeholder="File Name"/></td>
+                                        <td>
+                                            <div class="input-group" style="width: 30%; padding-left: 35%; padding-right: 55%;">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">
+                                                        <i class="tim-icons icon-lock-circle"></i>
+                                                    </div>
+                                                </div>
+                                            <form:input path = "fileName" class="form-control" autocomplete="false" placeholder="File Name"/>
+                                            </div>
+                                        </td>
                             </tr>
                             <br><br>
                             <tr>
