@@ -105,7 +105,7 @@ class PolymorphicToolboxTransactionsTests {
 	}
 
 	@Test
-	void deleteUserWithPerm() {
+	void deleteUserWithTran() {
 		User user4 = new User("First", "Last", "email4@gmail.com", "pw", "user");
 		userRepository.save(user4);
 
@@ -125,7 +125,7 @@ class PolymorphicToolboxTransactionsTests {
 	}
 
 	@Test
-	void deleteServerWithPerm() {
+	void deleteServerWithTran() {
 		User user5 = new User("First", "Last", "email5@gmail.com", "pw", "user");
 		userRepository.save(user5);
 
