@@ -113,36 +113,37 @@
                 <div class="row justify-content-md-center">
 
                     <ul class="nav nav-pills nav-pills-primary nav-pills-icons">
-                        <li class="nav-item">
+                        <li class="nav-item" id="all">
                             <a class="nav-link active show" href="/api/users/all" role="button">
                                 <i class="fas fa-users"></i> View Users
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" id="search">
                             <a class="nav-link active show" href="/api/users/get"  role="button" >
                                 <i class="fas fa-search"></i> Search Users
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" id="add">
                             <a class="nav-link active show" href="/api/users/save" role="button">
                                 <i class="fas fa-plus-circle"></i> Add Users
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" id="update">
                             <a class="nav-link active show" href="/api/users/update"  role="button" >
                                 <i class="fas fa-sync-alt"></i>Update Users
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" id="delete">
                             <a class="nav-link active show" href="/api/users/delete"  role="button" >
                                 <i class="fa fa-trash" aria-hidden="true"></i> Delete Users
                             </a>
                         </li>
                     </ul>
-                    <br><br>     <br><br>
-                    <div class="text-center">
-                        <td>Return to :</td>
-                        <td><a href="/home">Home</a></td>
+                    <br><br>
+                    <div id="detail" style="width: 50%; text-align: center; float: contour;">
+                        <p class="blockquote blockquote-primary">
+
+                        </p>
                     </div>
                 </div>
             </div>
@@ -254,6 +255,68 @@
             }, 1000);
         }
     }
+
+    $("#all").mouseenter(function () {
+        $("#detail").fadeIn();
+
+        var para = document.getElementsByClassName("blockquote blockquote-primary")[0];
+        para.innerHTML = "This is where the admin will be able to view all of the users and assign permissions, edit info about a user, or delete their account."
+
+    });
+    $("#all").mouseleave(function () {
+        // para.innerHTML = "";
+        $("#detail").fadeOut();
+        // document.getElementById("detail").style.visibility = "hidden";
+
+    });
+
+    $("#search").mouseenter(function () {
+        $("#detail").fadeIn();
+        var para = document.getElementsByClassName("blockquote blockquote-primary")[0];
+        para.innerHTML = "This is where you can quickly search a user by their email address";
+
+    });
+
+    $("#search").mouseleave(function () {
+        // para.innerHTML = "";
+        $("#detail").fadeOut();
+    });
+
+    $("#add").mouseenter(function () {
+        $("#detail").fadeIn();
+        var para = document.getElementsByClassName("blockquote blockquote-primary")[0];
+        para.innerHTML = "You will be able to add a user to the residential system by entering in their name, email address and role in the Complex";
+    });
+
+    $("#add").mouseleave(function () {
+        // para.innerHTML = "";
+        $("#detail").fadeOut();
+    });
+
+    $("#delete").mouseenter(function () {
+        $("#detail").fadeIn();
+        var para = document.getElementsByClassName("blockquote blockquote-primary")[0];
+        para.innerHTML = "Delete a given user by typing in their email address";
+
+    });
+
+    $("#delete").mouseleave(function () {
+        // para.innerHTML = "";
+        $("#detail").fadeOut();
+    });
+
+    $("#update").mouseenter(function () {
+        $("#detail").fadeIn();
+        var para = document.getElementsByClassName("blockquote blockquote-primary")[0];
+        para.innerHTML = "Update an existing user by using their email as an identifier";
+
+    });
+
+    $("#update").mouseleave(function () {
+        // para.innerHTML = "";
+        $("#detail").fadeOut();
+    });
+
 </script>
 
 
