@@ -117,11 +117,21 @@
 
 
 <form:form method = "POST" action = "/api/servers/update" autocomplete="false">
+    <div class="card-body">
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <div class="input-group-text">
+                    <i class="tim-icons icon-email-85"></i>
+                </div>
+            </div>
+            <td><form:input path = "name"  autocomplete="false"/></td>
+        </div>
+    </div>
     <table>
-        <tr>
-            <td><form:label path = "name">Hostname:</form:label></td>
-            <td><form:input path = "name" autocomplete="false"/></td>
-        </tr>
+<%--        <tr>--%>
+<%--            <td><form:label path = "name">Hostname:</form:label></td>--%>
+<%--            <td><form:input path = "name" autocomplete="false"/></td>--%>
+<%--        </tr>--%>
         <tr>
             <td><form:label path = "ip">IPv4 Address:</form:label></td>
             <td><form:input path = "ip" value="${ip}" autocomplete="false"/></td>
