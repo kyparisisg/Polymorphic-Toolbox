@@ -153,10 +153,10 @@
         <img src="/images/path4.png" class="path">
         <div class="container align-items-center">
             <div class="row">
-                <div class="col-lg-6 col-md-6">
+                <div class="col-md-6">
                     <h1 class="profile-title text-left">Giannis Kyparisis</h1>
                     <h5 class="text-on-back">01</h5>
-                    <p class="profile-description">Giannis is our Project Lead/Back-End Developer. He is in charge of directing the entire project so that all developers can work together effeciently. He is also in charge of the back-end creating API calls using java, spring framework.</p>
+                    <p class="profile-description">Giannis is our Project Lead/Back-End Developer. He is in charge of directing the entire project so that all developers can work together efficiently. He is also in charge of the back-end creating API calls using java, spring framework. He is also the lead in performing all configurations and setup for the application</p>
                     <div class="btn-wrapper profile pt-3">
                         <a target="_blank" href="https://twitter.com/creativetim" class="btn btn-icon btn-twitter btn-round" data-toggle="tooltip" data-original-title="Follow us">
                             <i class="fab fa-twitter"></i>
@@ -169,7 +169,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6 ml-auto mr-auto">
+                <div class="col-md-5">
                     <div class="card card-coin card-plain">
                         <div class="card-header">
                             <img src="/images/aboutus/Giannis.jpg" class="img-center img-fluid rounded-circle">
@@ -178,23 +178,81 @@
                         <div class="card-body">
                             <ul class="nav nav-tabs nav-tabs-primary justify-content-center">
                                 <li class="nav-item">
-                                    <a class="nav-link active" data-toggle="tab" href="#linka">
+                                    <a class="nav-link active" data-toggle="tab" href="#linkaGiannis">
                                         Contact
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab" href="#linkb">
+                                    <a class="nav-link" data-toggle="tab" href="#linkbGiannis">
                                         Send
                                     </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab" href="#linkc">
-                                        Contact
-                                    </a>
-                                </li>
+<%--                                <li class="nav-item">--%>
+<%--                                    <a class="nav-link" data-toggle="tab" href="#linkc">--%>
+<%--                                        Contact--%>
+<%--                                    </a>--%>
+<%--                                </li>--%>
                             </ul>
                             <div class="tab-content tab-subcategories">
-                                <div class="tab-pane active" id="linka">
+                                <div class="tab-pane active" id="linkaGiannis">
+                                    <div class="table-responsive">
+                                        <table class="table tablesorter " id="plain-table">
+                                            <thead class=" text-primary">
+                                            <tr>
+                                                <th class="header">
+                                                    Contact Information
+                                                </th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td>
+                                                    Full Name: Giannis Kyparisis
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Email: tuk1292@temple.edu
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Profession/Company: SWE at Clone Systems
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="linkbGiannis">
+                                    <div class="row">
+                                        <label class="col-sm-3 col-form-label">Your Name</label>
+                                        <div class="col-sm-9">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" placeholder="Name">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label class="col-sm-3 col-form-label">Email</label>
+                                        <div class="col-sm-9">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" placeholder="Email">
+                                                <span class="form-text">Please enter a valid address.</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label class="col-sm-3 col-form-label">Message</label>
+                                        <div class="col-sm-9">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" placeholder="Message">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-simple btn-primary btn-icon btn-round float-right"><i class="tim-icons icon-send"></i></button>
+                                </div>
+                                <div class="tab-pane" id="linkc">
                                     <div class="table-responsive">
                                         <table class="table tablesorter" id="plain-table">
                                             <thead class=" text-primary">
@@ -247,56 +305,7 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                </div>
-                                <div class="tab-pane" id="linkb">
-                                    <div class="row">
-                                        <label class="col-sm-3 col-form-label">Pay to</label>
-                                        <div class="col-sm-9">
-                                            <div class="form-group">
-                                                <input type="text" class="form-control" placeholder="e.g. 1Nasd92348hU984353hfid">
-                                                <span class="form-text">Please enter a valid address.</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <label class="col-sm-3 col-form-label">Amount</label>
-                                        <div class="col-sm-9">
-                                            <div class="form-group">
-                                                <input type="text" class="form-control" placeholder="1.587">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <button type="submit" class="btn btn-simple btn-primary btn-icon btn-round float-right"><i class="tim-icons icon-send"></i></button>
-                                </div>
-                                <div class="tab-pane" id="linkc">
-                                    <div class="table-responsive">
-                                        <table class="table tablesorter " id="plain-table">
-                                            <thead class=" text-primary">
-                                            <tr>
-                                                <th class="header">
-                                                    Contact Information
-                                                </th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr>
-                                                <td>
-                                                    Full Name: Giannia Kyparisis
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    Email: tuk1292@temple.edu
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    Profession/Company: SWE at Clone Systems
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -318,97 +327,23 @@
                         <div class="card-body">
                             <ul class="nav nav-tabs nav-tabs-primary justify-content-center">
                                 <li class="nav-item">
-                                    <a class="nav-link active" data-toggle="tab" href="#linka">
+                                    <a class="nav-link active" data-toggle="tab" href="#linkaTyler">
                                         Contact
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab" href="#linkb">
+                                    <a class="nav-link" data-toggle="tab" href="#linkbTyler">
                                         Send
                                     </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab" href="#linkc">
-                                        Contact
-                                    </a>
-                                </li>
+<%--                                <li class="nav-item">--%>
+<%--                                    <a class="nav-link" data-toggle="tab" href="#linkc">--%>
+<%--                                        Contact--%>
+<%--                                    </a>--%>
+<%--                                </li>--%>
                             </ul>
                             <div class="tab-content tab-subcategories">
-                                <div class="tab-pane active" id="linka">
-                                    <div class="table-responsive">
-                                        <table class="table tablesorter" id="plain-table">
-                                            <thead class=" text-primary">
-                                            <tr>
-                                                <th class="header">
-                                                    COIN
-                                                </th>
-                                                <th class="header">
-                                                    AMOUNT
-                                                </th>
-                                                <th class="header">
-                                                    VALUE
-                                                </th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr>
-                                                <td>
-                                                    BTC
-                                                </td>
-                                                <td>
-                                                    7.342
-                                                </td>
-                                                <td>
-                                                    48,870.75 USD
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    ETH
-                                                </td>
-                                                <td>
-                                                    30.737
-                                                </td>
-                                                <td>
-                                                    64,53.30 USD
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    XRP
-                                                </td>
-                                                <td>
-                                                    19.242
-                                                </td>
-                                                <td>
-                                                    18,354.96 USD
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="tab-pane" id="linkb">
-                                    <div class="row">
-                                        <label class="col-sm-3 col-form-label">Pay to</label>
-                                        <div class="col-sm-9">
-                                            <div class="form-group">
-                                                <input type="text" class="form-control" placeholder="e.g. 1Nasd92348hU984353hfid">
-                                                <span class="form-text">Please enter a valid address.</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <label class="col-sm-3 col-form-label">Amount</label>
-                                        <div class="col-sm-9">
-                                            <div class="form-group">
-                                                <input type="text" class="form-control" placeholder="1.587">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <button type="submit" class="btn btn-simple btn-primary btn-icon btn-round float-right"><i class="tim-icons icon-send"></i></button>
-                                </div>
-                                <div class="tab-pane" id="linkc">
+                                <div class="tab-pane active" id="linkaTyler">
                                     <div class="table-responsive">
                                         <table class="table tablesorter " id="plain-table">
                                             <thead class=" text-primary">
@@ -421,21 +356,55 @@
                                             <tbody>
                                             <tr>
                                                 <td>
-                                                    Full Name: Giannia Kyparisis
+                                                    Full Name: Tyler Allen
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>
-                                                    Email: tuk1292@temple.edu
+                                                    Email: tuf92674@temple.edu
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>
-                                                    Profession/Company: SWE at Clone Systems
+                                                    Profession/Company: Web Developer at Willis Towers
                                                 </td>
                                             </tr>
                                             </tbody>
                                         </table>
+
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="linkbTyler">
+                                    <div class="row">
+                                        <label class="col-sm-3 col-form-label">Your Name</label>
+                                        <div class="col-sm-9">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" placeholder="Name">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label class="col-sm-3 col-form-label">Email</label>
+                                        <div class="col-sm-9">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" placeholder="Email">
+                                                <span class="form-text">Please enter a valid address.</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label class="col-sm-3 col-form-label">Message</label>
+                                        <div class="col-sm-9">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" placeholder="Message">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-simple btn-primary btn-icon btn-round float-right"><i class="tim-icons icon-send"></i></button>
+                                </div>
+                                <div class="tab-pane" id="linkc">
+                                    <div class="table-responsive">
+
                                     </div>
                                 </div>
                             </div>
@@ -445,14 +414,17 @@
                 <div class="col-md-5">
                     <h1 class="profile-title text-left">Tyler Allen</h1>
                     <h5 class="text-on-back">02</h5>
-                    <p class="profile-description text-left">An artist of considerable range, Ryan — the name taken by Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs and records all of his own music, giving it a warm, intimate feel with a solid groove structure. An artist of considerable range.</p>
+                    <p class="profile-description text-left">Tyler is our full-stack web developer. He responsible for any technological duties associated with cloud computing including AWS componenets and front-end functionality. He is responsible for our cloud services. He builds and maintains APIs like the Amazon S3, EC2 API, etc.</p>
                     <div class="btn-wrapper pt-3">
-                        <button href="javascript:void(0)" class="btn btn-simple btn-primary">
-                            <i class="tim-icons icon-book-bookmark"></i> Bookmark
-                        </button>
-                        <button href="javascript:void(0)" class="btn btn-simple btn-info">
-                            <i class="tim-icons icon-bulb-63"></i> Check it!
-                        </button>
+                        <a target="_blank" href="https://twitter.com/creativetim" class="btn btn-icon btn-twitter btn-round" data-toggle="tooltip" data-original-title="Follow us">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a target="_blank" href="https://www.facebook.com/creativetim" class="btn btn-icon btn-facebook btn-round" data-toggle="tooltip" data-original-title="Like us">
+                            <i class="fab fa-facebook-square"></i>
+                        </a>
+                        <a target="_blank" href="https://dribbble.com/creativetim" class="btn btn-icon btn-dribbble  btn-round" data-toggle="tooltip" data-original-title="Follow us">
+                            <i class="fab fa-dribbble"></i>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -462,10 +434,27 @@
         <div class="container">
             <div class="row justify-content-between">
                 <div class="col-md-6">
+                    <h1 class="profile-title text-left">Bella Yang</h1>
+                    <h5 class="text-on-back">03</h5>
+                    <p class="profile-description text-left">Bella is our Front-End Developer. She is also responsible for front-end setup involving bootstrap, css, js, resources, and jsp. She also in charge of the user experience design that involves exploring many different approaches to solving a specific user problem to ensure that product logically flows from one step to the next.</p>
+                    <div class="btn-wrapper pt-3">
+                        <a target="_blank" href="https://twitter.com/creativetim" class="btn btn-icon btn-twitter btn-round" data-toggle="tooltip" data-original-title="Follow us">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a target="_blank" href="https://www.facebook.com/creativetim" class="btn btn-icon btn-facebook btn-round" data-toggle="tooltip" data-original-title="Like us">
+                            <i class="fab fa-facebook-square"></i>
+                        </a>
+                        <a target="_blank" href="https://dribbble.com/creativetim" class="btn btn-icon btn-dribbble  btn-round" data-toggle="tooltip" data-original-title="Follow us">
+                            <i class="fab fa-dribbble"></i>
+                        </a>
+                    </div>
+
+                </div>
+                <div class="col-md-5">
                     <div class="card card-coin card-plain">
                         <div class="card-header">
                             <img src="/images/aboutus/Bella.jpeg" class="img-center img-fluid rounded-circle">
-                            <h4 class="title">Transactions</h4>
+                            <h4 class="title">Front-End Developer/UX Designer</h4>
                         </div>
                         <div class="card-body">
                             <ul class="nav nav-tabs nav-tabs-primary justify-content-center">
@@ -479,88 +468,14 @@
                                         Send
                                     </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab" href="#linkcBella">
-                                        Contact
-                                    </a>
-                                </li>
+                                <%--                                <li class="nav-item">--%>
+                                <%--                                    <a class="nav-link" data-toggle="tab" href="#linkcBella">--%>
+                                <%--                                        Contact--%>
+                                <%--                                    </a>--%>
+                                <%--                                </li>--%>
                             </ul>
                             <div class="tab-content tab-subcategories">
                                 <div class="tab-pane active" id="linkaBella">
-                                    <div class="table-responsive">
-                                        <table class="table tablesorter" id="plain-table">
-                                            <thead class=" text-primary">
-                                            <tr>
-                                                <th class="header">
-                                                    COIN
-                                                </th>
-                                                <th class="header">
-                                                    AMOUNT
-                                                </th>
-                                                <th class="header">
-                                                    VALUE
-                                                </th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr>
-                                                <td>
-                                                    BTC
-                                                </td>
-                                                <td>
-                                                    7.342
-                                                </td>
-                                                <td>
-                                                    48,870.75 USD
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    ETH
-                                                </td>
-                                                <td>
-                                                    30.737
-                                                </td>
-                                                <td>
-                                                    64,53.30 USD
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    XRP
-                                                </td>
-                                                <td>
-                                                    19.242
-                                                </td>
-                                                <td>
-                                                    18,354.96 USD
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="tab-pane" id="linkbBella">
-                                    <div class="row">
-                                        <label class="col-sm-3 col-form-label">Pay to</label>
-                                        <div class="col-sm-9">
-                                            <div class="form-group">
-                                                <input type="text" class="form-control" placeholder="e.g. 1Nasd92348hU984353hfid">
-                                                <span class="form-text">Please enter a valid address.</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <label class="col-sm-3 col-form-label">Amount</label>
-                                        <div class="col-sm-9">
-                                            <div class="form-group">
-                                                <input type="text" class="form-control" placeholder="1.587">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <button type="submit" class="btn btn-simple btn-primary btn-icon btn-round float-right"><i class="tim-icons icon-send"></i></button>
-                                </div>
-                                <div class="tab-pane" id="linkcBella">
                                     <div class="table-responsive">
                                         <table class="table tablesorter " id="plain-table">
                                             <thead class=" text-primary">
@@ -588,23 +503,44 @@
                                             </tr>
                                             </tbody>
                                         </table>
+
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="linkbBella">
+                                    <div class="row">
+                                        <label class="col-sm-3 col-form-label">Your Name</label>
+                                        <div class="col-sm-9">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" placeholder="Name">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label class="col-sm-3 col-form-label">Email</label>
+                                        <div class="col-sm-9">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" placeholder="Email">
+                                                <span class="form-text">Please enter a valid address.</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label class="col-sm-3 col-form-label">Message</label>
+                                        <div class="col-sm-9">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" placeholder="Message">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-simple btn-primary btn-icon btn-round float-right"><i class="tim-icons icon-send"></i></button>
+                                </div>
+                                <div class="tab-pane" id="linkcBella">
+                                    <div class="table-responsive">
+
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="col-md-5">
-                    <h1 class="profile-title text-left">Bella Yang</h1>
-                    <h5 class="text-on-back">03</h5>
-                    <p class="profile-description text-left">An artist of considerable range, Ryan — the name taken by Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs and records all of his own music, giving it a warm, intimate feel with a solid groove structure. An artist of considerable range.</p>
-                    <div class="btn-wrapper pt-3">
-                        <button href="javascript:void(0)" class="btn btn-simple btn-primary">
-                            <i class="tim-icons icon-book-bookmark"></i> Bookmark
-                        </button>
-                        <button href="javascript:void(0)" class="btn btn-simple btn-info">
-                            <i class="tim-icons icon-bulb-63"></i> Check it!
-                        </button>
                     </div>
                 </div>
             </div>
@@ -617,102 +553,28 @@
                     <div class="card card-coin card-plain">
                         <div class="card-header">
                             <img src="/images/aboutus/Matt.png" class="img-center img-fluid rounded-circle">
-                            <h4 class="title">Transactions</h4>
+                            <h4 class="title">Back-End Developer</h4>
                         </div>
                         <div class="card-body">
                             <ul class="nav nav-tabs nav-tabs-primary justify-content-center">
                                 <li class="nav-item">
-                                    <a class="nav-link active" data-toggle="tab" href="#linka">
+                                    <a class="nav-link active" data-toggle="tab" href="#linkaMatt">
                                         Contact
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab" href="#linkb">
+                                    <a class="nav-link" data-toggle="tab" href="#linkbMatt">
                                         Send
                                     </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab" href="#linkc">
-                                        Contact
-                                    </a>
-                                </li>
+<%--                                <li class="nav-item">--%>
+<%--                                    <a class="nav-link" data-toggle="tab" href="#linkc">--%>
+<%--                                        Contact--%>
+<%--                                    </a>--%>
+<%--                                </li>--%>
                             </ul>
                             <div class="tab-content tab-subcategories">
-                                <div class="tab-pane active" id="linka">
-                                    <div class="table-responsive">
-                                        <table class="table tablesorter" id="plain-table">
-                                            <thead class=" text-primary">
-                                            <tr>
-                                                <th class="header">
-                                                    COIN
-                                                </th>
-                                                <th class="header">
-                                                    AMOUNT
-                                                </th>
-                                                <th class="header">
-                                                    VALUE
-                                                </th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr>
-                                                <td>
-                                                    BTC
-                                                </td>
-                                                <td>
-                                                    7.342
-                                                </td>
-                                                <td>
-                                                    48,870.75 USD
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    ETH
-                                                </td>
-                                                <td>
-                                                    30.737
-                                                </td>
-                                                <td>
-                                                    64,53.30 USD
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    XRP
-                                                </td>
-                                                <td>
-                                                    19.242
-                                                </td>
-                                                <td>
-                                                    18,354.96 USD
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="tab-pane" id="linkb">
-                                    <div class="row">
-                                        <label class="col-sm-3 col-form-label">Pay to</label>
-                                        <div class="col-sm-9">
-                                            <div class="form-group">
-                                                <input type="text" class="form-control" placeholder="e.g. 1Nasd92348hU984353hfid">
-                                                <span class="form-text">Please enter a valid address.</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <label class="col-sm-3 col-form-label">Amount</label>
-                                        <div class="col-sm-9">
-                                            <div class="form-group">
-                                                <input type="text" class="form-control" placeholder="1.587">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <button type="submit" class="btn btn-simple btn-primary btn-icon btn-round float-right"><i class="tim-icons icon-send"></i></button>
-                                </div>
-                                <div class="tab-pane" id="linkc">
+                                <div class="tab-pane active" id="linkaMatt">
                                     <div class="table-responsive">
                                         <table class="table tablesorter " id="plain-table">
                                             <thead class=" text-primary">
@@ -725,21 +587,55 @@
                                             <tbody>
                                             <tr>
                                                 <td>
-                                                    Full Name: Giannia Kyparisis
+                                                    Full Name: Matthew Jahn
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>
-                                                    Email: tuk1292@temple.edu
+                                                    Email: tug68805@temple.edu
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>
-                                                    Profession/Company: SWE at Clone Systems
+                                                    Profession/Company: SWE at Lockheed
                                                 </td>
                                             </tr>
                                             </tbody>
                                         </table>
+
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="linkbMatt">
+                                    <div class="row">
+                                        <label class="col-sm-3 col-form-label">Your Name</label>
+                                        <div class="col-sm-9">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" placeholder="Name">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label class="col-sm-3 col-form-label">Email</label>
+                                        <div class="col-sm-9">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" placeholder="Email">
+                                                <span class="form-text">Please enter a valid address.</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label class="col-sm-3 col-form-label">Message</label>
+                                        <div class="col-sm-9">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" placeholder="Message">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-simple btn-primary btn-icon btn-round float-right"><i class="tim-icons icon-send"></i></button>
+                                </div>
+                                <div class="tab-pane" id="linkc">
+                                    <div class="table-responsive">
+
                                     </div>
                                 </div>
                             </div>
@@ -749,14 +645,17 @@
                 <div class="col-md-5">
                     <h1 class="profile-title text-left">Matthew Jahn</h1>
                     <h5 class="text-on-back">04</h5>
-                    <p class="profile-description text-left">An artist of considerable range, Ryan — the name taken by Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs and records all of his own music, giving it a warm, intimate feel with a solid groove structure. An artist of considerable range.</p>
+                    <p class="profile-description text-left">Matt is our back-end developer. He is responsible for designing,engieering,and developing the database components and entities. He handles all database issues to ensure all information is retained and retrieved correctly, securly, and  effeciently to allow for quick retrieval. </p>
                     <div class="btn-wrapper pt-3">
-                        <button href="javascript:void(0)" class="btn btn-simple btn-primary">
-                            <i class="tim-icons icon-book-bookmark"></i> Bookmark
-                        </button>
-                        <button href="javascript:void(0)" class="btn btn-simple btn-info">
-                            <i class="tim-icons icon-bulb-63"></i> Check it!
-                        </button>
+                        <a target="_blank" href="https://twitter.com/creativetim" class="btn btn-icon btn-twitter btn-round" data-toggle="tooltip" data-original-title="Follow us">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a target="_blank" href="https://www.facebook.com/creativetim" class="btn btn-icon btn-facebook btn-round" data-toggle="tooltip" data-original-title="Like us">
+                            <i class="fab fa-facebook-square"></i>
+                        </a>
+                        <a target="_blank" href="https://dribbble.com/creativetim" class="btn btn-icon btn-dribbble  btn-round" data-toggle="tooltip" data-original-title="Follow us">
+                            <i class="fab fa-dribbble"></i>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -766,16 +665,33 @@
         <div class="container">
             <div class="row justify-content-between">
                 <div class="col-md-6">
+                    <h1 class="profile-title text-left">Nasir Kasumu</h1>
+                    <h5 class="text-on-back">05</h5>
+                    <p class="profile-description text-left">Nasir is our full-stack developer. He supports the team by adding and editing some of the components in the application.</p>
+                    <div class="btn-wrapper pt-3">
+                        <a target="_blank" href="https://twitter.com/creativetim" class="btn btn-icon btn-twitter btn-round" data-toggle="tooltip" data-original-title="Follow us">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a target="_blank" href="https://www.facebook.com/creativetim" class="btn btn-icon btn-facebook btn-round" data-toggle="tooltip" data-original-title="Like us">
+                            <i class="fab fa-facebook-square"></i>
+                        </a>
+                        <a target="_blank" href="https://dribbble.com/creativetim" class="btn btn-icon btn-dribbble  btn-round" data-toggle="tooltip" data-original-title="Follow us">
+                            <i class="fab fa-dribbble"></i>
+                        </a>
+                    </div>
+
+                </div>
+                <div class="col-md-5">
                     <div class="card card-coin card-plain">
                         <div class="card-header">
                             <img src="/images/mike.jpg" class="img-center img-fluid rounded-circle">
-                            <h4 class="title">Transactions</h4>
+                            <h4 class="title">Full-Stack Developer</h4>
                         </div>
                         <div class="card-body">
                             <ul class="nav nav-tabs nav-tabs-primary justify-content-center">
                                 <li class="nav-item">
                                     <a class="nav-link active" data-toggle="tab" href="#linka">
-                                        Wallet
+                                        Contact
                                     </a>
                                 </li>
                                 <li class="nav-item">
@@ -783,82 +699,67 @@
                                         Send
                                     </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab" href="#linkc">
-                                        News
-                                    </a>
-                                </li>
+<%--                                <li class="nav-item">--%>
+<%--                                    <a class="nav-link" data-toggle="tab" href="#linkc">--%>
+<%--                                        News--%>
+<%--                                    </a>--%>
+<%--                                </li>--%>
                             </ul>
                             <div class="tab-content tab-subcategories">
                                 <div class="tab-pane active" id="linka">
                                     <div class="table-responsive">
-                                        <table class="table tablesorter" id="plain-table">
+                                        <table class="table tablesorter " id="plain-table">
                                             <thead class=" text-primary">
                                             <tr>
                                                 <th class="header">
-                                                    COIN
-                                                </th>
-                                                <th class="header">
-                                                    AMOUNT
-                                                </th>
-                                                <th class="header">
-                                                    VALUE
+                                                    Contact Information
                                                 </th>
                                             </tr>
                                             </thead>
                                             <tbody>
                                             <tr>
                                                 <td>
-                                                    BTC
-                                                </td>
-                                                <td>
-                                                    7.342
-                                                </td>
-                                                <td>
-                                                    48,870.75 USD
+                                                    Name: Nasir Kasumu
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>
-                                                    ETH
-                                                </td>
-                                                <td>
-                                                    30.737
-                                                </td>
-                                                <td>
-                                                    64,53.30 USD
+                                                    Email: tug18242@temple.edu
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>
-                                                    XRP
-                                                </td>
-                                                <td>
-                                                    19.242
-                                                </td>
-                                                <td>
-                                                    18,354.96 USD
+                                                    Profession/Company:
                                                 </td>
                                             </tr>
                                             </tbody>
                                         </table>
+
                                     </div>
                                 </div>
                                 <div class="tab-pane" id="linkb">
                                     <div class="row">
-                                        <label class="col-sm-3 col-form-label">Pay to</label>
+                                        <label class="col-sm-3 col-form-label">Your Name</label>
                                         <div class="col-sm-9">
                                             <div class="form-group">
-                                                <input type="text" class="form-control" placeholder="e.g. 1Nasd92348hU984353hfid">
+                                                <input type="text" class="form-control" placeholder="Name">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label class="col-sm-3 col-form-label">Email</label>
+                                        <div class="col-sm-9">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" placeholder="Email">
                                                 <span class="form-text">Please enter a valid address.</span>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <label class="col-sm-3 col-form-label">Amount</label>
+                                        <label class="col-sm-3 col-form-label">Message</label>
                                         <div class="col-sm-9">
                                             <div class="form-group">
-                                                <input type="text" class="form-control" placeholder="1.587">
+                                                <input type="text" class="form-control" placeholder="Message">
                                             </div>
                                         </div>
                                     </div>
@@ -866,50 +767,13 @@
                                 </div>
                                 <div class="tab-pane" id="linkc">
                                     <div class="table-responsive">
-                                        <table class="table tablesorter " id="plain-table">
-                                            <thead class=" text-primary">
-                                            <tr>
-                                                <th class="header">
-                                                    Latest Crypto News
-                                                </th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr>
-                                                <td>
-                                                    The Daily: Nexo to Pay on Stable...
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    Venezuela Begins Public of Nation...
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    PR: BitCanna – Dutch Blockchain...
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
+
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-5">
-                    <h1 class="profile-title text-left">Nasir</h1>
-                    <h5 class="text-on-back">05</h5>
-                    <p class="profile-description text-left">An artist of considerable range, Ryan — the name taken by Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs and records all of his own music, giving it a warm, intimate feel with a solid groove structure. An artist of considerable range.</p>
-                    <div class="btn-wrapper pt-3">
-                        <button href="javascript:void(0)" class="btn btn-simple btn-primary">
-                            <i class="tim-icons icon-book-bookmark"></i> Bookmark
-                        </button>
-                        <button href="javascript:void(0)" class="btn btn-simple btn-info">
-                            <i class="tim-icons icon-bulb-63"></i> Check it!
-                        </button>
-                    </div>
+
                 </div>
             </div>
         </div>
@@ -920,8 +784,8 @@
                 <div class="col-md-6">
                     <div class="card card-plain">
                         <div class="card-header">
-                            <h1 class="profile-title text-left">Contact</h1>
-                            <h5 class="text-on-back">03</h5>
+                            <h1 class="profile-title text-left">Contact The Company</h1>
+                            <h5 class="text-on-back">06</h5>
                         </div>
                         <div class="card-body">
                             <form>
@@ -975,7 +839,7 @@
                             <h4 class="info-title">Find us at the office</h4>
                             <p> Bld Mihail Kogalniceanu, nr. 8,
                                 <br> 7652 Bucharest,
-                                <br> Romania
+                                <br> Pennsylvania PA
                             </p>
                         </div>
                     </div>
@@ -985,8 +849,8 @@
                         </div>
                         <div class="description">
                             <h4 class="info-title">Give us a ring</h4>
-                            <p> Michael Jordan
-                                <br> +40 762 321 762
+                            <p> PolymorphicTool Box Project Manager
+                                <br> 267-994-2740
                                 <br> Mon - Fri, 8:00-22:00
                             </p>
                         </div>
@@ -999,7 +863,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-3">
-                    <h1 class="title">BLK•</h1>
+                    <h1 class="title">POLYMORPHIC TOOLBOX</h1>
                 </div>
                 <div class="col-md-3">
                     <ul class="nav">
