@@ -31,10 +31,10 @@ class PolymorphicToolboxBucketTests {
 		assertThat(bucRepository).isNotNull();
 	}
 
-	@Test
-	void initBucket() {
-		assertThat(bucRepository.findById((long) 1).get()).isNotNull();
-	}
+//	@Test
+//	void initBucket() {
+//		assertThat(bucRepository.findById((long) 1).get()).isNotNull();
+//	}
 
 	@Test
 	void insertBucket() {
