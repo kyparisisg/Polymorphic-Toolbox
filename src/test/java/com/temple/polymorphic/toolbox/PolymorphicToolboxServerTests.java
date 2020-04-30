@@ -48,13 +48,20 @@ class PolymorphicToolboxServerTests {
 		assertThat(serverRepository.findByIp("IP1")).isNotNull();
 	}
 
+	@Test
+	void checkServerHealth(){
+		Server server2 = new Server("Server2", "IP2", "username", "pw", "");
+		serverRepository.save(server2);
+		serverRepository.updateServerHealth(1, serverRepository.findByIp("IP2").getId());
+		assertEquals(1, serverRepository.findByIp("IP2").getHealth());
+	}
 
 	@Test
 	void deleteServer(){
-		Server server2 = new Server("Server2", "IP2", "username", "pw", "");
-		serverRepository.save(server2);
-		serverRepository.delete(serverRepository.findByIp("IP2"));
-		assertThat(serverRepository.findByIp("IP2")).isNull();
+		Server server3 = new Server("Server3", "IP3", "username", "pw", "");
+		serverRepository.save(server3);
+		serverRepository.delete(serverRepository.findByIp("IP3"));
+		assertThat(serverRepository.findByIp("IP3")).isNull();
 	}
 
 
