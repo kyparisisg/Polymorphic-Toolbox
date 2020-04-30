@@ -114,17 +114,24 @@
                 <%--                <h1 class="h1-seo"></h1>--%>
                 <h3>HTTP Status 403 - Access is denied</h3>
                 <h4>${msg}</h4>
+                <br><br>
+                <a href="/client" class="text-center btn btn-primary btn-round btn-lg" role="button">
+                    Client Dashboard
+                </a> <br>
+                <a href="/logout" class="btn btn-primary btn-round btn-lg" role="button">
+                    Logout
+                </a>
                     <br>
-                    <div class="text-center col-md-12 col-lg-8">
-                        <a href="/client" class="text-center btn btn-primary btn-round btn-lg" role="button">
-                                Client Dashboard
-                        </a>
-                    </div>
-                    <div class="text-center col-md-12 col-lg-8">
-                        <a href="/logout" class="btn btn-primary btn-round btn-lg" role="button">
-                            Logout
-                        </a>
-                    </div>
+<%--                    <div class="text-center col-md-12 col-lg-8">--%>
+<%--                        <a href="/client" class="text-center btn btn-primary btn-round btn-lg" role="button">--%>
+<%--                                Client Dashboard--%>
+<%--                        </a>--%>
+<%--                    </div>--%>
+<%--                    <div class="text-center col-md-12 col-lg-8">--%>
+<%--                        <a href="/logout" class="btn btn-primary btn-round btn-lg" role="button">--%>
+<%--                            Logout--%>
+<%--                        </a>--%>
+<%--                    </div>--%>
                 </div>
             </div>
         </div>
