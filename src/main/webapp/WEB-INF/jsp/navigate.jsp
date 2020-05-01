@@ -69,24 +69,11 @@
                         <p class="d-lg-none d-xl-none">Instagram</p>
                     </a>
                 </li>
-                <li class="dropdown nav-item">
-                    <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-                        <i class="fa fa-cogs d-lg-none d-xl-none"></i> Administrator
+
+                <li class="nav-item p-0">
+                    <a class="nav-link btn btn-default d-none d-lg-block" href="/api/admin" role = "button" onclick="scrollToDownload()">
+                        Administration
                     </a>
-                    <div class="dropdown-menu dropdown-with-icons">
-                        <a href="" class="dropdown-item">
-                            <i class="tim-icons icon-paper"></i> Documentation
-                        </a>
-                        <a href="" class="dropdown-item">
-                            <i class="tim-icons icon-bullet-list-67"></i>Register Page
-                        </a>
-                        <a href="" class="dropdown-item">
-                            <i class="tim-icons icon-image-02"></i>Landing Page
-                        </a>
-                        <a href="" class="dropdown-item">
-                            <i class="tim-icons icon-single-02"></i>Profile Page
-                        </a>
-                    </div>
                 </li>
                 <li class="nav-item p-0">
                     <a class="nav-link btn btn-default d-none d-lg-block" href="/api/aboutUs" role = "button" onclick="scrollToDownload()">
@@ -155,11 +142,11 @@
 <%--                </div>--%>
                 <div class="row justify-content-md-center">
                     <div class="col-lg-3">
-                        <img class="img-fluid" src="/images/manage-users.png">
+<%--                        <img class="img-fluid" src="/images/manage-users.png">--%>
                         <br><br>
                         <p class="text-white mb-3">Invite user to join the Polymorphic Toolbox and experience the wonderful simplicity of our platform. Modify or delete users when necessary.</p>
                         <div class="btn-wrapper mb-3">
-                            <p class="category text-success d-inline">Manage Users</p>
+                            <p class="category text-success d-inline">Transfer</p>
                             <a href="/api/users" class="btn btn-success btn-link btn-sm"><i class="tim-icons icon-minimal-right"></i></a>
                         </div>
                         <div class="btn-wrapper">
@@ -167,12 +154,12 @@
                         </div>
                     </div>
                     <div class="col-lg-3">
-                        <img class="img-fluid" src="/images/manage-servers.png">
+<%--                        <img class="img-fluid" src="/images/manage-servers.png">--%>
                         <br><br>
                         <p class="text-white mb-3">Add new servers by IP and give privillages to the clients so file transfer operations can take place.
                             Modify or delete servers when the infrasture changes.</p>
                         <div class="btn-wrapper mb-3">
-                            <p class="category text-success d-inline">Manage Servers</p>
+                            <p class="category text-success d-inline">Back Up</p>
                             <a href="/api/servers" class="btn btn-success btn-link btn-sm"><i class="tim-icons icon-minimal-right"></i></a>
                         </div>
                         <div class="btn-wrapper">
@@ -180,12 +167,12 @@
                         </div>
                     </div>
                     <div class="col-lg-3">
-                        <img class="img-fluid" src="/images/client-view.jpg">
+<%--                        <img class="img-fluid" src="/images/client-view.jpg">--%>
                         <br><br>
                         <p class="text-white mb-3">Client view allows the Admin of the infrastracture to select and execute operation like a simple user.
                             The Admin can transfer files within the registered servers. Furthermore, back up and retrieve from the cloud storage facility.</p>
                         <div class="btn-wrapper mb-3">
-                            <p class="category text-success d-inline">Client Dashboard</p>
+                            <p class="category text-success d-inline">Restore</p>
                             <a href="/client" class="btn btn-success btn-link btn-sm"><i class="tim-icons icon-minimal-right"></i></a>
                         </div>
                         <div class="btn-wrapper">
@@ -214,7 +201,7 @@
             <div class="col-md-3">
                 <ul class="nav">
                     <li class="nav-item">
-                        <a href="/api/admin" class="nav-link">
+                        <a href="/home" class="nav-link">
                             Home
                         </a>
                     </li>
