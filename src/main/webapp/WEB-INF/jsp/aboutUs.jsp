@@ -597,7 +597,7 @@
                                             </tr>
                                             <tr>
                                                 <td>
-                                                    Profession/Company: SWE at Lockheed
+                                                    Profession/Company: Software Engineer at ASRC Federal
                                                 </td>
                                             </tr>
                                             </tbody>
@@ -645,7 +645,7 @@
                 <div class="col-md-5">
                     <h1 class="profile-title text-left">Matthew Jahn</h1>
                     <h5 class="text-on-back">04</h5>
-                    <p class="profile-description text-left">Matt is our back-end developer. He is responsible for designing,engieering,and developing the database components and entities. He handles all database issues to ensure all information is retained and retrieved correctly, securly, and  effeciently to allow for quick retrieval. </p>
+                    <p class="profile-description text-left">Matt is our back-end developer. He is responsible for designing, engineering, and developing the database components and entities. He handles all database issues to ensure all information is retained and retrieved correctly, securely, and effectively to allow for quick retrieval. He also helps with the addition of new backend functionality such as server transfer.</p>
                     <div class="btn-wrapper pt-3">
                         <a target="_blank" href="https://twitter.com/creativetim" class="btn btn-icon btn-twitter btn-round" data-toggle="tooltip" data-original-title="Follow us">
                             <i class="fab fa-twitter"></i>
