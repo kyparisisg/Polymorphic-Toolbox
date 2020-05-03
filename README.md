@@ -33,10 +33,51 @@ Additionally, the user can delete files that are located in his/her private dire
 Finally, the user can view all successful and unsuccessful transactions that were submitted.
 
 
-### Guide-Sever Transfer
+### Guide-Server Transfer
+
+In order to successfully complete a server transfer, be sure your servers are set up successfully.
+Please see the admin dashboard guide if that is not the case, or if unexpected errors occur.
+To start a server transfer, select the "Server Transfer" button from the user dashboard.
+A form will open, listing the IDs of all visible servers. Please note that admins have 
+permission to access any entered server but users will need to granted individual permission
+for each server they wish to have access to. Enter the ID of the server you wish to transfer a 
+file from and continue to the next form. A form will open, listing all the files in the default 
+directory of the server. If no files are listed, ensure that they are in the default directory
+and not in a separate folder. Type the file name that you wish to transfer and continue to the next
+form. Another form listing accessible servers will appear, enter the ID of the desired destination 
+server and continue. If the transfer was successful, the page will say that the transfer succeeded
+and list the details of the transfer, including a status of 1. If the transfer was not successful, 
+the page will say that the transfer failed and show the details of the failed transfer including a
+status of 0. Be sure that the server is set up properly to allow for secure copy over the default or
+specified port. In either case, an entry will be added to the history tab on the user dashboard, 
+showing the details of the transfer.
 
 
-### Guide-Cloud Backup and Restore
+### Guide-Cloud Backup, Restore and Delete
+
+In order to successfully complete a cloud backup, be sure your servers are set up successfully.
+Please see the admin dashboard guide if that is not the case, or if unexpected errors occur.
+To start a cloud backup, select the "Back Up" button from the user dashboard.
+A form will open, listing the IDs of all visible servers. Please note that admins have 
+permission to access any entered server but users will need to granted individual permission
+for each server they wish to have access to. Enter the ID of the server you wish to backup a 
+file from and continue to the next form. A form will open, listing all the files in the default 
+directory of the server. If no files are listed, ensure that they are in the default directory
+and not in a separate folder. Type the file name that you wish to backup and continue to the next
+form. The file will then be uploaded to the your account's directory in the s3 bucket (such a
+directory will be created if it does not already exist). An entry will be added to the history
+tab on the user dashboard, showing the details of the transfer.
+
+The process is reversed for the restore process. To start a cloud restore, select the "Restore" button
+from the user dashboard. A form will open, listing all the files in your account's directory of the s3 bucket.
+Type the file name that you wish to restore and continue to the next form. A form will open, listing the
+IDs of all visible servers. Enter the ID of the server you wish to restore a file to. The file will be 
+added to the default directory of that server. An entry will be added to the history tab on the user
+dashboard, showing the details of the transfer.
+
+To delete a file from the cloud s3 bucket, select the "Delete" button from the user dashboard. A form
+will open, listing all the files in your account's directory of the s3 bucket. Type the file name
+that you wish to delete and continue. The file will be deleted from the s3 bucket.
 
 
 ### Guide-Admin Dashboard
