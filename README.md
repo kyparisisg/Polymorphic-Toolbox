@@ -82,6 +82,16 @@ that you wish to delete and continue. The file will be deleted from the s3 bucke
 
 ### Guide-Admin Dashboard
 
+In order to access the admin dashboard, sign into the application with an admin account and click on the top
+"Administration" button. From there, manage users, manage servers and the user dashboard are all accessible. 
+In the manage users tab, one can add, update, search and delete users. In addition, by clicking the "View Users"
+button, one can view, add and delete the permissions of a particular user. Permissions must be added for every
+user account that wishes to access a particular server. In the manage server tab, one can add, update, search
+and delete servers, as well as set up cloud storage. When adding or editing servers, be sure to pay attention
+to the server health column, which tells if the application can access a particular server by displaying '1'
+if accessible and '0' if inaccessible. This can also be updated by clicking the "View Servers" button and 
+then the "Check" button for that server.
+
 
 ### Software Prerequisites 
 
