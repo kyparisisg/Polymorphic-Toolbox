@@ -1,7 +1,6 @@
 package com.temple.polymorphic.toolbox;
 
 import com.temple.polymorphic.toolbox.models.Server;
-import com.temple.polymorphic.toolbox.controllers.ServersController;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +16,6 @@ class PolymorphicToolboxServerTests {
 	@Autowired
 	private ServerRepository serverRepository;
 
-	@Autowired
-	private ServersController serverController;
-
 	@Test
 	void contextLoads() {
 	}
@@ -29,9 +25,6 @@ class PolymorphicToolboxServerTests {
 //		assertTrue(false);
 //	}
 
-	//------------------------------------------------------------------------------------------------------------------
-	// --- REPOSITORY TESTS ---
-	//------------------------------------------------------------------------------------------------------------------
 
 	@Test
 	void initServerRepo(){
@@ -51,22 +44,19 @@ class PolymorphicToolboxServerTests {
 		assertThat(serverRepository.findByIp("IP1")).isNotNull();
 	}
 
+	@Test
+	void checkServerHealth(){
+		Server server2 = new Server("Server2", "IP2", "username", "pw", "");
+		serverRepository.save(server2);
+		serverRepository.updateServerHealth(1, serverRepository.findByIp("IP2").getId());
+		assertEquals(1, serverRepository.findByIp("IP2").getHealth());
+	}
 
 	@Test
 	void deleteServer(){
-		Server server2 = new Server("Server2", "IP2", "username", "pw", "");
-		serverRepository.save(server2);
-		serverRepository.delete(serverRepository.findByIp("IP2"));
-		assertThat(serverRepository.findByIp("IP2")).isNull();
+		Server server3 = new Server("Server3", "IP3", "username", "pw", "");
+		serverRepository.save(server3);
+		serverRepository.delete(serverRepository.findByIp("IP3"));
+		assertThat(serverRepository.findByIp("IP3")).isNull();
 	}
-
-	//------------------------------------------------------------------------------------------------------------------
-	// --- CONTROLLER TESTS ---
-	//------------------------------------------------------------------------------------------------------------------
-
-	@Test
-	void initServerController() {
-		assertThat(serverController).isNotNull();
-	}
-
 }
