@@ -34,6 +34,7 @@
                 <span class="navbar-toggler-bar bar3"></span>
             </button>
         </div>
+
         <div class="collapse navbar-collapse justify-content-end" id="navigation">
             <div class="navbar-collapse-header">
                 <div class="row">
@@ -110,69 +111,40 @@
             <div class="content-center brand">
                 <h1 class="h1-seo">Manage Users</h1>
                 <div class="row justify-content-md-center">
-                    <ul class="nav nav-pills nav-pills-primary nav-pills-icons">
-                        <li class="nav-item">
-                            <a class="nav-link active show" href="/api/users/all" role="button">
-                                <i class="fas fa-users"></i> View   All Users
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active show" href="/api/users/get"  role="button" >
-                                <i class="fas fa-users"></i> Search Users
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active show" href="/api/users/save" role="button">
-                                <i class="fas fa-users"></i> Add Users
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active show" href="/api/users/update"  role="button" >
-                                <i class="fas fa-users"></i> Update Users
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active show" href="/api/users/delete"  role="button" >
-                                <i class="fas fa-users"></i> Delete Users
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active show" href="/api/admin"  role="button" >
-                                <i class="fas fa-users"></i> Go Back
-                            </a>
-                        </li>
 
+                    <ul class="nav nav-pills nav-pills-primary nav-pills-icons">
+                        <li class="nav-item" id="all">
+                            <a class="nav-link active show" href="/api/users/all" role="button">
+                                <i class="fas fa-users"></i> View Users
+                            </a>
+                        </li>
+                        <li class="nav-item" id="search">
+                            <a class="nav-link active show" href="/api/users/get"  role="button" >
+                                <i class="fas fa-search"></i> Search Users
+                            </a>
+                        </li>
+                        <li class="nav-item" id="add">
+                            <a class="nav-link active show" href="/api/users/save" role="button">
+                                <i class="fas fa-plus-circle"></i> Add Users
+                            </a>
+                        </li>
+                        <li class="nav-item" id="update">
+                            <a class="nav-link active show" href="/api/users/update"  role="button" >
+                                <i class="fas fa-sync-alt"></i>Update Users
+                            </a>
+                        </li>
+                        <li class="nav-item" id="delete">
+                            <a class="nav-link active show" href="/api/users/delete"  role="button" >
+                                <i class="fa fa-trash" aria-hidden="true"></i> Delete Users
+                            </a>
+                        </li>
                     </ul>
-<%--                    <div class="text-center col-md-12 col-lg-8">--%>
-<%--                        <a href="/api/users/all" class="btn btn-primary btn-round btn-lg" role="button">--%>
-<%--                            View All--%>
-<%--                        </a>--%>
-<%--                    </div>--%>
-<%--                    <div class="text-center col-md-12 col-lg-8">--%>
-<%--                        <a href="/api/users/get" class="btn btn-primary btn-round btn-lg" role="button">--%>
-<%--                            Search User--%>
-<%--                        </a>--%>
-<%--                    </div>--%>
-<%--                    <div class="text-center col-md-12 col-lg-8">--%>
-<%--                        <a href="/api/users/save" class="btn btn-primary btn-round btn-lg" role="button">--%>
-<%--                                Add User--%>
-<%--                        </a>--%>
-<%--                    </div>--%>
-<%--                    <div class="text-center col-md-12 col-lg-8">--%>
-<%--                        <a href="/api/users/update" class="btn btn-primary btn-round btn-lg" role="button">--%>
-<%--                                Update User--%>
-<%--                        </a>--%>
-<%--                    </div>--%>
-<%--                    <div class="text-center col-md-12 col-lg-8">--%>
-<%--                        <a href="/api/users/delete" class="btn btn-primary btn-round btn-lg" role="button">--%>
-<%--                            Delete User--%>
-<%--                        </a>--%>
-<%--                    </div>--%>
-<%--                    <div class="text-center col-md-12 col-lg-8">--%>
-<%--                        <a href="/api/admin" class="btn btn-primary btn-round btn-lg" role="button">--%>
-<%--                            Go back--%>
-<%--                        </a>--%>
-<%--                    </div>--%>
+                    <br><br>
+                    <div id="detail" style="width: 50%; text-align: center; float: contour;">
+                        <p class="blockquote blockquote-primary">
+
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -283,6 +255,68 @@
             }, 1000);
         }
     }
+
+    $("#all").mouseenter(function () {
+        $("#detail").fadeIn();
+
+        var para = document.getElementsByClassName("blockquote blockquote-primary")[0];
+        para.innerHTML = "This is where the admin will be able to view all of the users and assign permissions, edit info about a user, or delete their account."
+
+    });
+    $("#all").mouseleave(function () {
+        // para.innerHTML = "";
+        $("#detail").fadeOut();
+        // document.getElementById("detail").style.visibility = "hidden";
+
+    });
+
+    $("#search").mouseenter(function () {
+        $("#detail").fadeIn();
+        var para = document.getElementsByClassName("blockquote blockquote-primary")[0];
+        para.innerHTML = "This is where you can quickly search a user by their email address";
+
+    });
+
+    $("#search").mouseleave(function () {
+        // para.innerHTML = "";
+        $("#detail").fadeOut();
+    });
+
+    $("#add").mouseenter(function () {
+        $("#detail").fadeIn();
+        var para = document.getElementsByClassName("blockquote blockquote-primary")[0];
+        para.innerHTML = "You will be able to add a user to the residential system by entering in their name, email address and role in the Complex";
+    });
+
+    $("#add").mouseleave(function () {
+        // para.innerHTML = "";
+        $("#detail").fadeOut();
+    });
+
+    $("#delete").mouseenter(function () {
+        $("#detail").fadeIn();
+        var para = document.getElementsByClassName("blockquote blockquote-primary")[0];
+        para.innerHTML = "Delete a given user by typing in their email address";
+
+    });
+
+    $("#delete").mouseleave(function () {
+        // para.innerHTML = "";
+        $("#detail").fadeOut();
+    });
+
+    $("#update").mouseenter(function () {
+        $("#detail").fadeIn();
+        var para = document.getElementsByClassName("blockquote blockquote-primary")[0];
+        para.innerHTML = "Update an existing user by using their email as an identifier";
+
+    });
+
+    $("#update").mouseleave(function () {
+        // para.innerHTML = "";
+        $("#detail").fadeOut();
+    });
+
 </script>
 
 

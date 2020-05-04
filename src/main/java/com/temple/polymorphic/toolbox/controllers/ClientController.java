@@ -6,9 +6,11 @@ import com.temple.polymorphic.toolbox.dto.UserDto;
 import com.temple.polymorphic.toolbox.services.TransferService;
 import com.temple.polymorphic.toolbox.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.ModelAndView;
 //import sun.text.normalizer.NormalizerBase;
 
@@ -63,10 +65,13 @@ public class ClientController {
             userDto = userService.getUser(email);
         }catch (Exception e){
             //error handler - Internal Error 500
+            String msg = "Could not update user, please contact with administrator";
+            ModelAndView modelAndView = new ModelAndView("500");
+            modelAndView.addObject("msg", msg);
+            return modelAndView;
         }
         model.addAttribute("userDto", userDto);
         model.addAttribute("email", userDto.getEmail());
-
 
         return new ModelAndView("client/mySettings", "command", new UserDto());
     }
@@ -75,6 +80,16 @@ public class ClientController {
     public String mySettingsUpdate(@CookieValue(value = "username", defaultValue = "NOT_FOUND") String email, @ModelAttribute UserDto userDto, Model model){
         if(!email.equals(userDto.getEmail())){
             //throw error and navigate to error handler -- Bad Request
+            String msg = "User's email does not match";
+            model.addAttribute("msg",msg);
+            return "500";
+        }
+        if(userDto.getPassword().length() <= 8 ){
+//            Exception exp = ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Password does not meet the requirements!");
+            String msg = "Password does not meet the requirements!";
+
+            model.addAttribute("msg",msg);
+            return "500";
         }
         userDto.setEmail(email);
         userDto = userService.updateUser(userDto);

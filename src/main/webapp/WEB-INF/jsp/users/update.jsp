@@ -25,7 +25,7 @@
 <nav class="navbar navbar-expand-lg fixed-top navbar-transparent " color-on-scroll="100">
     <div class="container">
         <div class="navbar-translate">
-            <a class="navbar-brand" href="/api/admin" rel="tooltip" title="" data-placement="bottom" >
+            <a class="navbar-brand" href="/home" rel="tooltip" title="" data-placement="bottom" >
                 <span>POLYMORPHIC TOOLBOX</span>
             </a>
             <button class="navbar-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
@@ -111,21 +111,22 @@
                         <div class="card card-register">
                             <div class="card-header">
                                 <img class="card-img" src="/images/square1.png" alt="Card image">
-                                <h3 class="card-title">UserInfo</h3>
+                                <h3 class="card-title">Info</h3>
                             </div>
                             <%--                            <form:form class = "form" method = "POST" action = "/api/users/save">--%>
 
-                                <h3>(email must be the same as one in the db to update the rest information)</h3>
+
                                 <form:form method = "POST" action = "/api/users/update" autocomplete="off">
                                     <div class="card-body">
+                                        <p>(email must be the same as one in the db to update the rest information)</p>
 
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <div class="input-group-text">
-                                                    <i class="tim-icons icon-single-02"></i>
+                                                    <i class="tim-icons icon-email-85"></i>
                                                 </div>
                                             </div>
-                                            <form:input path = "email" type="text" class="form-control" placeholder="email" autocomplete="off"/>
+                                            <form:input path = "email" type="text" class="form-control" value="${email}" autocomplete="off"/>
                                         </div>
                                         <div class="input-group">
                                             <div class="input-group-prepend">
@@ -146,7 +147,7 @@
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <div class="input-group-text">
-                                                    <i class="tim-icons icon-single-02"></i>
+                                                    <i class="tim-icons icon-lock-circle"></i>
                                                 </div>
                                             </div>
                                             <form:input path = "role" type="text" class="form-control" placeholder="Role" autocomplete="off"/>

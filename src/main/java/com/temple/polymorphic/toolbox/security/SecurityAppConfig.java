@@ -35,12 +35,6 @@ public class SecurityAppConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-//        http.authorizeRequests().antMatchers("src/main/resources/public/**","/css/**","/js/**").permitAll()
-//                .and().authorizeRequests().antMatchers("/","/home","/client/**").hasRole("USER")
-//                .and().authorizeRequests().antMatchers("/**",).hasRole("ADMIN")
-//                .and().formLogin().successHandler(mySimpleUrlAuthenticationSuccessHandler)
-//                .and().exceptionHandling().accessDeniedPage("/403");
-
         http.authorizeRequests().antMatchers("src/main/resources/public/**","/css/**","/js/**","/console/**").permitAll()
                 .and().authorizeRequests().antMatchers("/","/home","/client/**").hasAnyRole("USER","ADMIN")
                 .and().authorizeRequests().antMatchers("/**").hasRole("ADMIN")
@@ -52,8 +46,6 @@ public class SecurityAppConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        //auth.inMemoryAuthentication().withUser("tuk12920@temple.edu").password("user").roles("USER").and().withUser("admin").password("admin").roles("ADMIN","USER");
-
         auth.jdbcAuthentication().dataSource(dataSource)
                 .usersByUsernameQuery("select u.email as username, u.password as password, 'true' as enabled from users u where u.email=? limit 1")
                 .authoritiesByUsernameQuery("select u.email as username, u.role as authority from users u where u.email=?")//.passwordEncoder(getPasswordEncoder()); this is for avoiding auth

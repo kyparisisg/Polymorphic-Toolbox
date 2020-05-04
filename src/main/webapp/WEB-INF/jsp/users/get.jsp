@@ -30,7 +30,7 @@
 <nav class="navbar navbar-expand-lg fixed-top navbar-transparent " color-on-scroll="100">
     <div class="container">
         <div class="navbar-translate">
-            <a class="navbar-brand" href="/api/admin" rel="tooltip"  data-placement="bottom" >
+            <a class="navbar-brand" href="/home" rel="tooltip"  data-placement="bottom" >
                 <span>POLYMORPHIC TOOLBOX</span>
             </a>
             <button class="navbar-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
@@ -137,9 +137,9 @@
                                 <td>${user.lastName}</td>
                                 <td>${user.email}</td>
                                 <td>${user.role}</td>
-                                <td><form:form name="edit" method="GET" action="/api/users/update/${user.email}"><input type="submit" value="Edit"></form:form></td>
-                                <td><form:form name="permissions" method="GET" action="/api/users/permissions/get/${user.email}"><input type="submit" value="Permissions"></form:form></td>
-                                <td><form:form name="delete" method="GET" action="/api/users/delete/${user.email}"><input type="submit" value="Delete"></form:form></td>
+                                <td><form:form name="edit" method="GET" action="/api/users/update/${user.email}"><button class="btn btn-primary btn-sm" type = "submit">Edit</button></form:form></td>
+                                <td><form:form name="permissions" method="GET" action="/api/users/permissions/get/${user.email}"><button class="btn btn-primary btn-sm" type = "submit">Permissions</button></form:form></td>
+                                <td><form:form name="delete" method="GET" action="/api/users/delete/${user.email}"><button class="btn btn-primary btn-sm" type = "submit">Delete</button></form:form></td>
                             </tr>
                         </c:forEach>
                         </tr>

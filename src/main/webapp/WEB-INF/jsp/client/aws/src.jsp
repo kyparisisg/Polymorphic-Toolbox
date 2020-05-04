@@ -93,8 +93,8 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link btn btn-default d-none d-lg-block" href="javascript:void(0)" onclick="scrollToDownload()">
-                        <i class="tim-icons icon-cloud-download-93"></i> Download
+                    <a class="nav-link btn btn-default d-none d-lg-block" href="/logout" role = "button" onclick="scrollToDownload()">
+                        Logout
                     </a>
                 </li>
             </ul>
@@ -146,12 +146,21 @@
                                 <td><form:input path = "email" type="hidden" value="${email}" autocomplete="false" /></td>
                             </tr>
                             <tr>
-                                <td><form:input path = "srcServerId" autocomplete="false" placeholder="Source Server"/></td>
+                                <td>
+                                    <div class="input-group" style="width: 30%; padding-left: 35%; padding-right: 55%;">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="tim-icons icon-lock-circle"></i>
+                                            </div>
+                                        </div>
+                                        <form:input path = "srcServerId" type="text" class="form-control" placeholder="Source Server" autocomplete="false"/>
+                                    </div>
+                                </td>
                             </tr>
-                            <br><br>
+                            <br>
                             <tr>
                                 <td colspan = "2">
-                                    <input type = "submit" value = "Set"/>
+                                    <input type = "submit" value="Set" class="btn btn-info btn-round btn-lg">
                                 </td>
                             </tr>
                         </div>

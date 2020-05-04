@@ -88,8 +88,8 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link btn btn-default d-none d-lg-block" href="javascript:void(0)" onclick="scrollToDownload()">
-                        <i class="tim-icons icon-cloud-download-93"></i> Download
+                    <a class="nav-link btn btn-default d-none d-lg-block" href="/logout" role = "button" onclick="scrollToDownload()">
+                        Logout
                     </a>
                 </li>
             </ul>
@@ -110,44 +110,105 @@
             <div class="content-center brand">
                 <h1 class="h1-seo">Manage Servers</h1>
                 <div class="row justify-content-md-center">
+                    <ul class="nav nav-pills nav-pills-primary nav-pills-icons">
+                        <li class="nav-item" id="viewall">
+                            <a class="nav-link active show" href="/api/servers/all" role="button">
+                                <i class="fas fa-server"></i> View Servers
+                            </a>
+                        </li>
+                        <li class="nav-item" id="search">
+                            <a class="nav-link active show" href="/api/servers/get"  role="button" >
+                                <i class="fas fa-search"></i> Server Search
+                            </a>
+                        </li>
+                        <li class="nav-item" id="add">
+                            <a class="nav-link active show" href="/api/servers/save" role="button">
+                                <i class="fas fa-plus-circle"></i> Add Server
+                            </a>
+                        </li>
+                        <li class="nav-item" id="delete">
+                            <a class="nav-link active show" href="/api/servers/delete"  role="button" >
+                                <i class="fa fa-trash" aria-hidden="true"></i> Delete Server
+                            </a>
+                        </li>
+                        <li class="nav-item" id="cloud">
+                            <a class="nav-link active show" href="/api/servers/s3bucket"  role="button" >
+                                <i class="tim-icons icon-settings" aria-hidden="true"></i> Cloud Set Up
+                            </a>
+                        </li>
 
-                    <div class="text-center col-md-12 col-lg-8">
-                        <a href="/api/servers/all" class="btn btn-primary btn-round btn-lg" role="button">
-                            View All
-                        </a>
-                    </div>
-                    <div class="text-center col-md-12 col-lg-8">
-                        <a href="/api/servers/get" class="btn btn-primary btn-round btn-lg" role="button">
-                            Search Server
-                        </a>
-                    </div>
 
-                    <div class="text-center col-md-12 col-lg-8">
-                        <a href="/api/servers/save" class="btn btn-primary btn-round btn-lg" role="button">
-                            Add Server
-                        </a>
-                    </div>
-                    <div class="text-center col-md-12 col-lg-8">
-                        <a href="/api/servers/update" class="btn btn-primary btn-round btn-lg" role="button">
-                            Update Server
-                        </a>
-                    </div>
-                    <div class="text-center col-md-12 col-lg-8">
-                        <a href="/api/servers/delete" class="btn btn-primary btn-round btn-lg" role="button">
-                            Delete Server
-                        </a>
-                    </div>
-                    <div class="text-center col-md-12 col-lg-8">
-                        <a href="/api/admin" class="btn btn-primary btn-round btn-lg" role="button">
-                            Go back
-                        </a>
+                    </ul>
+                    <br/><br/>
+                    <div id="detail" style="width: 50%; text-align: center; float: contour;">
+                        <p class="blockquote blockquote-primary">
+
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
+<%--    <div id="detail" style="width: 50%; text-align: center; float: contour;">--%>
+<%--        <p class="blockquote blockquote-primary">--%>
+
+<%--        </p>--%>
+<%--    </div>--%>
+
+<%--    <div class="page-header header-filter">--%>
+<%--        <div class="squares square1"></div>--%>
+<%--        <div class="squares square2"></div>--%>
+<%--        <div class="squares square3"></div>--%>
+<%--        <div class="squares square4"></div>--%>
+<%--        <div class="squares square5"></div>--%>
+<%--        <div class="squares square6"></div>--%>
+<%--        <div class="squares square7"></div>--%>
+<%--        <div class="container">--%>
+<%--            <div class="content-center brand">--%>
+<%--                <h1 class="h1-seo">Manage Users</h1>--%>
+<%--                <div class="row justify-content-md-center">--%>
+
+<%--                    <ul class="nav nav-pills nav-pills-primary nav-pills-icons">--%>
+<%--                        <li class="nav-item">--%>
+<%--                            <a class="nav-link active show" href="/api/users/all" role="button">--%>
+<%--                                <i class="fas fa-users"></i> View Users--%>
+<%--                            </a>--%>
+<%--                        </li>--%>
+<%--                        <li class="nav-item">--%>
+<%--                            <a class="nav-link active show" href="/api/users/get"  role="button" >--%>
+<%--                                <i class="fas fa-search"></i> Search Users--%>
+<%--                            </a>--%>
+<%--                        </li>--%>
+<%--                        <li class="nav-item">--%>
+<%--                            <a class="nav-link active show" href="/api/users/save" role="button">--%>
+<%--                                <i class="fas fa-plus-circle"></i> Add Users--%>
+<%--                            </a>--%>
+<%--                        </li>--%>
+<%--                        <li class="nav-item">--%>
+<%--                            <a class="nav-link active show" href="/api/users/update"  role="button" >--%>
+<%--                                <i class="fas fa-sync-alt"></i>Update Users--%>
+<%--                            </a>--%>
+<%--                        </li>--%>
+<%--                        <li class="nav-item">--%>
+<%--                            <a class="nav-link active show" href="/api/users/delete"  role="button" >--%>
+<%--                                <i class="fa fa-trash" aria-hidden="true"></i> Delete Users--%>
+<%--                            </a>--%>
+<%--                        </li>--%>
+<%--                    </ul>--%>
+<%--                    <br><br>     <br><br>--%>
+<%--                    <div class="text-center">--%>
+<%--                        <td>Return to :</td>--%>
+<%--                        <td><a href="/navigate">Home</a></td>--%>
+<%--                    </div>--%>
+<%--                </div>--%>
+<%--            </div>--%>
+<%--        </div>--%>
+<%--    </div>--%>
+
 
     <!--  End Modal -->
+
 </div>
 <footer class="footer">
     <div class="container">
@@ -252,6 +313,75 @@
             }, 1000);
         }
     }
+
+    $("#viewall").mouseenter(function () {
+        $("#detail").fadeIn();
+
+        var para = document.getElementsByClassName("blockquote blockquote-primary")[0];
+        para.innerHTML = "This is where you will be able to check the status of servers, delete servers from in-use list, and edit details about servers."
+
+    });
+    $("#viewall").mouseleave(function () {
+        // para.innerHTML = "";
+        $("#detail").fadeOut();
+        // document.getElementById("detail").style.visibility = "hidden";
+
+    });
+
+    $("#search").mouseenter(function () {
+        $("#detail").fadeIn();
+        var para = document.getElementsByClassName("blockquote blockquote-primary")[0];
+        para.innerHTML = "This is where you can quickly search server by its IpV4 address";
+
+    });
+
+    $("#search").mouseleave(function () {
+        // para.innerHTML = "";
+        $("#detail").fadeOut();
+    });
+
+    $("#add").mouseenter(function () {
+        $("#detail").fadeIn();
+        var para = document.getElementsByClassName("blockquote blockquote-primary")[0];
+        para.innerHTML = "You will be able to add a server to the to the system by entering its hostname, IpV4 address, the admin in charge of it, admin password, and optional public key";
+
+    });
+
+    $("#add").mouseleave(function () {
+        // para.innerHTML = "";
+        $("#detail").fadeOut();
+    });
+
+    $("#delete").mouseenter(function () {
+        $("#detail").fadeIn();
+        var para = document.getElementsByClassName("blockquote blockquote-primary")[0];
+        para.innerHTML = "Delete a given server by typing in its IpV4 address";
+
+    });
+
+    $("#delete").mouseleave(function () {
+        // para.innerHTML = "";
+        $("#detail").fadeOut();
+    });
+
+    $("#cloud").mouseenter(function () {
+        $("#detail").fadeIn();
+        var para = document.getElementsByClassName("blockquote blockquote-primary")[0];
+        para.innerHTML = "Set the s3 bucket you want to ask your cloud backup location dump";
+
+    });
+
+    $("#cloud").mouseleave(function () {
+        // para.innerHTML = "";
+        $("#detail").fadeOut();
+    });
+
+
+
+
+
+
+
 </script>
 
 

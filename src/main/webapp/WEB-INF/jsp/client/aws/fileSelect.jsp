@@ -93,8 +93,8 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link btn btn-default d-none d-lg-block" href="javascript:void(0)" onclick="scrollToDownload()">
-                        <i class="tim-icons icon-cloud-download-93"></i> Download
+                    <a class="nav-link btn btn-default d-none d-lg-block" href="/logout" role = "button" onclick="scrollToDownload()">
+                        Logout
                     </a>
                 </li>
             </ul>
@@ -139,7 +139,7 @@
                                 <td><form:input path = "email" type="hidden" value="${email}" autocomplete="false" /></td>
                             </tr>
                             <tr>
-                                <td><form:input path = "srcServerId" type="hidden" autocomplete="false"/></td>
+                                <td><form:input path = "srcServerId" type="hidden" value="${srcServerId}" autocomplete="false"/></td>
                             </tr>
                             <br><br>
                             <tr>

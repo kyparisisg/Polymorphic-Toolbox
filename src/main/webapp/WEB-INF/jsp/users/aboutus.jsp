@@ -24,7 +24,7 @@
     <link rel="apple-touch-icon" sizes="76x76" href="/images/apple-icon.png">
     <link rel="icon" type="image/png" href="/images/favicon.png">
     <title>
-        Blk• Design System by Creative Tim
+       About us
     </title>
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet" />
@@ -56,7 +56,7 @@
                     <div class="row">
                         <div class="col-md-12 text-center">
                             <h4 class="text-uppercase">Giannis</h4>
-                            <img src="images/mike.jpg" alt="MISSING JPG"/>
+                            <img src="/images/mike.jpg" alt="MISSING JPG"/>
                             <hr class="line-primary">
                         </div>
                     </div>
@@ -83,7 +83,7 @@
                     <div class="row">
                         <div class="col-md-12 text-center">
                             <h4 class="text-uppercase">Bella</h4>
-                            <img src="images/mike.jpg" alt="MISSING JPG"/>
+                            <img src="/images/mike.jpg" alt="MISSING JPG"/>
                             <hr class="line-success">
                         </div>
                     </div>
@@ -110,7 +110,7 @@
 
                         <div class="col-md-12 text-center">
                             <h4 class="text-uppercase">Tyler</h4>
-                            <img src="images/mike.jpg" alt="MISSING JPG"/>
+                            <img src="/images/mike.jpg" alt="MISSING JPG"/>
                             <hr class="line-info">
                         </div>
                     </div>
@@ -199,8 +199,9 @@
             </div>
         </div>
     </div>
-    </div>
+
 </footer>
+
 
 <!--   Core JS Files   -->
 <script src="../public/js/core/jquery.min.js" type="text/javascript"></script>
@@ -226,3 +227,5 @@
         demo.initLandingPageChart();
     });
 </script>
+
+</html>

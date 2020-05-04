@@ -93,8 +93,8 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link btn btn-default d-none d-lg-block" href="javascript:void(0)" onclick="scrollToDownload()">
-                        <i class="tim-icons icon-cloud-download-93"></i> Download
+                    <a class="nav-link btn btn-default d-none d-lg-block" href="/logout" role = "button" onclick="scrollToDownload()">
+                        Logout
                     </a>
                 </li>
             </ul>
@@ -144,7 +144,16 @@
                             </tr>
                             <tr>
                                     <%--<td><form:label path = "srcServerId">Source Server</form:label></td>--%>
-                                <td><form:input path = "fileName" autocomplete="false" placeholder="File Name"/></td>
+                                        <td>
+                                            <div class="input-group" style="width: 30%; padding-left: 35%; padding-right: 55%;">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">
+                                                        <i class="tim-icons icon-lock-circle"></i>
+                                                    </div>
+                                                </div>
+                                            <form:input path = "fileName" class="form-control" autocomplete="false" placeholder="File Name"/>
+                                            </div>
+                                        </td>
                             </tr>
                             <br><br>
                             <tr>

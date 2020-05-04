@@ -88,8 +88,8 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link btn btn-default d-none d-lg-block" href="javascript:void(0)" onclick="scrollToDownload()">
-                        <i class="tim-icons icon-cloud-download-93"></i> Download
+                    <a class="nav-link btn btn-default d-none d-lg-block" href="/logout" role = "button" onclick="scrollToDownload()">
+                        Logout
                     </a>
                 </li>
             </ul>
@@ -117,37 +117,87 @@
 
 
 <form:form method = "POST" action = "/api/servers/update" autocomplete="false">
-    <table>
-        <tr>
-            <td><form:label path = "name">Hostname:</form:label></td>
-            <td><form:input path = "name" autocomplete="false"/></td>
-        </tr>
-        <tr>
-            <td><form:label path = "ip">IPv4 Address:</form:label></td>
-            <td><form:input path = "ip" value="${ip}" autocomplete="false"/></td>
-        </tr>
-        <tr>
-            <td><form:label path = "port">Port:</form:label></td>
-            <td><form:input path = "port" value="22" autocomplete="false"/><small> <b>Hint:</b> If configured otherwise please <u><i>correct the value</i></u>.</small></td>
-        </tr>
-        <tr>
-            <td><form:label path = "usernameCred">Admin User (Optional):</form:label></td>
-            <td><form:input path = "usernameCred" autocomplete="false"/><small> <b>Hint:</b> If only the default <u><i>admin username</i></u> has to be updated.</small></td>
-        </tr>
-        <tr>
-            <td><form:label path = "passwordCred">Admin Password (Optional):</form:label></td>
-            <td><form:input path = "passwordCred" type = "password" autocomplete="false"/><small> <b>Hint:</b> If only the default <u><i>admin password</i></u> has to be updated.</small></td>
-        </tr>
-        <tr>
-            <td><form:label path = "keyLocation">Private Key Location (Optional):</form:label></td>
-            <td><form:input path = "keyLocation" autocomplete="false"/><small> <b>Hint:</b> If only the default using public key authentication</small></td>
-        </tr>
+    <div class="card-body">
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <div class="input-group-text">
+                    <i class="tim-icons icon-badge"></i>
+                </div>
+            </div>
+            <td><form:input path = "name" type="text" class="form-control" placeholder="Hostname"  autocomplete="false"/></td>
+        </div>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <div class="input-group-text">
+                    <i class="tim-icons icon-wifi"></i>
+                </div>
+            </div>
+            <td><form:input path = "ip" value="${ip}" type="text" class="form-control" autocomplete="false"/></td>
+        </div>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <div class="input-group-text">
+                    <i class="tim-icons icon-wifi"></i>
+                </div>
+            </div>
+            <td><form:input path = "port" type="text" class="form-control" value="22" autocomplete="false"/><small> <b>Hint:</b> If configured otherwise please <u><i>correct the value</i></u>.</small></td>
+        </div>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <div class="input-group-text">
+                    <i class="tim-icons icon-single-02"></i>
+                </div>
+            </div>
+            <td><form:input path = "usernameCred" type="text" class="form-control" placeholder="User Credentials" autocomplete="false"/></td>
+        </div>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <div class="input-group-text">
+                    <i class="tim-icons icon-key-25"></i>
+                </div>
+            </div>
+            <td><form:input path = "passwordCred" type = "password" class="form-control" placeholder="Password (Optional)" autocomplete="false"/></td>
+        </div>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <div class="input-group-text">
+                    <i class="tim-icons icon-key-25"></i>
+                </div>
+            </div>
+            <td><form:input path = "keyLocation" type="text"  class="form-control" placeholder="Private Key location(Optional)" autocomplete="false"/></td>
+        </div>
+        <td colspan = "2">
+            <input type = "submit" class="btn btn-info btn-round btn-lg" value = "Update"/>
+        </td>
 
-        <tr>
-            <td colspan = "2">
-                <input type = "submit" class="btn btn-info btn-round btn-lg" value = "Update"/>
-            </td>
-        </tr>
+    </div>
+    <table>
+<%--        <tr>--%>
+<%--            <td><form:label path = "name">Hostname:</form:label></td>--%>
+<%--            <td><form:input path = "name" autocomplete="false"/></td>--%>
+<%--        </tr>--%>
+<%--        <tr>--%>
+<%--            <td><form:label path = "ip">IPv4 Address:</form:label></td>--%>
+<%--            <td><form:input path = "ip" value="${ip}" autocomplete="false"/></td>--%>
+<%--        </tr>--%>
+<%--        <tr>--%>
+<%--            <td><form:label path = "port">Port:</form:label></td>--%>
+<%--            <td><form:input path = "port" value="22" autocomplete="false"/><small> <b>Hint:</b> If configured otherwise please <u><i>correct the value</i></u>.</small></td>--%>
+<%--        </tr>--%>
+<%--        <tr>--%>
+<%--            <td><form:label path = "usernameCred">Admin User (Optional):</form:label></td>--%>
+<%--            <td><form:input path = "usernameCred" autocomplete="false"/><small> <b>Hint:</b> If only the default <u><i>admin username</i></u> has to be updated.</small></td>--%>
+<%--        </tr>--%>
+<%--        <tr>--%>
+<%--            <td><form:label path = "passwordCred">Admin Password (Optional):</form:label></td>--%>
+<%--            <td><form:input path = "passwordCred" type = "password" autocomplete="false"/><small> <b>Hint:</b> If only the default <u><i>admin password</i></u> has to be updated.</small></td>--%>
+<%--        </tr>--%>
+<%--        <tr>--%>
+<%--            <td><form:label path = "keyLocation">Private Key Location (Optional):</form:label></td>--%>
+<%--            <td><form:input path = "keyLocation" autocomplete="false"/><small> <b>Hint:</b> If only the default using public key authentication</small></td>--%>
+<%--        </tr>--%>
+
+
     </table>
 </form:form>
 

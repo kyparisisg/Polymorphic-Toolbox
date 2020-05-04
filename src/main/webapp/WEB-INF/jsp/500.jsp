@@ -89,16 +89,6 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link btn btn-default d-none d-lg-block" href="/api/admin" role = "button" onclick="scrollToDownload()">
-                        Administration
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link btn btn-default d-none d-lg-block" href="/api/aboutUs" role = "button" onclick="scrollToDownload()">
-                        About Us
-                    </a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link btn btn-default d-none d-lg-block" href="/logout" role = "button" onclick="scrollToDownload()">
                         Logout
                     </a>
@@ -122,42 +112,22 @@
             <div class="content-center brand">
                 <%--                <h1 class="h1-seo"></h1>--%>
                 <h3>Welcome to the User Dashboard</h3>
-                <div class="row justify-content-md-center">
+                <h3>HTTP Status 500 - Internal Error Handler</h3>
+                    <div class="row justify-content-md-center">
+                    <br>
+                    <h4>${msg}</h4>
 
 
-                    <ul class="nav nav-pills nav-pills-primary nav-pills-icons">
-                        <li class="nav-item">
-                            <a class="nav-link active show" href="/client/transfer/form" role="button">
-                                <i class="fas fa-server"></i> Server Transfer
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active show" href="/client/aws/serverSelection" role="button">
-                                <i class="fas fa-undo-alt"></i> Back Up
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active show" href="/client/aws/download" role="button">
-                                <i class="fas fa-window-restore"></i> Restore
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active show" href="/client/aws/delete" role="button">
-                                <i class="fas fa-trash-alt"></i> Delete File
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active show" href="/client/myHistory" role="button">
-                                <i class="fas fa-history"></i> History
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active show" href="/client/mySettings" role="button">
-                                <i class="fas fa-cogs"></i> My Settings
-                            </a>
-                        </li>
-                    </ul>
-                    <br><br>     <br><br>
+                    <div class="text-center col-md-12 col-lg-8">
+                        <a href="/home" class="text-center btn btn-primary btn-round btn-lg" role="button">
+                            Home
+                        </a>
+                    </div>
+                    <div class="text-center col-md-12 col-lg-8">
+                        <a href="/logout" class="btn btn-primary btn-round btn-lg" role="button">
+                            Logout
+                        </a>
+                    </div>
 
                 </div>
             </div>

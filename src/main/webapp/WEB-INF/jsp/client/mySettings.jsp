@@ -88,8 +88,8 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link btn btn-default d-none d-lg-block" href="javascript:void(0)" onclick="scrollToDownload()">
-                        <i class="tim-icons icon-cloud-download-93"></i> Download
+                    <a class="nav-link btn btn-default d-none d-lg-block" href="/logout" role = "button" onclick="scrollToDownload()">
+                        Logout
                     </a>
                 </li>
             </ul>
@@ -115,32 +115,42 @@
                             </div>
                             <%--                            <form:form class = "form" method = "POST" action = "/api/users/save">--%>
                             <div class="card-body">
-                                <h3>My Information</h3
+                                <h3>My Information</h3>
                                     <h4>User: ${email}</h4>
                                 <form:form method = "POST" action = "/client/mySettings" autocomplete="off">
                                     <div class="card-body">
 
                                         <div class="input-group">
-<%--                                            <div class="input-group-prepend">--%>
-<%--                                                <div class="input-group-text">--%>
-<%--                                                    <i class="tim-icons icon-single-02"></i>--%>
-<%--                                                </div>--%>
-<%--                                            </div>--%>
-                                            <div></div>
-                                            <div>
-                                                <form:input path = "firstName" type="text" class="form-control" placeholder="First Name" autocomplete="off"/>
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <i class="tim-icons icon-lock-circle"></i>
+                                                </div>
                                             </div>
-                                            <div>
-                                                <form:input path = "lastName" type="text" class="form-control" placeholder="Last Name" autocomplete="off"/>
+                                            <form:input path = "firstName" type="text" class="form-control" placeholder="First Name" autocomplete="false"/>
+                                        </div>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <i class="tim-icons icon-lock-circle"></i>
+                                                </div>
                                             </div>
-                                            <div>
-                                                <form:input path = "password" type="password" class="form-control" placeholder="password" autocomplete="off"/>
+                                            <form:input path = "lastName" type="text" class="form-control" placeholder="Last Name" autocomplete="false"/>
+                                        </div>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <i class="tim-icons icon-lock-circle"></i>
+                                                </div>
                                             </div>
+                                            <form:input path = "password" type="password" class="form-control" placeholder="Password" autocomplete="false"/>
+                                        </div>
+
+                                        <div class="input-group">
                                             <div>
                                                 <form:input path = "role" type="hidden" class="form-control" value="${userDto.role}" autocomplete="off"/>
                                             </div>
                                             <div>
-                                                <form:input path = "email" type="hidden" class="form-control" value="${email}" autocomplete="off"/>
+                                                <form:input path = "email" type="hidden" class="form-control" value="${email}" autocomplete="off"/> Hint: Password has to be at least 8 characters
                                             </div>
                                         </div>
                                     </div>
@@ -151,9 +161,9 @@
                                 </form:form>
                             </div>
                         </div>
-                        <br><br><br><br><br><br>
+
                     </div>
-                    <br><br><br>
+                </div>
                     <div class="register-bg"></div>
                     <div id="square1" class="square square-1"></div>
                     <div id="square2" class="square square-2"></div>
@@ -168,7 +178,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-3">
-                        <h1 class="title">BLK•</h1>
+                        <h1 class="title">PolyMorphic Toolbox</h1>
                     </div>
                     <div class="col-md-3">
                         <ul class="nav">

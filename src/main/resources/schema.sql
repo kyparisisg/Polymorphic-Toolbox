@@ -44,3 +44,10 @@ CREATE TABLE Transactions(
     CONSTRAINT fk_src_server FOREIGN KEY(src_server) REFERENCES Servers (id),
     CONSTRAINT fk_dst_server FOREIGN KEY(dst_server) REFERENCES Servers (id)
 );
+
+CREATE TABLE Bucket_cred(
+    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    bucket_name VARCHAR(100) NOT NULL,
+    private_key VARCHAR(100) NOT NULL,
+    public_key VARCHAR(100) NOT NULL
+)
