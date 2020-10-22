@@ -1,2 +1,2 @@
-Access Key: AKIAJBU3EAP7P6YEEQIQ
-secret accesskey: 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
+Access Key: 
+secret accesskey: 
